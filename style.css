@@ -320,7 +320,7 @@ h1 {
   width: 7px; height: 7px;
   border-radius: 50%;
   background: #22c55e;
-  animation: pulse 2s infinite;
+  
 }
 
 @keyframes pulse {
@@ -1149,8 +1149,8 @@ h1 {
   top: 50%;
   right: 5%;
   transform: translateY(-50%);
-  width: 80px;
-  height: 80px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   overflow: hidden;          /* THIS clips the white bg into circle */
   z-index: 1;
@@ -1222,8 +1222,8 @@ h1 {
   top: 50%;
   right: 5%;
   transform: translateY(-50%);
-  width: 80px;
-  height: 80px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   overflow: hidden;
   z-index: 1;
@@ -1262,17 +1262,17 @@ h1 {
   position: relative !important;
   overflow: hidden !important;
   isolation: isolate !important;
-  background: rgba(255,255,255,0.85) !important;
-  border: 1px solid rgba(2,136,209,0.2) !important;
-  backdrop-filter: blur(6px) !important;
-  -webkit-backdrop-filter: blur(6px) !important;
+  background: linear-gradient(135deg, #060d0d 0%, #0a1a1a 60%, #040c0c 100%) !important;
+  border: 1px solid rgba(0,168,168,0.25) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
   will-change: transform, opacity, filter;
 }
 
 .ims-card:hover {
-  border-color: rgba(2,136,209,0.45) !important;
-  box-shadow: 0 8px 30px rgba(2,136,209,0.12) !important;
+  border-color: rgba(0,168,168,0.55) !important;
+  box-shadow: 0 0 28px rgba(0,168,168,0.12), 0 8px 32px rgba(0,0,0,0.4) !important;
   transform: translateX(6px) !important;
 }
 
@@ -1282,11 +1282,11 @@ h1 {
   padding-right: 100px;
 }
 
-.ims-card .job-title   { color: #0277BD !important; }
-.ims-card .job-period  { color: var(--blue) !important; background: rgba(2,136,209,0.08) !important; }
-.ims-card .job-company { color: var(--muted) !important; }
-.ims-card .job-points li { color: #1a4a6e !important; }
-.ims-card .job-points li::before { color: var(--blue) !important; }
+.ims-card .job-title   { color: #2dd4bf !important; }
+.ims-card .job-period  { color: rgba(45,212,191,0.6) !important; }
+.ims-card .job-company { color: rgba(45,212,191,0.45) !important; }
+.ims-card .job-points li { color: #bec4d0 !important; }
+.ims-card .job-points li::before { color: #2dd4bf !important; }
 
 /* Logo — black bg transparent via screen blend */
 .ims-bg-logo {
@@ -1294,8 +1294,8 @@ h1 {
   top: 50%;
   right: 4%;
   transform: translateY(-50%);
-  width: 90px;
-  height: 45px;
+  width: 60px;
+  height: 30px;
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
