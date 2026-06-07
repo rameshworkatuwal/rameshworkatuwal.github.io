@@ -18,14 +18,24 @@
     margin: 0 auto;
   }
 
-  .hero::before {
-    content: '';
+  .hero-bg {
     position: absolute;
-    top: -150px; right: -150px;
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(2,136,209,0.08) 0%, transparent 70%);
+    top: 0; right: 0;
+    width: 60%;
+    height: 100%;
+    z-index: 0;
     pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    opacity: 0.15;
+    mask-image: linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
   }
 
   .hero-tag {
@@ -100,11 +110,9 @@
   }
 
   .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 4rem;
-    align-items: center;
+    display: block;
     width: 100%;
+    max-width: 620px;
   }
 
   .photo-col {
@@ -186,10 +194,18 @@
     50% { opacity: 0.4; }
   }
 
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .available-badge-wrap {
+    margin-top: 2rem;
+  }
+
   @media (max-width: 700px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .photo-col { order: -1; }
-    .photo-wrapper, .profile-photo, .photo-placeholder { width: 160px; height: 160px; }
+    .hero-inner { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -208,6 +224,10 @@
 </nav>
 
 <div class="hero">
+  <!-- REPLACE photo.jpg with your actual photo file -->
+  <div class="hero-bg">
+    <img src="photo.jpg" alt="">
+  </div>
   <div class="hero-inner">
     <div>
       <span class="hero-tag">Available for Dubai Roles · Immediate Relocation</span>
@@ -242,15 +262,7 @@
       </div>
     </div>
 
-    <div class="photo-col">
-      <div class="photo-wrapper">
-        <!-- REPLACE photo.jpg with your actual photo filename -->
-        <!-- If you have your photo: <img src="photo.jpg" alt="Rameshwor Katuwal" class="profile-photo"> -->
-        <div class="photo-placeholder">
-          <span>📷</span>
-          Add photo.jpg<br>to this folder
-        </div>
-      </div>
+    <div class="available-badge-wrap">
       <div class="available-badge">
         <div class="green-dot"></div>
         Available for Dubai
