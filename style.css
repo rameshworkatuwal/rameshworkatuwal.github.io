@@ -1093,66 +1093,93 @@ h1 {
 }
 
 /* ============================================================
-   HANSIKAR CARD — night bg + looping logo orbs
+   HANSIKAR CARD — night bg + floating logo animation
    ============================================================ */
 
 .hansikar-card {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #0d0f14 0%, #111827 50%, #0a0c10 100%);
-  border: 1px solid rgba(251, 180, 0, 0.18);
-  color: #e8eaf0;
+  position: relative !important;
+  overflow: hidden !important;
+  background: linear-gradient(135deg, #0c0e13 0%, #131720 60%, #090b0f 100%) !important;
+  border: 1px solid rgba(251,180,0,0.22) !important;
 }
 
-/* ensure inner content sits above orbs */
+/* Content must sit above all bg layers */
 .hansikar-card .exp-card-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
-.hansikar-card .job-title  { color: #fbbf24; }
-.hansikar-card .job-period { color: rgba(251,191,36,0.6); }
-.hansikar-card .job-company { color: rgba(251,191,36,0.45); }
-.hansikar-card .job-points li { color: #c9cdd6; }
-.hansikar-card .job-points li::before { color: #fbbf24; }
+/* Text colours for dark bg */
+.hansikar-card .job-title   { color: #fbbf24 !important; }
+.hansikar-card .job-period  { color: rgba(251,191,36,0.55) !important; }
+.hansikar-card .job-company { color: rgba(251,191,36,0.4) !important; }
+.hansikar-card .job-points li { color: #bec4d0 !important; }
+.hansikar-card .job-points li::before { color: #fbbf24 !important; }
 
-/* ── Orb base ── */
-.hk-orb {
+/* ── Logo layer: sits behind content ── */
+.hk-logo-layer {
   position: absolute;
+  inset: 0;
   z-index: 1;
   pointer-events: none;
+  overflow: hidden;
 }
 
-.hk-orb img {
-  width: 56px;
-  height: 56px;
+/* Each floating logo instance */
+.hk-logo-layer .hk-logo {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  display: block;
+}
+
+.hk-logo-layer .hk-logo img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  opacity: 0.07;
-  filter: brightness(0.4) sepia(1) hue-rotate(10deg) saturate(2);
-  border-radius: 50%;
+  display: block;
 }
 
-/* ── Three orbs, staggered drift loops ── */
-@keyframes hkDrift1 {
-  0%   { transform: translate(0px, 0px)   rotate(0deg); }
-  25%  { transform: translate(30px, -20px) rotate(90deg); }
-  50%  { transform: translate(10px, -45px) rotate(180deg); }
-  75%  { transform: translate(-20px,-20px) rotate(270deg); }
-  100% { transform: translate(0px, 0px)   rotate(360deg); }
-}
-@keyframes hkDrift2 {
-  0%   { transform: translate(0px, 0px)   rotate(0deg); }
-  33%  { transform: translate(-25px, 18px) rotate(120deg); }
-  66%  { transform: translate(20px,  30px) rotate(240deg); }
-  100% { transform: translate(0px, 0px)   rotate(360deg); }
-}
-@keyframes hkDrift3 {
-  0%   { transform: translate(0px, 0px)   rotate(0deg); }
-  40%  { transform: translate(18px, 22px) rotate(144deg); }
-  80%  { transform: translate(-12px,10px) rotate(288deg); }
-  100% { transform: translate(0px, 0px)   rotate(360deg); }
+/* ── Glow ring ── */
+.hk-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 60% 70% at 85% 50%,
+    rgba(251,180,0,0.06) 0%,
+    transparent 70%);
 }
 
-.hk-orb-1 { top: 10%;  right: 8%;  animation: hkDrift1 14s ease-in-out infinite; }
-.hk-orb-2 { top: 50%;  right: 18%; animation: hkDrift2 18s ease-in-out infinite; }
-.hk-orb-3 { top: 25%;  right: 30%; animation: hkDrift3 22s ease-in-out infinite; }
+/* ── Logo 1 — slow spin + float top-right ── */
+@keyframes hkFloat1 {
+  0%   { transform: translateY(0px)   rotate(0deg);   opacity: 0.13; }
+  30%  { transform: translateY(-12px) rotate(108deg); opacity: 0.18; }
+  60%  { transform: translateY(-6px)  rotate(216deg); opacity: 0.13; }
+  100% { transform: translateY(0px)   rotate(360deg); opacity: 0.13; }
+}
+/* ── Logo 2 — medium speed, center-right ── */
+@keyframes hkFloat2 {
+  0%   { transform: translateY(0px)  rotate(0deg);   opacity: 0.08; }
+  40%  { transform: translateY(10px) rotate(144deg); opacity: 0.14; }
+  80%  { transform: translateY(-8px) rotate(288deg); opacity: 0.08; }
+  100% { transform: translateY(0px)  rotate(360deg); opacity: 0.08; }
+}
+/* ── Logo 3 — fastest, bottom-right ── */
+@keyframes hkFloat3 {
+  0%   { transform: translateY(0px)   rotate(0deg);   opacity: 0.06; }
+  50%  { transform: translateY(-14px) rotate(180deg); opacity: 0.11; }
+  100% { transform: translateY(0px)   rotate(360deg); opacity: 0.06; }
+}
+/* ── Logo 4 — large background ghost ── */
+@keyframes hkFloat4 {
+  0%   { transform: scale(1)    rotate(0deg);   opacity: 0.04; }
+  50%  { transform: scale(1.06) rotate(180deg); opacity: 0.07; }
+  100% { transform: scale(1)    rotate(360deg); opacity: 0.04; }
+}
+
+.hk-l1 { top: 8%;   right: 6%;   animation: hkFloat1 12s ease-in-out infinite; }
+.hk-l2 { top: 42%;  right: 14%;  animation: hkFloat2 17s ease-in-out infinite; animation-delay: -4s; }
+.hk-l3 { top: 65%;  right: 4%;   animation: hkFloat3  9s ease-in-out infinite; animation-delay: -2s; }
+.hk-l4 { top: -8%;  right: -4%;  width: 120px !important; height: 120px !important;
+          animation: hkFloat4 22s linear infinite; }
