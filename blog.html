@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Rameshwor Katuwal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.8rem;
+    margin-bottom: 3rem;
+  }
+
+  .blog-card {
+    background: rgba(255,255,255,0.75);
+    border: 0.5px solid rgba(2,136,209,0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s;
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+
+  .blog-card:hover {
+    border-color: rgba(2,136,209,0.4);
+    box-shadow: 0 8px 30px rgba(2,136,209,0.1);
+    transform: translateY(-3px);
+  }
+
+  .blog-thumb {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, rgba(2,136,209,0.08), rgba(129,212,250,0.15));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    border-bottom: 0.5px solid rgba(2,136,209,0.1);
+  }
+
+  .blog-body {
+    padding: 1.4rem;
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-cat {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: rgba(2,136,209,0.08);
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+  }
+
+  .blog-date {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .blog-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    line-height: 1.4;
+  }
+
+  .blog-excerpt {
+    font-size: 0.85rem;
+    color: #1a4a6e;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .blog-read-more {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* BLOG POST MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .modal-overlay.open {
+    display: flex;
+  }
+
+  .modal-box {
+    background: white;
+    border-radius: 16px;
+    max-width: 680px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 2.5rem;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    width: 36px; height: 36px;
+    background: rgba(2,136,209,0.08);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover { background: rgba(2,136,209,0.15); color: var(--blue); }
+
+  .modal-cat {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: rgba(2,136,209,0.08);
+    padding: 0.25rem 0.7rem;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .modal-date {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .modal-divider {
+    height: 2px;
+    background: linear-gradient(to right, var(--blue), transparent);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-content {
+    font-size: 0.95rem;
+    color: #1a3a5e;
+    line-height: 1.9;
+  }
+
+  .modal-content p { margin-bottom: 1.2rem; }
+  .modal-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--text);
+    margin: 1.5rem 0 0.6rem;
+  }
+
+  .coming-soon {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(255,255,255,0.6);
+    border: 1.5px dashed rgba(2,136,209,0.2);
+    border-radius: 12px;
+    color: var(--muted);
+  }
+
+  .coming-soon span { font-size: 3rem; display: block; margin-bottom: 1rem; }
+  .coming-soon p { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">R.Katuwal</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="certifications.html">Certifications</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <p class="page-label">Thoughts & Insights</p>
+  <h2 class="page-title">My Blog</h2>
+  <div class="divider-line"></div>
+
+  <div class="blog-grid">
+
+    <!-- BLOG POST 1 -->
+    <div class="blog-card" onclick="openModal('post1')">
+      <div class="blog-thumb">✈️</div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Career</span>
+          <span class="blog-date">June 2026</span>
+        </div>
+        <div class="blog-title">Why I'm Moving to Dubai — My Journey</div>
+        <div class="blog-excerpt">From Kathmandu to Dubai — my story of taking the leap, the planning, and what I'm looking forward to in the UAE.</div>
+        <div class="blog-read-more">Read more →</div>
+      </div>
+    </div>
+
+    <!-- BLOG POST 2 -->
+    <div class="blog-card" onclick="openModal('post2')">
+      <div class="blog-thumb">🎬</div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Content Creation</span>
+          <span class="blog-date">May 2026</span>
+        </div>
+        <div class="blog-title">How I Produce 10+ Videos Per Day</div>
+        <div class="blog-excerpt">My workflow, tools, and tips for producing high-volume short-form video content efficiently for TikTok, Facebook, and YouTube.</div>
+        <div class="blog-read-more">Read more →</div>
+      </div>
+    </div>
+
+    <!-- BLOG POST 3 -->
+    <div class="blog-card" onclick="openModal('post3')">
+      <div class="blog-thumb">📈</div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">SEO</span>
+          <span class="blog-date">April 2026</span>
+        </div>
+        <div class="blog-title">SEO Tips That Actually Work in 2026</div>
+        <div class="blog-excerpt">After years of writing SEO content, here are the strategies I've seen work consistently — and what's changed in 2026.</div>
+        <div class="blog-read-more">Read more →</div>
+      </div>
+    </div>
+
+    <!-- COMING SOON -->
+    <div class="coming-soon">
+      <span>✍️</span>
+      <strong>More posts coming soon!</strong>
+      <p style="margin-top: 0.5rem;">I write about digital marketing, content creation, travel, and life experiences.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-post1" onclick="closeModal(event, 'post1')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModalDirect('post1')">✕</button>
+    <span class="modal-cat">Career</span>
+    <div class="modal-title">Why I'm Moving to Dubai — My Journey</div>
+    <span class="modal-date">June 2026</span>
+    <div class="modal-divider"></div>
+    <div class="modal-content">
+      <p>Moving from Kathmandu to Dubai is not a small decision. It's been months of planning, research, and preparation. But I'm ready — and I want to share why.</p>
+      <h3>The Decision</h3>
+      <p>With 7+ years of experience in digital marketing, content creation, and accounting, I felt I had built a strong foundation in Nepal. But to grow further — both professionally and financially — Dubai made complete sense. The UAE is one of the most dynamic job markets in the world, with massive demand for digital skills.</p>
+      <h3>The Preparation</h3>
+      <p>I've spent the last several months upgrading my skills — completing LinkedIn Learning certifications in logistics, Excel, bookkeeping, and communication. I've also built this portfolio website to make it easier for Dubai recruiters to find and evaluate my work.</p>
+      <h3>What I'm Looking Forward To</h3>
+      <p>The energy, the opportunity, and the diversity of Dubai excites me. I'm open to full-time and contract roles in digital marketing, content creation, social media management, and related fields. If you're a recruiter reading this — let's connect!</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-post2" onclick="closeModal(event, 'post2')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModalDirect('post2')">✕</button>
+    <span class="modal-cat">Content Creation</span>
+    <div class="modal-title">How I Produce 10+ Videos Per Day</div>
+    <span class="modal-date">May 2026</span>
+    <div class="modal-divider"></div>
+    <div class="modal-content">
+      <p>When I tell people I produce 10+ videos per day, they always ask: how? The answer is systems, tools, and practice.</p>
+      <h3>My Tools</h3>
+      <p>I use CapCut for fast edits — it's incredibly efficient for short-form content. For more polished work, I switch to Adobe Premiere Pro. Canva handles thumbnails and visual assets quickly.</p>
+      <h3>The Workflow</h3>
+      <p>Batching is the key. I script multiple videos at once, then record or edit in focused sessions. Templates save enormous time — once a style is established, replicating it is fast.</p>
+      <h3>Platform Optimization</h3>
+      <p>TikTok, Facebook Reels, and YouTube Shorts each have their nuances. I optimize captions, thumbnails, and length for each platform separately — what works on TikTok doesn't always work on YouTube.</p>
+      <p>The biggest lesson: consistency beats perfection. Showing up every day with good content always outperforms occasional "perfect" content.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-post3" onclick="closeModal(event, 'post3')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModalDirect('post3')">✕</button>
+    <span class="modal-cat">SEO</span>
+    <div class="modal-title">SEO Tips That Actually Work in 2026</div>
+    <span class="modal-date">April 2026</span>
+    <div class="modal-divider"></div>
+    <div class="modal-content">
+      <p>After years of writing and editing SEO content, I've seen trends come and go. Here's what's actually working right now.</p>
+      <h3>Search Intent First</h3>
+      <p>Google has gotten extremely good at understanding intent. Keyword stuffing is dead. What matters now is whether your content genuinely answers what the user is looking for — completely and clearly.</p>
+      <h3>E-E-A-T Still Matters</h3>
+      <p>Experience, Expertise, Authoritativeness, and Trustworthiness — Google rewards content from people who clearly know what they're talking about. First-person experience, real examples, and credentials help enormously.</p>
+      <h3>Content Depth Over Length</h3>
+      <p>Longer isn't always better. A focused 800-word article that fully answers a question beats a padded 3000-word article every time. Cover the topic completely, then stop.</p>
+      <h3>Internal Linking</h3>
+      <p>One of the most underrated SEO tactics. Linking related articles together keeps users on your site longer and signals topical authority to Google. Build topic clusters, not isolated pages.</p>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Rameshwor Katuwal</footer>
+
+<script>
+  function openModal(id) {
+    document.getElementById('modal-' + id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(e, id) {
+    if (e.target === document.getElementById('modal-' + id)) {
+      closeModalDirect(id);
+    }
+  }
+  function closeModalDirect(id) {
+    document.getElementById('modal-' + id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
+
+</body>
+</html>
