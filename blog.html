@@ -20,7 +20,7 @@
     border: 0.5px solid rgba(2,136,209,0.15);
     border-radius: 12px;
     overflow: hidden;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     backdrop-filter: blur(6px);
     cursor: pointer;
     text-decoration: none;
@@ -30,23 +30,26 @@
 
   .blog-card:hover {
     border-color: rgba(2,136,209,0.4);
-    box-shadow: 0 8px 30px rgba(2,136,209,0.1);
-    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(2,136,209,0.12);
+    transform: scale(1.03) translateY(-4px);
+    z-index: 10;
+    position: relative;
   }
 
-  .blog-thumb {
+  .blog-grid:has(.blog-card:hover) .blog-card:not(:hover) {
+    opacity: 0.45;
+    filter: blur(1.5px);
+    transform: scale(0.98);
+  }
+
+  .blog-header-band {
     width: 100%;
-    height: 180px;
-    background: linear-gradient(135deg, rgba(2,136,209,0.08), rgba(129,212,250,0.15));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    border-bottom: 0.5px solid rgba(2,136,209,0.1);
+    height: 8px;
+    background: linear-gradient(to right, var(--blue), rgba(129,212,250,0.4));
   }
 
   .blog-body {
-    padding: 1.4rem;
+    padding: 1.6rem;
   }
 
   .blog-meta {
@@ -75,54 +78,56 @@
 
   .blog-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--text);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.7rem;
     line-height: 1.4;
   }
 
   .blog-excerpt {
-    font-size: 0.85rem;
+    font-size: 0.86rem;
     color: #1a4a6e;
-    line-height: 1.7;
-    margin-bottom: 1rem;
+    line-height: 1.75;
+    margin-bottom: 1.1rem;
   }
 
   .blog-read-more {
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--blue);
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
   }
 
-  /* BLOG POST MODAL */
+  /* MODAL */
   .modal-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(1,38,61,0.45);
+    backdrop-filter: blur(4px);
     z-index: 200;
     align-items: center;
     justify-content: center;
     padding: 2rem;
   }
 
-  .modal-overlay.open {
-    display: flex;
-  }
+  .modal-overlay.open { display: flex; }
 
   .modal-box {
     background: white;
     border-radius: 16px;
-    max-width: 680px;
+    max-width: 700px;
     width: 100%;
-    max-height: 85vh;
+    max-height: 88vh;
     overflow-y: auto;
     position: relative;
-    padding: 2.5rem;
+    padding: 2.8rem;
+    animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
   }
 
   .modal-close {
@@ -133,13 +138,14 @@
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--muted);
     display: flex; align-items: center; justify-content: center;
     transition: all 0.2s;
+    font-family: 'Lexend', sans-serif;
   }
 
-  .modal-close:hover { background: rgba(2,136,209,0.15); color: var(--blue); }
+  .modal-close:hover { background: rgba(2,136,209,0.18); color: var(--blue); }
 
   .modal-cat {
     font-size: 0.7rem;
@@ -156,10 +162,10 @@
 
   .modal-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
+    font-size: 1.7rem;
     font-weight: 700;
     color: var(--text);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     line-height: 1.3;
   }
 
@@ -174,174 +180,48 @@
     height: 2px;
     background: linear-gradient(to right, var(--blue), transparent);
     border-radius: 2px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
   }
 
   .modal-content {
     font-size: 0.95rem;
     color: #1a3a5e;
-    line-height: 1.9;
+    line-height: 1.95;
   }
 
-  .modal-content p { margin-bottom: 1.2rem; }
+  .modal-content p { margin-bottom: 1.3rem; }
+
   .modal-content h3 {
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
     color: var(--text);
-    margin: 1.5rem 0 0.6rem;
+    margin: 1.8rem 0 0.7rem;
   }
 
-  .coming-soon {
+  /* Empty state */
+  .blog-empty {
+    grid-column: 1 / -1;
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 5rem 2rem;
     background: rgba(255,255,255,0.6);
     border: 1.5px dashed rgba(2,136,209,0.2);
     border-radius: 12px;
     color: var(--muted);
   }
 
-  .coming-soon span { font-size: 3rem; display: block; margin-bottom: 1rem; }
-  .coming-soon p { font-size: 0.9rem; }
+  .blog-empty h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
 
-/* ===== SCROLL & HOVER EFFECTS ===== */
-
-/* Scroll reveal animation */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Staggered children */
-.reveal-stagger > * {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0.05s; }
-.reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.15s; }
-.reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.25s; }
-.reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.35s; }
-.reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.45s; }
-.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.55s; }
-
-/* Card group blur effect - when hovering one, others blur */
-.card-group {
-  transition: all 0.3s ease;
-}
-.card-group:has(.card-item:hover) .card-item:not(:hover),
-.card-group:has(.skill-card:hover) .skill-card:not(:hover),
-.card-group:has(.cert-card:hover) .cert-card:not(:hover),
-.card-group:has(.blog-card:hover) .blog-card:not(:hover),
-.card-group:has(.exp-card:hover) .exp-card:not(:hover) {
-  opacity: 0.45;
-  filter: blur(1.5px);
-  transform: scale(0.98);
-}
-
-/* Individual card zoom on hover */
-.skill-card, .cert-card, .blog-card {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-}
-.skill-card:hover, .cert-card:hover, .blog-card:hover {
-  transform: scale(1.04) translateY(-4px) !important;
-  box-shadow: 0 12px 40px rgba(2,136,209,0.15) !important;
-  border-color: rgba(2,136,209,0.4) !important;
-  z-index: 10;
-  position: relative;
-}
-
-/* Experience card hover zoom */
-.exp-card {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-}
-.exp-card:hover {
-  transform: scale(1.02) translateX(6px) !important;
-  box-shadow: 0 8px 30px rgba(2,136,209,0.12) !important;
-}
-
-/* Contact rows zoom */
-.contact-row {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-}
-.contact-row:hover {
-  transform: scale(1.03) translateX(4px) !important;
-  box-shadow: 0 6px 20px rgba(2,136,209,0.1) !important;
-}
-
-/* Nav links zoom */
-.nav-links a {
-  transition: all 0.2s ease !important;
-  display: inline-block;
-}
-.nav-links a:hover {
-  transform: scale(1.1) !important;
-}
-
-/* Stats zoom on scroll */
-.stat-item {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.stat-item:hover {
-  transform: scale(1.12);
-}
-
-/* Social button pop */
-.social-btn {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
-}
-.social-btn:hover {
-  transform: scale(1.2) translateY(-4px) !important;
-}
-
-/* Cursor glow effect */
-.cursor-glow {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(2,136,209,0.06) 0%, transparent 70%);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 0;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s ease;
-}
-
-/* Page load fade in */
-body {
-  animation: pageIn 0.5s ease forwards;
-}
-@keyframes pageIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Smooth page transitions on nav click */
-body.page-exit {
-  animation: pageOut 0.25s ease forwards;
-}
-@keyframes pageOut {
-  to { opacity: 0; transform: translateY(-8px); }
-}
-
-/* Tag pop on hover */
-.tag:hover {
-  background: rgba(2,136,209,0.15);
-  transform: scale(1.05);
-  transition: all 0.2s ease;
-  cursor: default;
-}
-
-/* Section title underline animation */
-.page-title {
-  position: relative;
-  display: inline-block;
-}
-
+  .blog-empty p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    max-width: 360px;
+    margin: 0 auto;
+  }
 </style>
 </head>
 <body>
@@ -359,173 +239,78 @@ body.page-exit {
   </ul>
 </nav>
 
-<div class="page reveal">
-  <p class="page-label">Thoughts & Insights</p>
+<div class="page">
+  <p class="page-label">Thoughts &amp; Insights</p>
   <h2 class="page-title">My Blog</h2>
   <div class="divider-line"></div>
 
-  <div class="blog-grid reveal-stagger">
+  <div class="blog-grid">
 
-    <!-- BLOG POST 1 -->
+    <!-- =============================================
+         ADD YOUR BLOG POSTS BELOW THIS LINE
+         Copy this block for each new post:
+
     <div class="blog-card" onclick="openModal('post1')">
-      <div class="blog-thumb">✈️</div>
+      <div class="blog-header-band"></div>
       <div class="blog-body">
         <div class="blog-meta">
-          <span class="blog-cat">Career</span>
-          <span class="blog-date">June 2026</span>
+          <span class="blog-cat">Category</span>
+          <span class="blog-date">Month Year</span>
         </div>
-        <div class="blog-title">Why I'm Moving to Dubai — My Journey</div>
-        <div class="blog-excerpt">From Kathmandu to Dubai — my story of taking the leap, the planning, and what I'm looking forward to in the UAE.</div>
-        <div class="blog-read-more">Read more →</div>
+        <div class="blog-title">Your Blog Title Here</div>
+        <div class="blog-excerpt">Short description of your post...</div>
+        <div class="blog-read-more">Read more</div>
       </div>
     </div>
 
-    <!-- BLOG POST 2 -->
-    <div class="blog-card" onclick="openModal('post2')">
-      <div class="blog-thumb">🎬</div>
-      <div class="blog-body">
-        <div class="blog-meta">
-          <span class="blog-cat">Content Creation</span>
-          <span class="blog-date">May 2026</span>
-        </div>
-        <div class="blog-title">How I Produce 10+ Videos Per Day</div>
-        <div class="blog-excerpt">My workflow, tools, and tips for producing high-volume short-form video content efficiently for TikTok, Facebook, and YouTube.</div>
-        <div class="blog-read-more">Read more →</div>
-      </div>
-    </div>
+    And add modal below with matching id="modal-post1"
+    ============================================= -->
 
-    <!-- BLOG POST 3 -->
-    <div class="blog-card" onclick="openModal('post3')">
-      <div class="blog-thumb">📈</div>
-      <div class="blog-body">
-        <div class="blog-meta">
-          <span class="blog-cat">SEO</span>
-          <span class="blog-date">April 2026</span>
-        </div>
-        <div class="blog-title">SEO Tips That Actually Work in 2026</div>
-        <div class="blog-excerpt">After years of writing SEO content, here are the strategies I've seen work consistently — and what's changed in 2026.</div>
-        <div class="blog-read-more">Read more →</div>
-      </div>
-    </div>
-
-    <!-- COMING SOON -->
-    <div class="coming-soon">
-      <span>✍️</span>
-      <strong>More posts coming soon!</strong>
-      <p style="margin-top: 0.5rem;">I write about digital marketing, content creation, travel, and life experiences.</p>
+    <div class="blog-empty">
+      <h3>Posts Coming Soon</h3>
+      <p>I am working on my first blog post. Check back soon for thoughts on digital marketing, content creation, and my journey to Dubai.</p>
     </div>
 
   </div>
 </div>
 
-<!-- MODALS -->
+<!-- ADD YOUR MODALS BELOW THIS LINE
+     Copy this block for each post:
+
 <div class="modal-overlay" id="modal-post1" onclick="closeModal(event, 'post1')">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModalDirect('post1')">✕</button>
-    <span class="modal-cat">Career</span>
-    <div class="modal-title">Why I'm Moving to Dubai — My Journey</div>
-    <span class="modal-date">June 2026</span>
+    <button class="modal-close" onclick="closeModalDirect('post1')">X</button>
+    <span class="modal-cat">Category</span>
+    <div class="modal-title">Your Blog Title</div>
+    <span class="modal-date">Month Year</span>
     <div class="modal-divider"></div>
     <div class="modal-content">
-      <p>Moving from Kathmandu to Dubai is not a small decision. It's been months of planning, research, and preparation. But I'm ready — and I want to share why.</p>
-      <h3>The Decision</h3>
-      <p>With 7+ years of experience in digital marketing, content creation, and accounting, I felt I had built a strong foundation in Nepal. But to grow further — both professionally and financially — Dubai made complete sense. The UAE is one of the most dynamic job markets in the world, with massive demand for digital skills.</p>
-      <h3>The Preparation</h3>
-      <p>I've spent the last several months upgrading my skills — completing LinkedIn Learning certifications in logistics, Excel, bookkeeping, and communication. I've also built this portfolio website to make it easier for Dubai recruiters to find and evaluate my work.</p>
-      <h3>What I'm Looking Forward To</h3>
-      <p>The energy, the opportunity, and the diversity of Dubai excites me. I'm open to full-time and contract roles in digital marketing, content creation, social media management, and related fields. If you're a recruiter reading this — let's connect!</p>
+      <p>Your blog content goes here...</p>
+      <h3>Section Heading</h3>
+      <p>More content...</p>
     </div>
   </div>
 </div>
-
-<div class="modal-overlay" id="modal-post2" onclick="closeModal(event, 'post2')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModalDirect('post2')">✕</button>
-    <span class="modal-cat">Content Creation</span>
-    <div class="modal-title">How I Produce 10+ Videos Per Day</div>
-    <span class="modal-date">May 2026</span>
-    <div class="modal-divider"></div>
-    <div class="modal-content">
-      <p>When I tell people I produce 10+ videos per day, they always ask: how? The answer is systems, tools, and practice.</p>
-      <h3>My Tools</h3>
-      <p>I use CapCut for fast edits — it's incredibly efficient for short-form content. For more polished work, I switch to Adobe Premiere Pro. Canva handles thumbnails and visual assets quickly.</p>
-      <h3>The Workflow</h3>
-      <p>Batching is the key. I script multiple videos at once, then record or edit in focused sessions. Templates save enormous time — once a style is established, replicating it is fast.</p>
-      <h3>Platform Optimization</h3>
-      <p>TikTok, Facebook Reels, and YouTube Shorts each have their nuances. I optimize captions, thumbnails, and length for each platform separately — what works on TikTok doesn't always work on YouTube.</p>
-      <p>The biggest lesson: consistency beats perfection. Showing up every day with good content always outperforms occasional "perfect" content.</p>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal-post3" onclick="closeModal(event, 'post3')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModalDirect('post3')">✕</button>
-    <span class="modal-cat">SEO</span>
-    <div class="modal-title">SEO Tips That Actually Work in 2026</div>
-    <span class="modal-date">April 2026</span>
-    <div class="modal-divider"></div>
-    <div class="modal-content">
-      <p>After years of writing and editing SEO content, I've seen trends come and go. Here's what's actually working right now.</p>
-      <h3>Search Intent First</h3>
-      <p>Google has gotten extremely good at understanding intent. Keyword stuffing is dead. What matters now is whether your content genuinely answers what the user is looking for — completely and clearly.</p>
-      <h3>E-E-A-T Still Matters</h3>
-      <p>Experience, Expertise, Authoritativeness, and Trustworthiness — Google rewards content from people who clearly know what they're talking about. First-person experience, real examples, and credentials help enormously.</p>
-      <h3>Content Depth Over Length</h3>
-      <p>Longer isn't always better. A focused 800-word article that fully answers a question beats a padded 3000-word article every time. Cover the topic completely, then stop.</p>
-      <h3>Internal Linking</h3>
-      <p>One of the most underrated SEO tactics. Linking related articles together keeps users on your site longer and signals topical authority to Google. Build topic clusters, not isolated pages.</p>
-    </div>
-  </div>
-</div>
+-->
 
 <footer>© 2026 Rameshwor Katuwal</footer>
 
 <script>
-  function openModal(id) {
-    document.getElementById('modal-' + id).classList.add('open');
-    document.body.style.overflow = 'hidden';
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(e, id) {
+  if (e.target === document.getElementById('modal-' + id)) {
+    closeModalDirect(id);
   }
-  function closeModal(e, id) {
-    if (e.target === document.getElementById('modal-' + id)) {
-      closeModalDirect(id);
-    }
-  }
-  function closeModalDirect(id) {
-    document.getElementById('modal-' + id).classList.remove('open');
-    document.body.style.overflow = '';
-  }
-</script>
+}
+function closeModalDirect(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
 
-
-<script>
-// ── Cursor glow ──
-const glow = document.createElement('div');
-glow.className = 'cursor-glow';
-document.body.appendChild(glow);
-document.addEventListener('mousemove', e => {
-  glow.style.left = e.clientX + 'px';
-  glow.style.top  = e.clientY + 'px';
-});
-
-// ── Scroll reveal ──
-const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.12 });
-revealEls.forEach(el => observer.observe(el));
-
-// ── Wrap card containers with card-group ──
-['skills-grid','cert-list','blog-grid','timeline'].forEach(cls => {
-  const el = document.querySelector('.' + cls);
-  if (el) el.classList.add('card-group');
-});
-
-// ── Smooth page exit on nav click ──
+// Smooth page exit
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', function(e) {
     const href = this.getAttribute('href');
@@ -535,21 +320,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       setTimeout(() => { window.location.href = href; }, 240);
     }
   });
-});
-
-// ── Number counter animation on stats ──
-document.querySelectorAll('.stat-num').forEach(el => {
-  const text = el.textContent.trim();
-  const num = parseInt(text);
-  if (!isNaN(num)) {
-    el.textContent = '0' + (text.includes('+') ? '+' : '');
-    let count = 0;
-    const interval = setInterval(() => {
-      count += Math.ceil(num / 30);
-      if (count >= num) { count = num; clearInterval(interval); }
-      el.textContent = count + (text.includes('+') ? '+' : '');
-    }, 40);
-  }
 });
 </script>
 
