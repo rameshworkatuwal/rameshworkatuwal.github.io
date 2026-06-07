@@ -1233,3 +1233,72 @@ h1 {
   background: radial-gradient(ellipse 50% 60% at 90% 50%,
     rgba(30,136,209,0.09) 0%, transparent 70%);
 }
+
+/* ============================================================
+   IMS GROUP CARD — dark teal night bg + fading logo
+   ============================================================ */
+
+.ims-card {
+  position: relative !important;
+  overflow: hidden !important;
+  background: linear-gradient(135deg, #060d0d 0%, #0a1a1a 60%, #040c0c 100%) !important;
+  border: 1px solid rgba(0,168,168,0.25) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ims-card:hover {
+  border-color: rgba(0,168,168,0.55) !important;
+  box-shadow: 0 0 28px rgba(0,168,168,0.12), 0 8px 32px rgba(0,0,0,0.4) !important;
+  transform: scale(1.02) translateX(6px);
+}
+
+.ims-card .exp-card-content {
+  position: relative;
+  z-index: 3;
+  padding-right: 100px;
+}
+
+.ims-card .job-title   { color: #2dd4bf !important; }
+.ims-card .job-period  { color: rgba(45,212,191,0.6) !important; }
+.ims-card .job-company { color: rgba(45,212,191,0.45) !important; }
+.ims-card .job-points li { color: #bec4d0 !important; }
+.ims-card .job-points li::before { color: #2dd4bf !important; }
+
+/* Logo — black bg transparent via screen blend */
+.ims-bg-logo {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 50px;
+  z-index: 1;
+  pointer-events: none;
+  animation: imsFade 3.5s ease-in-out infinite;
+}
+
+.ims-bg-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: screen; /* removes black background */
+}
+
+@keyframes imsFade {
+  0%   { opacity: 0.15; }
+  50%  { opacity: 0.40; }
+  100% { opacity: 0.15; }
+}
+
+/* Teal glow on the right */
+.ims-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 50% 60% at 90% 50%,
+    rgba(0,168,168,0.08) 0%, transparent 70%);
+}
