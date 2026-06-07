@@ -1092,8 +1092,9 @@ h1 {
   .nav-links a { padding: 0.35rem 0.5rem; font-size: 0.78rem; }
 }
 
+
 /* ============================================================
-   HANSIKAR CARD — night bg + single logo fade
+   HANSIKAR CARD — night bg + single fading logo
    ============================================================ */
 
 .hansikar-card {
@@ -1106,71 +1107,67 @@ h1 {
 
 .hansikar-card:hover {
   border-color: rgba(251,180,0,0.5) !important;
-  box-shadow: 0 0 30px rgba(251,180,0,0.1), 0 8px 32px rgba(0,0,0,0.4) !important;
+  box-shadow: 0 0 28px rgba(251,180,0,0.12), 0 8px 32px rgba(0,0,0,0.4) !important;
 }
 
+/* Content above everything */
 .hansikar-card .exp-card-content {
   position: relative;
   z-index: 3;
 }
 
+/* Text colours */
 .hansikar-card .job-title   { color: #fbbf24 !important; }
 .hansikar-card .job-period  { color: rgba(251,191,36,0.6) !important; }
 .hansikar-card .job-company { color: rgba(251,191,36,0.45) !important; }
 .hansikar-card .job-points li { color: #bec4d0 !important; }
 .hansikar-card .job-points li::before { color: #fbbf24 !important; }
 
-/* ── Logo layer ── */
-.hk-logo-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* Single centred logo */
-.hk-logo-single {
+/* Single circular logo — right side, vertically centred */
+.hk-bg-logo {
   position: absolute;
   top: 50%;
-  right: 8%;
+  right: 5%;
   transform: translateY(-50%);
-  width: 110px;
-  height: 110px;
-}
-
-.hk-logo-single img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;        /* clips white corners into a circle */
-  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;          /* THIS clips the white bg into circle */
+  z-index: 1;
+  pointer-events: none;
   animation: hkFade 3.5s ease-in-out infinite;
 }
 
-@keyframes hkFade {
-  0%   { opacity: 0.10; }
-  50%  { opacity: 0.32; }
-  100% { opacity: 0.10; }
+.hk-bg-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-/* ── Subtle amber glow ── */
+@keyframes hkFade {
+  0%   { opacity: 0.12; }
+  50%  { opacity: 0.35; }
+  100% { opacity: 0.12; }
+}
+
+/* Amber glow on the right */
 .hk-glow {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(ellipse 55% 65% at 88% 50%,
+  background: radial-gradient(ellipse 50% 60% at 90% 50%,
     rgba(251,180,0,0.07) 0%, transparent 70%);
 }
 
-/* ── Blinking cursor (always visible on this card) ── */
+/* Blinking cursor bottom-right */
 .hk-cursor {
   position: absolute;
-  right: 6%;
-  bottom: 18%;
+  right: 5%;
+  bottom: 14%;
   width: 2px;
-  height: 16px;
+  height: 15px;
   background: #fbbf24;
   z-index: 4;
   pointer-events: none;
