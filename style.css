@@ -1114,6 +1114,7 @@ h1 {
 .hansikar-card .exp-card-content {
   position: relative;
   z-index: 3;
+  padding-right: 100px;
 }
 
 /* Text colours */
@@ -1171,18 +1172,22 @@ h1 {
   position: relative !important;
   overflow: hidden !important;
   background: linear-gradient(135deg, #080e18 0%, #0d1828 60%, #060c14 100%) !important;
-  border: 1px solid rgba(30,136,209,0.22) !important;
+  border: 1px solid rgba(30,136,209,0.25) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .topnepal-card:hover {
-  border-color: rgba(30,136,209,0.5) !important;
+  border-color: rgba(30,136,209,0.55) !important;
   box-shadow: 0 0 28px rgba(30,136,209,0.12), 0 8px 32px rgba(0,0,0,0.4) !important;
+  transform: scale(1.02) translateX(6px);
 }
 
 .topnepal-card .exp-card-content {
   position: relative;
   z-index: 3;
+  padding-right: 100px; /* keep text from going under logo */
 }
 
 .topnepal-card .job-title   { color: #38bdf8 !important; }
@@ -1226,5 +1231,5 @@ h1 {
   z-index: 2;
   pointer-events: none;
   background: radial-gradient(ellipse 50% 60% at 90% 50%,
-    rgba(30,136,209,0.08) 0%, transparent 70%);
+    rgba(30,136,209,0.09) 0%, transparent 70%);
 }
