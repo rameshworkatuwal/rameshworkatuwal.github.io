@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rameshwor Katuwal — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 5% 4rem;
+    position: relative;
+    overflow: hidden;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -150px; right: -150px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(2,136,209,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(2,136,209,0.1);
+    color: var(--blue);
+    border: 0.5px solid rgba(2,136,209,0.3);
+    border-radius: 20px;
+    padding: 0.35rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .name-accent { color: var(--blue); }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted);
+    font-weight: 300;
+    margin: 1.2rem 0 2rem;
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .stats-row {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--blue);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .stat-divider {
+    width: 1px;
+    background: rgba(2,136,209,0.2);
+    align-self: stretch;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+  }
+
+  .photo-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .photo-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+  }
+
+  .photo-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(2,136,209,0.4), rgba(129,212,250,0.2));
+    z-index: 0;
+  }
+
+  .profile-photo {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 12px 40px rgba(2,136,209,0.2);
+    display: block;
+  }
+
+  .photo-placeholder {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(2,136,209,0.08);
+    border: 3px dashed rgba(2,136,209,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .photo-placeholder span { font-size: 2.5rem; }
+
+  .available-badge {
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 20px;
+    padding: 0.35rem 1rem;
+    font-size: 0.75rem;
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 500;
+  }
+
+  .green-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  @media (max-width: 700px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .photo-col { order: -1; }
+    .photo-wrapper, .profile-photo, .photo-placeholder { width: 160px; height: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">R.Katuwal</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="certifications.html">Certifications</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-tag">Available for Dubai Roles · Immediate Relocation</span>
+      <h1>Rameshwor<br><span class="name-accent">Katuwal</span></h1>
+      <p class="hero-subtitle">
+        Digital Marketing &amp; Content Professional with 7+ years across SEO, video editing, social media management, and junior accounting. Based in Kathmandu — ready to relocate to Dubai immediately.
+      </p>
+      <div class="hero-cta">
+        <a href="contact.html" class="btn btn-primary">Contact Me</a>
+        <a href="experience.html" class="btn btn-outline">View Experience</a>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-num">7+</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">5</span>
+          <span class="stat-label">Companies</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">Videos/Day</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">4</span>
+          <span class="stat-label">Certifications</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-col">
+      <div class="photo-wrapper">
+        <!-- REPLACE photo.jpg with your actual photo filename -->
+        <!-- If you have your photo: <img src="photo.jpg" alt="Rameshwor Katuwal" class="profile-photo"> -->
+        <div class="photo-placeholder">
+          <span>📷</span>
+          Add photo.jpg<br>to this folder
+        </div>
+      </div>
+      <div class="available-badge">
+        <div class="green-dot"></div>
+        Available for Dubai
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Rameshwor Katuwal</footer>
+</body>
+</html>

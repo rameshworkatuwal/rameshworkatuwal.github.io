@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Rameshwor Katuwal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 0.95rem;
+    color: #1a4a6e;
+    margin-bottom: 1.2rem;
+    line-height: 1.8;
+  }
+
+  .highlight-box {
+    background: rgba(2,136,209,0.06);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .info-card {
+    background: rgba(255,255,255,0.75);
+    border: 0.5px solid rgba(2,136,209,0.15);
+    border-radius: 10px;
+    padding: 1.5rem;
+    backdrop-filter: blur(6px);
+  }
+
+  .info-card h3 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1.2rem;
+  }
+
+  .info-row {
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.6rem 0;
+    border-bottom: 0.5px solid rgba(2,136,209,0.1);
+    font-size: 0.88rem;
+  }
+
+  .info-row:last-child { border-bottom: none; }
+
+  .info-label {
+    color: var(--muted);
+    min-width: 100px;
+    font-weight: 500;
+  }
+
+  .info-value { color: var(--text); }
+
+  .lang-bars { margin-top: 1.5rem; }
+
+  .lang-item { margin-bottom: 1rem; }
+
+  .lang-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    margin-bottom: 0.3rem;
+    color: var(--text);
+  }
+
+  .lang-bar {
+    height: 5px;
+    background: rgba(2,136,209,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .lang-fill {
+    height: 100%;
+    background: var(--blue);
+    border-radius: 3px;
+  }
+
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">R.Katuwal</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="certifications.html">Certifications</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <p class="page-label">Who I Am</p>
+  <h2 class="page-title">About Me</h2>
+  <div class="divider-line"></div>
+
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm Rameshwor Katuwal, a multi-skilled professional based in Kathmandu, Nepal, with over 7 years of cross-functional experience spanning digital marketing, content creation, SEO, video editing, and junior accounting.
+      </p>
+      <p>
+        My career has taken me across diverse industries — from automotive dealerships to media companies and remote digital agencies — giving me a well-rounded perspective on how businesses operate and grow in today's digital landscape.
+      </p>
+      <div class="highlight-box">
+        "Results-driven and adaptable, I bring both creative and analytical skills to every role — whether it's crafting SEO content, editing high-volume video, or managing financial records."
+      </div>
+      <p>
+        I am currently seeking a dynamic role in Dubai where my communication, digital, and analytical skills can deliver measurable business impact. I am available for immediate relocation.
+      </p>
+      <div style="margin-top: 1.5rem;">
+        <a href="contact.html" class="btn btn-primary">Get in Touch</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="info-card" style="margin-bottom: 1.5rem;">
+        <h3>Personal Info</h3>
+        <div class="info-row">
+          <span class="info-label">Full Name</span>
+          <span class="info-value">Rameshwor Katuwal</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Also Known</span>
+          <span class="info-value">Ritesh Katuwal</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Location</span>
+          <span class="info-value">Kathmandu, Nepal</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Relocation</span>
+          <span class="info-value">Dubai — Immediate</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email</span>
+          <span class="info-value">riteshkatwal25@gmail.com</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Phone</span>
+          <span class="info-value">+977-9861073812</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Education</span>
+          <span class="info-value">Bachelor of Business Studies</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Availability</span>
+          <span class="info-value">Full-time &amp; Contract</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>Languages</h3>
+        <div class="lang-bars">
+          <div class="lang-item">
+            <div class="lang-header"><span>English</span><span>Fluent</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="width: 90%"></div></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-header"><span>Nepali</span><span>Native</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="width: 100%"></div></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-header"><span>Hindi</span><span>Fluent</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="width: 85%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Rameshwor Katuwal</footer>
+</body>
+</html>

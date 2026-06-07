@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills — Rameshwor Katuwal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .skill-card {
+    background: rgba(255,255,255,0.75);
+    border: 0.5px solid rgba(2,136,209,0.15);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.2s;
+    backdrop-filter: blur(6px);
+  }
+
+  .skill-card:hover {
+    border-color: rgba(2,136,209,0.4);
+    box-shadow: 0 4px 20px rgba(2,136,209,0.08);
+    transform: translateY(-2px);
+  }
+
+  .skill-icon {
+    width: 44px; height: 44px;
+    background: rgba(2,136,209,0.1);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .skill-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tools-section h3 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+
+  .tools-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .tool-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    background: rgba(255,255,255,0.75);
+    border: 0.5px solid rgba(2,136,209,0.2);
+    color: var(--text);
+    backdrop-filter: blur(4px);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">R.Katuwal</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html" class="active">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="certifications.html">Certifications</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <p class="page-label">What I Bring</p>
+  <h2 class="page-title">Core Skills</h2>
+  <div class="divider-line"></div>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">📣</div>
+      <h3>Digital Marketing</h3>
+      <div class="skill-tags">
+        <span class="tag">SEO</span>
+        <span class="tag">Content Strategy</span>
+        <span class="tag">Campaign Reporting</span>
+        <span class="tag">Social Media Management</span>
+        <span class="tag">Organic Traffic Growth</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">🎬</div>
+      <h3>Content Creation &amp; Video</h3>
+      <div class="skill-tags">
+        <span class="tag">Adobe Premiere Pro</span>
+        <span class="tag">CapCut</span>
+        <span class="tag">Adobe After Effects</span>
+        <span class="tag">Script Writing</span>
+        <span class="tag">Copywriting</span>
+        <span class="tag">Canva</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <h3>Accounting &amp; Finance</h3>
+      <div class="skill-tags">
+        <span class="tag">Tally ERP / Prime</span>
+        <span class="tag">Bookkeeping</span>
+        <span class="tag">Bank Reconciliation</span>
+        <span class="tag">Invoice Processing</span>
+        <span class="tag">Financial Reporting</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">💻</div>
+      <h3>Technical</h3>
+      <div class="skill-tags">
+        <span class="tag">MS Office Suite</span>
+        <span class="tag">Google Workspace</span>
+        <span class="tag">HTML / CSS</span>
+        <span class="tag">Figma (basic)</span>
+        <span class="tag">Excel</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">📱</div>
+      <h3>Social Media Platforms</h3>
+      <div class="skill-tags">
+        <span class="tag">TikTok</span>
+        <span class="tag">Facebook</span>
+        <span class="tag">Instagram</span>
+        <span class="tag">YouTube</span>
+        <span class="tag">LinkedIn</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">✍️</div>
+      <h3>Writing &amp; Communication</h3>
+      <div class="skill-tags">
+        <span class="tag">SEO Writing</span>
+        <span class="tag">News Writing</span>
+        <span class="tag">Trend Analysis</span>
+        <span class="tag">Competitor Research</span>
+        <span class="tag">Proofreading</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="background: rgba(255,255,255,0.75); border: 0.5px solid rgba(2,136,209,0.15); border-radius: 10px; padding: 1.8rem; backdrop-filter: blur(6px);">
+    <div class="tools-section">
+      <h3>All Tools &amp; Software</h3>
+      <div class="tools-grid">
+        <span class="tool-pill">Adobe Premiere Pro</span>
+        <span class="tool-pill">CapCut</span>
+        <span class="tool-pill">Canva</span>
+        <span class="tool-pill">Adobe After Effects</span>
+        <span class="tool-pill">Figma</span>
+        <span class="tool-pill">Tally ERP</span>
+        <span class="tool-pill">Tally Prime</span>
+        <span class="tool-pill">Microsoft Excel</span>
+        <span class="tool-pill">Microsoft Word</span>
+        <span class="tool-pill">Google Sheets</span>
+        <span class="tool-pill">Google Analytics</span>
+        <span class="tool-pill">HTML / CSS</span>
+        <span class="tool-pill">TikTok Studio</span>
+        <span class="tool-pill">Meta Business Suite</span>
+        <span class="tool-pill">YouTube Studio</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Rameshwor Katuwal</footer>
+</body>
+</html>
