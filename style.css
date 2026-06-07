@@ -551,6 +551,7 @@ h1 {
 }
 
 .exp-card {
+  will-change: transform, opacity, filter;
   background: rgba(255,255,255,0.75);
   border: 0.5px solid rgba(2,136,209,0.15);
   border-radius: 10px;
@@ -1038,15 +1039,32 @@ h1 {
 .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.45s; }
 .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.55s; }
 
-/* Card group blur — when hovering one card, others blur */
-.card-group { transition: all 0.3s ease; }
+/* Card group blur — GPU accelerated smooth */
+.card-group { }
+.card-group .skill-card,
+.card-group .cert-card,
+.card-group .blog-card,
+.card-group .exp-card,
+.timeline-item {
+  will-change: transform, opacity, filter;
+  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 0.35s ease,
+              filter 0.35s ease,
+              box-shadow 0.35s ease,
+              border-color 0.35s ease !important;
+}
 .card-group:has(.skill-card:hover) .skill-card:not(:hover),
 .card-group:has(.cert-card:hover) .cert-card:not(:hover),
-.card-group:has(.blog-card:hover) .blog-card:not(:hover),
-.card-group:has(.exp-card:hover) .exp-card:not(:hover) {
-  opacity: 0.45;
-  filter: blur(1.5px);
-  transform: scale(0.98);
+.card-group:has(.blog-card:hover) .blog-card:not(:hover) {
+  opacity: 0.5;
+  filter: blur(1.2px);
+  transform: scale(0.985);
+}
+/* Timeline special — blur siblings not children */
+.timeline:has(.exp-card:hover) .timeline-item:not(:has(.exp-card:hover)) {
+  opacity: 0.5;
+  filter: blur(1.2px);
+  transform: scale(0.985) translateX(0);
 }
 
 /* Blog grid blur — direct :has on .blog-grid */
@@ -1098,6 +1116,7 @@ h1 {
    ============================================================ */
 
 .hansikar-card {
+  will-change: transform, opacity, filter;
   position: relative !important;
   overflow: hidden !important;
   background: linear-gradient(135deg, #0c0e13 0%, #131720 60%, #090b0f 100%) !important;
@@ -1169,6 +1188,7 @@ h1 {
    ============================================================ */
 
 .topnepal-card {
+  will-change: transform, opacity, filter;
   position: relative !important;
   overflow: hidden !important;
   background: linear-gradient(135deg, #080e18 0%, #0d1828 60%, #060c14 100%) !important;
@@ -1181,7 +1201,7 @@ h1 {
 .topnepal-card:hover {
   border-color: rgba(30,136,209,0.55) !important;
   box-shadow: 0 0 28px rgba(30,136,209,0.12), 0 8px 32px rgba(0,0,0,0.4) !important;
-  transform: scale(1.02) translateX(6px);
+  transform: translateX(6px);
 }
 
 .topnepal-card .exp-card-content {
@@ -1242,17 +1262,18 @@ h1 {
   position: relative !important;
   overflow: hidden !important;
   isolation: isolate !important;
-  background: linear-gradient(135deg, #060d0d 0%, #0a1a1a 60%, #040c0c 100%) !important;
-  border: 1px solid rgba(0,168,168,0.25) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(255,255,255,0.85) !important;
+  border: 1px solid rgba(2,136,209,0.2) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+  will-change: transform, opacity, filter;
 }
 
 .ims-card:hover {
-  border-color: rgba(0,168,168,0.55) !important;
-  box-shadow: 0 0 28px rgba(0,168,168,0.12), 0 8px 32px rgba(0,0,0,0.4) !important;
-  transform: scale(1.02) translateX(6px);
+  border-color: rgba(2,136,209,0.45) !important;
+  box-shadow: 0 8px 30px rgba(2,136,209,0.12) !important;
+  transform: translateX(6px) !important;
 }
 
 .ims-card .exp-card-content {
@@ -1261,11 +1282,11 @@ h1 {
   padding-right: 100px;
 }
 
-.ims-card .job-title   { color: #2dd4bf !important; }
-.ims-card .job-period  { color: rgba(45,212,191,0.6) !important; }
-.ims-card .job-company { color: rgba(45,212,191,0.45) !important; }
-.ims-card .job-points li { color: #bec4d0 !important; }
-.ims-card .job-points li::before { color: #2dd4bf !important; }
+.ims-card .job-title   { color: #0277BD !important; }
+.ims-card .job-period  { color: var(--blue) !important; background: rgba(2,136,209,0.08) !important; }
+.ims-card .job-company { color: var(--muted) !important; }
+.ims-card .job-points li { color: #1a4a6e !important; }
+.ims-card .job-points li::before { color: var(--blue) !important; }
 
 /* Logo — black bg transparent via screen blend */
 .ims-bg-logo {
