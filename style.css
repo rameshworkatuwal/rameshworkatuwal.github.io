@@ -1093,7 +1093,7 @@ h1 {
 }
 
 /* ============================================================
-   HANSIKAR CARD — night bg + floating logo animation
+   HANSIKAR CARD — night bg + single logo fade
    ============================================================ */
 
 .hansikar-card {
@@ -1101,22 +1101,26 @@ h1 {
   overflow: hidden !important;
   background: linear-gradient(135deg, #0c0e13 0%, #131720 60%, #090b0f 100%) !important;
   border: 1px solid rgba(251,180,0,0.22) !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Content must sit above all bg layers */
+.hansikar-card:hover {
+  border-color: rgba(251,180,0,0.5) !important;
+  box-shadow: 0 0 30px rgba(251,180,0,0.1), 0 8px 32px rgba(0,0,0,0.4) !important;
+}
+
 .hansikar-card .exp-card-content {
   position: relative;
   z-index: 3;
 }
 
-/* Text colours for dark bg */
 .hansikar-card .job-title   { color: #fbbf24 !important; }
-.hansikar-card .job-period  { color: rgba(251,191,36,0.55) !important; }
-.hansikar-card .job-company { color: rgba(251,191,36,0.4) !important; }
+.hansikar-card .job-period  { color: rgba(251,191,36,0.6) !important; }
+.hansikar-card .job-company { color: rgba(251,191,36,0.45) !important; }
 .hansikar-card .job-points li { color: #bec4d0 !important; }
 .hansikar-card .job-points li::before { color: #fbbf24 !important; }
 
-/* ── Logo layer: sits behind content ── */
+/* ── Logo layer ── */
 .hk-logo-layer {
   position: absolute;
   inset: 0;
@@ -1125,61 +1129,55 @@ h1 {
   overflow: hidden;
 }
 
-/* Each floating logo instance */
-.hk-logo-layer .hk-logo {
+/* Single centred logo */
+.hk-logo-single {
   position: absolute;
-  width: 52px;
-  height: 52px;
-  display: block;
+  top: 50%;
+  right: 8%;
+  transform: translateY(-50%);
+  width: 110px;
+  height: 110px;
 }
 
-.hk-logo-layer .hk-logo img {
+.hk-logo-single img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: 50%;        /* clips white corners into a circle */
   display: block;
+  animation: hkFade 3.5s ease-in-out infinite;
 }
 
-/* ── Glow ring ── */
+@keyframes hkFade {
+  0%   { opacity: 0.10; }
+  50%  { opacity: 0.32; }
+  100% { opacity: 0.10; }
+}
+
+/* ── Subtle amber glow ── */
 .hk-glow {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(ellipse 60% 70% at 85% 50%,
-    rgba(251,180,0,0.06) 0%,
-    transparent 70%);
+  background: radial-gradient(ellipse 55% 65% at 88% 50%,
+    rgba(251,180,0,0.07) 0%, transparent 70%);
 }
 
-/* ── Logo 1 — slow spin + float top-right ── */
-@keyframes hkFloat1 {
-  0%   { transform: translateY(0px)   rotate(0deg);   opacity: 0.13; }
-  30%  { transform: translateY(-12px) rotate(108deg); opacity: 0.18; }
-  60%  { transform: translateY(-6px)  rotate(216deg); opacity: 0.13; }
-  100% { transform: translateY(0px)   rotate(360deg); opacity: 0.13; }
-}
-/* ── Logo 2 — medium speed, center-right ── */
-@keyframes hkFloat2 {
-  0%   { transform: translateY(0px)  rotate(0deg);   opacity: 0.08; }
-  40%  { transform: translateY(10px) rotate(144deg); opacity: 0.14; }
-  80%  { transform: translateY(-8px) rotate(288deg); opacity: 0.08; }
-  100% { transform: translateY(0px)  rotate(360deg); opacity: 0.08; }
-}
-/* ── Logo 3 — fastest, bottom-right ── */
-@keyframes hkFloat3 {
-  0%   { transform: translateY(0px)   rotate(0deg);   opacity: 0.06; }
-  50%  { transform: translateY(-14px) rotate(180deg); opacity: 0.11; }
-  100% { transform: translateY(0px)   rotate(360deg); opacity: 0.06; }
-}
-/* ── Logo 4 — large background ghost ── */
-@keyframes hkFloat4 {
-  0%   { transform: scale(1)    rotate(0deg);   opacity: 0.04; }
-  50%  { transform: scale(1.06) rotate(180deg); opacity: 0.07; }
-  100% { transform: scale(1)    rotate(360deg); opacity: 0.04; }
+/* ── Blinking cursor (always visible on this card) ── */
+.hk-cursor {
+  position: absolute;
+  right: 6%;
+  bottom: 18%;
+  width: 2px;
+  height: 16px;
+  background: #fbbf24;
+  z-index: 4;
+  pointer-events: none;
+  animation: hkBlink 0.9s step-end infinite;
 }
 
-.hk-l1 { top: 8%;   right: 6%;   animation: hkFloat1 12s ease-in-out infinite; }
-.hk-l2 { top: 42%;  right: 14%;  animation: hkFloat2 17s ease-in-out infinite; animation-delay: -4s; }
-.hk-l3 { top: 65%;  right: 4%;   animation: hkFloat3  9s ease-in-out infinite; animation-delay: -2s; }
-.hk-l4 { top: -8%;  right: -4%;  width: 120px !important; height: 120px !important;
-          animation: hkFloat4 22s linear infinite; }
+@keyframes hkBlink {
+  0%, 49% { opacity: 0.7; }
+  50%, 100% { opacity: 0; }
+}
