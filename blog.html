@@ -11,13 +11,15 @@
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">R.Katuwal</a>
+  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>R.Katuwal</a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="skills.html">Skills</a></li>
     <li><a href="experience.html">Experience</a></li>
     <li><a href="certifications.html">Certifications</a></li>
+    <li><a href="youtube.html">YouTube</a></li>
+    <li><a href="photography.html">Photography</a></li>
     <li><a href="blog.html" class="active">Blog</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
@@ -50,9 +52,17 @@
     And add modal below with matching id="modal-post1"
     ============================================= -->
 
-    <div class="blog-empty">
-      <h3>Posts Coming Soon</h3>
-      <p>I am working on my first blog post. Check back soon for thoughts on digital marketing and content creation.</p>
+    <div class="blog-card" onclick="openModal('europe')">
+      <div class="blog-header-band"></div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Travel</span>
+          <span class="blog-date">2025</span>
+        </div>
+        <div class="blog-title">My Europe Journey — A Nepali Traveller's Diary</div>
+        <div class="blog-excerpt">From the cobblestone streets of Prague to the canals of Amsterdam — my first solo adventure across Europe, told honestly.</div>
+        <div class="blog-read-more">Read more</div>
+      </div>
     </div>
 
   </div>
@@ -76,6 +86,30 @@
   </div>
 </div>
 -->
+
+<div class="modal-overlay" id="modal-europe" onclick="closeModal(event, 'europe')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModalDirect('europe')">✕</button>
+    <span class="modal-cat">Travel</span>
+    <div class="modal-title">My Europe Journey — A Nepali Traveller's Diary</div>
+    <span class="modal-date">2025</span>
+    <div class="modal-divider"></div>
+    <div class="modal-content">
+      <p>Europe had always been a dream — the kind you pin on a mood board and wonder if it will ever really happen. In 2025, it happened. And nothing quite prepares you for the feeling of stepping off a plane in a continent you have only ever seen in films and travel vlogs.</p>
+
+      <h3>The Beginning: Prague, Czech Republic</h3>
+      <p>Prague was my first stop, and it set the bar impossibly high. The old town looks like it was pulled straight out of a fairy tale — medieval towers, winding stone lanes, and the Charles Bridge stretching over the Vltava River. I arrived in the evening, and the city was golden. I spent two days getting completely lost, and I would do it again without hesitation.</p>
+
+      <h3>Amsterdam: Canals, Bicycles & Calm</h3>
+      <p>Amsterdam surprised me with how peaceful it felt despite being a major city. I rented a bicycle on my first morning (as every visitor should) and cycled along the canal rings for hours. The city moves at a different rhythm — unhurried, open, and deeply human. The Rijksmuseum alone was worth the entire trip.</p>
+
+      <h3>What I Learned on the Road</h3>
+      <p>Travelling solo through Europe as someone from Nepal taught me a lot — about patience, about reading people across language barriers, and about how much the world has in common underneath all its differences. Every city had its own personality, and every stranger I sat next to on a train had a story worth hearing.</p>
+
+      <p>More chapters of this journey are coming — including Paris, Vienna, and a very cold morning in the Swiss Alps. Stay tuned.</p>
+    </div>
+  </div>
+</div>
 
 <footer>© 2026 Rameshwor Katuwal</footer>
 
