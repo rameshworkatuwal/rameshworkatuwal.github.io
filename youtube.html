@@ -82,7 +82,7 @@
   }
 
   .yt-stat-card {
-    background: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.04);
     border: 0.5px solid rgba(255,0,0,0.12);
     border-radius: 10px;
     padding: 1.4rem;
@@ -120,7 +120,7 @@
   }
 
   .yt-about-card {
-    background: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.04);
     border: 0.5px solid rgba(2,136,209,0.15);
     border-radius: 12px;
     padding: 1.8rem;
@@ -181,7 +181,7 @@
   }
 
   .platform-card {
-    background: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.04);
     border: 0.5px solid rgba(2,136,209,0.15);
     border-radius: 10px;
     padding: 1.2rem 1.4rem;
@@ -372,5 +372,11 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 });
 </script>
 
+<script>
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+  document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){obs.observe(el);});
+})();
+</script>
 </body>
 </html>

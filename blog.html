@@ -141,5 +141,11 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 });
 </script>
 
+<script>
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+  document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){obs.observe(el);});
+})();
+</script>
 </body>
 </html>
