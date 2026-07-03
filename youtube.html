@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" type="image/png" href="favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YouTube — Rameshwor Katuwal</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -224,6 +225,43 @@
     .yt-about-grid { grid-template-columns: 1fr; }
     .yt-hero { flex-direction: column; text-align: center; }
   }
+
+  /* ===== LIGHT RED–WHITE THEME (YouTube page only) ===== */
+  :root{
+    --text:#2a1215;
+    --muted:#9b5560;
+    --blue:#d10000;
+    --line:rgba(200,60,60,0.16);
+  }
+  body{
+    background:
+      radial-gradient(120% 80% at 85% -10%, #ffdada 0%, transparent 55%),
+      radial-gradient(90% 90% at -10% 110%, #ffecec 0%, transparent 55%),
+      linear-gradient(135deg,#ffffff 0%,#fff3f3 45%,#ffe1e1 100%) !important;
+    color:#2a1215;
+  }
+  nav{ background:rgba(255,255,255,0.75) !important; border-bottom:1px solid rgba(200,60,60,0.14) !important; }
+  .nav-logo{ color:#2a1215; }
+  .nav-logo svg{ color:#d10000; }
+  .nav-links a{ color:#8a3a42; }
+  .nav-links a:hover, .nav-links a.active{ color:#c20000; }
+  .nav-links a::after{ background:#d10000; box-shadow:none; }
+  .page-label{ color:#c20000; }
+  .page-title{ color:#2a1215; }
+  .divider-line{ background:linear-gradient(90deg,#ff5a5a,#ffb3b3); }
+  .yt-stat-card, .yt-about-card, .platform-card{
+    background:#ffffff;
+    border:1px solid rgba(200,60,60,0.14);
+    box-shadow:0 6px 20px rgba(180,40,40,0.06);
+  }
+  .yt-stat-card:hover, .platform-card:hover{ box-shadow:0 12px 30px rgba(200,40,40,0.12); border-color:rgba(200,60,60,0.32); }
+  .yt-stat-label{ color:#9b5560; }
+  .yt-about-card h3{ color:#c20000; }
+  .yt-list-item{ color:#5a2a30; border-bottom-color:rgba(200,60,60,0.12); }
+  .platform-name{ color:#2a1215; }
+  .platform-desc{ color:#9b5560; }
+  footer{ border-top:1px solid rgba(200,60,60,0.14) !important; color:#9b5560; }
+  footer b{ color:#c20000; }
 </style>
 </head>
 <body>
@@ -299,7 +337,6 @@
         <div class="yt-tool-row">
           <span class="yt-tool-tag">Adobe Premiere Pro</span>
           <span class="yt-tool-tag">CapCut</span>
-          <span class="yt-tool-tag">Adobe After Effects</span>
           <span class="yt-tool-tag">Canva</span>
           <span class="yt-tool-tag">DJI Osmo Pocket 3</span>
           <span class="yt-tool-tag">YouTube Studio</span>
@@ -378,5 +415,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){obs.observe(el);});
 })();
 </script>
+<script src="sounds.js"></script>
 </body>
 </html>

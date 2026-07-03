@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" type="image/png" href="favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rameshwor Katuwal — Content · Video · Social</title>
 <meta name="description" content="Rameshwor (Ritesh) Katuwal — content professional with 7+ years in video editing, SEO, social media, and accounting. Based in Kathmandu, open to Dubai / UAE relocation.">
@@ -175,6 +176,23 @@ footer b{color:var(--cyan)}
 .reveal.in{opacity:1;transform:none}
 .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
 
+/* currently managing tabs */
+.cm{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:5rem 6% 1rem}
+.cm-head{margin-bottom:2rem}
+.cm-head p.lead{color:var(--muted);max-width:560px;font-size:.95rem;margin-top:.4rem}
+.cm-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.cm-tab{position:relative;display:flex;align-items:center;gap:1rem;padding:1.25rem 1.35rem;border:1px solid var(--line);border-radius:16px;background:var(--panel);overflow:hidden;transition:transform .35s var(--ease),border-color .35s,box-shadow .35s}
+.cm-tab::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 15% 0,var(--tabglow,rgba(56,225,255,.14)),transparent 62%);opacity:0;transition:opacity .35s}
+.cm-tab:hover{transform:translateY(-6px);border-color:var(--tabc,var(--cyan));box-shadow:0 16px 40px rgba(0,0,0,.45)}
+.cm-tab:hover::before{opacity:1}
+.cm-tab .ico{position:relative;z-index:1;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cm-tab .ico svg{width:24px;height:24px}
+.cm-tab .meta{position:relative;z-index:1;display:flex;flex-direction:column;min-width:0}
+.cm-tab .pl{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.95rem;color:var(--text)}
+.cm-tab .hd{font-size:.8rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cm-tab .arrow{position:relative;z-index:1;margin-left:auto;color:var(--muted);font-family:'Space Grotesk',sans-serif;transition:transform .3s,color .3s}
+.cm-tab:hover .arrow{color:var(--tabc,var(--cyan));transform:translateX(4px)}
+
 /* responsive */
 @media (max-width:920px){
   .hero{grid-template-columns:1fr;text-align:center;padding-top:7rem;gap:2.5rem}
@@ -183,6 +201,7 @@ footer b{color:var(--cyan)}
   .hero-sub{margin-left:auto;margin-right:auto}
   .stats{grid-template-columns:repeat(2,1fr)}
   .cards{grid-template-columns:1fr}
+  .cm-tabs{grid-template-columns:1fr}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:rgba(5,7,13,.97);border-bottom:1px solid var(--line);padding:.5rem 5%}
   .nav-links.open{display:flex}
   .nav-links a{padding:.9rem 0;border-bottom:1px solid var(--line)}
@@ -262,7 +281,6 @@ footer b{color:var(--cyan)}
     </div>
     <div class="orbit o1"><b>7+</b> yrs</div>
     <div class="orbit o2">🎬 Video Editor</div>
-    <div class="orbit o3"><b>28K+</b> followers</div>
   </div>
 
   <div class="scroll-hint"><span class="bar"></span>Scroll</div>
@@ -272,7 +290,6 @@ footer b{color:var(--cyan)}
   <div class="marquee-track" id="mq">
     <div class="marquee-item">Adobe Premiere Pro</div>
     <div class="marquee-item">CapCut</div>
-    <div class="marquee-item">After Effects</div>
     <div class="marquee-item">SEO Content</div>
     <div class="marquee-item">TikTok Growth</div>
     <div class="marquee-item">Meta Business Suite</div>
@@ -284,11 +301,36 @@ footer b{color:var(--cyan)}
   </div>
 </div>
 
+<section class="cm">
+  <div class="cm-head">
+    <p class="sec-label reveal">Currently Managing</p>
+    <h2 class="sec-title reveal d1" style="margin-bottom:0">Nepal History Channel</h2>
+    <p class="lead reveal d1">Short-form Nepali history &amp; mythology — scripted, edited, and published across three platforms.</p>
+  </div>
+  <div class="cm-tabs">
+    <a href="https://www.tiktok.com/@nepalhistory.chan?lang=en" target="_blank" rel="noopener" class="cm-tab reveal d1" data-sound style="--tabc:#25f4ee;--tabglow:rgba(37,244,238,.16)">
+      <span class="ico" style="background:rgba(37,244,238,.12)"><svg viewBox="0 0 24 24" fill="#25f4ee"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.3v13.3a2.44 2.44 0 0 1-2.44 2.44 2.44 2.44 0 1 1 .75-4.79V8.6a5.75 5.75 0 1 0 4.99 5.7V8.9a7.5 7.5 0 0 0 4.38 1.4V7a4.28 4.28 0 0 1-3.32-1.18Z"/></svg></span>
+      <span class="meta"><span class="pl">TikTok</span><span class="hd">@nepalhistory.chan</span></span>
+      <span class="arrow">↗</span>
+    </a>
+    <a href="https://www.instagram.com/nepalhistory.channel/" target="_blank" rel="noopener" class="cm-tab reveal d2" data-sound style="--tabc:#e1306c;--tabglow:rgba(225,48,108,.18)">
+      <span class="ico" style="background:rgba(225,48,108,.12)"><svg viewBox="0 0 24 24" fill="#e1306c"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2Zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9Z"/></svg></span>
+      <span class="meta"><span class="pl">Instagram</span><span class="hd">@nepalhistory.channel</span></span>
+      <span class="arrow">↗</span>
+    </a>
+    <a href="https://www.youtube.com/@nepalhistorychannel/videos" target="_blank" rel="noopener" class="cm-tab reveal d3" data-sound style="--tabc:#ff3d3d;--tabglow:rgba(255,61,61,.18)">
+      <span class="ico" style="background:rgba(255,61,61,.12)"><svg viewBox="0 0 24 24" fill="#ff3d3d"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></span>
+      <span class="meta"><span class="pl">YouTube</span><span class="hd">@nepalhistorychannel</span></span>
+      <span class="arrow">↗</span>
+    </a>
+  </div>
+</section>
+
 <section class="section">
   <p class="sec-label reveal">By the numbers</p>
   <div class="stats">
     <div class="stat reveal d1"><div class="stat-num" data-target="7" data-suffix="+">0</div><div class="stat-label">Years Experience</div></div>
-    <div class="stat reveal d2"><div class="stat-num" data-target="28" data-suffix="K+">0</div><div class="stat-label">Followers Grown</div></div>
+    <div class="stat reveal d2"><div class="stat-num" data-target="4" data-suffix="">0</div><div class="stat-label">Content Platforms</div></div>
     <div class="stat reveal d3"><div class="stat-num" data-target="1" data-suffix="M+">0</div><div class="stat-label">Peak Video Views</div></div>
     <div class="stat reveal d4"><div class="stat-num" data-target="5" data-suffix="">0</div><div class="stat-label">Companies</div></div>
   </div>
@@ -302,7 +344,7 @@ footer b{color:var(--cyan)}
       <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="14" height="14" rx="2"/><path d="m22 8-6 4 6 4V8z"/></svg></div>
       <h3>Video Editing</h3>
       <p>Short-form reels that hook in the first second — cut, captioned, and colour-graded for TikTok, Reels, and Shorts.</p>
-      <div class="chips"><span class="chip">Premiere Pro</span><span class="chip">CapCut</span><span class="chip">After Effects</span></div>
+      <div class="chips"><span class="chip">Premiere Pro</span><span class="chip">CapCut</span><span class="chip">Subtitling</span></div>
     </div>
     <div class="card reveal d2" data-glow>
       <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg></div>
@@ -358,7 +400,7 @@ if(!reduce){
   const dot=document.querySelector('.cur-dot'),ring=document.querySelector('.cur-ring');
   let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
   addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-  (function loop(){rx+=(mx-rx)*.18;ry+=(my-ry)*.18;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  (function loop(){rx+=(mx-rx)*.45;ry+=(my-ry)*.45;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
   document.querySelectorAll('[data-hot],a,button').forEach(el=>{
     el.addEventListener('mouseenter',()=>ring.classList.add('hot'));
     el.addEventListener('mouseleave',()=>ring.classList.remove('hot'));
@@ -423,5 +465,6 @@ const cio=new IntersectionObserver((es)=>{es.forEach(en=>{
     cio.unobserve(el);}})},{threshold:.5});
 document.querySelectorAll('.stat-num').forEach(el=>cio.observe(el));
 </script>
+<script src="sounds.js"></script>
 </body>
 </html>
