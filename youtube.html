@@ -226,42 +226,21 @@
     .yt-hero { flex-direction: column; text-align: center; }
   }
 
-  /* ===== LIGHT RED–WHITE THEME (YouTube page only) ===== */
-  :root{
-    --text:#2a1215;
-    --muted:#9b5560;
-    --blue:#d10000;
-    --line:rgba(200,60,60,0.16);
-  }
-  body{
-    background:
-      radial-gradient(120% 80% at 85% -10%, #ffdada 0%, transparent 55%),
-      radial-gradient(90% 90% at -10% 110%, #ffecec 0%, transparent 55%),
-      linear-gradient(135deg,#ffffff 0%,#fff3f3 45%,#ffe1e1 100%) !important;
-    color:#2a1215;
-  }
-  nav{ background:rgba(255,255,255,0.75) !important; border-bottom:1px solid rgba(200,60,60,0.14) !important; }
-  .nav-logo{ color:#2a1215; }
-  .nav-logo svg{ color:#d10000; }
-  .nav-links a{ color:#8a3a42; }
-  .nav-links a:hover, .nav-links a.active{ color:#c20000; }
-  .nav-links a::after{ background:#d10000; box-shadow:none; }
-  .page-label{ color:#c20000; }
-  .page-title{ color:#2a1215; }
-  .divider-line{ background:linear-gradient(90deg,#ff5a5a,#ffb3b3); }
-  .yt-stat-card, .yt-about-card, .platform-card{
-    background:#ffffff;
-    border:1px solid rgba(200,60,60,0.14);
-    box-shadow:0 6px 20px rgba(180,40,40,0.06);
-  }
-  .yt-stat-card:hover, .platform-card:hover{ box-shadow:0 12px 30px rgba(200,40,40,0.12); border-color:rgba(200,60,60,0.32); }
-  .yt-stat-label{ color:#9b5560; }
-  .yt-about-card h3{ color:#c20000; }
-  .yt-list-item{ color:#5a2a30; border-bottom-color:rgba(200,60,60,0.12); }
-  .platform-name{ color:#2a1215; }
-  .platform-desc{ color:#9b5560; }
-  footer{ border-top:1px solid rgba(200,60,60,0.14) !important; color:#9b5560; }
-  footer b{ color:#c20000; }
+  .yt-live-badge{ display:inline-flex; align-items:center; gap:.5rem;
+    font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:#fff;
+    background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.28);
+    padding:.35rem .85rem; border-radius:30px; margin-bottom:1.1rem; }
+  .yt-live-badge .d{ width:8px; height:8px; border-radius:50%; background:#fff;
+    box-shadow:0 0 0 0 rgba(255,255,255,.6); animation:ytpulse 2s infinite; }
+  @keyframes ytpulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.55)}70%{box-shadow:0 0 0 8px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+  .yt-section-title{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.4rem;
+    color:var(--text); margin:0 0 1.2rem; }
+  .yt-video{ position:relative; width:100%; max-width:860px; aspect-ratio:16/9; border-radius:16px;
+    overflow:hidden; border:1px solid rgba(255,61,61,0.2); box-shadow:0 22px 55px rgba(0,0,0,.55), 0 0 60px rgba(255,40,40,0.08);
+    background:#0a0f1c; margin-bottom:3rem; display:flex; align-items:center; justify-content:center; }
+  .yt-video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .yt-video-empty{ color:var(--muted); font-size:.9rem; text-align:center; padding:2rem; max-width:440px; line-height:1.6; }
+  .yt-video-empty code{ color:#ff6b6b; }
 </style>
 </head>
 <body>
@@ -275,6 +254,7 @@
     <li><a href="experience.html">Experience</a></li>
     <li><a href="certifications.html">Certifications</a></li>
     <li><a href="youtube.html" class="active">YouTube</a></li>
+    <li><a href="channel.html">Channel</a></li>
     <li><a href="photography.html">Photography</a></li>
     <li><a href="blog.html">Blog</a></li>
     <li><a href="contact.html">Contact</a></li>
@@ -293,12 +273,19 @@
     </div>
     <div class="yt-hero-text">
       <h2>@RiteshKatwal</h2>
+      <div class="yt-live-badge"><span class="d"></span><span id="ytHeroSubs">…</span> subscribers · live</div>
       <p>Nepal travel, trekking, and cultural content — produced entirely in Nepali. I handle everything from scripting and filming to editing and publishing.</p>
       <a href="https://www.youtube.com/@RiteshKatwal" target="_blank" class="yt-visit-btn">
         <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         Visit Channel
       </a>
     </div>
+  </div>
+
+  <!-- Latest Vlog -->
+  <h3 class="yt-section-title">Latest Vlog</h3>
+  <div class="yt-video" id="ytVideoWrap">
+    <div class="yt-video-empty" id="ytVideoEmpty">Add your <code>RK_CHANNEL_ID</code> in <code>youtube.html</code> to auto-show your latest video here. It always plays your newest upload — no manual updates.</div>
   </div>
 
   <!-- Stats -->
@@ -414,6 +401,39 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
   document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){obs.observe(el);});
 })();
+</script>
+<script src="yt-live.js"></script>
+<script>
+  /* ===== CONFIG — edit this ===== */
+  var RK_CHANNEL_ID = '';   // <-- paste your @RiteshKatwal channel ID (starts with UC...) here
+  var RK_API_KEY    = '';   // optional: free YouTube Data API v3 key for exact numbers
+  /* ============================== */
+  (async function () {
+    var wrap = document.getElementById('ytVideoWrap');
+    var empty = document.getElementById('ytVideoEmpty');
+    var heroSubs = document.getElementById('ytHeroSubs');
+    if (RK_CHANNEL_ID && /^UC/.test(RK_CHANNEL_ID)) {
+      // latest video = uploads playlist (newest first, auto)
+      var uu = 'UU' + RK_CHANNEL_ID.slice(2);
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube.com/embed/videoseries?list=' + uu;
+      f.title = 'Latest vlog';
+      f.loading = 'lazy';
+      f.allowFullscreen = true;
+      f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      if (empty) empty.remove();
+      wrap.appendChild(f);
+      // live subscribers
+      try {
+        var s = await window.YTLive.load(RK_CHANNEL_ID, RK_API_KEY);
+        if (s && heroSubs) heroSubs.textContent = window.YTLive.fmt(s.subs);
+        else if (heroSubs) heroSubs.textContent = '—';
+      } catch (e) { if (heroSubs) heroSubs.textContent = '—'; }
+    } else {
+      if (heroSubs) heroSubs.textContent = '—';
+    }
+  })();
 </script>
 <script src="sounds.js"></script>
 </body>

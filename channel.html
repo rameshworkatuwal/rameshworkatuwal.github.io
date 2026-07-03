@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Channel — Rameshwor Katuwal</title>
+<meta name="description" content="Nepal History Channel — short-form Nepali history & mythology across TikTok, Instagram, and YouTube. Managed by Rameshwor Katuwal.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lexend:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .ch-intro{ color:var(--muted); max-width:640px; font-size:0.98rem; margin-bottom:2.4rem; }
+
+  /* live stats */
+  .ch-live{
+    border:1px solid var(--line); border-radius:18px;
+    background:linear-gradient(120deg, rgba(56,225,255,0.06), rgba(139,108,255,0.05));
+    padding:1.6rem 1.8rem; margin-bottom:2.8rem; position:relative; overflow:hidden;
+  }
+  .ch-live-badge{
+    display:inline-flex; align-items:center; gap:0.5rem;
+    font-family:'Space Grotesk',sans-serif; font-size:0.68rem; letter-spacing:0.18em;
+    color:#22e07a; text-transform:uppercase; margin-bottom:1.2rem;
+  }
+  .ch-live-badge .dot{ width:8px; height:8px; border-radius:50%; background:#22e07a;
+    box-shadow:0 0 0 0 rgba(34,224,122,.6); animation:chpulse 2s infinite; }
+  @keyframes chpulse{0%{box-shadow:0 0 0 0 rgba(34,224,122,.5)}70%{box-shadow:0 0 0 10px rgba(34,224,122,0)}100%{box-shadow:0 0 0 0 rgba(34,224,122,0)}}
+  .ch-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+  .ch-stat .num{ font-family:'Space Grotesk',sans-serif; font-weight:700;
+    font-size:clamp(1.7rem,4vw,2.6rem); color:var(--blue); line-height:1;
+    text-shadow:0 0 26px rgba(56,225,255,.3); }
+  .ch-stat .lbl{ font-size:0.76rem; color:var(--muted); text-transform:uppercase;
+    letter-spacing:0.05em; margin-top:0.45rem; }
+
+  .ch-sub{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.4rem;
+    color:var(--text); margin:0 0 1.2rem; }
+
+  /* latest video */
+  .ch-video{ position:relative; width:100%; max-width:840px; aspect-ratio:16/9;
+    border-radius:16px; overflow:hidden; border:1px solid var(--line);
+    box-shadow:0 22px 55px rgba(0,0,0,.5); margin-bottom:3rem; background:#05070d; }
+  .ch-video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+  /* platform tabs */
+  .ch-tabs{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:2rem; }
+  .ch-tab{ position:relative; display:flex; align-items:center; gap:1rem;
+    padding:1.25rem 1.35rem; border:1px solid var(--line); border-radius:16px;
+    background:rgba(255,255,255,0.04); overflow:hidden; text-decoration:none;
+    transition:transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s, box-shadow .35s; }
+  .ch-tab::before{ content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 15% 0, var(--tabglow,rgba(56,225,255,.14)), transparent 62%);
+    opacity:0; transition:opacity .35s; }
+  .ch-tab:hover{ transform:translateY(-6px); border-color:var(--tabc,var(--blue));
+    box-shadow:0 16px 40px rgba(0,0,0,.45); }
+  .ch-tab:hover::before{ opacity:1; }
+  .ch-tab .ico{ position:relative; z-index:1; width:46px; height:46px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .ch-tab .ico svg{ width:24px; height:24px; }
+  .ch-tab .meta{ position:relative; z-index:1; display:flex; flex-direction:column; min-width:0; }
+  .ch-tab .pl{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.95rem; color:var(--text); }
+  .ch-tab .hd{ font-size:0.78rem; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ch-tab .cnt{ position:relative; z-index:1; margin-left:auto; text-align:right; flex-shrink:0; }
+  .ch-tab .cnt b{ display:block; font-family:'Space Grotesk',sans-serif; font-weight:700;
+    font-size:0.98rem; color:var(--text); }
+  .ch-tab .cnt span{ font-size:0.68rem; color:var(--muted); }
+
+  .ch-note{ font-size:0.8rem; color:var(--muted); max-width:640px; line-height:1.6; }
+
+  @media (max-width:760px){
+    .ch-stats{ grid-template-columns:repeat(3,1fr); gap:0.8rem; }
+    .ch-tabs{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>R.Katuwal</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="certifications.html">Certifications</a></li>
+    <li><a href="youtube.html">YouTube</a></li>
+    <li><a href="channel.html" class="active">Channel</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page reveal">
+  <p class="page-label">Currently Managing</p>
+  <h2 class="page-title">Nepal History Channel</h2>
+  <div class="divider-line"></div>
+  <p class="ch-intro">Short-form Nepali history &amp; mythology — scripted, edited, and published across TikTok, Instagram, and YouTube. Several videos have crossed viral view counts.</p>
+
+  <div class="ch-live">
+    <div class="ch-live-badge"><span class="dot"></span> Live · updates automatically</div>
+    <div class="ch-stats">
+      <div class="ch-stat"><div class="num" id="ytSubs">—</div><div class="lbl">YouTube Subscribers</div></div>
+      <div class="ch-stat"><div class="num" id="ytViews">—</div><div class="lbl">Total Views</div></div>
+      <div class="ch-stat"><div class="num" id="ytVids">—</div><div class="lbl">Videos</div></div>
+    </div>
+  </div>
+
+  <h3 class="ch-sub">Latest Video</h3>
+  <div class="ch-video">
+    <iframe src="https://www.youtube.com/embed/videoseries?list=UUhbgu5Pyly7NrKZiS6ktWsg"
+      title="Latest video — Nepal History Channel"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+  </div>
+
+  <h3 class="ch-sub">Across Platforms</h3>
+  <div class="ch-tabs">
+    <a href="https://www.tiktok.com/@nepalhistory.chan?lang=en" target="_blank" rel="noopener" class="ch-tab" data-sound style="--tabc:#25f4ee;--tabglow:rgba(37,244,238,.16)">
+      <span class="ico" style="background:rgba(37,244,238,.12)"><svg viewBox="0 0 24 24" fill="#25f4ee"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.3v13.3a2.44 2.44 0 0 1-2.44 2.44 2.44 2.44 0 1 1 .75-4.79V8.6a5.75 5.75 0 1 0 4.99 5.7V8.9a7.5 7.5 0 0 0 4.38 1.4V7a4.28 4.28 0 0 1-3.32-1.18Z"/></svg></span>
+      <span class="meta"><span class="pl">TikTok</span><span class="hd">@nepalhistory.chan</span></span>
+      <span class="cnt"><b id="ttFollowers">↗</b><span>followers</span></span>
+    </a>
+    <a href="https://www.instagram.com/nepalhistory.channel/" target="_blank" rel="noopener" class="ch-tab" data-sound style="--tabc:#e1306c;--tabglow:rgba(225,48,108,.18)">
+      <span class="ico" style="background:rgba(225,48,108,.12)"><svg viewBox="0 0 24 24" fill="#e1306c"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2Zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9Z"/></svg></span>
+      <span class="meta"><span class="pl">Instagram</span><span class="hd">@nepalhistory.channel</span></span>
+      <span class="cnt"><b id="igFollowers">↗</b><span>followers</span></span>
+    </a>
+    <a href="https://www.youtube.com/@nepalhistorychannel/videos" target="_blank" rel="noopener" class="ch-tab" data-sound style="--tabc:#ff3d3d;--tabglow:rgba(255,61,61,.18)">
+      <span class="ico" style="background:rgba(255,61,61,.12)"><svg viewBox="0 0 24 24" fill="#ff3d3d"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></span>
+      <span class="meta"><span class="pl">YouTube</span><span class="hd">@nepalhistorychannel</span></span>
+      <span class="cnt"><b id="ytSubsTab">—</b><span>subscribers</span></span>
+    </a>
+  </div>
+
+  <p class="ch-note">YouTube figures update live each time the page loads. TikTok &amp; Instagram counts are set manually (those platforms don't offer a free live count for a static site) — edit them in <code>channel.html</code> whenever you want.</p>
+</div>
+
+<footer>© 2026 Rameshwor Katuwal</footer>
+
+<script src="yt-live.js"></script>
+<script>
+  /* ===== CONFIG — edit these ===== */
+  var NH_CHANNEL_ID   = 'UChbgu5Pyly7NrKZiS6ktWsg';   // Nepal History Channel
+  var YT_API_KEY      = '';     // optional: paste a free YouTube Data API v3 key for exact numbers
+  var TIKTOK_FOLLOWERS = null;  // <-- put your current TikTok followers here, e.g. 28000
+  var IG_FOLLOWERS     = null;  // <-- put your current Instagram followers here, e.g. 5000
+  /* ================================ */
+
+  (async function () {
+    function set(id, v) { var el = document.getElementById(id); if (el) el.textContent = window.YTLive ? window.YTLive.fmt(v) : v; }
+    try {
+      var s = await window.YTLive.load(NH_CHANNEL_ID, YT_API_KEY);
+      if (s) { set('ytSubs', s.subs); set('ytSubsTab', s.subs); set('ytViews', s.views); set('ytVids', s.videos); }
+    } catch (e) {}
+    // TikTok / Instagram manual counts (honest fallback on a static site)
+    var tt = document.getElementById('ttFollowers');
+    var ig = document.getElementById('igFollowers');
+    if (tt) tt.textContent = (TIKTOK_FOLLOWERS != null) ? window.YTLive.fmt(TIKTOK_FOLLOWERS) : '↗';
+    if (ig) ig.textContent = (IG_FOLLOWERS != null) ? window.YTLive.fmt(IG_FOLLOWERS) : '↗';
+  })();
+
+  /* reveal */
+  (function(){
+    var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+    document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){obs.observe(el);});
+  })();
+</script>
+<script src="sounds.js"></script>
+</body>
+</html>
