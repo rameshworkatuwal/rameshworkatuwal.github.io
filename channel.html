@@ -73,7 +73,11 @@
     .ch-stats{ grid-template-columns:repeat(3,1fr); gap:0.8rem; }
     .ch-tabs{ grid-template-columns:1fr; }
   }
+
+html[data-theme="light"] .ch-tab{ background:#fff; box-shadow:0 10px 24px rgba(20,50,90,.07); }
+html[data-theme="light"] .ch-sub, html[data-theme="light"] .ch-set-head h3{ color:var(--text); }
 </style>
+<script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -129,6 +133,7 @@
     document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){obs.observe(el);});
   })();
 </script>
+<script src="theme.js"></script>
 <script src="sounds.js"></script>
 </body>
 </html>

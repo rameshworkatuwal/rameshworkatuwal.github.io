@@ -117,7 +117,14 @@
 .lb-next{ right:1.2rem; top:50%; margin-top:-22px; }
 @media (max-width:620px){ .lb-prev{left:.5rem} .lb-next{right:.5rem} }
 
+
+html[data-theme="light"] .gal-item{ background:#fff; box-shadow:0 10px 26px rgba(20,50,90,.08); }
+html[data-theme="light"] .gal-item img{ background:#eef2f7; filter:saturate(1) contrast(1); }
+html[data-theme="light"] .lb{ background:rgba(240,245,250,.95); }
+html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgba(255,255,255,.9); border-color:rgba(20,60,100,.15); color:#10202e; }
+html[data-theme="light"] .lb-cap{ color:#5d7183; }
 </style>
+<script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -206,6 +213,20 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 <script>
 (function(){
   var items=[].slice.call(document.querySelectorAll('.gal-item'));
+
+  // if the switzerland/ folder didn't make it to the server, fall back to root-level files
+  function root(p){ return p.replace(/^switzerland\//,''); }
+  items.forEach(function(el){
+    var img=el.querySelector('img');
+    img.addEventListener('error',function(){
+      if(!img.dataset.fell){ img.dataset.fell='1'; img.src=root(img.getAttribute('src')); }
+    });
+    // retry once for images that already failed before this script ran
+    if(img.complete && img.naturalWidth===0 && !img.dataset.fell){
+      img.dataset.fell='1'; img.src=root(img.getAttribute('src'));
+    }
+  });
+
   // staggered reveal
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e){
@@ -220,9 +241,13 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 
   // lightbox
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), cap=document.getElementById('lbCap'), cur=0;
+  img.addEventListener('error',function(){
+    if(!img.dataset.fell){ img.dataset.fell='1'; img.src=root(img.getAttribute('src')); }
+  });
   function show(i){
     cur=(i+items.length)%items.length;
     var el=items[cur];
+    delete img.dataset.fell;
     img.src=el.dataset.full; img.alt=el.dataset.cap; cap.textContent=el.dataset.cap;
   }
   function open(i){ show(i); lb.classList.add('on'); document.body.style.overflow='hidden'; }
@@ -249,6 +274,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   },{passive:true});
 })();
 </script>
+<script src="theme.js"></script>
 <script src="sounds.js"></script>
 </body>
 </html>

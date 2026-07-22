@@ -241,7 +241,13 @@
   .yt-video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
   .yt-video-empty{ color:var(--muted); font-size:.9rem; text-align:center; padding:2rem; max-width:440px; line-height:1.6; }
   .yt-video-empty code{ color:#ff6b6b; }
+
+html[data-theme="light"] .yt-stat-card, html[data-theme="light"] .yt-about-card, html[data-theme="light"] .platform-card{
+  background:#fff; box-shadow:0 10px 26px rgba(20,50,90,.08);
+}
+html[data-theme="light"] .yt-video{ background:#eef2f7; }
 </style>
+<script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -395,6 +401,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){obs.observe(el);});
 })();
 </script>
+<script src="theme.js"></script>
 <script src="sounds.js"></script>
 </body>
 </html>

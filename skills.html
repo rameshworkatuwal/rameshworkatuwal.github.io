@@ -14,7 +14,11 @@
 .lp:hover{transform:translateY(-4px);border-color:rgba(56,225,255,.4);box-shadow:0 10px 26px rgba(0,0,0,.4)}
 .lp-i{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:-.02em}
 .lp-i svg{width:17px;height:17px}
+
+html[data-theme="light"] .lp{ background:#fff; box-shadow:0 8px 20px rgba(20,50,90,.07); }
+html[data-theme="light"] .lp:hover{ border-color:rgba(2,136,209,.45); }
 </style>
+<script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -193,6 +197,7 @@ document.querySelectorAll('.stat-num').forEach(el => {
 });
 </script>
 
+<script src="theme.js"></script>
 <script src="sounds.js"></script>
 </body>
 </html>
