@@ -9,6 +9,45 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+<style>
+/* profile photo above Personal Info */
+.profile-card{
+  position:relative; width:100%; margin:0 auto 1.5rem;
+  border-radius:16px; padding:2.2rem 1rem;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(56,225,255,0.10), transparent 60%),
+    var(--surface);
+  border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.profile-card::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, transparent 55%, rgba(139,108,255,0.07));
+}
+.profile-ring{
+  position:absolute; width:186px; height:186px; border-radius:50%;
+  background:conic-gradient(from 0deg, var(--blue), var(--blue-light), var(--blue-mid), var(--blue));
+  filter:blur(11px); opacity:.85;
+  animation:profileSpin 9s linear infinite;
+}
+@keyframes profileSpin{ to{ transform:rotate(360deg); } }
+.profile-photo{
+  position:relative; z-index:1;
+  width:170px; height:170px; border-radius:50%;
+  object-fit:cover; object-position:center 18%;
+  border:4px solid var(--page-solid, #070b14);
+  box-shadow:0 18px 44px rgba(0,0,0,.45);
+  transition:transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.profile-card:hover .profile-photo{ transform:scale(1.04); }
+html[data-theme="light"] .profile-card{
+  background:radial-gradient(120% 90% at 50% 0%, rgba(2,136,209,0.08), transparent 60%), #fff;
+  box-shadow:0 12px 30px rgba(20,50,90,.08);
+}
+html[data-theme="light"] .profile-photo{ border-color:#fff; box-shadow:0 14px 34px rgba(20,50,90,.18); }
+@media (prefers-reduced-motion:reduce){ .profile-ring{ animation:none; } }
+</style>
 </head>
 <body>
 
@@ -51,6 +90,11 @@
     </div>
 
     <div>
+      <div class="profile-card">
+        <div class="profile-ring"></div>
+        <img src="profile.jpg" alt="Ritesh Katuwal" class="profile-photo">
+      </div>
+
       <div class="info-card" style="margin-bottom: 1.5rem;">
         <h3>Personal Info</h3>
         <div class="info-row">
@@ -98,6 +142,10 @@
           <div class="lang-item">
             <div class="lang-header"><span>Hindi</span><span>Fluent</span></div>
             <div class="lang-bar"><div class="lang-fill" style="width: 85%"></div></div>
+          </div>
+          <div class="lang-item">
+            <div class="lang-header"><span>German</span><span>A1 · Beginner</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="width: 20%"></div></div>
           </div>
         </div>
       </div>

@@ -35,14 +35,14 @@ body {
 
 /* ── PAGE TRANSITION ── */
 @keyframes pageIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 body.page-exit {
   animation: pageOut 0.25s ease forwards;
 }
 @keyframes pageOut {
-  to { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 0; }
 }
 
 /* ── NAV ── */
@@ -1160,7 +1160,7 @@ h1 {
   overflow: hidden;          /* THIS clips the white bg into circle */
   z-index: 1;
   pointer-events: none;
-  animation: hkFade 3.5s ease-in-out infinite;
+  opacity: 0.26;
 }
 
 .hk-bg-logo img {
@@ -1168,12 +1168,6 @@ h1 {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-@keyframes hkFade {
-  0%   { opacity: 0.12; }
-  50%  { opacity: 0.35; }
-  100% { opacity: 0.12; }
 }
 
 /* Amber glow on the right */
@@ -1233,7 +1227,7 @@ h1 {
   overflow: hidden;
   z-index: 1;
   pointer-events: none;
-  animation: tnFade 3.5s ease-in-out infinite;
+  opacity: 0.26;
 }
 
 .tn-bg-logo img {
@@ -1241,12 +1235,6 @@ h1 {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-@keyframes tnFade {
-  0%   { opacity: 0.12; }
-  50%  { opacity: 0.35; }
-  100% { opacity: 0.12; }
 }
 
 /* Blue glow on the right */
@@ -1304,7 +1292,7 @@ h1 {
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
-  animation: imsFade 3.5s ease-in-out infinite;
+  opacity: 0.28;
 }
 
 .ims-bg-logo img {
@@ -1313,12 +1301,6 @@ h1 {
   object-fit: contain;
   display: block;
   mix-blend-mode: screen;
-}
-
-@keyframes imsFade {
-  0%   { opacity: 0.15; }
-  50%  { opacity: 0.40; }
-  100% { opacity: 0.15; }
 }
 
 /* Teal glow on the right */
@@ -1688,3 +1670,35 @@ html[data-theme="light"] .highlight-box{
 }
 html[data-theme="light"] .page-title{ color: var(--text); }
 html[data-theme="light"] .btn-primary{ color:#fff; }
+
+/* branded experience cards — light theme */
+html[data-theme="light"] .hansikar-card{
+  background: linear-gradient(135deg,#fffaf0 0%,#fff5e0 60%,#fffdf7 100%) !important;
+  border-color: rgba(180,120,20,0.18) !important;
+}
+html[data-theme="light"] .topnepal-card{
+  background: linear-gradient(135deg,#f4faff 0%,#e9f4ff 60%,#f8fcff 100%) !important;
+  border-color: rgba(20,110,180,0.18) !important;
+}
+html[data-theme="light"] .ims-card{
+  background: linear-gradient(135deg,#f2fbfa 0%,#e6f7f5 60%,#f7fdfc 100%) !important;
+  border-color: rgba(20,150,140,0.18) !important;
+}
+html[data-theme="light"] .hansikar-card .job-title{ color:#9a6b04 !important; }
+html[data-theme="light"] .hansikar-card .job-period,
+html[data-theme="light"] .hansikar-card .job-company{ color:#a8792a !important; }
+html[data-theme="light"] .topnepal-card .job-title{ color:#0369a1 !important; }
+html[data-theme="light"] .topnepal-card .job-period,
+html[data-theme="light"] .topnepal-card .job-company{ color:#2f7ba8 !important; }
+html[data-theme="light"] .ims-card .job-title{ color:#0f766e !important; }
+html[data-theme="light"] .ims-card .job-period,
+html[data-theme="light"] .ims-card .job-company{ color:#2f8d85 !important; }
+html[data-theme="light"] .hansikar-card .job-points li,
+html[data-theme="light"] .topnepal-card .job-points li,
+html[data-theme="light"] .ims-card .job-points li{ color:#3d4a5c !important; }
+html[data-theme="light"] .hk-bg-logo,
+html[data-theme="light"] .tn-bg-logo{ opacity:0.16; }
+html[data-theme="light"] .ims-bg-logo{ opacity:0.20; mix-blend-mode:multiply; }
+html[data-theme="light"] .hk-glow,
+html[data-theme="light"] .tn-glow,
+html[data-theme="light"] .ims-glow{ opacity:0.35; }
