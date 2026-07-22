@@ -5,8 +5,8 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="alternate icon" type="image/png" href="favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Channel — Rameshwor Katuwal</title>
-<meta name="description" content="Nepal History Channel — short-form Nepali history & mythology across TikTok, Instagram, and YouTube. Managed by Rameshwor Katuwal.">
+<title>Channel — Ritesh Katuwal</title>
+<meta name="description" content="Nepal History Channel — short-form Nepali history & mythology across TikTok, Instagram, and YouTube. Managed by Ritesh Katuwal.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lexend:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
@@ -65,6 +65,8 @@
     font-size:0.98rem; color:var(--text); }
   .ch-tab .cnt span{ font-size:0.68rem; color:var(--muted); }
 
+  .ch-arrow{ margin-left:auto; color:var(--muted); font-family:'Space Grotesk',sans-serif; font-size:1rem; transition:transform .3s,color .3s; }
+  .ch-tab:hover .ch-arrow{ color:var(--tabc,var(--blue)); transform:translate(3px,-3px); }
   .ch-note{ font-size:0.8rem; color:var(--muted); max-width:640px; line-height:1.6; }
 
   @media (max-width:760px){
@@ -96,22 +98,6 @@
   <h2 class="page-title">Nepal History Channel</h2>
   <div class="divider-line"></div>
   <p class="ch-intro">Short-form Nepali history &amp; mythology — scripted, edited, and published across TikTok, Instagram, and YouTube. Several videos have crossed viral view counts.</p>
-
-  <div class="ch-live">
-    <div class="ch-live-badge"><span class="dot"></span> Live · updates automatically</div>
-    <div class="ch-stats">
-      <div class="ch-stat"><div class="num" id="ytSubs">—</div><div class="lbl">YouTube Subscribers</div></div>
-      <div class="ch-stat"><div class="num" id="ytViews">—</div><div class="lbl">Total Views</div></div>
-      <div class="ch-stat"><div class="num" id="ytVids">—</div><div class="lbl">Videos</div></div>
-    </div>
-  </div>
-
-  <h3 class="ch-sub">Latest Video</h3>
-  <div class="ch-video">
-    <iframe src="https://www.youtube.com/embed/videoseries?list=UUhbgu5Pyly7NrKZiS6ktWsg"
-      title="Latest video — Nepal History Channel"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
   </div>
 
   <h3 class="ch-sub">Across Platforms</h3>
@@ -119,47 +105,24 @@
     <a href="https://www.tiktok.com/@nepalhistory.chan?lang=en" target="_blank" rel="noopener" class="ch-tab" data-sound style="--tabc:#25f4ee;--tabglow:rgba(37,244,238,.16)">
       <span class="ico" style="background:rgba(37,244,238,.12)"><svg viewBox="0 0 24 24" fill="#25f4ee"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.3v13.3a2.44 2.44 0 0 1-2.44 2.44 2.44 2.44 0 1 1 .75-4.79V8.6a5.75 5.75 0 1 0 4.99 5.7V8.9a7.5 7.5 0 0 0 4.38 1.4V7a4.28 4.28 0 0 1-3.32-1.18Z"/></svg></span>
       <span class="meta"><span class="pl">TikTok</span><span class="hd">@nepalhistory.chan</span></span>
-      <span class="cnt"><b id="ttFollowers">↗</b><span>followers</span></span>
+      <span class="ch-arrow">↗</span></span>
     </a>
     <a href="https://www.instagram.com/nepalhistory.channel/" target="_blank" rel="noopener" class="ch-tab" data-sound style="--tabc:#e1306c;--tabglow:rgba(225,48,108,.18)">
       <span class="ico" style="background:rgba(225,48,108,.12)"><svg viewBox="0 0 24 24" fill="#e1306c"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2Zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9Z"/></svg></span>
       <span class="meta"><span class="pl">Instagram</span><span class="hd">@nepalhistory.channel</span></span>
-      <span class="cnt"><b id="igFollowers">↗</b><span>followers</span></span>
+      <span class="ch-arrow">↗</span></span>
     </a>
     <a href="https://www.youtube.com/@nepalhistorychannel/videos" target="_blank" rel="noopener" class="ch-tab" data-sound style="--tabc:#ff3d3d;--tabglow:rgba(255,61,61,.18)">
       <span class="ico" style="background:rgba(255,61,61,.12)"><svg viewBox="0 0 24 24" fill="#ff3d3d"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></span>
       <span class="meta"><span class="pl">YouTube</span><span class="hd">@nepalhistorychannel</span></span>
-      <span class="cnt"><b id="ytSubsTab">—</b><span>subscribers</span></span>
+      <span class="ch-arrow">↗</span></span>
     </a>
   </div>
-
-  <p class="ch-note">YouTube figures update live each time the page loads. TikTok &amp; Instagram counts are set manually (those platforms don't offer a free live count for a static site) — edit them in <code>channel.html</code> whenever you want.</p>
 </div>
 
-<footer>© 2026 Rameshwor Katuwal</footer>
+<footer>© 2026 Ritesh Katuwal</footer>
 
-<script src="yt-live.js"></script>
 <script>
-  /* ===== CONFIG — edit these ===== */
-  var NH_CHANNEL_ID   = 'UChbgu5Pyly7NrKZiS6ktWsg';   // Nepal History Channel
-  var YT_API_KEY      = '';     // optional: paste a free YouTube Data API v3 key for exact numbers
-  var TIKTOK_FOLLOWERS = null;  // <-- put your current TikTok followers here, e.g. 28000
-  var IG_FOLLOWERS     = null;  // <-- put your current Instagram followers here, e.g. 5000
-  /* ================================ */
-
-  (async function () {
-    function set(id, v) { var el = document.getElementById(id); if (el) el.textContent = window.YTLive ? window.YTLive.fmt(v) : v; }
-    try {
-      var s = await window.YTLive.load(NH_CHANNEL_ID, YT_API_KEY);
-      if (s) { set('ytSubs', s.subs); set('ytSubsTab', s.subs); set('ytViews', s.views); set('ytVids', s.videos); }
-    } catch (e) {}
-    // TikTok / Instagram manual counts (honest fallback on a static site)
-    var tt = document.getElementById('ttFollowers');
-    var ig = document.getElementById('igFollowers');
-    if (tt) tt.textContent = (TIKTOK_FOLLOWERS != null) ? window.YTLive.fmt(TIKTOK_FOLLOWERS) : '↗';
-    if (ig) ig.textContent = (IG_FOLLOWERS != null) ? window.YTLive.fmt(IG_FOLLOWERS) : '↗';
-  })();
-
   /* reveal */
   (function(){
     var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});

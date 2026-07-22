@@ -5,7 +5,7 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="alternate icon" type="image/png" href="favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YouTube — Rameshwor Katuwal</title>
+<title>YouTube — Ritesh Katuwal</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
@@ -273,19 +273,12 @@
     </div>
     <div class="yt-hero-text">
       <h2>@RiteshKatwal</h2>
-      <div class="yt-live-badge"><span class="d"></span><span id="ytHeroSubs">…</span> subscribers · live</div>
       <p>Nepal travel, trekking, and cultural content — produced entirely in Nepali. I handle everything from scripting and filming to editing and publishing.</p>
       <a href="https://www.youtube.com/@RiteshKatwal" target="_blank" class="yt-visit-btn">
         <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         Visit Channel
       </a>
     </div>
-  </div>
-
-  <!-- Latest Vlog -->
-  <h3 class="yt-section-title">Latest Vlog</h3>
-  <div class="yt-video" id="ytVideoWrap">
-    <div class="yt-video-empty" id="ytVideoEmpty">Add your <code>RK_CHANNEL_ID</code> in <code>youtube.html</code> to auto-show your latest video here. It always plays your newest upload — no manual updates.</div>
   </div>
 
   <!-- Stats -->
@@ -381,7 +374,7 @@
 
 </div>
 
-<footer>© 2026 Rameshwor Katuwal</footer>
+<footer>© 2026 Ritesh Katuwal</footer>
 
 <script>
 document.querySelectorAll('.nav-links a').forEach(link => {
@@ -401,39 +394,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
   document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){obs.observe(el);});
 })();
-</script>
-<script src="yt-live.js"></script>
-<script>
-  /* ===== CONFIG — edit this ===== */
-  var RK_CHANNEL_ID = '';   // <-- paste your @RiteshKatwal channel ID (starts with UC...) here
-  var RK_API_KEY    = '';   // optional: free YouTube Data API v3 key for exact numbers
-  /* ============================== */
-  (async function () {
-    var wrap = document.getElementById('ytVideoWrap');
-    var empty = document.getElementById('ytVideoEmpty');
-    var heroSubs = document.getElementById('ytHeroSubs');
-    if (RK_CHANNEL_ID && /^UC/.test(RK_CHANNEL_ID)) {
-      // latest video = uploads playlist (newest first, auto)
-      var uu = 'UU' + RK_CHANNEL_ID.slice(2);
-      var f = document.createElement('iframe');
-      f.src = 'https://www.youtube.com/embed/videoseries?list=' + uu;
-      f.title = 'Latest vlog';
-      f.loading = 'lazy';
-      f.allowFullscreen = true;
-      f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-      f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-      if (empty) empty.remove();
-      wrap.appendChild(f);
-      // live subscribers
-      try {
-        var s = await window.YTLive.load(RK_CHANNEL_ID, RK_API_KEY);
-        if (s && heroSubs) heroSubs.textContent = window.YTLive.fmt(s.subs);
-        else if (heroSubs) heroSubs.textContent = '—';
-      } catch (e) { if (heroSubs) heroSubs.textContent = '—'; }
-    } else {
-      if (heroSubs) heroSubs.textContent = '—';
-    }
-  })();
 </script>
 <script src="sounds.js"></script>
 </body>
