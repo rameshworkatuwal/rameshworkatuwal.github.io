@@ -6,6 +6,7 @@
 <link rel="alternate icon" type="image/png" href="favicon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Photography — Ritesh Katuwal</title>
+<meta name="description" content="A curated collection of travel photography by Ritesh Katuwal, featuring landscapes and everyday moments from Switzerland.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
@@ -71,25 +72,36 @@
   border-radius: 20px;
 }
 
-/* ===== gallery ===== */
-.gal-intro{ color:var(--muted); font-size:.95rem; max-width:620px; margin-bottom:2.4rem; }
+/* ===== editorial gallery ===== */
+.gallery-page{ max-width:1240px; padding-left:4%; padding-right:4%; }
+.gal-intro{ color:var(--muted); font-size:.95rem; max-width:660px; margin-bottom:3rem; }
 .gal-set{ margin-bottom:3rem; }
-.gal-set-head{ display:flex; align-items:baseline; gap:.9rem; flex-wrap:wrap; margin-bottom:1.4rem; }
-.gal-set-head h3{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.45rem; color:var(--text); }
-.gal-set-head span{ font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color:var(--blue); }
+.gal-set-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  margin-bottom:1.4rem; padding-top:1.2rem; border-top:1px solid var(--line); }
+.gal-set-head h3{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.55rem; color:var(--text); }
+.gal-set-head span{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); }
 .gal-empty{ color:var(--muted); font-size:.88rem; }
-.gal-grid{ columns:3; column-gap:14px; }
-@media (max-width:1000px){ .gal-grid{ columns:2; } }
-@media (max-width:620px){ .gal-grid{ columns:1; } }
-.gal-item{ position:relative; break-inside:avoid; margin:0 0 14px; border-radius:14px; overflow:hidden;
-  border:1px solid var(--line); background:var(--surface); cursor:zoom-in; display:block;
+.gal-grid{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:18px; }
+.gal-item{ position:relative; grid-column:span 4; aspect-ratio:4/3; padding:0; border-radius:16px; overflow:hidden;
+  border:1px solid var(--line); background:var(--surface); cursor:zoom-in; display:block; width:100%;
   opacity:0; transform:translateY(30px) scale(.975); filter:blur(8px);
   transition:opacity .85s cubic-bezier(.2,.7,.2,1), transform .85s cubic-bezier(.2,.7,.2,1), filter .85s cubic-bezier(.2,.7,.2,1), border-color .4s, box-shadow .5s; }
+.gal-item:nth-child(5n+1){ grid-column:span 8; aspect-ratio:16/9; }
 .gal-item.in{ opacity:1; transform:none; filter:blur(0); }
-.gal-item img{ width:100%; height:auto; display:block; min-height:160px; background:#0a0f1c;
+.gal-item img{ width:100%; height:100%; object-fit:cover; display:block; background:#0a0f1c;
   transition:transform .8s cubic-bezier(.2,.7,.2,1), filter .6s; filter:saturate(.95) contrast(1.02); }
 .gal-item:hover{ border-color:rgba(56,225,255,.42); box-shadow:0 20px 46px rgba(0,0,0,.5); }
 .gal-item:hover img{ transform:scale(1.05); filter:saturate(1.05) contrast(1.04); }
+.gal-item:focus-visible{ outline:3px solid var(--blue); outline-offset:4px; }
+@media (max-width:900px){
+  .gal-grid{ gap:14px; }
+  .gal-item,.gal-item:nth-child(5n+1){ grid-column:span 6; aspect-ratio:4/3; }
+}
+@media (max-width:600px){
+  .gallery-page{ padding-left:5%; padding-right:5%; }
+  .gal-grid{ grid-template-columns:1fr; gap:14px; }
+  .gal-item,.gal-item:nth-child(5n+1){ grid-column:auto; aspect-ratio:16/10; }
+}
 
 /* lightbox — always fits the screen */
 .lb{ position:fixed; inset:0; z-index:9999; background:rgba(3,5,10,.94); backdrop-filter:blur(14px);
@@ -143,7 +155,7 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
   </ul>
 </nav>
 
-<div class="page reveal">
+<main class="page gallery-page reveal">
   <p class="page-label">Behind the Lens</p>
   <h2 class="page-title">Photography</h2>
   <div class="divider-line"></div>
@@ -151,8 +163,7 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
   <p class="gal-intro">Shots from my own travels — carried a camera, kept the frames that felt worth keeping.</p>
 
   <div id="gallery"></div>
-</div>
-</div>
+</main>
 
 <footer>© 2026 Ritesh Katuwal</footer>
 
@@ -185,7 +196,23 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     user: 'rameshworkatuwal',
     repo: 'rameshworkatuwal.github.io',
     sets: [
-      { folder: 'switzerland', title: 'Switzerland', sub: '2019' }
+      {
+        folder: 'switzerland',
+        title: 'Switzerland',
+        sub: '2019 · 10 selected frames',
+        files: [
+          'switzerland/web-01.jpg',
+          'switzerland/web-02.jpg',
+          'switzerland/web-03.jpg',
+          'switzerland/web-04.jpg',
+          'switzerland/web-05.jpg',
+          'switzerland/web-06.jpg',
+          'switzerland/web-07.jpg',
+          'switzerland/web-08.jpg',
+          'switzerland/web-09.jpg',
+          'switzerland/web-10.jpg'
+        ]
+      }
     ]
   };
 </script>

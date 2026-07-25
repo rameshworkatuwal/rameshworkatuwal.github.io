@@ -58,6 +58,9 @@
   }
 
   function resolveSet(set) {
+    if (Array.isArray(set.files) && set.files.length) {
+      return Promise.resolve(set.files.slice());
+    }
     var folder = set.folder;
     return fromGitHub(folder).then(function (files) {
       if (files && files.length) return files;
@@ -69,10 +72,13 @@
   }
 
   /* ---------- lightbox (shared) ---------- */
-  var all = [], lb, lbImg, lbCount, cur = 0;
+  var all = [], lb, lbImg, lbCount, cur = 0, previousFocus = null;
 
   function buildLightbox() {
     lb = el('div', 'lb'); lb.id = 'lb';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Photo viewer');
     lb.innerHTML =
       '<button class="lb-x" aria-label="Close">✕</button>' +
       '<button class="lb-nav lb-prev" aria-label="Previous">‹</button>' +
@@ -109,8 +115,18 @@
     lbImg.src = all[cur];
     lbCount.textContent = (cur + 1) + ' / ' + all.length;
   }
-  function open(i) { show(i); lb.classList.add('on'); document.body.style.overflow = 'hidden'; }
-  function close() { lb.classList.remove('on'); document.body.style.overflow = ''; }
+  function open(i, trigger) {
+    previousFocus = trigger || document.activeElement;
+    show(i);
+    lb.classList.add('on');
+    document.body.style.overflow = 'hidden';
+    lb.querySelector('.lb-x').focus();
+  }
+  function close() {
+    lb.classList.remove('on');
+    document.body.style.overflow = '';
+    if (previousFocus && previousFocus.focus) previousFocus.focus();
+  }
 
   /* ---------- render ---------- */
   function render(set, files, wrap) {
@@ -119,16 +135,19 @@
       return;
     }
     var grid = el('div', 'gal-grid');
-    files.forEach(function (src) {
+    files.forEach(function (src, position) {
       var idx = all.length;
       all.push(src);
-      var a = el('a', 'gal-item');
+      var a = el('button', 'gal-item');
+      a.type = 'button';
+      a.setAttribute('aria-label', 'Open ' + (set.title || 'travel') + ' photograph ' + (position + 1));
       var img = el('img');
       img.src = src;
       img.loading = 'lazy';
-      img.alt = set.title || 'Photo';
+      img.decoding = 'async';
+      img.alt = (set.title || 'Travel') + ' photograph ' + (position + 1);
       a.appendChild(img);
-      a.addEventListener('click', function () { open(idx); });
+      a.addEventListener('click', function () { open(idx, a); });
       grid.appendChild(a);
     });
     wrap.innerHTML = '';
