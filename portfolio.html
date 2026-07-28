@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Ritesh Katuwal</title>
+<meta name="description" content="Ritesh Katuwal's photography portfolio, featuring curated travel and event collections.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.photo-coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 52vh;
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+
+.photo-icon {
+  width: 72px;
+  height: 72px;
+  background: rgba(2,136,209,0.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.8rem;
+  border: 1.5px solid rgba(2,136,209,0.18);
+}
+
+.photo-icon svg {
+  width: 34px;
+  height: 34px;
+  color: var(--blue);
+  fill: var(--blue);
+}
+
+.photo-coming-soon h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: var(--text);
+  margin-bottom: 0.7rem;
+}
+
+.photo-coming-soon p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  max-width: 480px;
+}
+
+.photo-categories {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.photo-tag {
+  background: rgba(2,136,209,0.07);
+  border: 1px solid rgba(2,136,209,0.15);
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+}
+
+/* ===== editorial gallery ===== */
+.gallery-page{ max-width:1240px; padding-left:4%; padding-right:4%; }
+.gal-intro{ color:var(--muted); font-size:.95rem; max-width:660px; margin-bottom:3rem; }
+.album-folders{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem; margin:0 0 3.2rem; }
+.album-folder{ position:relative; min-height:220px; overflow:hidden; border:1px solid var(--line); border-radius:18px;
+  color:#fff; text-decoration:none; box-shadow:var(--shadow); isolation:isolate; transition:transform .3s,border-color .3s; }
+.album-folder::after{ content:''; position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(180deg,rgba(3,8,18,.08),rgba(3,8,18,.88)); }
+.album-folder img{ position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover; transition:transform .6s; }
+.album-folder:hover{ transform:translateY(-5px); border-color:rgba(56,225,255,.55); }
+.album-folder:hover img{ transform:scale(1.05); }
+.album-folder-copy{ position:absolute; left:1.4rem; right:1.4rem; bottom:1.25rem; }
+.album-folder small{ display:block; color:#9eefff; font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; margin-bottom:.25rem; }
+.album-folder strong{ display:block; font-family:'Playfair Display',serif; font-size:1.45rem; line-height:1.2; }
+.album-folder span{ display:block; margin-top:.35rem; font-size:.78rem; color:rgba(255,255,255,.75); }
+.gal-set{ margin-bottom:3rem; }
+.gal-set-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  margin-bottom:1.4rem; padding-top:1.2rem; border-top:1px solid var(--line); }
+.gal-set-head h3{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.55rem; color:var(--text); }
+.gal-set-head span{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); }
+.gal-empty{ color:var(--muted); font-size:.88rem; }
+.gal-grid{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:18px; }
+.gal-item{ position:relative; grid-column:span 4; aspect-ratio:4/3; padding:0; border-radius:16px; overflow:hidden;
+  border:1px solid var(--line); background:var(--surface); cursor:zoom-in; display:block; width:100%;
+  opacity:0; transform:translateY(30px) scale(.975); filter:blur(8px);
+  transition:opacity .85s cubic-bezier(.2,.7,.2,1), transform .85s cubic-bezier(.2,.7,.2,1), filter .85s cubic-bezier(.2,.7,.2,1), border-color .4s, box-shadow .5s; }
+.gal-item:nth-child(5n+1){ grid-column:span 8; aspect-ratio:16/9; }
+.gal-item.in{ opacity:1; transform:none; filter:blur(0); }
+.gal-item img{ width:100%; height:100%; object-fit:cover; display:block; background:#0a0f1c;
+  transition:transform .8s cubic-bezier(.2,.7,.2,1), filter .6s; filter:saturate(.95) contrast(1.02); }
+.gal-item:hover{ border-color:rgba(56,225,255,.42); box-shadow:0 20px 46px rgba(0,0,0,.5); }
+.gal-item:hover img{ transform:scale(1.05); filter:saturate(1.05) contrast(1.04); }
+.gal-item:focus-visible{ outline:3px solid var(--blue); outline-offset:4px; }
+@media (max-width:900px){
+  .gal-grid{ gap:14px; }
+  .gal-item,.gal-item:nth-child(5n+1){ grid-column:span 6; aspect-ratio:4/3; }
+}
+@media (max-width:600px){
+  .gallery-page{ padding-left:5%; padding-right:5%; }
+  .album-folders{ grid-template-columns:1fr; }
+  .album-folder{ min-height:190px; }
+  .gal-grid{ grid-template-columns:1fr; gap:14px; }
+  .gal-item,.gal-item:nth-child(5n+1){ grid-column:auto; aspect-ratio:16/10; }
+}
+
+/* lightbox — always fits the screen */
+.lb{ position:fixed; inset:0; z-index:9999; background:rgba(3,5,10,.94); backdrop-filter:blur(14px);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .35s; }
+.lb.on{ opacity:1; pointer-events:auto; }
+.lb-stage{ width:100%; height:100%; padding:4.5rem 4.5rem 3.5rem; display:flex;
+  align-items:center; justify-content:center; box-sizing:border-box; }
+.lb-stage img{ display:block; width:auto; height:auto;
+  max-width:calc(100vw - 9rem); max-height:calc(100vh - 8rem); object-fit:contain;
+  border-radius:10px; box-shadow:0 24px 70px rgba(0,0,0,.6);
+  transform:scale(.96); transition:transform .4s cubic-bezier(.2,.7,.2,1); }
+.lb.on .lb-stage img{ transform:scale(1); }
+.lb-count{ position:absolute; bottom:1.1rem; left:0; right:0; text-align:center;
+  color:var(--muted); font-family:'Space Grotesk',sans-serif; font-size:.8rem; letter-spacing:.08em; }
+.lb-x,.lb-nav{ position:absolute; z-index:2; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.18);
+  color:#eaf4fb; border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:1.2rem; transition:background .25s, transform .25s; }
+.lb-x:hover,.lb-nav:hover{ background:rgba(56,225,255,.2); transform:scale(1.08); }
+.lb-x{ top:1.2rem; right:1.2rem; }
+.lb-prev{ left:1.2rem; top:50%; margin-top:-22px; }
+.lb-next{ right:1.2rem; top:50%; margin-top:-22px; }
+@media (max-width:620px){
+  .lb-stage{ padding:4rem 1rem 3rem; }
+  .lb-stage img{ max-width:calc(100vw - 2rem); max-height:calc(100vh - 7rem); }
+  .lb-prev{left:.5rem} .lb-next{right:.5rem}
+}
+html[data-theme="light"] .gal-item{ background:#fff; box-shadow:0 10px 26px rgba(20,50,90,.08); }
+html[data-theme="light"] .gal-item img{ background:#eef2f7; filter:saturate(1) contrast(1); }
+html[data-theme="light"] .lb{ background:rgba(240,245,250,.96); }
+html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgba(255,255,255,.92); border-color:rgba(20,60,100,.15); color:#10202e; }
+
+</style>
+<script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>R.Katuwal</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="certifications.html">Certifications</a></li>
+    <li><a href="youtube.html">YouTube</a></li>
+    <li><a href="channel.html">Channel</a></li>
+    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="page gallery-page reveal">
+  <p class="page-label">Portfolio</p>
+  <h2 class="page-title">Photography</h2>
+  <div class="divider-line"></div>
+
+  <p class="gal-intro">A curated collection of travel and event photographs — moments, places, and stories worth keeping.</p>
+
+  <div class="album-folders" aria-label="Photography albums">
+    <a class="album-folder" href="#switzerland">
+      <img src="switzerland/swiss-1.jpg" alt="">
+      <span class="album-folder-copy">
+        <small>Travel Photography</small>
+        <strong>Switzerland</strong>
+        <span>8 selected frames · Open album →</span>
+      </span>
+    </a>
+    <a class="album-folder" href="#wild-one">
+      <img src="wild-one/wild-one-01.jpg" alt="">
+      <span class="album-folder-copy">
+        <small>Event Photography</small>
+        <strong>Wild One Celebration</strong>
+        <span>9 selected frames · Open album →</span>
+      </span>
+    </a>
+  </div>
+
+  <div id="gallery"></div>
+</main>
+
+<footer>© 2026 Ritesh Katuwal</footer>
+
+<script>
+// Smooth page exit
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href && !href.startsWith('#') && !href.startsWith('mailto') && !href.startsWith('tel')) {
+      e.preventDefault();
+      document.body.classList.add('page-exit');
+      setTimeout(() => { window.location.href = href; }, 240);
+    }
+  });
+});
+</script>
+
+<script>
+(function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+  document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){obs.observe(el);});
+})();
+</script>
+<script>
+  /* ===== PHOTO SETTINGS =====
+     To add photos: upload image files into the folder on GitHub. That's it.
+     To add a whole new place: copy the line below and change folder/title/sub,
+     then create that folder on GitHub and upload photos into it.          */
+  window.GALLERY_CONFIG = {
+    user: 'rameshworkatuwal',
+    repo: 'rameshworkatuwal.github.io',
+    sets: [
+      {
+        folder: 'switzerland',
+        title: 'Switzerland',
+        sub: '2019 · 8 selected frames',
+        files: [
+          'switzerland/swiss-1.jpg',
+          'switzerland/image (1).png',
+          'switzerland/swiss-2.jpg',
+          'switzerland/swiss-3.jpg',
+          'switzerland/image (7).png',
+          'switzerland/swiss-4.jpg',
+          'switzerland/image (8).png',
+          'switzerland/image (10).png'
+        ]
+      },
+      {
+        folder: 'wild-one',
+        title: 'Wild One Celebration',
+        sub: 'Event Photography · 2026 · 9 selected frames',
+        files: [
+          'wild-one/wild-one-01.jpg',
+          'wild-one/wild-one-02.jpg',
+          'wild-one/wild-one-03.jpg',
+          'wild-one/wild-one-04.jpg',
+          'wild-one/wild-one-05.jpg',
+          'wild-one/wild-one-06.jpg',
+          'wild-one/wild-one-07.jpg',
+          'wild-one/wild-one-08.jpg',
+          'wild-one/wild-one-09.jpg'
+        ]
+      }
+    ]
+  };
+</script>
+<script src="gallery.js"></script>
+<script src="site.js"></script>
+<script src="theme.js"></script>
+</body>
+</html>

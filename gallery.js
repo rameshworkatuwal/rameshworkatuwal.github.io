@@ -172,6 +172,7 @@
     if (!host) return;
     SETS.forEach(function (set) {
       var sec = el('div', 'gal-set');
+      sec.id = set.folder;
       var head = el('div', 'gal-set-head');
       head.innerHTML = '<h3>' + (set.title || set.folder) + '</h3>' +
                        (set.sub ? '<span>' + set.sub + '</span>' : '');
