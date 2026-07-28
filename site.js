@@ -12,12 +12,6 @@
       channelLink.parentElement.remove();
     }
 
-    var portfolioLink = links.querySelector('a[href="photography.html"], a[href="portfolio.html"]');
-    if (portfolioLink) {
-      portfolioLink.href = 'portfolio.html';
-      portfolioLink.textContent = 'Portfolio';
-    }
-
     var toggle = nav.querySelector('.nav-toggle');
     if (!toggle) {
       toggle = document.createElement('button');
