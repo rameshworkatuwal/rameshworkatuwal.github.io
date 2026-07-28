@@ -73,7 +73,7 @@
 }
 
 /* ===== editorial gallery ===== */
-.gallery-page{ max-width:1240px; padding-left:4%; padding-right:4%; }
+.gallery-page{ max-width:1180px; padding-left:4%; padding-right:4%; }
 .gal-intro{ color:var(--muted); font-size:.95rem; max-width:660px; margin-bottom:3rem; }
 .gal-set{ margin-bottom:3rem; }
 .gal-set-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap;
@@ -81,12 +81,12 @@
 .gal-set-head h3{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.55rem; color:var(--text); }
 .gal-set-head span{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); }
 .gal-empty{ color:var(--muted); font-size:.88rem; }
-.gal-grid{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:18px; }
-.gal-item{ position:relative; grid-column:span 4; aspect-ratio:4/3; padding:0; border-radius:16px; overflow:hidden;
+.gal-grid{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; }
+.gal-item{ position:relative; flex:0 0 calc((100% - 42px)/4); min-width:0; aspect-ratio:4/3; padding:0; border-radius:14px; overflow:hidden;
   border:1px solid var(--line); background:var(--surface); cursor:zoom-in; display:block; width:100%;
   opacity:0; transform:translateY(30px) scale(.975); filter:blur(8px);
   transition:opacity .85s cubic-bezier(.2,.7,.2,1), transform .85s cubic-bezier(.2,.7,.2,1), filter .85s cubic-bezier(.2,.7,.2,1), border-color .4s, box-shadow .5s; }
-.gal-item:nth-child(5n+1){ grid-column:span 8; aspect-ratio:16/9; }
+.gal-item:nth-child(5n+1){ aspect-ratio:4/3; }
 .gal-item.in{ opacity:1; transform:none; filter:blur(0); }
 .gal-item img{ width:100%; height:100%; object-fit:cover; display:block; background:#0a0f1c;
   transition:transform .8s cubic-bezier(.2,.7,.2,1), filter .6s; filter:saturate(.95) contrast(1.02); }
@@ -94,13 +94,16 @@
 .gal-item:hover img{ transform:scale(1.05); filter:saturate(1.05) contrast(1.04); }
 .gal-item:focus-visible{ outline:3px solid var(--blue); outline-offset:4px; }
 @media (max-width:900px){
-  .gal-grid{ gap:14px; }
-  .gal-item,.gal-item:nth-child(5n+1){ grid-column:span 6; aspect-ratio:4/3; }
+  .gal-grid{ gap:12px; }
+  .gal-item{ flex-basis:calc((100% - 24px)/3); }
 }
 @media (max-width:600px){
   .gallery-page{ padding-left:5%; padding-right:5%; }
-  .gal-grid{ grid-template-columns:1fr; gap:14px; }
-  .gal-item,.gal-item:nth-child(5n+1){ grid-column:auto; aspect-ratio:16/10; }
+  .gal-grid{ gap:10px; }
+  .gal-item{ flex-basis:calc((100% - 10px)/2); }
+}
+@media (max-width:430px){
+  .gal-item{ flex-basis:100%; }
 }
 
 /* lightbox — always fits the screen */
@@ -156,11 +159,8 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
 </nav>
 
 <main class="page gallery-page reveal">
-  <p class="page-label">Behind the Lens</p>
   <h2 class="page-title">Photography</h2>
   <div class="divider-line"></div>
-
-  <p class="gal-intro">A curated collection of travel and event photographs — moments, places, and stories worth keeping.</p>
 
   <div id="gallery"></div>
 </main>
@@ -199,7 +199,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       {
         folder: 'switzerland',
         title: 'Switzerland',
-        sub: '2019 · 8 selected frames',
+        sub: '',
         files: [
           'switzerland/swiss-1.jpg',
           'switzerland/image (1).png',
@@ -214,7 +214,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       {
         folder: 'wild-one',
         title: 'Wild One Celebration',
-        sub: 'Event Photography · 2026 · 9 selected frames',
+        sub: '',
         files: [
           'wild-one/wild-one-01.jpg',
           'wild-one/wild-one-02.jpg',
@@ -225,6 +225,18 @@ document.querySelectorAll('.nav-links a').forEach(link => {
           'wild-one/wild-one-07.jpg',
           'wild-one/wild-one-08.jpg',
           'wild-one/wild-one-09.jpg'
+        ]
+      },
+      {
+        folder: 'brno-czech-republic',
+        title: 'Brno, Czech Republic',
+        sub: '',
+        files: [
+          'brno-czech-republic/brno-01.jpg',
+          'brno-czech-republic/brno-02.jpg',
+          'brno-czech-republic/brno-03.jpg',
+          'brno-czech-republic/brno-04.jpg',
+          'brno-czech-republic/brno-05.jpg'
         ]
       }
     ]
