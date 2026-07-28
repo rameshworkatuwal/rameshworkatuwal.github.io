@@ -75,7 +75,7 @@
 /* ===== editorial gallery ===== */
 .gallery-page{ max-width:1240px; padding-left:4%; padding-right:4%; }
 .gal-intro{ color:var(--muted); font-size:.95rem; max-width:660px; margin-bottom:3rem; }
-.album-folders{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem; margin:0 0 3.2rem; }
+.album-folders{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.2rem; margin:0 0 3.2rem; }
 .album-folder{ position:relative; min-height:220px; overflow:hidden; border:1px solid var(--line); border-radius:18px;
   color:#fff; text-decoration:none; box-shadow:var(--shadow); isolation:isolate; transition:transform .3s,border-color .3s; }
 .album-folder::after{ content:''; position:absolute; inset:0; z-index:-1;
@@ -106,6 +106,7 @@
 .gal-item:hover img{ transform:scale(1.05); filter:saturate(1.05) contrast(1.04); }
 .gal-item:focus-visible{ outline:3px solid var(--blue); outline-offset:4px; }
 @media (max-width:900px){
+  .album-folders{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   .gal-grid{ gap:14px; }
   .gal-item,.gal-item:nth-child(5n+1){ grid-column:span 6; aspect-ratio:4/3; }
 }
@@ -170,27 +171,26 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
 </nav>
 
 <main class="page gallery-page reveal">
-  <p class="page-label">Portfolio</p>
   <h2 class="page-title">Photography</h2>
   <div class="divider-line"></div>
-
-  <p class="gal-intro">A curated collection of travel and event photographs — moments, places, and stories worth keeping.</p>
 
   <div class="album-folders" aria-label="Photography albums">
     <a class="album-folder" href="#switzerland">
       <img src="switzerland/swiss-1.jpg" alt="">
       <span class="album-folder-copy">
-        <small>Travel Photography</small>
         <strong>Switzerland</strong>
-        <span>8 selected frames · Open album →</span>
       </span>
     </a>
     <a class="album-folder" href="#wild-one">
       <img src="wild-one/wild-one-01.jpg" alt="">
       <span class="album-folder-copy">
-        <small>Event Photography</small>
         <strong>Wild One Celebration</strong>
-        <span>9 selected frames · Open album →</span>
+      </span>
+    </a>
+    <a class="album-folder" href="#brno-czech-republic">
+      <img src="brno-czech-republic/brno-01.jpg" alt="">
+      <span class="album-folder-copy">
+        <strong>Brno, Czech Republic</strong>
       </span>
     </a>
   </div>
@@ -232,7 +232,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       {
         folder: 'switzerland',
         title: 'Switzerland',
-        sub: '2019 · 8 selected frames',
+        sub: '',
         files: [
           'switzerland/swiss-1.jpg',
           'switzerland/image (1).png',
@@ -247,7 +247,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       {
         folder: 'wild-one',
         title: 'Wild One Celebration',
-        sub: 'Event Photography · 2026 · 9 selected frames',
+        sub: '',
         files: [
           'wild-one/wild-one-01.jpg',
           'wild-one/wild-one-02.jpg',
@@ -258,6 +258,18 @@ document.querySelectorAll('.nav-links a').forEach(link => {
           'wild-one/wild-one-07.jpg',
           'wild-one/wild-one-08.jpg',
           'wild-one/wild-one-09.jpg'
+        ]
+      },
+      {
+        folder: 'brno-czech-republic',
+        title: 'Brno, Czech Republic',
+        sub: '',
+        files: [
+          'brno-czech-republic/brno-01.jpg',
+          'brno-czech-republic/brno-02.jpg',
+          'brno-czech-republic/brno-03.jpg',
+          'brno-czech-republic/brno-04.jpg',
+          'brno-czech-republic/brno-05.jpg'
         ]
       }
     ]
