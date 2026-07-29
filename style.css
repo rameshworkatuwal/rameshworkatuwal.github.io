@@ -536,6 +536,10 @@ h1 {
    EXPERIENCE PAGE
    ============================================================ */
 
+.page.experience-page {
+  max-width: 1280px;
+}
+
 .timeline {
   position: relative;
   padding-left: 2rem;
