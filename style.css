@@ -2035,16 +2035,50 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 .portfolio-hero{
   position:relative;
   margin-bottom:2.4rem;
+  isolation:isolate;
+}
+
+.portfolio-hero::before{
+  content:'';
+  position:absolute;
+  z-index:-1;
+  top:-160px;
+  right:-120px;
+  width:480px;
+  height:480px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(56,225,255,.24), transparent 62%),
+    radial-gradient(circle at 70% 70%, rgba(139,108,255,.18), transparent 60%);
+  filter:blur(6px);
+  pointer-events:none;
 }
 
 .portfolio-eyebrow{
-  display:block;
-  margin-bottom:.7rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  margin-bottom:1.1rem;
+  padding:.4rem .9rem .4rem .7rem;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--surface);
+  backdrop-filter:blur(8px);
+  box-shadow:0 8px 22px rgba(2,60,110,.08);
   color:var(--blue);
-  font-size:.7rem;
+  font-size:.68rem;
   font-weight:600;
   letter-spacing:.18em;
   text-transform:uppercase;
+}
+
+.portfolio-eyebrow::before{
+  content:'';
+  width:7px;
+  height:7px;
+  flex:0 0 7px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--blue-light));
+  box-shadow:0 0 0 4px rgba(56,225,255,.16);
 }
 
 .portfolio-heading-row{
@@ -2061,6 +2095,14 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   font-family:'Playfair Display',serif;
   font-size:clamp(2.5rem,5vw,4.7rem);
   line-height:.96;
+  letter-spacing:-0.01em;
+}
+
+.portfolio-gradient-word{
+  background:linear-gradient(135deg,var(--blue) 15%,var(--blue-light) 85%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
 }
 
 .portfolio-heading-row p{
@@ -2149,6 +2191,7 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   color:#69dbff;
   font-size:1rem;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, background .35s;
 }
 
 .portfolio-play-icon{
@@ -2156,6 +2199,17 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   background:rgba(255,91,111,.08);
   color:#ff8191;
   font-size:.8rem;
+}
+
+.portfolio-tab.is-active .portfolio-tab-icon{
+  transform:scale(1.08) rotate(-4deg);
+  background:linear-gradient(135deg,rgba(93,211,255,.24),rgba(139,108,255,.2));
+  box-shadow:0 10px 22px rgba(2,136,209,.22),inset 0 1px 0 rgba(255,255,255,.16);
+}
+
+.portfolio-tab.is-active .portfolio-play-icon{
+  background:linear-gradient(135deg,rgba(255,112,127,.26),rgba(139,108,255,.2));
+  box-shadow:0 10px 22px rgba(207,33,74,.22),inset 0 1px 0 rgba(255,255,255,.16);
 }
 
 .portfolio-tab strong,
@@ -2196,6 +2250,7 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 }
 
 .panel-intro{
+  position:relative;
   display:flex;
   align-items:flex-end;
   justify-content:space-between;
@@ -2205,6 +2260,17 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   border-top:1px solid var(--line);
 }
 
+.panel-intro::before{
+  content:'';
+  position:absolute;
+  top:-1px;
+  left:0;
+  width:64px;
+  height:2px;
+  border-radius:2px;
+  background:linear-gradient(90deg,var(--blue),var(--blue-light));
+}
+
 .panel-intro > div{
   display:flex;
   align-items:baseline;
@@ -2212,6 +2278,13 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 }
 
 .panel-number{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.15rem .5rem;
+  border-radius:6px;
+  background:rgba(93,211,255,.1);
+  border:1px solid rgba(93,211,255,.22);
   color:var(--blue);
   font-size:.67rem;
   font-weight:600;
@@ -2224,6 +2297,7 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   font-family:'Playfair Display',serif;
   font-size:clamp(1.9rem,4vw,3rem);
   line-height:1;
+  letter-spacing:-0.01em;
 }
 
 .panel-intro p{
@@ -2413,6 +2487,22 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 
 .portfolio-page .video-watch:hover{
   box-shadow:0 16px 38px rgba(207,33,74,.4);
+}
+
+html[data-theme="light"] .portfolio-hero::before{
+  opacity:.55;
+}
+
+html[data-theme="light"] .portfolio-eyebrow{
+  box-shadow:0 8px 20px rgba(20,50,90,.07);
+}
+
+html[data-theme="light"] .album-folder{
+  box-shadow:0 16px 36px rgba(20,50,90,.14);
+}
+
+html[data-theme="light"] .album-folder:hover{
+  box-shadow:0 30px 60px rgba(20,50,90,.24), 0 0 0 1px rgba(2,136,209,.16);
 }
 
 html[data-theme="light"] .portfolio-switch{
