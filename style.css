@@ -1343,20 +1343,20 @@ button:focus-visible {
 }
 
 /* ============================================================
-   JWC INDIA CARD — JeetWin News gold branded experience card
+   JWC INDIA CARD — distinct indigo treatment with gold accents
    ============================================================ */
 
 .jwc-card {
   position: relative !important;
   overflow: hidden !important;
-  background: linear-gradient(135deg, #100d08 0%, #19130a 60%, #0b0906 100%) !important;
-  border: 1px solid rgba(244,185,36,0.32) !important;
+  background: linear-gradient(135deg, #111225 0%, #191a38 58%, #101126 100%) !important;
+  border: 1px solid rgba(139,128,255,0.38) !important;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .jwc-card:hover {
-  border-color: rgba(244,185,36,0.72) !important;
-  box-shadow: 0 0 28px rgba(244,185,36,0.14), 0 8px 32px rgba(0,0,0,0.4) !important;
+  border-color: rgba(161,151,255,0.78) !important;
+  box-shadow: 0 0 28px rgba(112,96,255,0.18), 0 8px 32px rgba(0,0,0,0.4) !important;
   transform: translateX(6px);
 }
 
@@ -1366,11 +1366,11 @@ button:focus-visible {
   padding-right: 150px;
 }
 
-.jwc-card .job-title { color: #f4b924 !important; }
-.jwc-card .job-period { color: rgba(244,185,36,0.72) !important; }
-.jwc-card .job-company { color: rgba(244,185,36,0.58) !important; }
+.jwc-card .job-title { color: #b9b2ff !important; }
+.jwc-card .job-period { color: rgba(196,191,255,0.82) !important; }
+.jwc-card .job-company { color: rgba(196,191,255,0.68) !important; }
 .jwc-card .job-points li { color: #bec4d0 !important; }
-.jwc-card .job-points li::before { color: #f4b924 !important; }
+.jwc-card .job-points li::before { color: #a99fff !important; }
 
 .jwc-bg-logo {
   position: absolute;
@@ -1402,7 +1402,7 @@ button:focus-visible {
   z-index: 2;
   pointer-events: none;
   background: radial-gradient(ellipse 50% 65% at 90% 50%,
-    rgba(244,185,36,0.12) 0%, transparent 72%);
+    rgba(113,96,255,0.17) 0%, transparent 72%);
 }
 
 @media (max-width: 640px) {
@@ -1978,8 +1978,8 @@ html[data-theme="light"] .prabhu-card{
   border-color: rgba(210,25,35,0.22) !important;
 }
 html[data-theme="light"] .jwc-card{
-  background: linear-gradient(135deg,#fffaf0 0%,#fff5df 60%,#fffdf8 100%) !important;
-  border-color: rgba(190,135,10,0.22) !important;
+  background: linear-gradient(135deg,#f8f7ff 0%,#eeecff 60%,#fbfaff 100%) !important;
+  border-color: rgba(92,75,190,0.24) !important;
 }
 html[data-theme="light"] .hansikar-card{
   background: linear-gradient(135deg,#fffaf0 0%,#fff5e0 60%,#fffdf7 100%) !important;
@@ -2006,9 +2006,9 @@ html[data-theme="light"] .prabhu-card .job-title{ color:#c5161d !important; }
 html[data-theme="light"] .prabhu-card .job-period,
 html[data-theme="light"] .prabhu-card .job-company{ color:#a63c41 !important; }
 html[data-theme="light"] .prabhu-card .job-points li{ color:#3d4a5c !important; }
-html[data-theme="light"] .jwc-card .job-title{ color:#9a6900 !important; }
+html[data-theme="light"] .jwc-card .job-title{ color:#51439b !important; }
 html[data-theme="light"] .jwc-card .job-period,
-html[data-theme="light"] .jwc-card .job-company{ color:#9a7420 !important; }
+html[data-theme="light"] .jwc-card .job-company{ color:#6d61aa !important; }
 html[data-theme="light"] .jwc-card .job-points li{ color:#3d4a5c !important; }
 html[data-theme="light"] .hansikar-card .job-points li,
 html[data-theme="light"] .topnepal-card .job-points li,
