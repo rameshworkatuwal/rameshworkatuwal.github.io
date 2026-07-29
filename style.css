@@ -1279,6 +1279,69 @@ button:focus-visible {
   .cursor-glow { display: none; }
 }
 
+/* ============================================================
+   PRABHU MOTORS CARD — red branded experience card
+   ============================================================ */
+
+.prabhu-card {
+  position: relative !important;
+  overflow: hidden !important;
+  background: linear-gradient(135deg, #16090b 0%, #210d11 60%, #100609 100%) !important;
+  border: 1px solid rgba(239,35,42,0.32) !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.prabhu-card:hover {
+  border-color: rgba(239,35,42,0.7) !important;
+  box-shadow: 0 0 28px rgba(239,35,42,0.15), 0 8px 32px rgba(0,0,0,0.4) !important;
+  transform: translateX(6px);
+}
+
+.prabhu-card .exp-card-content {
+  position: relative;
+  z-index: 3;
+  padding-right: 125px;
+}
+
+.prabhu-card .job-title { color: #ff4d52 !important; }
+.prabhu-card .job-period { color: rgba(255,100,105,0.72) !important; }
+.prabhu-card .job-company { color: rgba(255,120,124,0.62) !important; }
+.prabhu-card .job-points li { color: #bec4d0 !important; }
+.prabhu-card .job-points li::before { color: #ef232a !important; }
+
+.prabhu-bg-logo {
+  position: absolute;
+  top: 50%;
+  right: 4%;
+  transform: translateY(-50%);
+  width: 86px;
+  height: 86px;
+  padding: 5px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+  z-index: 4;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.prabhu-bg-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.prabhu-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 50% 65% at 90% 50%,
+    rgba(239,35,42,0.12) 0%, transparent 72%);
+}
+
 
 /* ============================================================
    HANSIKAR CARD — night bg + single fading logo
@@ -1836,6 +1899,10 @@ html[data-theme="light"] .page-title{ color: var(--text); }
 html[data-theme="light"] .btn-primary{ color:#fff; }
 
 /* branded experience cards — light theme */
+html[data-theme="light"] .prabhu-card{
+  background: linear-gradient(135deg,#fff7f7 0%,#fff0f1 60%,#fffafa 100%) !important;
+  border-color: rgba(210,25,35,0.22) !important;
+}
 html[data-theme="light"] .hansikar-card{
   background: linear-gradient(135deg,#fffaf0 0%,#fff5e0 60%,#fffdf7 100%) !important;
   border-color: rgba(180,120,20,0.18) !important;
@@ -1857,6 +1924,10 @@ html[data-theme="light"] .topnepal-card .job-company{ color:#2f7ba8 !important; 
 html[data-theme="light"] .ims-card .job-title{ color:#0f766e !important; }
 html[data-theme="light"] .ims-card .job-period,
 html[data-theme="light"] .ims-card .job-company{ color:#2f8d85 !important; }
+html[data-theme="light"] .prabhu-card .job-title{ color:#c5161d !important; }
+html[data-theme="light"] .prabhu-card .job-period,
+html[data-theme="light"] .prabhu-card .job-company{ color:#a63c41 !important; }
+html[data-theme="light"] .prabhu-card .job-points li{ color:#3d4a5c !important; }
 html[data-theme="light"] .hansikar-card .job-points li,
 html[data-theme="light"] .topnepal-card .job-points li,
 html[data-theme="light"] .ims-card .job-points li{ color:#3d4a5c !important; }
