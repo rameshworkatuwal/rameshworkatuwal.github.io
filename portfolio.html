@@ -333,83 +333,126 @@ html[data-theme="light"] .video-feature{
   </ul>
 </nav>
 
-<main class="page gallery-page reveal">
-  <h2 class="page-title">Photography</h2>
-  <div class="divider-line"></div>
-
-  <div class="album-folders" aria-label="Photography albums">
-    <a class="album-folder" href="#switzerland">
-      <img src="switzerland/swiss-1.jpg" alt="">
-      <span class="album-folder-copy">
-        <span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>2000D</b></span>
-        <strong>Switzerland</strong>
-      </span>
-    </a>
-    <a class="album-folder" href="#brno-czech-republic">
-      <img src="brno-czech-republic/brno-01.jpg" alt="">
-      <span class="album-folder-copy">
-        <span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>2000D</b></span>
-        <strong>Brno, Czech Republic</strong>
-      </span>
-    </a>
-    <a class="album-folder" href="#tihar-2024">
-      <img src="tihar-2024/tihar-02.jpg" alt="">
-      <span class="album-folder-copy">
-        <small>Festival Photography</small>
-        <strong>Tihar 2024</strong>
-      </span>
-    </a>
-    <a class="album-folder" href="#kaleshwor-mahadev-2024">
-      <img src="kaleshwor-mahadev-2024/kaleshwor-15.png" alt="">
-      <span class="album-folder-copy">
-        <span class="camera-meta camera-meta-wide"><img src="canon-logo.png" alt="Canon"><b>200D Mark II · 18–135mm lens (old)</b></span>
-        <strong>Kaleshwor Mahadev 2024</strong>
-      </span>
-    </a>
-    <a class="album-folder" href="#wild-one">
-      <img src="wild-one/wild-one-01.jpg" alt="">
-      <span class="album-folder-copy">
-        <strong>Wild One Celebration</strong>
-      </span>
-    </a>
-  </div>
-
-  <section class="video-section" aria-labelledby="videography-title">
-    <div class="video-section-head">
-      <h2 id="videography-title">Videography</h2>
-      <p>Selected visual stories shaped through camera work, direction, and post-production.</p>
+<main class="page gallery-page portfolio-page reveal">
+  <header class="portfolio-hero">
+    <span class="portfolio-eyebrow">Selected creative work</span>
+    <div class="portfolio-heading-row">
+      <h1>Visual Portfolio</h1>
+      <p>Explore my work behind the camera—from still photographs to complete video productions.</p>
     </div>
 
-    <article class="video-feature">
-      <div class="video-frame">
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/Rs6ZMr4EAw4"
-          title="Rap music video shot, directed, and edited by Ritesh Katuwal"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
+    <div class="portfolio-switch" role="tablist" aria-label="Portfolio categories" data-active="photography">
+      <span class="portfolio-switch-glider" aria-hidden="true"></span>
+      <button class="portfolio-tab is-active" type="button" role="tab" id="photography-tab"
+        aria-selected="true" aria-controls="photography-panel" data-panel="photography">
+        <span class="portfolio-tab-icon" aria-hidden="true">◉</span>
+        <span>
+          <strong>Photography</strong>
+          <small>Travel, events &amp; stories</small>
+        </span>
+      </button>
+      <button class="portfolio-tab" type="button" role="tab" id="videography-tab"
+        aria-selected="false" aria-controls="videography-panel" data-panel="videography" tabindex="-1">
+        <span class="portfolio-tab-icon portfolio-play-icon" aria-hidden="true">▶</span>
+        <span>
+          <strong>Videography</strong>
+          <small>Shoot, direction &amp; edit</small>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <div class="portfolio-panels">
+    <section class="portfolio-panel is-active" id="photography-panel" role="tabpanel"
+      aria-labelledby="photography-tab" data-panel-name="photography">
+      <div class="panel-intro">
+        <div>
+          <span class="panel-number">01</span>
+          <h2>Photography</h2>
+        </div>
+        <p>Places, celebrations, and everyday details preserved through my lens.</p>
       </div>
 
-      <div class="video-details">
-        <span class="video-kicker">Featured Music Video</span>
-        <h3>Original Rap Music Video</h3>
-        <p>A personal rap video project created for my nephew—from the first shot through the final edit.</p>
-        <div class="video-roles" aria-label="Production roles">
-          <span class="video-role">Video Shoot</span>
-          <span class="video-role">Direction</span>
-          <span class="video-role">Video Editing</span>
-        </div>
-        <a class="video-watch" href="https://www.youtube.com/watch?v=Rs6ZMr4EAw4" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>
-          Watch on YouTube
+      <div class="album-folders" aria-label="Photography albums">
+        <a class="album-folder" href="#switzerland">
+          <img src="switzerland/swiss-1.jpg" alt="">
+          <span class="album-folder-copy">
+            <span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>2000D</b></span>
+            <strong>Switzerland</strong>
+          </span>
+        </a>
+        <a class="album-folder" href="#brno-czech-republic">
+          <img src="brno-czech-republic/brno-01.jpg" alt="">
+          <span class="album-folder-copy">
+            <span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>2000D</b></span>
+            <strong>Brno, Czech Republic</strong>
+          </span>
+        </a>
+        <a class="album-folder" href="#tihar-2024">
+          <img src="tihar-2024/tihar-02.jpg" alt="">
+          <span class="album-folder-copy">
+            <small>Festival Photography</small>
+            <strong>Tihar 2024</strong>
+          </span>
+        </a>
+        <a class="album-folder" href="#kaleshwor-mahadev-2024">
+          <img src="kaleshwor-mahadev-2024/kaleshwor-15.png" alt="">
+          <span class="album-folder-copy">
+            <span class="camera-meta camera-meta-wide"><img src="canon-logo.png" alt="Canon"><b>200D Mark II · 18–135mm lens (old)</b></span>
+            <strong>Kaleshwor Mahadev 2024</strong>
+          </span>
+        </a>
+        <a class="album-folder" href="#wild-one">
+          <img src="wild-one/wild-one-01.jpg" alt="">
+          <span class="album-folder-copy">
+            <strong>Wild One Celebration</strong>
+          </span>
         </a>
       </div>
-    </article>
-  </section>
 
-  <div id="gallery"></div>
+      <div id="gallery"></div>
+    </section>
+
+    <section class="portfolio-panel" id="videography-panel" role="tabpanel"
+      aria-labelledby="videography-tab" data-panel-name="videography" hidden>
+      <div class="panel-intro video-panel-intro">
+        <div>
+          <span class="panel-number">02</span>
+          <h2>Videography</h2>
+        </div>
+        <p>Selected visual stories shaped through camera work, direction, and post-production.</p>
+      </div>
+
+      <article class="video-feature">
+        <a class="video-poster" href="https://www.youtube.com/watch?v=Rs6ZMr4EAw4"
+          target="_blank" rel="noopener noreferrer"
+          aria-label="Watch Street Dogs by Rabin Budhathoki on YouTube">
+          <img src="street-dogs-thumbnail.jpg" alt="Street Dogs — Rabin Budhathoki Nepali rap music video">
+          <span class="video-poster-shade" aria-hidden="true"></span>
+          <span class="video-play" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span class="video-poster-label">Play on YouTube</span>
+        </a>
+
+        <div class="video-details">
+          <span class="video-kicker">Featured Music Video</span>
+          <h3>Street Dogs</h3>
+          <p class="video-artist">Rabin Budhathoki · Nepali Rap Song</p>
+          <p>A personal music-video project for my nephew, created from the first shot through the final edit.</p>
+          <div class="video-roles" aria-label="Production roles">
+            <span class="video-role">Video Shoot</span>
+            <span class="video-role">Direction</span>
+            <span class="video-role">Video Editing</span>
+          </div>
+          <a class="video-watch" href="https://www.youtube.com/watch?v=Rs6ZMr4EAw4" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>
+            Watch on YouTube
+          </a>
+        </div>
+      </article>
+    </section>
+  </div>
 </main>
 
 <footer>© 2026 Ritesh Katuwal</footer>
@@ -432,6 +475,47 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 (function(){
   var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
   document.querySelectorAll('.reveal,.reveal-stagger').forEach(function(el){obs.observe(el);});
+})();
+</script>
+<script>
+(function(){
+  var switcher = document.querySelector('.portfolio-switch');
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.portfolio-tab'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.portfolio-panel'));
+  if (!switcher || !tabs.length || !panels.length) return;
+
+  function activate(name, updateHash) {
+    switcher.setAttribute('data-active', name);
+    tabs.forEach(function(tab) {
+      var active = tab.getAttribute('data-panel') === name;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      tab.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach(function(panel) {
+      var active = panel.getAttribute('data-panel-name') === name;
+      panel.hidden = !active;
+      panel.classList.toggle('is-active', active);
+    });
+    if (updateHash && history.replaceState) {
+      history.replaceState(null, '', name === 'videography' ? '#videography' : '#photography');
+    }
+  }
+
+  tabs.forEach(function(tab, index) {
+    tab.addEventListener('click', function() {
+      activate(tab.getAttribute('data-panel'), true);
+    });
+    tab.addEventListener('keydown', function(event) {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      var next = event.key === 'ArrowRight' ? (index + 1) % tabs.length : (index - 1 + tabs.length) % tabs.length;
+      tabs[next].focus();
+      activate(tabs[next].getAttribute('data-panel'), true);
+    });
+  });
+
+  if (window.location.hash === '#videography') activate('videography', false);
 })();
 </script>
 <script>
