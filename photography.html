@@ -153,6 +153,8 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
   font-size:.68rem !important; letter-spacing:.08em !important; line-height:1; }
 .camera-meta img{ position:static; z-index:auto; width:45px; height:15px; object-fit:contain; transform:none !important; }
 .camera-meta b{ font-weight:700; }
+.camera-meta-wide{ max-width:100%; line-height:1.2; }
+.camera-meta-wide b{ white-space:normal; }
 .gal-set-head .camera-meta{ margin:0 !important; padding:.28rem .6rem; }
 .gal-set-head .camera-meta img{ width:50px; height:17px; }
 @media (max-width:900px){ .album-folders{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
@@ -198,6 +200,10 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
     <a class="album-folder" href="#tihar-2024">
       <img src="tihar-2024/tihar-02.jpg" alt="">
       <span class="album-folder-copy"><small>Festival Photography</small><strong>Tihar 2024</strong></span>
+    </a>
+    <a class="album-folder" href="#kaleshwor-mahadev-2024">
+      <img src="kaleshwor-mahadev-2024/kaleshwor-15.png" alt="">
+      <span class="album-folder-copy"><span class="camera-meta camera-meta-wide"><img src="canon-logo.png" alt="Canon"><b>200D Mark II · 18–135mm lens (old)</b></span><strong>Kaleshwor Mahadev 2024</strong></span>
     </a>
     <a class="album-folder" href="#wild-one">
       <img src="wild-one/wild-one-01.jpg" alt="">
@@ -292,6 +298,32 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         files: [
           'tihar-2024/tihar-01.jpg',
           'tihar-2024/tihar-02.jpg'
+        ]
+      },
+      {
+        folder: 'kaleshwor-mahadev-2024',
+        title: 'Kaleshwor Mahadev 2024',
+        sub: '200D Mark II · 18–135mm lens (old)',
+        cameraLogo: true,
+        files: [
+          'kaleshwor-mahadev-2024/kaleshwor-01.png',
+          'kaleshwor-mahadev-2024/kaleshwor-02.png',
+          'kaleshwor-mahadev-2024/kaleshwor-03.png',
+          'kaleshwor-mahadev-2024/kaleshwor-04.png',
+          'kaleshwor-mahadev-2024/kaleshwor-05.png',
+          'kaleshwor-mahadev-2024/kaleshwor-06.png',
+          'kaleshwor-mahadev-2024/kaleshwor-07.png',
+          'kaleshwor-mahadev-2024/kaleshwor-08.png',
+          'kaleshwor-mahadev-2024/kaleshwor-09.png',
+          'kaleshwor-mahadev-2024/kaleshwor-10.png',
+          'kaleshwor-mahadev-2024/kaleshwor-11.png',
+          'kaleshwor-mahadev-2024/kaleshwor-12.png',
+          'kaleshwor-mahadev-2024/kaleshwor-13.png',
+          'kaleshwor-mahadev-2024/kaleshwor-14.png',
+          'kaleshwor-mahadev-2024/kaleshwor-15.png',
+          'kaleshwor-mahadev-2024/kaleshwor-16.png',
+          'kaleshwor-mahadev-2024/kaleshwor-17.png',
+          'kaleshwor-mahadev-2024/kaleshwor-18.png'
         ]
       },
       {
