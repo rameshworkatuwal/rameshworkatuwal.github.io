@@ -87,6 +87,13 @@
 .album-folder small{ display:block; color:#9eefff; font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; margin-bottom:.25rem; }
 .album-folder strong{ display:block; font-family:'Playfair Display',serif; font-size:1.45rem; line-height:1.2; }
 .album-folder span{ display:block; margin-top:.35rem; font-size:.78rem; color:rgba(255,255,255,.75); }
+.camera-meta{ display:inline-flex !important; align-items:center; gap:.42rem; width:max-content; padding:.2rem .5rem;
+  border-radius:999px; background:rgba(255,255,255,.92); color:#232323 !important; margin-bottom:.45rem !important;
+  font-size:.68rem !important; letter-spacing:.08em !important; line-height:1; }
+.camera-meta img{ position:static; z-index:auto; width:45px; height:15px; object-fit:contain; transform:none !important; }
+.camera-meta b{ font-weight:700; }
+.gal-set-head .camera-meta{ margin:0 !important; padding:.28rem .6rem; }
+.gal-set-head .camera-meta img{ width:50px; height:17px; }
 .gal-set{ margin-bottom:3rem; }
 .gal-set-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap;
   margin-bottom:1.4rem; padding-top:1.2rem; border-top:1px solid var(--line); }
@@ -181,21 +188,28 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
     <a class="album-folder" href="#switzerland">
       <img src="switzerland/swiss-1.jpg" alt="">
       <span class="album-folder-copy">
-        <small>Canon EOS 2000D</small>
+        <span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>2000D</b></span>
         <strong>Switzerland</strong>
+      </span>
+    </a>
+    <a class="album-folder" href="#brno-czech-republic">
+      <img src="brno-czech-republic/brno-01.jpg" alt="">
+      <span class="album-folder-copy">
+        <span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>2000D</b></span>
+        <strong>Brno, Czech Republic</strong>
+      </span>
+    </a>
+    <a class="album-folder" href="#tihar-2024">
+      <img src="tihar-2024/tihar-02.jpg" alt="">
+      <span class="album-folder-copy">
+        <small>Festival Photography</small>
+        <strong>Tihar 2024</strong>
       </span>
     </a>
     <a class="album-folder" href="#wild-one">
       <img src="wild-one/wild-one-01.jpg" alt="">
       <span class="album-folder-copy">
         <strong>Wild One Celebration</strong>
-      </span>
-    </a>
-    <a class="album-folder" href="#brno-czech-republic">
-      <img src="brno-czech-republic/brno-01.jpg" alt="">
-      <span class="album-folder-copy">
-        <small>Canon EOS 2000D</small>
-        <strong>Brno, Czech Republic</strong>
       </span>
     </a>
   </div>
@@ -237,7 +251,8 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       {
         folder: 'switzerland',
         title: 'Switzerland',
-        sub: 'Canon EOS 2000D',
+        sub: '2000D',
+        cameraLogo: true,
         files: [
           'switzerland/swiss-1.jpg',
           'switzerland/image (1).png',
@@ -250,25 +265,10 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         ]
       },
       {
-        folder: 'wild-one',
-        title: 'Wild One Celebration',
-        sub: '',
-        files: [
-          'wild-one/wild-one-01.jpg',
-          'wild-one/wild-one-02.jpg',
-          'wild-one/wild-one-03.jpg',
-          'wild-one/wild-one-04.jpg',
-          'wild-one/wild-one-05.jpg',
-          'wild-one/wild-one-06.jpg',
-          'wild-one/wild-one-07.jpg',
-          'wild-one/wild-one-08.jpg',
-          'wild-one/wild-one-09.jpg'
-        ]
-      },
-      {
         folder: 'brno-czech-republic',
         title: 'Brno, Czech Republic',
-        sub: 'Canon EOS 2000D',
+        sub: '2000D',
+        cameraLogo: true,
         files: [
           'brno-czech-republic/brno-01.jpg',
           'brno-czech-republic/brno-02.jpg',
@@ -292,6 +292,31 @@ document.querySelectorAll('.nav-links a').forEach(link => {
           'brno-czech-republic/brno-20.jpg',
           'brno-czech-republic/brno-21.jpg',
           'brno-czech-republic/brno-22.jpg'
+        ]
+      },
+      {
+        folder: 'tihar-2024',
+        title: 'Tihar 2024',
+        sub: 'Festival Photography',
+        files: [
+          'tihar-2024/tihar-01.jpg',
+          'tihar-2024/tihar-02.jpg'
+        ]
+      },
+      {
+        folder: 'wild-one',
+        title: 'Wild One Celebration',
+        sub: '',
+        files: [
+          'wild-one/wild-one-01.jpg',
+          'wild-one/wild-one-02.jpg',
+          'wild-one/wild-one-03.jpg',
+          'wild-one/wild-one-04.jpg',
+          'wild-one/wild-one-05.jpg',
+          'wild-one/wild-one-06.jpg',
+          'wild-one/wild-one-07.jpg',
+          'wild-one/wild-one-08.jpg',
+          'wild-one/wild-one-09.jpg'
         ]
       }
     ]

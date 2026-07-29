@@ -137,6 +137,30 @@ html[data-theme="light"] .gal-item img{ background:#eef2f7; filter:saturate(1) c
 html[data-theme="light"] .lb{ background:rgba(240,245,250,.96); }
 html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgba(255,255,255,.92); border-color:rgba(20,60,100,.15); color:#10202e; }
 
+.album-folders{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.2rem; margin:0 0 3.2rem; }
+.album-folder{ position:relative; min-height:220px; overflow:hidden; border:1px solid var(--line); border-radius:18px;
+  color:#fff; text-decoration:none; box-shadow:var(--shadow); isolation:isolate; transition:transform .3s,border-color .3s; }
+.album-folder::after{ content:''; position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(180deg,rgba(3,8,18,.08),rgba(3,8,18,.88)); }
+.album-folder img{ position:absolute; inset:0; z-index:-2; width:100%; height:100%; object-fit:cover; transition:transform .6s; }
+.album-folder:hover{ transform:translateY(-5px); border-color:rgba(56,225,255,.55); }
+.album-folder:hover img{ transform:scale(1.05); }
+.album-folder-copy{ position:absolute; left:1.4rem; right:1.4rem; bottom:1.25rem; }
+.album-folder small{ display:block; color:#9eefff; font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; margin-bottom:.25rem; }
+.album-folder strong{ display:block; font-family:'Playfair Display',serif; font-size:1.45rem; line-height:1.2; }
+.camera-meta{ display:inline-flex !important; align-items:center; gap:.42rem; width:max-content; padding:.2rem .5rem;
+  border-radius:999px; background:rgba(255,255,255,.92); color:#232323 !important; margin-bottom:.45rem !important;
+  font-size:.68rem !important; letter-spacing:.08em !important; line-height:1; }
+.camera-meta img{ position:static; z-index:auto; width:45px; height:15px; object-fit:contain; transform:none !important; }
+.camera-meta b{ font-weight:700; }
+.gal-set-head .camera-meta{ margin:0 !important; padding:.28rem .6rem; }
+.gal-set-head .camera-meta img{ width:50px; height:17px; }
+@media (max-width:900px){ .album-folders{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:600px){
+  .album-folders{ grid-template-columns:1fr; }
+  .album-folder{ min-height:190px; }
+}
+
 </style>
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
@@ -161,6 +185,25 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
 <main class="page gallery-page reveal">
   <h2 class="page-title">Photography</h2>
   <div class="divider-line"></div>
+
+  <div class="album-folders" aria-label="Photography albums">
+    <a class="album-folder" href="#switzerland">
+      <img src="switzerland/swiss-1.jpg" alt="">
+      <span class="album-folder-copy"><span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>2000D</b></span><strong>Switzerland</strong></span>
+    </a>
+    <a class="album-folder" href="#brno-czech-republic">
+      <img src="brno-czech-republic/brno-01.jpg" alt="">
+      <span class="album-folder-copy"><span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>2000D</b></span><strong>Brno, Czech Republic</strong></span>
+    </a>
+    <a class="album-folder" href="#tihar-2024">
+      <img src="tihar-2024/tihar-02.jpg" alt="">
+      <span class="album-folder-copy"><small>Festival Photography</small><strong>Tihar 2024</strong></span>
+    </a>
+    <a class="album-folder" href="#wild-one">
+      <img src="wild-one/wild-one-01.jpg" alt="">
+      <span class="album-folder-copy"><strong>Wild One Celebration</strong></span>
+    </a>
+  </div>
 
   <div id="gallery"></div>
 </main>
@@ -199,7 +242,8 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       {
         folder: 'switzerland',
         title: 'Switzerland',
-        sub: 'Canon EOS 2000D',
+        sub: '2000D',
+        cameraLogo: true,
         files: [
           'switzerland/swiss-1.jpg',
           'switzerland/image (1).png',
@@ -212,25 +256,10 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         ]
       },
       {
-        folder: 'wild-one',
-        title: 'Wild One Celebration',
-        sub: '',
-        files: [
-          'wild-one/wild-one-01.jpg',
-          'wild-one/wild-one-02.jpg',
-          'wild-one/wild-one-03.jpg',
-          'wild-one/wild-one-04.jpg',
-          'wild-one/wild-one-05.jpg',
-          'wild-one/wild-one-06.jpg',
-          'wild-one/wild-one-07.jpg',
-          'wild-one/wild-one-08.jpg',
-          'wild-one/wild-one-09.jpg'
-        ]
-      },
-      {
         folder: 'brno-czech-republic',
         title: 'Brno, Czech Republic',
-        sub: 'Canon EOS 2000D',
+        sub: '2000D',
+        cameraLogo: true,
         files: [
           'brno-czech-republic/brno-01.jpg',
           'brno-czech-republic/brno-02.jpg',
@@ -254,6 +283,31 @@ document.querySelectorAll('.nav-links a').forEach(link => {
           'brno-czech-republic/brno-20.jpg',
           'brno-czech-republic/brno-21.jpg',
           'brno-czech-republic/brno-22.jpg'
+        ]
+      },
+      {
+        folder: 'tihar-2024',
+        title: 'Tihar 2024',
+        sub: 'Festival Photography',
+        files: [
+          'tihar-2024/tihar-01.jpg',
+          'tihar-2024/tihar-02.jpg'
+        ]
+      },
+      {
+        folder: 'wild-one',
+        title: 'Wild One Celebration',
+        sub: '',
+        files: [
+          'wild-one/wild-one-01.jpg',
+          'wild-one/wild-one-02.jpg',
+          'wild-one/wild-one-03.jpg',
+          'wild-one/wild-one-04.jpg',
+          'wild-one/wild-one-05.jpg',
+          'wild-one/wild-one-06.jpg',
+          'wild-one/wild-one-07.jpg',
+          'wild-one/wild-one-08.jpg',
+          'wild-one/wild-one-09.jpg'
         ]
       }
     ]

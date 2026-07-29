@@ -174,8 +174,11 @@
       var sec = el('div', 'gal-set');
       sec.id = set.folder;
       var head = el('div', 'gal-set-head');
+      var meta = set.cameraLogo
+        ? '<span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>' + (set.sub || '2000D') + '</b></span>'
+        : (set.sub ? '<span>' + set.sub + '</span>' : '');
       head.innerHTML = '<h3>' + (set.title || set.folder) + '</h3>' +
-                       (set.sub ? '<span>' + set.sub + '</span>' : '');
+                       meta;
       var wrap = el('div');
       wrap.innerHTML = '<p class="gal-empty">Loading photos…</p>';
       sec.appendChild(head); sec.appendChild(wrap);
