@@ -358,10 +358,10 @@ html[data-theme="light"] .video-feature{
       <h1>Visual <span class="portfolio-gradient-word">Portfolio</span></h1>
     </div>
 
-    <div class="portfolio-switch" role="tablist" aria-label="Portfolio categories" data-active="photography">
+    <div class="portfolio-switch" role="tablist" aria-label="Portfolio categories">
       <span class="portfolio-switch-glider" aria-hidden="true"></span>
-      <button class="portfolio-tab is-active" type="button" role="tab" id="photography-tab"
-        aria-selected="true" aria-controls="photography-panel" data-panel="photography">
+      <button class="portfolio-tab" type="button" role="tab" id="photography-tab"
+        aria-selected="false" aria-controls="photography-panel" data-panel="photography">
         <span class="portfolio-tab-icon" aria-hidden="true">◉</span>
         <span>
           <strong>Photography</strong>
@@ -369,7 +369,7 @@ html[data-theme="light"] .video-feature{
         </span>
       </button>
       <button class="portfolio-tab" type="button" role="tab" id="videography-tab"
-        aria-selected="false" aria-controls="videography-panel" data-panel="videography" tabindex="-1">
+        aria-selected="false" aria-controls="videography-panel" data-panel="videography">
         <span class="portfolio-tab-icon portfolio-play-icon" aria-hidden="true">▶</span>
         <span>
           <strong>Videography</strong>
@@ -380,7 +380,8 @@ html[data-theme="light"] .video-feature{
   </header>
 
   <div class="portfolio-panels">
-    <section class="portfolio-panel is-active" id="photography-panel" role="tabpanel"
+    <p class="portfolio-panel-hint">Choose Photography or Videography above to view the work.</p>
+    <section class="portfolio-panel" id="photography-panel" role="tabpanel" hidden
       aria-labelledby="photography-tab" data-panel-name="photography">
       <div class="panel-intro">
         <div>
@@ -503,12 +504,14 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 <script>
 (function(){
   var switcher = document.querySelector('.portfolio-switch');
+  var hint = document.querySelector('.portfolio-panel-hint');
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.portfolio-tab'));
   var panels = Array.prototype.slice.call(document.querySelectorAll('.portfolio-panel'));
   if (!switcher || !tabs.length || !panels.length) return;
 
   function activate(name, updateHash) {
     switcher.setAttribute('data-active', name);
+    if (hint) hint.hidden = true;
     tabs.forEach(function(tab) {
       var active = tab.getAttribute('data-panel') === name;
       tab.classList.toggle('is-active', active);
@@ -538,7 +541,10 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
   });
 
+  // Nothing is shown until the user picks Photography or Videography —
+  // unless the page was opened with a #photography / #videography link.
   if (window.location.hash === '#videography') activate('videography', false);
+  else if (window.location.hash === '#photography') activate('photography', false);
 })();
 </script>
 <script>
