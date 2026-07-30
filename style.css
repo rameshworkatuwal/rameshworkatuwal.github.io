@@ -2038,34 +2038,6 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   isolation:isolate;
 }
 
-.portfolio-eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:.55rem;
-  margin-bottom:1.1rem;
-  padding:.4rem .9rem .4rem .7rem;
-  border:1px solid var(--line);
-  border-radius:999px;
-  background:var(--surface);
-  backdrop-filter:blur(8px);
-  box-shadow:0 8px 22px rgba(2,60,110,.08);
-  color:var(--blue);
-  font-size:.68rem;
-  font-weight:600;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-}
-
-.portfolio-eyebrow::before{
-  content:'';
-  width:7px;
-  height:7px;
-  flex:0 0 7px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--blue),var(--blue-light));
-  box-shadow:0 0 0 4px rgba(56,225,255,.16);
-}
-
 .portfolio-heading-row{
   display:flex;
   align-items:flex-end;
@@ -2088,15 +2060,6 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
-}
-
-.portfolio-heading-row p{
-  max-width:510px;
-  margin:0 0 .25rem;
-  color:var(--muted);
-  font-size:.9rem;
-  line-height:1.7;
-  text-align:right;
 }
 
 .portfolio-switch{
@@ -2305,20 +2268,6 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   gap:.75rem;
 }
 
-.panel-number{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:.15rem .5rem;
-  border-radius:6px;
-  background:rgba(93,211,255,.1);
-  border:1px solid rgba(93,211,255,.22);
-  color:var(--blue);
-  font-size:.67rem;
-  font-weight:600;
-  letter-spacing:.12em;
-}
-
 .panel-intro h2{
   margin:0;
   color:var(--text);
@@ -2326,15 +2275,6 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   font-size:clamp(1.9rem,4vw,3rem);
   line-height:1;
   letter-spacing:-0.01em;
-}
-
-.panel-intro p{
-  max-width:500px;
-  margin:0;
-  color:var(--muted);
-  font-size:.8rem;
-  line-height:1.65;
-  text-align:right;
 }
 
 .portfolio-page .video-feature{
@@ -2530,10 +2470,6 @@ html[data-theme="light"] .portfolio-page .video-feature{
     align-items:flex-start;
     flex-direction:column;
     gap:1rem;
-  }
-  .portfolio-heading-row p,
-  .panel-intro p{
-    text-align:left;
   }
   .portfolio-page .video-feature{
     grid-template-columns:1fr;
