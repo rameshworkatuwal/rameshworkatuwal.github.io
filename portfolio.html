@@ -71,6 +71,12 @@
   background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35); backdrop-filter:blur(6px);
   transform:scale(.65); transition:transform .45s cubic-bezier(.34,1.5,.4,1), background .3s; }
 .video-frame:hover .reel-play-hint svg{ transform:scale(1); background:rgba(255,255,255,.26); }
+.reel-mute-badge{ position:absolute; left:.6rem; bottom:.6rem; z-index:2; display:flex; align-items:center; justify-content:center;
+  width:26px; height:26px; border-radius:50%; color:#fff; background:rgba(3,8,18,.55); backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.2); opacity:0; transform:translateY(4px); pointer-events:none;
+  transition:opacity .35s, transform .35s; }
+.reel-mute-badge svg{ width:13px; height:13px; }
+.video-frame:hover .reel-mute-badge{ opacity:1; transform:none; }
 
 @media (max-width:900px){
   .album-folders{ grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -417,9 +423,12 @@ html[data-theme="light"] .video-feature{
       <div class="edit-reel-grid" aria-label="Video editing reel">
         <figure class="edit-reel-item">
           <div class="video-frame">
-            <iframe src="https://drive.google.com/file/d/1cTZwLOGGy1bvbyjVgV-inCHlUNd1l0JH/preview"
-              allow="autoplay" allowfullscreen loading="lazy" title="Video edit 01"></iframe>
+            <iframe id="yt-reel-1" class="yt-reel" src="https://www.youtube.com/embed/l63X_wwvAAE?enablejsapi=1&amp;mute=1&amp;playsinline=1&amp;rel=0&amp;modestbranding=1"
+              allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Video edit 01"></iframe>
             <span class="reel-play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
+            <span class="reel-mute-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            </span>
           </div>
           <figcaption>Edit 01</figcaption>
         </figure>
@@ -640,5 +649,51 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 <script src="gallery.js"></script>
 <script src="site.js"></script>
 <script src="theme.js"></script>
+<script>
+/* ===== YouTube reel hover-to-play ===== */
+(function(){
+  var reelIframes = document.querySelectorAll('iframe.yt-reel');
+  if (!reelIframes.length) return;
+
+  var players = {};
+
+  window.onYouTubeIframeAPIReady = function(){
+    reelIframes.forEach(function(iframe){
+      players[iframe.id] = new YT.Player(iframe.id, {
+        events: {
+          onStateChange: function(e){
+            if (e.data === YT.PlayerState.PLAYING) {
+              // Best-effort only — YouTube's own adaptive logic (and the small
+              // embed size) usually overrides this, so it's not guaranteed.
+              try { e.target.setPlaybackQuality('highres'); } catch (err) {}
+            }
+          }
+        }
+      });
+    });
+  };
+
+  var apiTag = document.createElement('script');
+  apiTag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(apiTag);
+
+  reelIframes.forEach(function(iframe){
+    var frame = iframe.closest('.video-frame');
+    if (!frame) return;
+
+    frame.addEventListener('mouseenter', function(){
+      var p = players[iframe.id];
+      if (p && typeof p.playVideo === 'function') p.playVideo();
+    });
+    frame.addEventListener('mouseleave', function(){
+      var p = players[iframe.id];
+      if (p && typeof p.pauseVideo === 'function') {
+        p.pauseVideo();
+        if (typeof p.seekTo === 'function') p.seekTo(0, true);
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
