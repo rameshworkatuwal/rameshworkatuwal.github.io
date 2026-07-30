@@ -2066,8 +2066,8 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   position:relative;
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  max-width:980px;
-  padding:6px;
+  max-width:1060px;
+  padding:7px;
   overflow:hidden;
   border:1px solid var(--line);
   border-radius:20px;
@@ -2079,10 +2079,10 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 .portfolio-switch-glider{
   position:absolute;
   z-index:-1;
-  top:6px;
-  bottom:6px;
-  left:6px;
-  width:calc(33.333% - 6px);
+  top:7px;
+  bottom:7px;
+  left:7px;
+  width:calc(33.333% - 7px);
   border:1px solid rgba(93,211,255,.28);
   border-radius:15px;
   background:
@@ -2114,9 +2114,9 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 .portfolio-tab{
   display:flex;
   align-items:center;
-  gap:.9rem;
+  gap:1rem;
   min-width:0;
-  padding:1rem 1.15rem;
+  padding:1.15rem 1.3rem;
   border:0;
   border-radius:15px;
   background:transparent;
@@ -2141,17 +2141,26 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 
 .portfolio-tab-icon{
   display:grid;
-  flex:0 0 42px;
-  width:42px;
-  height:42px;
+  flex:0 0 46px;
+  width:46px;
+  height:46px;
   place-items:center;
   border:1px solid rgba(93,211,255,.25);
   border-radius:13px;
   background:rgba(93,211,255,.08);
   color:#69dbff;
-  font-size:1rem;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
   transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, background .35s;
+}
+
+.portfolio-tab-icon svg{
+  width:20px;
+  height:20px;
+}
+
+.portfolio-play-icon svg{
+  width:16px;
+  height:16px;
 }
 
 .portfolio-play-icon{
@@ -2186,15 +2195,15 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 }
 
 .portfolio-tab strong{
-  margin-bottom:.18rem;
-  font-size:.92rem;
+  margin-bottom:.2rem;
+  font-size:1rem;
   font-weight:600;
 }
 
 .portfolio-tab small{
   overflow:hidden;
   color:var(--muted);
-  font-size:.67rem;
+  font-size:.72rem;
   font-weight:400;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -2280,8 +2289,8 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 .portfolio-page .video-feature{
   position:relative;
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(280px,340px);
-  max-width:960px;
+  grid-template-columns:minmax(0,1fr) minmax(240px,290px);
+  max-width:740px;
   margin:0 auto;
   overflow:hidden;
   border:1px solid var(--line);
@@ -2399,7 +2408,7 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   flex-direction:column;
   justify-content:center;
   min-width:0;
-  padding:clamp(1.4rem,2.4vw,2rem);
+  padding:clamp(1.2rem,2vw,1.6rem);
   color:#f5f9ff;
 }
 
@@ -2407,8 +2416,8 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   margin:0 0 .25rem;
   color:#fff;
   font-family:'Playfair Display',serif;
-  font-size:clamp(1.6rem,2.6vw,2.3rem);
-  line-height:1.05;
+  font-size:clamp(1.3rem,2.1vw,1.7rem);
+  line-height:1.1;
 }
 
 .portfolio-page .video-details .video-artist{
