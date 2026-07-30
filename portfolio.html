@@ -60,7 +60,9 @@
 /* ===== video editing reel ===== */
 .edit-reel-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.8rem; max-width:1040px; margin:0 0 3.4rem; }
 .edit-reel-item{ margin:0; }
-.edit-reel-item .video-frame{ aspect-ratio:9/16; border-radius:8px; overflow:hidden; }
+.edit-reel-item .video-frame{ aspect-ratio:9/16; border-radius:10px; overflow:hidden;
+  border:1px solid var(--line); box-shadow:0 10px 26px rgba(10,20,40,.14); transition:box-shadow .35s, border-color .35s; }
+.edit-reel-item .video-frame:hover{ border-color:rgba(93,211,255,.35); box-shadow:0 18px 40px rgba(10,20,40,.22); }
 .edit-reel-item .video-frame::after{ border-radius:inherit; }
 .edit-reel-item figcaption{ margin-top:.7rem; font-size:.8rem; color:var(--muted); }
 .reel-play-hint{ position:absolute; inset:0; z-index:1; display:flex; align-items:center; justify-content:center;
@@ -77,6 +79,13 @@
   transition:opacity .35s, transform .35s; }
 .reel-mute-badge svg{ width:13px; height:13px; }
 .video-frame.is-muted:hover .reel-mute-badge{ opacity:1; transform:none; }
+.reel-fullscreen-btn{ position:absolute; right:.6rem; bottom:.6rem; z-index:2; display:flex; align-items:center; justify-content:center;
+  width:30px; height:30px; border-radius:8px; color:#fff; background:rgba(3,8,18,.55); backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.2); opacity:0; transform:translateY(4px); cursor:pointer;
+  transition:opacity .35s, transform .35s, background .25s; }
+.reel-fullscreen-btn svg{ width:14px; height:14px; }
+.video-frame:hover .reel-fullscreen-btn{ opacity:1; transform:none; }
+.reel-fullscreen-btn:hover{ background:rgba(56,225,255,.28); }
 
 @media (max-width:1050px){
   .album-folders{ grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -432,6 +441,9 @@ html[data-theme="light"] .video-feature{
             <span class="reel-mute-badge" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
             </span>
+            <button type="button" class="reel-fullscreen-btn" aria-label="View fullscreen">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
+            </button>
           </div>
           <figcaption>Edit 01</figcaption>
         </figure>
@@ -443,6 +455,9 @@ html[data-theme="light"] .video-feature{
             <span class="reel-mute-badge" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
             </span>
+            <button type="button" class="reel-fullscreen-btn" aria-label="View fullscreen">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
+            </button>
           </div>
           <figcaption>Edit 02</figcaption>
         </figure>
@@ -454,6 +469,9 @@ html[data-theme="light"] .video-feature{
             <span class="reel-mute-badge" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
             </span>
+            <button type="button" class="reel-fullscreen-btn" aria-label="View fullscreen">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
+            </button>
           </div>
           <figcaption>Edit 03</figcaption>
         </figure>
@@ -465,6 +483,9 @@ html[data-theme="light"] .video-feature{
             <span class="reel-mute-badge" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
             </span>
+            <button type="button" class="reel-fullscreen-btn" aria-label="View fullscreen">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
+            </button>
           </div>
           <figcaption>Edit 04</figcaption>
         </figure>
@@ -753,6 +774,17 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         if (typeof p.seekTo === 'function') p.seekTo(0, true);
       }
     });
+
+    var fsBtn = frame.querySelector('.reel-fullscreen-btn');
+    if (fsBtn) {
+      fsBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var iframe = frame.querySelector('iframe');
+        if (!iframe) return;
+        var req = iframe.requestFullscreen || iframe.webkitRequestFullscreen || iframe.mozRequestFullScreen;
+        if (req) req.call(iframe);
+      });
+    }
   });
 })();
 </script>
