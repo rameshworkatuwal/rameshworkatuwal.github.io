@@ -12,7 +12,7 @@
 <style>
 /* ===== editorial gallery ===== */
 .gallery-page{ max-width:1180px; padding-left:4%; padding-right:4%; }
-.album-folders{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem 1.8rem; margin:0 0 3.4rem; }
+.album-folders{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.6rem 1.3rem; margin:0 0 3.2rem; }
 .album-folder{ position:relative; text-decoration:none; color:var(--text); display:block; border-radius:10px; }
 .album-folder-frame{ display:block; position:relative; aspect-ratio:4/3; overflow:hidden; border-radius:8px; background:var(--surface);
   box-shadow:0 0 0 rgba(0,0,0,0); transition:box-shadow .4s cubic-bezier(.2,.7,.2,1); }
@@ -22,9 +22,9 @@
 .album-folder:hover img{ transform:scale(1.045); }
 .album-folder:focus-visible{ outline:none; }
 .album-folder:focus-visible .album-folder-frame{ outline:2px solid var(--blue); outline-offset:3px; }
-.album-folder-copy{ display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-top:.9rem; }
+.album-folder-copy{ display:flex; align-items:flex-start; justify-content:space-between; gap:.6rem; margin-top:.65rem; }
 .album-folder-title{ display:flex; flex-direction:column; align-items:flex-start; gap:.4rem; min-width:0; }
-.album-folder strong{ position:relative; display:block; font-family:'Playfair Display',serif; font-weight:700; font-size:1.15rem; line-height:1.25; color:var(--text); }
+.album-folder strong{ position:relative; display:block; font-family:'Playfair Display',serif; font-weight:700; font-size:1.02rem; line-height:1.25; color:var(--text); }
 .album-folder strong::after{ content:''; position:absolute; left:0; right:100%; bottom:-4px; height:1px;
   background:currentColor; opacity:.45; transition:right .45s cubic-bezier(.2,.7,.2,1); }
 .album-folder:hover strong::after{ right:0; }
@@ -78,6 +78,9 @@
 .reel-mute-badge svg{ width:13px; height:13px; }
 .video-frame.is-muted:hover .reel-mute-badge{ opacity:1; transform:none; }
 
+@media (max-width:1050px){
+  .album-folders{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
 @media (max-width:900px){
   .album-folders{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   .gal-grid{ gap:12px; }
