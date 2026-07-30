@@ -2102,8 +2102,8 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 .portfolio-switch{
   position:relative;
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  max-width:760px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  max-width:980px;
   padding:6px;
   overflow:hidden;
   border:1px solid var(--line);
@@ -2119,7 +2119,7 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   top:6px;
   bottom:6px;
   left:6px;
-  width:calc(50% - 6px);
+  width:calc(33.333% - 6px);
   border:1px solid rgba(93,211,255,.28);
   border-radius:15px;
   background:
@@ -2139,6 +2139,13 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   background:
     radial-gradient(circle at 80% 0,rgba(255,83,104,.22),transparent 58%),
     linear-gradient(135deg,rgba(99,87,223,.2),rgba(211,42,72,.18));
+}
+
+.portfolio-switch[data-active="video-editing"] .portfolio-switch-glider{
+  transform:translateX(200%);
+  background:
+    radial-gradient(circle at 80% 0,rgba(120,220,150,.22),transparent 58%),
+    linear-gradient(135deg,rgba(16,163,120,.2),rgba(8,139,209,.16));
 }
 
 .portfolio-tab{
@@ -2191,12 +2198,23 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   font-size:.8rem;
 }
 
+.portfolio-edit-icon{
+  border-color:rgba(120,220,150,.26);
+  background:rgba(16,163,120,.08);
+  color:#5fd6a0;
+  font-size:.85rem;
+}
+
 .portfolio-tab.is-active .portfolio-tab-icon{
   background:rgba(93,211,255,.16);
 }
 
 .portfolio-tab.is-active .portfolio-play-icon{
   background:rgba(255,112,127,.16);
+}
+
+.portfolio-tab.is-active .portfolio-edit-icon{
+  background:rgba(16,163,120,.16);
 }
 
 .portfolio-tab strong,
@@ -2497,6 +2515,10 @@ html[data-theme="light"] .portfolio-switch-glider{
 
 html[data-theme="light"] .portfolio-switch[data-active="videography"] .portfolio-switch-glider{
   background:linear-gradient(135deg,#f0ecff,#fff0f2);
+}
+
+html[data-theme="light"] .portfolio-switch[data-active="video-editing"] .portfolio-switch-glider{
+  background:linear-gradient(135deg,#e7f9f0,#e6f7ff);
 }
 
 html[data-theme="light"] .portfolio-page .video-feature{

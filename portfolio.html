@@ -113,6 +113,13 @@
 .gal-item:hover{ border-color:rgba(56,225,255,.42); box-shadow:0 20px 46px rgba(0,0,0,.5); }
 .gal-item:hover img{ transform:scale(1.05); filter:saturate(1.05) contrast(1.04); }
 .gal-item:focus-visible{ outline:3px solid var(--blue); outline-offset:4px; }
+/* ===== video editing reel ===== */
+.edit-reel-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:2rem 1.8rem; margin:0 0 3.4rem; }
+.edit-reel-item{ margin:0; }
+.edit-reel-item .video-frame{ border-radius:6px; overflow:hidden; }
+.edit-reel-item .video-frame::after{ border-radius:inherit; }
+.edit-reel-item figcaption{ margin-top:.7rem; font-size:.8rem; color:var(--muted); }
+
 @media (max-width:900px){
   .album-folders{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   .gal-grid{ gap:12px; }
@@ -123,6 +130,7 @@
   .album-folders{ grid-template-columns:1fr; }
   .gal-grid{ gap:10px; }
   .gal-item{ flex-basis:calc((100% - 10px)/2); }
+  .edit-reel-grid{ grid-template-columns:1fr; }
 }
 @media (max-width:430px){
   .gal-item{ flex-basis:100%; }
@@ -355,11 +363,19 @@ html[data-theme="light"] .video-feature{
           <small>Shoot, direction &amp; edit</small>
         </span>
       </button>
+      <button class="portfolio-tab" type="button" role="tab" id="video-editing-tab"
+        aria-selected="false" aria-controls="video-editing-panel" data-panel="video-editing">
+        <span class="portfolio-tab-icon portfolio-edit-icon" aria-hidden="true">✂</span>
+        <span>
+          <strong>Video Editing</strong>
+          <small>Cuts, color &amp; sound</small>
+        </span>
+      </button>
     </div>
   </header>
 
   <div class="portfolio-panels">
-    <p class="portfolio-panel-hint">Choose Photography or Videography above to view the work.</p>
+    <p class="portfolio-panel-hint">Choose a category above — Photography, Videography, or Video Editing — to view the work.</p>
     <section class="portfolio-panel" id="photography-panel" role="tabpanel" hidden
       aria-labelledby="photography-tab" data-panel-name="photography">
       <div class="panel-intro">
@@ -459,6 +475,46 @@ html[data-theme="light"] .video-feature{
           </a>
         </div>
       </article>
+    </section>
+
+    <section class="portfolio-panel" id="video-editing-panel" role="tabpanel"
+      aria-labelledby="video-editing-tab" data-panel-name="video-editing" hidden>
+      <div class="panel-intro">
+        <div>
+          <h2>Video Editing</h2>
+        </div>
+      </div>
+
+      <div class="edit-reel-grid" aria-label="Video editing reel">
+        <figure class="edit-reel-item">
+          <div class="video-frame">
+            <iframe src="https://drive.google.com/file/d/1cTZwLOGGy1bvbyjVgV-inCHlUNd1l0JH/preview"
+              allow="autoplay" allowfullscreen loading="lazy" title="Video edit 01"></iframe>
+          </div>
+          <figcaption>Edit 01</figcaption>
+        </figure>
+        <figure class="edit-reel-item">
+          <div class="video-frame">
+            <iframe src="https://drive.google.com/file/d/1eMXScHH3saaZDNQxDrdai6RZCIIRR1uH/preview"
+              allow="autoplay" allowfullscreen loading="lazy" title="Video edit 02"></iframe>
+          </div>
+          <figcaption>Edit 02</figcaption>
+        </figure>
+        <figure class="edit-reel-item">
+          <div class="video-frame">
+            <iframe src="https://drive.google.com/file/d/1KtE0ftCzyF0T-zHfM0xwkPkjCfflUWh7/preview"
+              allow="autoplay" allowfullscreen loading="lazy" title="Video edit 03"></iframe>
+          </div>
+          <figcaption>Edit 03</figcaption>
+        </figure>
+        <figure class="edit-reel-item">
+          <div class="video-frame">
+            <iframe src="https://drive.google.com/file/d/1oJGpJuQ3uUID_wl2mFjaM4lqaZZXb0DV/preview"
+              allow="autoplay" allowfullscreen loading="lazy" title="Video edit 04"></iframe>
+          </div>
+          <figcaption>Edit 04</figcaption>
+        </figure>
+      </div>
     </section>
   </div>
 </main>
