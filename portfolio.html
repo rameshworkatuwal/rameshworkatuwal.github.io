@@ -354,7 +354,7 @@ html[data-theme="light"] .video-feature{
           </span>
         </a>
         <a class="album-folder" href="#kaleshwor-mahadev-2024">
-          <span class="album-folder-frame"><img src="kaleshwor-mahadev-2024/kaleshwor-15.png" alt=""></span>
+          <span class="album-folder-frame"><img src="kaleshwor-mahadev-2024/kaleshwor-15.jpg" alt=""></span>
           <span class="album-folder-copy">
             <span class="album-folder-title">
               <strong>Kaleshwor Mahadev 2024</strong>
@@ -556,13 +556,13 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         cameraLogo: true,
         files: [
           'switzerland/swiss-1.jpg',
-          'switzerland/image (1).png',
+          'switzerland/image (1).jpg',
           'switzerland/swiss-2.jpg',
           'switzerland/swiss-3.jpg',
-          'switzerland/image (7).png',
+          'switzerland/image (7).jpg',
           'switzerland/swiss-4.jpg',
-          'switzerland/image (8).png',
-          'switzerland/image (10).png'
+          'switzerland/image (8).jpg',
+          'switzerland/image (10).jpg'
         ]
       },
       {
@@ -610,24 +610,24 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         sub: '200D Mark II · 18–135mm lens (old)',
         cameraLogo: true,
         files: [
-          'kaleshwor-mahadev-2024/kaleshwor-01.png',
-          'kaleshwor-mahadev-2024/kaleshwor-02.png',
-          'kaleshwor-mahadev-2024/kaleshwor-03.png',
-          'kaleshwor-mahadev-2024/kaleshwor-04.png',
-          'kaleshwor-mahadev-2024/kaleshwor-05.png',
-          'kaleshwor-mahadev-2024/kaleshwor-06.png',
-          'kaleshwor-mahadev-2024/kaleshwor-07.png',
-          'kaleshwor-mahadev-2024/kaleshwor-08.png',
-          'kaleshwor-mahadev-2024/kaleshwor-09.png',
-          'kaleshwor-mahadev-2024/kaleshwor-10.png',
-          'kaleshwor-mahadev-2024/kaleshwor-11.png',
-          'kaleshwor-mahadev-2024/kaleshwor-12.png',
-          'kaleshwor-mahadev-2024/kaleshwor-13.png',
-          'kaleshwor-mahadev-2024/kaleshwor-14.png',
-          'kaleshwor-mahadev-2024/kaleshwor-15.png',
-          'kaleshwor-mahadev-2024/kaleshwor-16.png',
-          'kaleshwor-mahadev-2024/kaleshwor-17.png',
-          'kaleshwor-mahadev-2024/kaleshwor-18.png'
+          'kaleshwor-mahadev-2024/kaleshwor-01.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-02.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-03.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-04.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-05.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-06.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-07.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-08.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-09.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-10.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-11.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-12.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-13.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-14.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-15.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-16.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-17.jpg',
+          'kaleshwor-mahadev-2024/kaleshwor-18.jpg'
         ]
       },
       {
@@ -683,7 +683,11 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
   }
 
-  if (reelIframes.length) {
+  var ytApiLoaded = false;
+  function loadYouTubeApiOnce(){
+    if (ytApiLoaded || !reelIframes.length) return;
+    ytApiLoaded = true;
+
     window.onYouTubeIframeAPIReady = function(){
       reelIframes.forEach(function(iframe){
         players[iframe.id] = new YT.Player(iframe.id, {
@@ -709,6 +713,15 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     var apiTag = document.createElement('script');
     apiTag.src = 'https://www.youtube.com/iframe_api';
     document.head.appendChild(apiTag);
+  }
+
+  // Don't fetch YouTube's ~100KB API script (or the reel iframes' own
+  // network requests) until someone actually opens the Video Editing tab —
+  // most visitors browsing Photography/Videography never need it.
+  var editTab = document.getElementById('video-editing-tab');
+  if (editTab) editTab.addEventListener('click', loadYouTubeApiOnce, { once: true });
+  if (document.getElementById('video-editing-panel') && !document.getElementById('video-editing-panel').hidden) {
+    loadYouTubeApiOnce();
   }
 
   allFrames.forEach(function(frame){
