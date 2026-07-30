@@ -1155,6 +1155,13 @@ h1 {
    - Number counter for stats
    ============================================================ */
 
+/* ── SOCIAL ICONS (shared footer) ── */
+.soc{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--surface);color:var(--muted);transition:all .3s ease;text-decoration:none}
+.soc svg{width:18px;height:18px}
+.soc:hover{color:var(--dark);background:var(--blue);border-color:var(--blue);transform:translateY(-5px);box-shadow:0 8px 24px rgba(2,136,209,0.3)}
+html[data-theme="light"] .soc{background:#fff;color:#5d7183}
+html[data-theme="light"] .soc:hover{color:#fff;background:#0288D1}
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */
@@ -2123,11 +2130,12 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   color:var(--muted);
   text-align:left;
   cursor:pointer;
-  transition:color .3s,transform .3s;
+  transition:color .3s,transform .3s,background .3s;
 }
 
 .portfolio-tab:hover{
   color:var(--text);
+  background:rgba(127,140,160,.07);
 }
 
 .portfolio-tab.is-active{
@@ -2221,8 +2229,10 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   display:flex;
   align-items:center;
   gap:.6rem;
-  margin-top:.4rem;
-  padding:1.6rem 1rem;
+  margin-top:1.4rem;
+  padding:1.4rem 1.5rem;
+  border:1px dashed var(--line);
+  border-radius:12px;
   color:var(--muted);
   font-size:.85rem;
 }
