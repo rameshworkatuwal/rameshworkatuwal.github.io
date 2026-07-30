@@ -58,7 +58,7 @@
 .gal-item:hover img{ transform:scale(1.05); filter:saturate(1.05) contrast(1.04); }
 .gal-item:focus-visible{ outline:3px solid var(--blue); outline-offset:4px; }
 /* ===== video editing reel ===== */
-.edit-reel-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.6rem; max-width:760px; margin:0 0 3.4rem; }
+.edit-reel-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.8rem; max-width:1040px; margin:0 0 3.4rem; }
 .edit-reel-item{ margin:0; }
 .edit-reel-item .video-frame{ aspect-ratio:9/16; border-radius:8px; overflow:hidden; }
 .edit-reel-item .video-frame::after{ border-radius:inherit; }
@@ -76,13 +76,13 @@
   border:1px solid rgba(255,255,255,.2); opacity:0; transform:translateY(4px); pointer-events:none;
   transition:opacity .35s, transform .35s; }
 .reel-mute-badge svg{ width:13px; height:13px; }
-.video-frame:hover .reel-mute-badge{ opacity:1; transform:none; }
+.video-frame.is-muted:hover .reel-mute-badge{ opacity:1; transform:none; }
 
 @media (max-width:900px){
   .album-folders{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   .gal-grid{ gap:12px; }
   .gal-item{ flex-basis:calc((100% - 24px)/3); }
-  .edit-reel-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:420px; }
+  .edit-reel-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:520px; }
 }
 @media (max-width:600px){
   .gallery-page{ padding-left:5%; padding-right:5%; }
@@ -423,7 +423,7 @@ html[data-theme="light"] .video-feature{
       <div class="edit-reel-grid" aria-label="Video editing reel">
         <figure class="edit-reel-item">
           <div class="video-frame">
-            <iframe id="yt-reel-1" class="yt-reel" src="https://www.youtube.com/embed/l63X_wwvAAE?enablejsapi=1&amp;mute=1&amp;playsinline=1&amp;rel=0&amp;modestbranding=1"
+            <iframe id="yt-reel-1" class="yt-reel" src="https://www.youtube.com/embed/l63X_wwvAAE?enablejsapi=1&amp;playsinline=1&amp;rel=0&amp;modestbranding=1"
               allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Video edit 01"></iframe>
             <span class="reel-play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
             <span class="reel-mute-badge" aria-hidden="true">
@@ -662,9 +662,14 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       players[iframe.id] = new YT.Player(iframe.id, {
         events: {
           onStateChange: function(e){
+            var frame = iframe.closest('.video-frame');
+            // Browsers often silently force-mute unrequested autoplay that
+            // isn't triggered by a click. If that happens, quietly show the
+            // mute badge instead of pretending sound is on.
+            if (frame) frame.classList.toggle('is-muted', e.target.isMuted());
             if (e.data === YT.PlayerState.PLAYING) {
               // Best-effort only — YouTube's own adaptive logic (and the small
-              // embed size) usually overrides this, so it's not guaranteed.
+              // embed size) usually overrides this, so 4K isn't guaranteed.
               try { e.target.setPlaybackQuality('highres'); } catch (err) {}
             }
           }
@@ -683,7 +688,10 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 
     frame.addEventListener('mouseenter', function(){
       var p = players[iframe.id];
-      if (p && typeof p.playVideo === 'function') p.playVideo();
+      if (!p) return;
+      if (typeof p.unMute === 'function') p.unMute();
+      if (typeof p.setVolume === 'function') p.setVolume(100);
+      if (typeof p.playVideo === 'function') p.playVideo();
     });
     frame.addEventListener('mouseleave', function(){
       var p = players[iframe.id];
