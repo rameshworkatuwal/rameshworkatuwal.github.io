@@ -720,8 +720,16 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 
     window.onYouTubeIframeAPIReady = function(){
       reelIframes.forEach(function(iframe){
+        var qualityTimer = null;
+        function pushHighestQuality(target){
+          // Best-effort only — see note below. Re-asserted on an interval
+          // because YouTube can silently step the resolution back down
+          // during playback (bandwidth changes, its own heuristics, etc).
+          try { target.setPlaybackQuality('highres'); } catch (err) {}
+        }
         players[iframe.id] = new YT.Player(iframe.id, {
           events: {
+            onReady: function(e){ pushHighestQuality(e.target); },
             onStateChange: function(e){
               var frame = iframe.closest('.video-frame');
               // Browsers often silently force-mute unrequested autoplay that
@@ -730,9 +738,12 @@ document.querySelectorAll('.nav-links a').forEach(link => {
               if (frame) frame.classList.toggle('is-muted', e.target.isMuted());
               if (e.data === YT.PlayerState.PLAYING) {
                 stopOthers(frame);
-                // Best-effort only — YouTube's own adaptive logic (and the small
-                // embed size) usually overrides this, so 4K isn't guaranteed.
-                try { e.target.setPlaybackQuality('highres'); } catch (err) {}
+                pushHighestQuality(e.target);
+                if (qualityTimer) clearInterval(qualityTimer);
+                qualityTimer = setInterval(function(){ pushHighestQuality(e.target); }, 3000);
+              } else if (qualityTimer) {
+                clearInterval(qualityTimer);
+                qualityTimer = null;
               }
             }
           }
