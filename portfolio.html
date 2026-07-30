@@ -63,6 +63,14 @@
 .edit-reel-item .video-frame{ aspect-ratio:9/16; border-radius:8px; overflow:hidden; }
 .edit-reel-item .video-frame::after{ border-radius:inherit; }
 .edit-reel-item figcaption{ margin-top:.7rem; font-size:.8rem; color:var(--muted); }
+.reel-play-hint{ position:absolute; inset:0; z-index:1; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg, rgba(2,6,14,0) 55%, rgba(2,6,14,.45) 100%);
+  opacity:0; pointer-events:none; transition:opacity .4s cubic-bezier(.2,.7,.2,1); }
+.video-frame:hover .reel-play-hint{ opacity:1; }
+.reel-play-hint svg{ width:20px; height:20px; padding:14px; color:#fff; border-radius:50%;
+  background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35); backdrop-filter:blur(6px);
+  transform:scale(.65); transition:transform .45s cubic-bezier(.34,1.5,.4,1), background .3s; }
+.video-frame:hover .reel-play-hint svg{ transform:scale(1); background:rgba(255,255,255,.26); }
 
 @media (max-width:900px){
   .album-folders{ grid-template-columns:repeat(2,minmax(0,1fr)); }
@@ -411,6 +419,7 @@ html[data-theme="light"] .video-feature{
           <div class="video-frame">
             <iframe src="https://drive.google.com/file/d/1cTZwLOGGy1bvbyjVgV-inCHlUNd1l0JH/preview"
               allow="autoplay" allowfullscreen loading="lazy" title="Video edit 01"></iframe>
+            <span class="reel-play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
           </div>
           <figcaption>Edit 01</figcaption>
         </figure>
@@ -418,6 +427,7 @@ html[data-theme="light"] .video-feature{
           <div class="video-frame">
             <iframe src="https://drive.google.com/file/d/1eMXScHH3saaZDNQxDrdai6RZCIIRR1uH/preview"
               allow="autoplay" allowfullscreen loading="lazy" title="Video edit 02"></iframe>
+            <span class="reel-play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
           </div>
           <figcaption>Edit 02</figcaption>
         </figure>
@@ -425,6 +435,7 @@ html[data-theme="light"] .video-feature{
           <div class="video-frame">
             <iframe src="https://drive.google.com/file/d/1KtE0ftCzyF0T-zHfM0xwkPkjCfflUWh7/preview"
               allow="autoplay" allowfullscreen loading="lazy" title="Video edit 03"></iframe>
+            <span class="reel-play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
           </div>
           <figcaption>Edit 03</figcaption>
         </figure>
@@ -432,6 +443,7 @@ html[data-theme="light"] .video-feature{
           <div class="video-frame">
             <iframe src="https://drive.google.com/file/d/1oJGpJuQ3uUID_wl2mFjaM4lqaZZXb0DV/preview"
               allow="autoplay" allowfullscreen loading="lazy" title="Video edit 04"></iframe>
+            <span class="reel-play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
           </div>
           <figcaption>Edit 04</figcaption>
         </figure>
