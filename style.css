@@ -2101,135 +2101,178 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   color:transparent;
 }
 
+/* ============================================================
+   PORTFOLIO CATEGORY SWITCHER
+
+   Layered rather than flat: a translucent glass track with ambient
+   colour drifting behind it, and a gradient pill that slides to the
+   active tab and takes on that category's own two-tone colour.
+   Each tab carries its own --g1/--g2 so one rule drives everything.
+   ============================================================ */
 .portfolio-switch{
   position:relative;
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  max-width:1060px;
-  padding:8px;
+  max-width:1100px;
+  padding:10px;
   overflow:hidden;
   border:1px solid var(--line);
-  border-radius:20px;
-  background:rgba(127,140,160,.09);
+  border-radius:26px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015)),
+    rgba(127,140,160,.07);
+  backdrop-filter:blur(18px) saturate(1.3);
+  -webkit-backdrop-filter:blur(18px) saturate(1.3);
+  box-shadow:0 18px 44px rgba(10,20,40,.13), inset 0 1px 0 rgba(255,255,255,.14);
   isolation:isolate;
+
+  /* the live category colours, updated by [data-active] below */
+  --g1:#38e1ff;
+  --g2:#2563eb;
 }
 
+/* ambient colour drifting behind the glass */
+.portfolio-switch::before{
+  content:'';
+  position:absolute;
+  inset:-40%;
+  z-index:-2;
+  pointer-events:none;
+  background:
+    radial-gradient(closest-side circle at 18% 45%, rgba(56,225,255,.30), transparent),
+    radial-gradient(closest-side circle at 52% 55%, rgba(255,107,157,.24), transparent),
+    radial-gradient(closest-side circle at 84% 45%, rgba(52,211,153,.24), transparent);
+  filter:blur(34px);
+  opacity:.55;
+  animation:switchAurora 16s ease-in-out infinite;
+}
+@keyframes switchAurora{
+  0%,100%{ transform:translate3d(0,0,0) scale(1); }
+  50%    { transform:translate3d(3%,-4%,0) scale(1.12); }
+}
+
+/* the sliding pill */
 .portfolio-switch-glider{
   position:absolute;
   z-index:-1;
-  top:8px;
-  bottom:8px;
-  left:8px;
-  width:calc(33.333% - 8px);
-  border-radius:14px;
-  background:var(--surface);
-  box-shadow:0 4px 14px rgba(10,20,40,.14), 0 1px 0 rgba(255,255,255,.06);
+  top:10px;
+  bottom:10px;
+  left:10px;
+  width:calc(33.333% - 10px);
+  border-radius:20px;
+  background:linear-gradient(135deg, var(--g1), var(--g2));
+  /* plain fallback first — a browser without color-mix() would drop the
+     whole declaration and render no shadow at all */
+  box-shadow:0 12px 30px -6px rgba(20,50,110,.45), inset 0 1px 0 rgba(255,255,255,.35);
+  box-shadow:
+    0 12px 30px -6px color-mix(in srgb, var(--g2) 55%, transparent),
+    inset 0 1px 0 rgba(255,255,255,.35);
   opacity:0;
-  transition:transform .4s cubic-bezier(.2,.8,.2,1), opacity .3s;
+  transition:
+    transform .55s cubic-bezier(.34,1.28,.44,1),
+    opacity .3s,
+    background .45s ease,
+    box-shadow .45s ease;
+}
+/* a soft sheen riding on top of the pill */
+.portfolio-switch-glider::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(180deg, rgba(255,255,255,.22), transparent 62%);
+  pointer-events:none;
 }
 
-.portfolio-switch[data-active] .portfolio-switch-glider{
-  opacity:1;
-}
+.portfolio-switch[data-active] .portfolio-switch-glider{ opacity:1; }
+.portfolio-switch[data-active="videography"]  .portfolio-switch-glider{ transform:translateX(100%); }
+.portfolio-switch[data-active="video-editing"] .portfolio-switch-glider{ transform:translateX(200%); }
 
-.portfolio-switch[data-active="videography"] .portfolio-switch-glider{
-  transform:translateX(100%);
-}
-
-.portfolio-switch[data-active="video-editing"] .portfolio-switch-glider{
-  transform:translateX(200%);
-}
+/* the pill picks up the active category's colours */
+.portfolio-switch[data-active="photography"]  { --g1:#5dd3ff; --g2:#2563eb; }
+.portfolio-switch[data-active="videography"]  { --g1:#ff8fb1; --g2:#e11d48; }
+.portfolio-switch[data-active="video-editing"]{ --g1:#5ee7b8; --g2:#0d9488; }
 
 .portfolio-tab{
+  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:1.15rem;
+  gap:1.25rem;
   min-width:0;
-  padding:1.7rem 1.4rem;
+  padding:2.1rem 1.4rem;
   border:0;
-  border-radius:18px;
+  border-radius:20px;
   background:transparent;
   color:var(--muted);
   text-align:left;
   cursor:pointer;
-  transition:color .3s,transform .3s,background .3s;
+  transition:color .35s, transform .45s cubic-bezier(.2,.8,.2,1);
 }
 
-.portfolio-tab:hover{
-  color:var(--text);
-  background:rgba(127,140,160,.07);
-}
-
-.portfolio-tab.is-active{
-  color:var(--text);
-}
-
-.portfolio-tab:focus-visible{
-  outline:2px solid var(--blue);
-  outline-offset:-3px;
-}
-
-.portfolio-tab-icon{
-  display:grid;
-  flex:0 0 58px;
-  width:58px;
-  height:58px;
-  place-items:center;
-  border:1px solid rgba(93,211,255,.25);
-  border-radius:16px;
-  background:rgba(93,211,255,.08);
-  color:#69dbff;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
-  transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, background .35s;
-}
-
-.portfolio-tab:hover .portfolio-tab-icon{
-  transform:scale(1.06);
-}
-
-.portfolio-tab-icon svg{
-  width:26px;
-  height:26px;
-}
-
-.portfolio-play-icon svg{
-  width:21px;
-  height:21px;
-}
-
-.portfolio-play-icon{
-  border-color:rgba(255,112,127,.24);
-  background:rgba(255,91,111,.08);
-  color:#ff8191;
-  font-size:.8rem;
-}
-
-.portfolio-edit-icon{
-  border-color:rgba(120,220,150,.26);
-  background:rgba(16,163,120,.08);
-  color:#5fd6a0;
-  font-size:.85rem;
-}
-
-.portfolio-tab.is-active .portfolio-tab-icon{
-  background:rgba(93,211,255,.16);
-}
-
-.portfolio-tab.is-active .portfolio-play-icon{
-  background:rgba(255,112,127,.16);
-}
-
-.portfolio-tab.is-active .portfolio-edit-icon{
-  background:rgba(16,163,120,.16);
-}
+.portfolio-tab:hover{ color:var(--text); transform:translateY(-2px); }
+.portfolio-tab.is-active{ color:#fff; transform:none; }
+.portfolio-tab:focus-visible{ outline:2px solid var(--blue); outline-offset:-4px; border-radius:20px; }
 
 .portfolio-tab strong{
   display:block;
-  font-size:1.3rem;
-  font-weight:700;
-  letter-spacing:-.015em;
+  font-family:'Bricolage Grotesque', sans-serif;
+  font-size:1.62rem;
+  font-weight:800;
+  letter-spacing:-.025em;
   white-space:nowrap;
+  transition:color .35s;
+}
+
+/* ── icon tiles ── */
+.portfolio-tab-icon{
+  position:relative;
+  display:grid;
+  flex:0 0 68px;
+  width:68px;
+  height:68px;
+  place-items:center;
+  border-radius:20px;
+  color:#fff;
+  background:linear-gradient(140deg, var(--i1), var(--i2));
+  box-shadow:0 10px 24px -8px rgba(20,50,110,.5), inset 0 1px 0 rgba(255,255,255,.4);
+  box-shadow:
+    0 10px 24px -8px color-mix(in srgb, var(--i2) 65%, transparent),
+    inset 0 1px 0 rgba(255,255,255,.4);
+  transition:transform .45s cubic-bezier(.34,1.4,.44,1), box-shadow .4s;
+  --i1:#5dd3ff; --i2:#2563eb;
+}
+.portfolio-tab-icon::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(180deg, rgba(255,255,255,.3), transparent 58%);
+  pointer-events:none;
+}
+.portfolio-play-icon{ --i1:#ff8fb1; --i2:#e11d48; }
+.portfolio-edit-icon{ --i1:#5ee7b8; --i2:#0d9488; }
+
+.portfolio-tab:hover .portfolio-tab-icon{ transform:translateY(-3px) scale(1.07) rotate(-3deg); }
+.portfolio-tab.is-active .portfolio-tab-icon{
+  transform:scale(1.04);
+  background:rgba(255,255,255,.22);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45), 0 8px 20px -8px rgba(0,0,0,.4);
+}
+
+.portfolio-tab-icon svg{ position:relative; z-index:1; width:30px; height:30px; }
+.portfolio-play-icon svg{ width:24px; height:24px; }
+
+@media (max-width:1080px){
+  .portfolio-tab{ gap:.9rem; padding:1.6rem 1rem; }
+  .portfolio-tab strong{ font-size:1.24rem; }
+  .portfolio-tab-icon{ flex-basis:56px; width:56px; height:56px; border-radius:17px; }
+  .portfolio-tab-icon svg{ width:25px; height:25px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .portfolio-switch::before{ animation:none; }
+  .portfolio-switch-glider, .portfolio-tab, .portfolio-tab-icon{ transition:none; }
 }
 
 .portfolio-panels{
@@ -2241,28 +2284,54 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 }
 
 .portfolio-panel-hint{
+  position:relative;
   display:flex;
   align-items:center;
-  gap:.6rem;
-  margin-top:1.4rem;
-  padding:1.4rem 1.5rem;
-  border:1px dashed var(--line);
-  border-radius:12px;
+  gap:.85rem;
+  margin-top:1.6rem;
+  padding:1.5rem 1.7rem;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:linear-gradient(120deg, rgba(56,225,255,.05), rgba(139,108,255,.05));
   color:var(--muted);
-  font-size:.85rem;
+  font-size:.92rem;
 }
 
 .portfolio-panel-hint[hidden]{
   display:none;
 }
 
+/* a light sweeping across, so the empty state still feels alive */
+.portfolio-panel-hint::after{
+  content:'';
+  position:absolute;
+  top:0; left:-40%;
+  width:35%; height:100%;
+  background:linear-gradient(100deg, transparent, rgba(255,255,255,.14), transparent);
+  transform:skewX(-16deg);
+  animation:hintSweep 5.5s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes hintSweep{ 0%,55%{ left:-40% } 100%{ left:130% } }
+
 .portfolio-panel-hint::before{
   content:'';
-  width:8px;
-  height:8px;
+  flex:0 0 auto;
+  width:10px;
+  height:10px;
   border-radius:50%;
   background:linear-gradient(135deg,var(--blue),var(--blue-light));
-  box-shadow:0 0 0 4px rgba(56,225,255,.14);
+  box-shadow:0 0 0 5px rgba(56,225,255,.13);
+  animation:hintPulse 2.4s ease-in-out infinite;
+}
+@keyframes hintPulse{
+  0%,100%{ box-shadow:0 0 0 5px rgba(56,225,255,.13); }
+  50%    { box-shadow:0 0 0 9px rgba(56,225,255,.05); }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .portfolio-panel-hint::after, .portfolio-panel-hint::before{ animation:none; }
 }
 
 .portfolio-panel.is-active{
@@ -2478,13 +2547,21 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   box-shadow:0 16px 38px rgba(207,33,74,.4);
 }
 
+/* Light theme keeps the same gradient pill — only the glass track and the
+   ambient wash need toning down so the white text stays readable. */
 html[data-theme="light"] .portfolio-switch{
-  background:rgba(20,60,100,.06);
+  background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.55));
+  border-color:rgba(20,60,100,.1);
+  box-shadow:0 18px 44px rgba(20,50,90,.1), inset 0 1px 0 rgba(255,255,255,.9);
 }
-
-html[data-theme="light"] .portfolio-switch-glider{
-  background:#ffffff;
-  box-shadow:0 4px 14px rgba(20,50,90,.12);
+html[data-theme="light"] .portfolio-switch::before{ opacity:.42; }
+html[data-theme="light"] .portfolio-tab.is-active{ color:#fff; }
+html[data-theme="light"] .portfolio-panel-hint{
+  background:linear-gradient(120deg, rgba(2,136,209,.05), rgba(139,108,255,.05));
+  border-color:rgba(20,60,100,.12);
+}
+html[data-theme="light"] .portfolio-panel-hint::after{
+  background:linear-gradient(100deg, transparent, rgba(2,136,209,.12), transparent);
 }
 
 html[data-theme="light"] .portfolio-page .video-feature{
@@ -2513,28 +2590,40 @@ html[data-theme="light"] .portfolio-page .video-feature{
   .portfolio-switch{
     width:100%;
   }
+  .portfolio-switch{
+    padding:7px;
+    border-radius:20px;
+  }
+  .portfolio-switch-glider{
+    top:7px; bottom:7px; left:7px;
+    width:calc(33.333% - 7px);
+    border-radius:15px;
+  }
   .portfolio-tab{
     flex-direction:column;
-    gap:.5rem;
-    padding:.95rem .4rem;
+    gap:.55rem;
+    padding:1.05rem .35rem;
+    border-radius:15px;
   }
   .portfolio-tab-icon{
-    flex-basis:42px;
-    width:42px;
-    height:42px;
+    flex-basis:46px;
+    width:46px;
+    height:46px;
+    border-radius:14px;
   }
   .portfolio-tab-icon svg{
-    width:20px;
-    height:20px;
+    width:21px;
+    height:21px;
   }
   .portfolio-play-icon svg{
-    width:16px;
-    height:16px;
+    width:17px;
+    height:17px;
   }
   .portfolio-tab strong{
-    font-size:.82rem;
+    font-size:.84rem;
     text-align:center;
     white-space:normal;
+    letter-spacing:-.01em;
   }
   .panel-intro{
     align-items:flex-start;
@@ -2811,6 +2900,15 @@ html[data-theme="light"] .portfolio-page .video-feature{
 .wx-fog-0{ top:28%; animation:wx-drift 13s linear infinite; }
 .wx-fog-1{ top:58%; opacity:.6; animation:wx-drift 18s linear infinite -7s; }
 
+/* The pill is ~20px tall but the card is ~300px, so the same particles
+   need to be larger and fall further inside the panel. */
+.wx-panel-anim .wx-drop{ height:17px; width:1.8px; }
+.wx-panel-anim .wx-flake{ width:4.5px; height:4.5px; }
+.wx-panel-anim .wx-cloud{ height:74px; filter:blur(17px); }
+.wx-panel-anim .wx-fog{ height:24px; filter:blur(12px); }
+.wx-panel-anim .wx-sun{ left:50%; top:24%; width:170px; height:170px; margin:-85px 0 0 -85px; }
+.wx-panel-anim .wx-star{ width:2.5px; height:2.5px; }
+
 /* ── rain ───────────────────────────────────────────────── */
 .wx-drop{
   position:absolute;
@@ -2858,69 +2956,162 @@ html[data-theme="light"] .portfolio-page .video-feature{
   93.5%,100% { opacity:0 }
 }
 
-/* ── detail panel ───────────────────────────────────────── */
+/* ── detail panel: an Apple-Weather-style card ─────────────
+   Full-bleed weather scene behind, everything centred on top, with a
+   dark scrim in between so the text stays readable whatever the
+   conditions are doing. */
 .wx-panel{
   position:absolute;
-  top:calc(100% + .6rem);
+  top:calc(100% + .7rem);
   left:0;
   z-index:20;
-  width:252px;
+  width:300px;
   overflow:hidden;
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:var(--surface);
-  box-shadow:0 24px 54px rgba(10,20,40,.26);
-  animation:wx-pop .28s cubic-bezier(.2,.9,.25,1);
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.1);
+  background:linear-gradient(175deg,#2a3542,#161d29 60%,#10151f); /* default sky, overridden per condition below */
+  box-shadow:0 30px 70px rgba(4,8,18,.5);
+  animation:wx-pop .3s cubic-bezier(.2,.9,.25,1);
 }
-@keyframes wx-pop{ from{opacity:0;transform:translateY(-6px) scale(.97)} to{opacity:1;transform:none} }
-.wx-panel-anim{ z-index:0; opacity:.5; }
-.wx-panel-body{ position:relative; z-index:1; padding:1rem 1.05rem 1.05rem; }
+@keyframes wx-pop{ from{opacity:0;transform:translateY(-8px) scale(.96)} to{opacity:1;transform:none} }
 
-.wx-panel-head{
+/* the weather scene fills the whole card */
+.wx-panel-anim{ z-index:0; inset:0; opacity:1; }
+
+/* readability scrim over the scene */
+.wx-panel-scrim{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.10), transparent 60%),
+    linear-gradient(180deg, rgba(6,10,20,.45) 0%, rgba(6,10,20,.62) 55%, rgba(6,10,20,.82) 100%);
+}
+
+.wx-panel-body{
+  position:relative;
+  z-index:2;
+  padding:1.5rem 1.3rem 1.25rem;
+  text-align:center;
+  color:#fff;
+}
+
+.wx-panel-kicker{
   display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:.8rem;
-  margin-bottom:.9rem;
-}
-.wx-panel-city{ display:block; font-size:.92rem; font-weight:700; color:var(--text); line-height:1.25; }
-.wx-panel-desc{ display:block; margin-top:.15rem; font-size:.76rem; color:var(--muted); }
-.wx-panel-temp{
-  font-family:'Bricolage Grotesque', sans-serif;
-  font-size:2rem;
+  align-items:center;
+  justify-content:center;
+  gap:.35rem;
+  margin:0 0 .15rem;
+  font-size:.66rem;
   font-weight:700;
-  line-height:1;
-  color:var(--text);
-  letter-spacing:-.03em;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.72);
 }
+.wx-panel-kicker svg{ width:11px; height:11px; }
+
+.wx-panel-city{
+  margin:0;
+  font-family:'Plus Jakarta Sans', sans-serif;
+  font-size:1.5rem;
+  font-weight:500;
+  letter-spacing:-.015em;
+  line-height:1.2;
+  color:#fff;
+  text-shadow:0 2px 14px rgba(0,0,0,.4);
+}
+
+/* the big Apple-style thin temperature */
+.wx-panel-temp{
+  margin:.1rem 0 -.1rem;
+  font-family:'Plus Jakarta Sans', sans-serif;
+  font-size:4.4rem;
+  font-weight:200;
+  line-height:1;
+  letter-spacing:-.04em;
+  color:#fff;
+  text-shadow:0 4px 24px rgba(0,0,0,.35);
+}
+
+.wx-panel-desc{
+  margin:0;
+  font-size:.95rem;
+  font-weight:500;
+  color:rgba(255,255,255,.86);
+}
+
+.wx-panel-hl{
+  display:flex;
+  justify-content:center;
+  gap:.8rem;
+  margin:.15rem 0 0;
+  font-size:.88rem;
+  font-weight:600;
+  color:rgba(255,255,255,.82);
+  font-variant-numeric:tabular-nums;
+}
+.wx-panel-hl span:empty{ display:none; }
+
 .wx-panel-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:.55rem .8rem;
-  padding-top:.85rem;
-  border-top:1px solid var(--line);
+  gap:.5rem .8rem;
+  margin-top:1.1rem;
+  padding-top:.95rem;
+  border-top:1px solid rgba(255,255,255,.16);
 }
-.wx-panel-grid div{ display:flex; flex-direction:column; gap:.15rem; }
-.wx-panel-grid span{ font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
-.wx-panel-grid b{ font-size:.85rem; font-weight:600; color:var(--text); font-variant-numeric:tabular-nums; }
+.wx-panel-grid div{ display:flex; flex-direction:column; gap:.1rem; }
+.wx-panel-grid span{
+  font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+}
+.wx-panel-grid b{
+  font-size:.85rem; font-weight:600; color:#fff;
+  font-variant-numeric:tabular-nums;
+}
 
 .wx-locate{
   width:100%;
   margin-top:.95rem;
-  padding:.55rem;
-  border:1px solid rgba(93,211,255,.35);
-  border-radius:9px;
-  background:rgba(56,225,255,.09);
-  color:var(--blue);
+  padding:.58rem;
+  border:1px solid rgba(255,255,255,.26);
+  border-radius:11px;
+  background:rgba(255,255,255,.14);
+  color:#fff;
   font-family:inherit;
   font-size:.76rem;
   font-weight:600;
   cursor:pointer;
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
   transition:background .25s, border-color .25s;
 }
-.wx-locate:hover:not(:disabled){ background:rgba(56,225,255,.18); border-color:rgba(93,211,255,.6); }
+.wx-locate:hover:not(:disabled){ background:rgba(255,255,255,.24); border-color:rgba(255,255,255,.45); }
 .wx-locate:disabled{ opacity:.6; cursor:progress; }
-.wx-note{ margin:.6rem 0 0; font-size:.66rem; line-height:1.45; color:var(--muted); }
+.wx-locate[hidden]{ display:none; }
+
+.wx-note{
+  margin:.6rem 0 0;
+  font-size:.64rem;
+  line-height:1.45;
+  color:rgba(255,255,255,.55);
+}
+
+/* ── per-condition sky behind the card ── */
+.wx[data-cond="clear"][data-day="1"] .wx-panel{ background:linear-gradient(175deg,#2f8ed6,#5bb6ea 45%,#8fd0f0); }
+.wx[data-cond="clear"][data-day="0"] .wx-panel{ background:linear-gradient(175deg,#0e1730,#1d2c54 55%,#2a3a63); }
+.wx[data-cond="partly"][data-day="1"] .wx-panel{ background:linear-gradient(175deg,#4a8fc4,#7db2d8 55%,#a8c9de); }
+.wx[data-cond="partly"][data-day="0"] .wx-panel{ background:linear-gradient(175deg,#141d33,#26324f 60%,#333f5c); }
+.wx[data-cond="cloudy"] .wx-panel{ background:linear-gradient(175deg,#39424f,#59636f 60%,#78828c); }
+.wx[data-cond="cloudy"][data-day="0"] .wx-panel{ background:linear-gradient(175deg,#1b202a,#2c333f 60%,#3a424e); }
+.wx[data-cond="fog"] .wx-panel{ background:linear-gradient(175deg,#4a5057,#6b7278 60%,#8a9096); }
+.wx[data-cond="fog"][data-day="0"] .wx-panel{ background:linear-gradient(175deg,#1e2228,#31363d 60%,#434950); }
+.wx[data-cond="drizzle"] .wx-panel,
+.wx[data-cond="rain"] .wx-panel{ background:linear-gradient(175deg,#2a3542,#161d29 60%,#10151f); }
+.wx[data-cond="snow"] .wx-panel{ background:linear-gradient(175deg,#4e5f74,#6d7f95 60%,#8fa1b5); }
+.wx[data-cond="snow"][data-day="0"] .wx-panel{ background:linear-gradient(175deg,#1f2836,#333f52 60%,#45536a); }
+.wx[data-cond="storm"] .wx-panel{ background:linear-gradient(175deg,#1d2230,#101420 60%,#0a0d16); }
 
 /* ── responsive: shed detail before the nav gets crowded ── */
 @media (max-width:1240px){
@@ -2988,6 +3179,13 @@ html:not([data-theme="light"]) .wx[data-cond="snow"] .wx-pill{
 }
 html:not([data-theme="light"]) .wx[data-cond="snow"] .wx-icon{ color:#b9dcf5; }
 html:not([data-theme="light"]) .wx[data-cond="snow"] .wx-city{ color:rgba(230,243,253,.62); }
+
+/* The weather card carries its own sky in both themes, so on a light page
+   only its drop shadow needs softening. */
+html[data-theme="light"] .wx-panel{
+  box-shadow:0 30px 70px rgba(20,50,90,.28);
+  border-color:rgba(255,255,255,.16);
+}
 
 /* ============================================================
    MOTION KIT  —  [data-anim] entrance animations

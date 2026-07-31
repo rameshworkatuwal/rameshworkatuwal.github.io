@@ -108,10 +108,11 @@
   }
 
   /* ---------- animated backdrop, built per condition ---------- */
-  function backdrop(cond, isDay) {
+  function backdrop(cond, isDay, dense) {
     var i, html = '';
+    var mul = dense ? 3 : 1;
     if (cond === 'clear' && isDay)   return '<span class="wx-sun"></span>';
-    if (cond === 'clear')            { for (i = 0; i < 7; i++) html += star(i); return html; }
+    if (cond === 'clear')            { for (i = 0; i < 7 * mul; i++) html += star(i); return html; }
     if (cond === 'partly' || cond === 'cloudy') {
       if (cond === 'partly' && isDay) html += '<span class="wx-sun wx-sun-peek"></span>';
       for (i = 0; i < 3; i++) html += '<span class="wx-cloud wx-cloud-' + i + '"></span>';
@@ -119,13 +120,13 @@
     }
     if (cond === 'fog')  return '<span class="wx-fog wx-fog-0"></span><span class="wx-fog wx-fog-1"></span>';
     if (cond === 'drizzle' || cond === 'rain') {
-      var n = cond === 'rain' ? 14 : 9;
+      var n = (cond === 'rain' ? 14 : 9) * mul;
       for (i = 0; i < n; i++) html += drop(i, n);
       return html;
     }
-    if (cond === 'snow') { for (i = 0; i < 11; i++) html += flake(i); return html; }
+    if (cond === 'snow') { for (i = 0; i < 11 * mul; i++) html += flake(i); return html; }
     if (cond === 'storm') {
-      for (i = 0; i < 12; i++) html += drop(i, 12);
+      for (i = 0; i < 12 * mul; i++) html += drop(i, 12 * mul);
       return html + '<span class="wx-flash"></span>';
     }
     return '';
@@ -162,13 +163,18 @@
     '</button>' +
     '<div class="wx-panel" hidden>' +
       '<div class="wx-panel-anim" aria-hidden="true"></div>' +
+      '<div class="wx-panel-scrim" aria-hidden="true"></div>' +
       '<div class="wx-panel-body">' +
-        '<div class="wx-panel-head">' +
-          '<div class="wx-panel-place"><strong class="wx-panel-city"></strong><span class="wx-panel-desc"></span></div>' +
-          '<div class="wx-panel-temp"></div>' +
-        '</div>' +
+        '<p class="wx-panel-kicker">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 3 3 10.5l7.6 2.9L13.5 21z"/></svg>' +
+          '<span class="wx-panel-where">My Location</span>' +
+        '</p>' +
+        '<h3 class="wx-panel-city"></h3>' +
+        '<p class="wx-panel-temp"></p>' +
+        '<p class="wx-panel-desc"></p>' +
+        '<p class="wx-panel-hl"><span class="wx-hi">—</span><span class="wx-lo">—</span></p>' +
         '<div class="wx-panel-grid">' +
-          '<div><span>Feels like</span><b class="wx-feels">—</b></div>' +
+          '<div><span>Feels</span><b class="wx-feels">—</b></div>' +
           '<div><span>Humidity</span><b class="wx-hum">—</b></div>' +
           '<div><span>Wind</span><b class="wx-wind">—</b></div>' +
           '<div><span>Local time</span><b class="wx-full">—</b></div>' +
@@ -217,12 +223,21 @@
     el.setAttribute('data-day', isDay ? '1' : '0');
     q('.wx-icon').innerHTML = '<svg viewBox="0 0 24 24" width="17" height="17">' + iconFor(cond, isDay) + '</svg>';
     q('.wx-anim').innerHTML = backdrop(cond, isDay);
-    q('.wx-panel-anim').innerHTML = backdrop(cond, isDay);
+    q('.wx-panel-anim').innerHTML = backdrop(cond, isDay, true);
     q('.wx-temp').textContent = isFinite(temp) ? temp + '°' : '—';
     q('.wx-city').textContent = place.city;
-    q('.wx-panel-city').textContent = place.city + (place.country ? ', ' + place.country : '');
+    q('.wx-panel-city').textContent = place.city;
+    q('.wx-panel-where').textContent = place.precise
+      ? (place.country ? 'My Location · ' + place.country : 'My Location')
+      : (place.country || 'My Location');
     q('.wx-panel-desc').textContent = desc;
     q('.wx-panel-temp').textContent = isFinite(temp) ? temp + '°' : '—';
+
+    var daily = wx.daily || {};
+    var hi = daily.temperature_2m_max && daily.temperature_2m_max[0];
+    var lo = daily.temperature_2m_min && daily.temperature_2m_min[0];
+    q('.wx-hi').textContent = isFinite(hi) ? 'H:' + Math.round(hi) + '°' : '';
+    q('.wx-lo').textContent = isFinite(lo) ? 'L:' + Math.round(lo) + '°' : '';
     q('.wx-feels').textContent = isFinite(cur.apparent_temperature) ? Math.round(cur.apparent_temperature) + '°' : '—';
     q('.wx-hum').textContent   = isFinite(cur.relative_humidity_2m) ? Math.round(cur.relative_humidity_2m) + '%' : '—';
     q('.wx-wind').textContent  = isFinite(cur.wind_speed_10m) ? Math.round(cur.wind_speed_10m) + ' km/h' : '—';
@@ -251,6 +266,8 @@
       '?latitude=' + encodeURIComponent(place.lat) +
       '&longitude=' + encodeURIComponent(place.lon) +
       '&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m' +
+      '&daily=temperature_2m_max,temperature_2m_min' +
+      '&forecast_days=1' +
       '&timezone=auto';
     return json(url);
   }
