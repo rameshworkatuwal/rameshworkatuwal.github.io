@@ -383,14 +383,15 @@
 .wx[data-cond="storm"] .wx-panel{ background:linear-gradient(175deg,#1d2230,#101420 60%,#0a0d16); }
 
 /* ── responsive: shed detail before the nav gets crowded ── */
-@media (max-width:1240px){
+/* The nav links are larger now, so the pill gives up detail sooner. */
+@media (max-width:1340px){
   .wx{ margin-left:1.4rem; }
   .wx-city{ max-width:8ch; }
 }
-@media (max-width:1100px){
+@media (max-width:1200px){
   .wx-city, .wx-dot{ display:none; }
 }
-@media (max-width:940px){
+@media (max-width:1040px){
   .wx-time, .wx-dot{ display:none; }
   .wx-pill{ padding:.42rem .7rem; }
 }

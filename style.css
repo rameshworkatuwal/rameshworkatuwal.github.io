@@ -69,17 +69,17 @@ nav {
 
 .nav-links {
   display: flex;
-  gap: 0.3rem;
+  gap: 0.55rem;
   list-style: none;
 }
 
 .nav-links a {
   text-decoration: none;
   color: var(--muted);
-  font-size: 0.85rem;
-  font-weight: 400;
-  padding: 0.4rem 0.7rem;
-  border-radius: 6px;
+  font-size: 0.94rem;
+  font-weight: 500;
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
   transition: all 0.2s ease;
   display: inline-block;
 }
@@ -1204,8 +1204,8 @@ html[data-theme="light"] .soc:hover{color:#fff;background:#0288D1}
   .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
   .hero-inner { max-width: 100%; }
   nav { padding: 1rem 4%; }
-  .nav-links { gap: 0; }
-  .nav-links a { padding: 0.35rem 0.5rem; font-size: 0.78rem; }
+  .nav-links { gap: 0.15rem; }
+  .nav-links a { padding: 0.4rem 0.6rem; font-size: 0.84rem; }
 }
 
 /* ── ACCESSIBLE, COMPACT NAVIGATION ── */
