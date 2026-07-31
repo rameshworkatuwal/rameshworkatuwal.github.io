@@ -91,11 +91,24 @@ nav {
   transform: scale(1.1);
 }
 
-/* ── PAGE WRAPPER ── */
+/* ── PAGE WRAPPER ──
+   Scales with the viewport instead of stopping at a fixed 1000px, so a
+   wide desktop actually gets used, while phones keep comfortable
+   side padding and normal reading widths. */
 .page {
+  width: 100%;
   max-width: 1000px;
   margin: 0 auto;
   padding: 8rem 5% 5rem;
+}
+@media (min-width: 1200px){
+  .page{ max-width: 1180px; }
+}
+@media (min-width: 1500px){
+  .page{ max-width: 1340px; padding-top: 8.5rem; }
+}
+@media (min-width: 1800px){
+  .page{ max-width: 1460px; }
 }
 
 .page-label {
@@ -1097,52 +1110,35 @@ h1 {
 .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.45s; }
 .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.55s; }
 
-/* Card group blur — GPU accelerated smooth */
-.card-group { }
+/* Focus effect when hovering one card in a group.
+   This used to animate `filter: blur()` on every sibling at once, which
+   forces the browser to re-rasterise each card on every frame — that was
+   the source of the lag on hover. Dimming + a slight shrink reads the
+   same but only touches opacity and transform, which stay on the
+   compositor. */
 .card-group .skill-card,
 .card-group .cert-card,
 .card-group .blog-card,
 .card-group .exp-card,
 .timeline-item {
-  will-change: transform, opacity, filter;
   transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94),
               opacity 0.35s ease,
-              filter 0.35s ease,
               box-shadow 0.35s ease,
-              border-color 0.35s ease !important;
+              border-color 0.35s ease;
 }
 .card-group:has(.skill-card:hover) .skill-card:not(:hover),
 .card-group:has(.cert-card:hover) .cert-card:not(:hover),
 .card-group:has(.blog-card:hover) .blog-card:not(:hover) {
-  opacity: 0.5;
-  filter: blur(1.2px);
+  opacity: 0.45;
   transform: scale(0.985);
 }
-/* Timeline special — blur siblings not children */
 .timeline:has(.exp-card:hover) .timeline-item:not(:has(.exp-card:hover)) {
-  opacity: 0.5;
-  filter: blur(1.2px);
-  transform: scale(0.985) translateX(0);
-}
-
-/* Blog grid blur — direct :has on .blog-grid */
-.blog-grid:has(.blog-card:hover) .blog-card:not(:hover) {
   opacity: 0.45;
-  filter: blur(1.5px);
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
-
-/* Cursor glow */
-.cursor-glow {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(56,225,255,0.06) 0%, transparent 70%);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 0;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s ease;
+.blog-grid:has(.blog-card:hover) .blog-card:not(:hover) {
+  opacity: 0.42;
+  transform: scale(0.98);
 }
 
 /* ============================================================
@@ -1287,7 +1283,6 @@ button:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
-  .cursor-glow { display: none; }
 }
 
 /* ============================================================
@@ -2956,3 +2951,164 @@ html:not([data-theme="light"]) .wx[data-cond="snow"] .wx-pill{
 }
 html:not([data-theme="light"]) .wx[data-cond="snow"] .wx-icon{ color:#b9dcf5; }
 html:not([data-theme="light"]) .wx[data-cond="snow"] .wx-city{ color:rgba(230,243,253,.62); }
+
+/* ============================================================
+   MOTION KIT  —  [data-anim] entrance animations
+
+   Runs natively on the compositor via CSS scroll-driven animations
+   (animation-timeline: view()) in Chrome/Edge 115+, Firefox 132+ and
+   Safari 18+. Older browsers fall back to an .anim-in class added by
+   motion.js. Only transform/opacity/filter animate, never layout
+   properties, so scrolling stays smooth.
+   ============================================================ */
+
+@keyframes anim-fade-up   { from{ opacity:0; transform:translateY(38px) } to{ opacity:1; transform:none } }
+@keyframes anim-fade-down { from{ opacity:0; transform:translateY(-28px) } to{ opacity:1; transform:none } }
+@keyframes anim-fade-in   { from{ opacity:0 } to{ opacity:1 } }
+@keyframes anim-left      { from{ opacity:0; transform:translateX(-46px) } to{ opacity:1; transform:none } }
+@keyframes anim-right     { from{ opacity:0; transform:translateX(46px) } to{ opacity:1; transform:none } }
+@keyframes anim-scale     { from{ opacity:0; transform:scale(.9) } to{ opacity:1; transform:none } }
+@keyframes anim-pop       { from{ opacity:0; transform:scale(.82) translateY(20px) } to{ opacity:1; transform:none } }
+@keyframes anim-blur      { from{ opacity:0; filter:blur(14px); transform:translateY(24px) scale(.985) }
+                            to  { opacity:1; filter:blur(0);    transform:none } }
+@keyframes anim-tilt      { from{ opacity:0; transform:perspective(900px) rotateX(14deg) translateY(40px) }
+                            to  { opacity:1; transform:perspective(900px) rotateX(0) translateY(0) } }
+@keyframes anim-clip      { from{ opacity:0; clip-path:inset(0 0 100% 0); transform:translateY(18px) }
+                            to  { opacity:1; clip-path:inset(0 0 0 0);    transform:none } }
+@keyframes anim-flip      { from{ opacity:0; transform:perspective(1000px) rotateY(-24deg) translateX(30px) }
+                            to  { opacity:1; transform:perspective(1000px) rotateY(0) translateX(0) } }
+
+/* Hidden until animated. Kept in a single rule so nothing can flash. */
+[data-anim]{ opacity:0; will-change:transform, opacity; }
+
+/* --- fallback path: class toggled by motion.js --- */
+[data-anim].anim-in{
+  animation-duration:.85s;
+  animation-timing-function:cubic-bezier(.2,.75,.25,1);
+  animation-fill-mode:both;
+  animation-delay:calc(var(--d, 0) * 90ms);
+}
+[data-anim="fade-up"].anim-in  { animation-name:anim-fade-up }
+[data-anim="fade-down"].anim-in{ animation-name:anim-fade-down }
+[data-anim="fade"].anim-in     { animation-name:anim-fade-in }
+[data-anim="left"].anim-in     { animation-name:anim-left }
+[data-anim="right"].anim-in    { animation-name:anim-right }
+[data-anim="scale"].anim-in    { animation-name:anim-scale }
+[data-anim="pop"].anim-in      { animation-name:anim-pop }
+[data-anim="blur"].anim-in     { animation-name:anim-blur }
+[data-anim="tilt"].anim-in     { animation-name:anim-tilt }
+[data-anim="clip"].anim-in     { animation-name:anim-clip }
+[data-anim="flip"].anim-in     { animation-name:anim-flip }
+
+/* --- native path: driven by scroll position, no JS --- */
+@supports (animation-timeline: view()) {
+  [data-anim]{
+    animation-duration:1ms;              /* the timeline supplies the progress */
+    animation-timing-function:cubic-bezier(.2,.75,.25,1);
+    animation-fill-mode:both;
+    animation-timeline:view();
+    animation-range:entry 2% cover 26%;
+  }
+  [data-anim="fade-up"]  { animation-name:anim-fade-up }
+  [data-anim="fade-down"]{ animation-name:anim-fade-down }
+  [data-anim="fade"]     { animation-name:anim-fade-in }
+  [data-anim="left"]     { animation-name:anim-left }
+  [data-anim="right"]    { animation-name:anim-right }
+  [data-anim="scale"]    { animation-name:anim-scale }
+  [data-anim="pop"]      { animation-name:anim-pop }
+  [data-anim="blur"]     { animation-name:anim-blur }
+  [data-anim="tilt"]     { animation-name:anim-tilt }
+  [data-anim="clip"]     { animation-name:anim-clip }
+  [data-anim="flip"]     { animation-name:anim-flip }
+  /* Stagger by shifting each item's range a little further down. */
+  [data-anim][style*="--d"]{ animation-range:entry 2% cover calc(26% + var(--d) * 4%); }
+}
+
+/* Above-the-fold items shouldn't wait for a scroll that may never happen. */
+[data-anim][data-anim-now]{
+  animation-timeline:auto !important;
+  animation-duration:.9s !important;
+  animation-delay:calc(var(--d, 0) * 90ms) !important;
+}
+
+/* ── hover kit ──────────────────────────────────────────── */
+
+/* pointer-following glow */
+[data-glow]{ position:relative; isolation:isolate; overflow:hidden; }
+[data-glow]::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  border-radius:inherit;
+  background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%), rgba(56,225,255,.16), transparent 62%);
+  opacity:0;
+  transition:opacity .4s ease;
+  pointer-events:none;
+}
+[data-glow]:hover::before{ opacity:1; }
+
+/* shine sweep */
+[data-shine]{ position:relative; overflow:hidden; }
+[data-shine]::after{
+  content:'';
+  position:absolute;
+  top:0; left:-140%;
+  width:65%; height:100%;
+  background:linear-gradient(100deg, transparent, rgba(255,255,255,.28), transparent);
+  transform:skewX(-18deg);
+  pointer-events:none;
+}
+[data-shine]:hover::after{ animation:anim-shine .85s cubic-bezier(.3,.7,.3,1); }
+@keyframes anim-shine{ to{ left:140% } }
+
+/* lift */
+[data-lift]{ transition:transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s cubic-bezier(.2,.8,.2,1); }
+[data-lift]:hover{ transform:translateY(-8px); box-shadow:0 26px 54px rgba(10,20,40,.26); }
+
+/* 3D tilt (angles fed by motion.js) */
+[data-tilt]{
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .45s;
+}
+[data-tilt]:hover{ transition:transform .12s linear, box-shadow .45s; }
+
+/* magnetic buttons (offset fed by motion.js) */
+[data-magnet]{ transition:transform .45s cubic-bezier(.2,.9,.25,1); }
+
+/* animated gradient text */
+.grad-text{
+  background:linear-gradient(100deg, var(--blue) 0%, #8b6cff 34%, #ff6b9d 60%, var(--blue) 100%);
+  background-size:260% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:grad-slide 9s linear infinite;
+}
+@keyframes grad-slide{ to{ background-position:-260% 0 } }
+
+/* slow float, for hero art */
+@keyframes anim-float{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-11px) } }
+.float-slow{ animation:anim-float 6s ease-in-out infinite; }
+
+/* headline that draws itself in, word by word */
+.reveal-words{ display:inline-block; }
+.reveal-words > span{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(90%) rotate(3deg);
+  animation:anim-word .85s cubic-bezier(.2,.8,.2,1) both;
+  animation-delay:calc(var(--w) * 85ms + 120ms);
+}
+@keyframes anim-word{ to{ opacity:1; transform:none } }
+
+@media (prefers-reduced-motion:reduce){
+  [data-anim]{ opacity:1 !important; animation:none !important; filter:none !important;
+               transform:none !important; clip-path:none !important; }
+  [data-shine]::after, [data-glow]::before{ display:none }
+  [data-lift]:hover, [data-tilt], [data-magnet]{ transform:none !important }
+  .grad-text{ animation:none }
+  .float-slow{ animation:none }
+  .reveal-words > span{ opacity:1; transform:none; animation:none }
+}

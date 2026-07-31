@@ -43,9 +43,7 @@ body{
   line-height:1.7;
   overflow-x:hidden;
   min-height:100vh;
-  cursor:none;
 }
-@media (hover:none){ body{cursor:auto} }
 a{color:inherit;text-decoration:none}
 ::selection{background:rgba(56,225,255,0.28);color:#fff}
 
@@ -64,13 +62,6 @@ a{color:inherit;text-decoration:none}
   animation:grainShift .5s steps(3) infinite}
 @keyframes grainShift{0%{transform:translate(0,0)}33%{transform:translate(-4%,3%)}66%{transform:translate(3%,-2%)}100%{transform:translate(0,0)}}
 .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 220px 60px rgba(0,0,0,.85)}
-
-/* ── custom cursor ── */
-.cur-dot,.cur-ring{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%)}
-.cur-dot{width:7px;height:7px;background:var(--cyan);box-shadow:var(--glow-cyan)}
-.cur-ring{width:38px;height:38px;border:1.5px solid rgba(56,225,255,.5);transition:width .25s var(--ease),height .25s var(--ease),background .25s,border-color .25s}
-.cur-ring.hot{width:66px;height:66px;background:rgba(56,225,255,.08);border-color:var(--cyan)}
-@media (hover:none){.cur-dot,.cur-ring{display:none}}
 
 /* ── scroll progress ── */
 .progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:200;background:linear-gradient(90deg,var(--cyan),var(--violet));box-shadow:0 0 12px rgba(56,225,255,.7)}
@@ -227,8 +218,6 @@ footer b{color:var(--cyan)}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
-  body{cursor:auto}
-  .cur-dot,.cur-ring{display:none}
 }
 
 /* ===== LIGHT THEME (homepage) ===== */
@@ -255,8 +244,6 @@ html[data-theme="light"] .btn-primary{ color:#fff; box-shadow:0 8px 24px rgba(2,
 html[data-theme="light"] .photo{ border-color:#fff; }
 html[data-theme="light"] .orbit{ background:rgba(255,255,255,.94); color:#10202e; box-shadow:0 8px 22px rgba(20,50,90,.12); }
 html[data-theme="light"] .cta-strip{ background:linear-gradient(120deg,rgba(2,136,209,.07),rgba(106,77,224,.07)); }
-html[data-theme="light"] .cur-dot,
-html[data-theme="light"] .cur-ring{ mix-blend-mode:normal; }
 </style>
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
@@ -268,7 +255,6 @@ html[data-theme="light"] .cur-ring{ mix-blend-mode:normal; }
 </div>
 <div class="grain"></div>
 <div class="vignette"></div>
-<div class="cur-ring"></div><div class="cur-dot"></div>
 <div class="progress"></div>
 
 <nav>
@@ -336,7 +322,7 @@ html[data-theme="light"] .cur-ring{ mix-blend-mode:normal; }
 
 <section class="section">
   <p class="sec-label reveal">What I do</p>
-  <h2 class="sec-title reveal d1">Skills that ship real results.</h2>
+  <h2 class="sec-title" data-anim="blur">Skills that ship real results.</h2>
   <div class="cards">
     <div class="card reveal d1" data-glow>
       <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="14" height="14" rx="2"/><path d="m22 8-6 4 6 4V8z"/></svg></div>
@@ -366,8 +352,8 @@ html[data-theme="light"] .cur-ring{ mix-blend-mode:normal; }
 </section>
 
 <div class="cta-strip reveal">
-  <h2>Let's make something worth watching.</h2>
-  <p
+  <h2 data-anim="blur">Let's make something worth watching.</h2>
+  <p data-anim="fade-up" style="--d:1"
     data-avail-before="In Dubai from 1 August 2026 — open to full-time, contract, and freelance work."
     data-avail-after="I am available to work in Dubai, Abu Dhabi, Sharjah and Ajman — open to full-time, contract, and freelance work.">In Dubai from 1 August 2026 — open to full-time, contract, and freelance work.</p>
   <a href="contact.html" class="btn btn-primary" data-magnetic data-hot>Get in Touch →</a>
@@ -391,16 +377,6 @@ document.querySelectorAll('.nav-links a, .btn, .soc').forEach(a=>{
 });
 
 if(!reduce){
-  /* custom cursor */
-  const dot=document.querySelector('.cur-dot'),ring=document.querySelector('.cur-ring');
-  let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
-  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-  (function loop(){rx+=(mx-rx)*.45;ry+=(my-ry)*.45;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-  document.querySelectorAll('[data-hot],a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>ring.classList.add('hot'));
-    el.addEventListener('mouseleave',()=>ring.classList.remove('hot'));
-  });
-
   /* hero word reveal */
   document.querySelectorAll('.hero-name .word').forEach((w,i)=>{
     w.animate([{transform:'translateY(115%)',opacity:0},{transform:'translateY(0)',opacity:1}],
@@ -483,5 +459,6 @@ if(!reduce){
 <script src="theme.js"></script>
 <script src="availability.js"></script>
 <script src="weather.js"></script>
+<script src="motion.js"></script>
 </body>
 </html>
