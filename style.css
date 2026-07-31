@@ -2295,9 +2295,11 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   position:relative;
   display:flex;
   align-items:center;
-  gap:.85rem;
+  gap:.75rem;
+  width:max-content;
+  max-width:100%;
   margin-top:1.6rem;
-  padding:1.5rem 1.7rem;
+  padding:.95rem 1.4rem;
   overflow:hidden;
   border:1px solid var(--line);
   border-radius:20px;
@@ -2938,4 +2940,104 @@ html[data-theme="light"] .portfolio-page .video-feature{
   .portfolio-switch:not([data-active]) .portfolio-tab-icon,
   .portfolio-switch.is-switching{ animation:none; }
   .portfolio-tab-ripple{ display:none; }
+}
+
+/* ============================================================
+   SEND EMAIL — the contact card's main call to action
+   ============================================================ */
+.send-mail{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.6rem;
+  width:100%;
+  margin-bottom:1.4rem;
+  padding:1rem 1.4rem;
+  overflow:hidden;
+  border-radius:14px;
+  text-decoration:none;
+  color:#04121d;
+  font-family:'Bricolage Grotesque', sans-serif;
+  font-size:1rem;
+  font-weight:700;
+  letter-spacing:-.01em;
+  isolation:isolate;
+
+  /* a gradient that keeps drifting, so the button never looks static */
+  background:linear-gradient(100deg,
+    var(--blue) 0%, #8b6cff 28%, #38e1ff 52%, #5eead4 74%, var(--blue) 100%);
+  background-size:280% 100%;
+  animation:sendFlow 9s linear infinite;
+  box-shadow:0 12px 30px -10px rgba(56,225,255,.7);
+  transition:box-shadow .4s ease, letter-spacing .35s ease;
+}
+@keyframes sendFlow{ to{ background-position:-280% 0; } }
+
+/* soft halo that grows on hover */
+.send-mail-glow{
+  position:absolute;
+  inset:-40%;
+  z-index:-1;
+  border-radius:inherit;
+  background:radial-gradient(circle at 50% 50%, rgba(56,225,255,.55), transparent 62%);
+  opacity:0;
+  transform:scale(.6);
+  transition:opacity .45s ease, transform .6s cubic-bezier(.2,.8,.2,1);
+  pointer-events:none;
+}
+.send-mail:hover .send-mail-glow{ opacity:.85; transform:scale(1); }
+
+/* light sweeping across on hover */
+.send-mail::after{
+  content:'';
+  position:absolute;
+  top:0; left:-45%;
+  width:38%; height:100%;
+  background:linear-gradient(100deg, transparent, rgba(255,255,255,.65), transparent);
+  transform:skewX(-18deg);
+  pointer-events:none;
+}
+.send-mail:hover::after{ animation:sendShine .8s cubic-bezier(.3,.7,.3,1); }
+@keyframes sendShine{ to{ left:130%; } }
+
+.send-mail:hover{
+  letter-spacing:.02em;
+  box-shadow:0 20px 44px -10px rgba(56,225,255,.9);
+}
+.send-mail:active{ box-shadow:0 8px 20px -8px rgba(56,225,255,.8); }
+.send-mail:focus-visible{ outline:3px solid var(--blue); outline-offset:3px; }
+
+.send-mail-label{ position:relative; z-index:1; }
+
+/* the paper plane takes off, then reappears from behind the text */
+.send-mail-plane{
+  position:relative;
+  z-index:1;
+  display:flex;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.send-mail-plane svg{ width:17px; height:17px; display:block; }
+.send-mail:hover .send-mail-plane{ animation:sendTakeoff .85s cubic-bezier(.5,0,.4,1); }
+@keyframes sendTakeoff{
+  0%      { transform:translate(0,0) rotate(0);        opacity:1; }
+  40%     { transform:translate(26px,-22px) rotate(12deg); opacity:0; }
+  41%     { transform:translate(-22px,18px) rotate(12deg); opacity:0; }
+  75%,100%{ transform:translate(0,0) rotate(0);        opacity:1; }
+}
+
+/* the whole button breathes gently at rest, to draw the eye */
+.send-mail{ animation:sendFlow 9s linear infinite, sendBreathe 4.5s ease-in-out infinite; }
+@keyframes sendBreathe{
+  0%,100%{ scale:1; }
+  50%    { scale:1.018; }
+}
+.send-mail:hover{ animation-play-state:running, paused; }
+
+html[data-theme="light"] .send-mail{ color:#052232; }
+
+@media (prefers-reduced-motion:reduce){
+  .send-mail{ animation:none; background-position:0 0; }
+  .send-mail::after, .send-mail-glow, .send-mail-plane{ animation:none; transition:none; }
+  .send-mail:hover{ letter-spacing:normal; }
 }
