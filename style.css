@@ -459,16 +459,53 @@ h1 {
 }
 
 .lang-bar {
-  height: 5px;
+  position: relative;
+  height: 7px;
   background: var(--line);
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
+/* The fill is laid out at its final width and then revealed with scaleX,
+   so the growth animation runs on the compositor instead of re-laying out
+   the bar on every frame. */
 .lang-fill {
+  position: relative;
   height: 100%;
-  background: var(--blue);
-  border-radius: 3px;
+  width: var(--pct, 0%);
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--blue), #8b6cff 55%, #38e1ff);
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: lang-grow 1.15s cubic-bezier(.2,.85,.25,1) forwards;
+  animation-delay: calc(var(--d, 0) * 140ms + 180ms);
+}
+@keyframes lang-grow { to { transform: scaleX(1); } }
+
+/* a light sweeping along the filled part, once it has grown */
+.lang-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.55) 50%, transparent 80%);
+  transform: translateX(-100%);
+  animation: lang-sheen 3.4s ease-in-out infinite;
+  animation-delay: calc(var(--d, 0) * 140ms + 1.3s);
+}
+@keyframes lang-sheen {
+  0%       { transform: translateX(-100%); }
+  45%, 100%{ transform: translateX(100%); }
+}
+
+/* native language gets a subtle glow so it reads as the standout */
+.lang-fill.is-native {
+  box-shadow: 0 0 12px rgba(56,225,255,.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-fill { animation: none; transform: scaleX(1); }
+  .lang-fill::after { animation: none; opacity: 0; }
 }
 
 /* ============================================================
@@ -3111,4 +3148,75 @@ html:not([data-theme="light"]) .wx[data-cond="snow"] .wx-city{ color:rgba(230,24
   .grad-text{ animation:none }
   .float-slow{ animation:none }
   .reveal-words > span{ opacity:1; transform:none; animation:none }
+}
+
+/* ============================================================
+   "Coming soon to UAE" — flight badge on the About page
+   ============================================================ */
+.loc-value{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:.4rem;
+}
+
+.loc-soon{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.3rem .7rem .3rem .55rem;
+  border-radius:999px;
+  overflow:hidden;
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  white-space:nowrap;
+  color:var(--blue);
+  background:rgba(56,225,255,.09);
+  border:1px solid rgba(93,211,255,.32);
+}
+.loc-soon[hidden]{ display:none; }
+
+/* a faint runway of light sweeping behind the text */
+.loc-soon::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(100deg, transparent 15%, rgba(93,211,255,.28) 50%, transparent 85%);
+  transform:translateX(-100%);
+  animation:loc-runway 4.5s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes loc-runway{ 0%{transform:translateX(-100%)} 55%,100%{transform:translateX(100%)} }
+
+/* the plane takes off, banks away, then comes back round */
+.loc-plane{
+  display:flex;
+  color:var(--blue);
+  animation:loc-fly 4.5s cubic-bezier(.4,0,.5,1) infinite;
+}
+.loc-plane svg{
+  width:13px;
+  height:13px;
+  display:block;
+  transform:rotate(45deg);   /* nose pointing forward, not straight up */
+}
+@keyframes loc-fly{
+  0%      { transform:translate(0,0) scale(1);      opacity:1 }
+  45%     { transform:translate(16px,-9px) scale(.9); opacity:1 }
+  62%     { transform:translate(34px,-20px) scale(.7); opacity:0 }
+  63%     { transform:translate(-14px,10px) scale(.7); opacity:0 }
+  80%,100%{ transform:translate(0,0) scale(1);      opacity:1 }
+}
+
+@media (max-width:520px){
+  .loc-value{ align-items:flex-end; }
+  .loc-soon{ font-size:.62rem; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .loc-soon::before, .loc-plane{ animation:none; }
+  .loc-soon::before{ opacity:0; }
 }

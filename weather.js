@@ -31,9 +31,35 @@
   var logo = nav.querySelector('.nav-logo');
   var anchor = logo ? logo.nextSibling : links;
 
-  var PLACE_KEY = 'rk_wx_place';
-  var DATA_KEY  = 'rk_wx_data';
+  // v2: v1 could cache a wrongly geocoded city, so the key is bumped to
+  // throw those stale entries away.
+  var PLACE_KEY = 'rk_wx_place_v2';
+  var DATA_KEY  = 'rk_wx_data_v2';
   var TTL_MS    = 10 * 60 * 1000;   // re-fetch at most every 10 minutes
+
+  // Plenty of devices still report the old tzdata spellings. Left as-is,
+  // "Asia/Katmandu" searches for "Katmandu", whose top geocoding hit is a
+  // theme park in Mallorca — so normalise before doing anything with it.
+  var TZ_ALIASES = {
+    'Asia/Katmandu': 'Asia/Kathmandu',
+    'Asia/Calcutta': 'Asia/Kolkata',
+    'Asia/Saigon': 'Asia/Ho_Chi_Minh',
+    'Asia/Rangoon': 'Asia/Yangon',
+    'Asia/Dacca': 'Asia/Dhaka',
+    'Asia/Thimbu': 'Asia/Thimphu',
+    'Europe/Kiev': 'Europe/Kyiv',
+    'Europe/Uzhgorod': 'Europe/Kyiv',
+    'Africa/Asmera': 'Africa/Asmara',
+    'America/Buenos_Aires': 'America/Argentina/Buenos_Aires',
+    'Pacific/Ponape': 'Pacific/Pohnpei',
+    'Atlantic/Faeroe': 'Atlantic/Faroe'
+  };
+
+  function currentTimeZone() {
+    var zone;
+    try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) {}
+    return TZ_ALIASES[zone] || zone || '';
+  }
 
   /* ---------- tiny storage helpers (private mode can throw) ---------- */
   function read(key) {
@@ -189,7 +215,7 @@
 
     el.setAttribute('data-cond', cond);
     el.setAttribute('data-day', isDay ? '1' : '0');
-    q('.wx-icon').innerHTML = '<svg viewBox="0 0 24 24">' + iconFor(cond, isDay) + '</svg>';
+    q('.wx-icon').innerHTML = '<svg viewBox="0 0 24 24" width="17" height="17">' + iconFor(cond, isDay) + '</svg>';
     q('.wx-anim').innerHTML = backdrop(cond, isDay);
     q('.wx-panel-anim').innerHTML = backdrop(cond, isDay);
     q('.wx-temp').textContent = isFinite(temp) ? temp + '°' : '—';
@@ -205,7 +231,7 @@
       : 'Detected from your time zone. Nothing leaves this device.';
     q('.wx-locate').hidden = !!place.precise;
 
-    tz = place.timezone || wx.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
+    tz = place.timezone || wx.timezone || currentTimeZone();
     lastHH = lastMM = '';
     tickClock();
     el.hidden = false;
@@ -236,19 +262,45 @@
     return last.replace(/_/g, ' ');
   }
 
+  // The geocoder happily returns airports, theme parks and hamlets, and its
+  // top hit is not always the obvious city. Score the candidates instead of
+  // trusting position: the visitor's own timezone is the strongest signal,
+  // then "is it actually a town", then how big it is.
+  function pickBestPlace(results, zone) {
+    if (!results || !results.length) return null;
+    var best = null, bestScore = -Infinity;
+    for (var i = 0; i < results.length; i++) {
+      var r = results[i];
+      if (typeof r.latitude !== 'number' || typeof r.longitude !== 'number') continue;
+      var code = r.feature_code || '';
+      var score = 0;
+      if (r.timezone === zone) score += 1000;                 // same timezone as the visitor
+      if (code === 'PPLC') score += 300;                      // national capital
+      else if (code.indexOf('PPLA') === 0) score += 200;      // regional capital
+      else if (code.indexOf('PPL') === 0) score += 100;       // any populated place
+      else score -= 400;                                      // airport, park, landmark…
+      score += Math.min((r.population || 0) / 50000, 120);
+      score -= i * 0.5;                                       // gentle tie-break toward the API's order
+      if (score > bestScore) { bestScore = score; best = r; }
+    }
+    return best;
+  }
+
   function placeFromTimeZone() {
-    var zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    var zone = currentTimeZone();
     var guess = cityFromTimeZone(zone);
     if (!guess) return Promise.reject(new Error('no timezone city'));
-    return json('https://geocoding-api.open-meteo.com/v1/search?count=1&format=json&language=en&name=' +
+    return json('https://geocoding-api.open-meteo.com/v1/search?count=10&format=json&language=en&name=' +
                 encodeURIComponent(guess))
       .then(function (r) {
-        var hit = r && r.results && r.results[0];
+        var hit = pickBestPlace(r && r.results, zone);
         if (!hit) throw new Error('not geocoded');
         return {
           city: hit.name, country: hit.country || '',
           lat: hit.latitude, lon: hit.longitude,
-          timezone: hit.timezone || zone, precise: false
+          // Prefer the visitor's own timezone for the clock — the geocoded
+          // one is only a fallback.
+          timezone: zone || hit.timezone, precise: false
         };
       });
   }
@@ -258,19 +310,19 @@
                 '&longitude=' + lon + '&localityLanguage=en')
       .then(function (r) {
         return {
-          city: r.city || r.locality || r.principalSubdivision || cityFromTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone) || 'Your area',
+          city: r.city || r.locality || r.principalSubdivision || cityFromTimeZone(currentTimeZone()) || 'Your area',
           country: r.countryName || '',
           lat: lat, lon: lon,
-          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          timezone: currentTimeZone(),
           precise: true
         };
       })
       .catch(function () {
         // Reverse geocoding is a nicety — the weather still works without it.
         return {
-          city: cityFromTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone) || 'Your area',
+          city: cityFromTimeZone(currentTimeZone()) || 'Your area',
           country: '', lat: lat, lon: lon,
-          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, precise: true
+          timezone: currentTimeZone(), precise: true
         };
       });
   }

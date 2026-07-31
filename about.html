@@ -67,12 +67,12 @@ html[data-theme="light"] .profile-photo{ border-color:#fff; box-shadow:0 14px 34
 </nav>
 
 <div class="page about-page reveal">
-  <p class="page-label">Who I Am</p>
-  <h2 class="page-title">About Me</h2>
-  <div class="divider-line"></div>
+  <p class="page-label" data-anim="fade-down" data-anim-now>Who I Am</p>
+  <h2 class="page-title" data-anim="blur" data-anim-now>About Me</h2>
+  <div class="divider-line" data-anim="clip" data-anim-now style="--d:1"></div>
 
   <div class="about-grid">
-    <div class="about-text">
+    <div class="about-text" data-anim="left">
       <p>
         I'm Ritesh Katuwal, a multi-skilled professional based in Kathmandu, Nepal, with over 7 years of cross-functional experience spanning digital marketing, content creation, SEO, video editing, and junior accounting.
       </p>
@@ -89,20 +89,34 @@ html[data-theme="light"] .profile-photo{ border-color:#fff; box-shadow:0 14px 34
     </div>
 
     <div>
-      <div class="profile-card">
+      <div class="profile-card" data-anim="scale" data-tilt>
         <div class="profile-ring"></div>
         <img src="profile.jpg" alt="Ritesh Katuwal" class="profile-photo">
       </div>
 
-      <div class="info-card" style="margin-bottom: 1.5rem;">
+      <div class="info-card" data-anim="right" data-glow style="margin-bottom: 1.5rem;">
         <h3>Personal Info</h3>
         <div class="info-row">
           <span class="info-label">Full Name</span>
-          <span class="info-value">Ritesh Katuwal</span>
+          <span class="info-value">Rameshwor Katuwal</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Nickname</span>
+          <span class="info-value">Ritesh</span>
         </div>
         <div class="info-row">
           <span class="info-label">Location</span>
-          <span class="info-value">Kathmandu, Nepal</span>
+          <span class="info-value loc-value">
+            <span data-avail-at="2026-08-03"
+              data-avail-before="Kathmandu, Nepal"
+              data-avail-after="Dubai, UAE">Kathmandu, Nepal</span>
+            <span class="loc-soon" data-avail-at="2026-08-03" data-avail-only="before">
+              <span class="loc-plane" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg>
+              </span>
+              Coming soon to UAE
+            </span>
+          </span>
         </div>
 
         <div class="info-row">
@@ -126,7 +140,7 @@ html[data-theme="light"] .profile-photo{ border-color:#fff; box-shadow:0 14px 34
         </div>
         <div class="info-row">
           <span class="info-label">Availability</span>
-          <span class="info-value">Full-time &amp; Contract</span>
+          <span class="info-value">Full-time, Part-time &amp; Contract</span>
         </div>
         <div class="info-row">
           <span class="info-label"
@@ -140,22 +154,25 @@ html[data-theme="light"] .profile-photo{ border-color:#fff; box-shadow:0 14px 34
 
       <div class="info-card">
         <h3>Languages</h3>
+        <!-- Nepali leads: it's the native language. The bars fill from 0 as
+             they scroll into view, driven by scaleX so it stays on the
+             compositor rather than animating width. -->
         <div class="lang-bars">
-          <div class="lang-item">
-            <div class="lang-header"><span>English</span><span>Fluent</span></div>
-            <div class="lang-bar"><div class="lang-fill" style="width: 90%"></div></div>
-          </div>
-          <div class="lang-item">
+          <div class="lang-item" data-anim="fade-up" style="--d:0">
             <div class="lang-header"><span>Nepali</span><span>Native</span></div>
-            <div class="lang-bar"><div class="lang-fill" style="width: 100%"></div></div>
+            <div class="lang-bar"><div class="lang-fill is-native" style="--pct:100%;--d:0"></div></div>
           </div>
-          <div class="lang-item">
+          <div class="lang-item" data-anim="fade-up" style="--d:1">
+            <div class="lang-header"><span>English</span><span>Fluent</span></div>
+            <div class="lang-bar"><div class="lang-fill" style="--pct:90%;--d:1"></div></div>
+          </div>
+          <div class="lang-item" data-anim="fade-up" style="--d:2">
             <div class="lang-header"><span>Hindi</span><span>Fluent</span></div>
-            <div class="lang-bar"><div class="lang-fill" style="width: 85%"></div></div>
+            <div class="lang-bar"><div class="lang-fill" style="--pct:85%;--d:2"></div></div>
           </div>
-          <div class="lang-item">
+          <div class="lang-item" data-anim="fade-up" style="--d:3">
             <div class="lang-header"><span>German</span><span>A1 · Beginner</span></div>
-            <div class="lang-bar"><div class="lang-fill" style="width: 20%"></div></div>
+            <div class="lang-bar"><div class="lang-fill" style="--pct:20%;--d:3"></div></div>
           </div>
         </div>
       </div>
@@ -174,15 +191,6 @@ html[data-theme="light"] .profile-photo{ border-color:#fff; box-shadow:0 14px 34
 </footer>
 
 <script>
-// ── Cursor glow ──
-const glow = document.createElement('div');
-glow.className = 'cursor-glow';
-document.body.appendChild(glow);
-document.addEventListener('mousemove', e => {
-  glow.style.left = e.clientX + 'px';
-  glow.style.top  = e.clientY + 'px';
-});
-
 // ── Scroll reveal ──
 const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
 const observer = new IntersectionObserver((entries) => {
@@ -231,5 +239,7 @@ document.querySelectorAll('.stat-num').forEach(el => {
 <script src="site.js"></script>
 <script src="theme.js"></script>
 <script src="availability.js"></script>
+<script src="weather.js"></script>
+<script src="motion.js"></script>
 </body>
 </html>
