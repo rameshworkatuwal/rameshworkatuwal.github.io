@@ -2113,11 +2113,11 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   position:relative;
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  max-width:1100px;
-  padding:10px;
+  max-width:1240px;
+  padding:12px;
   overflow:hidden;
   border:1px solid var(--line);
-  border-radius:26px;
+  border-radius:32px;
   background:
     linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015)),
     rgba(127,140,160,.07);
@@ -2155,11 +2155,11 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 .portfolio-switch-glider{
   position:absolute;
   z-index:-1;
-  top:10px;
-  bottom:10px;
-  left:10px;
-  width:calc(33.333% - 10px);
-  border-radius:20px;
+  top:12px;
+  bottom:12px;
+  left:12px;
+  width:calc(33.333% - 12px);
+  border-radius:24px;
   background:linear-gradient(135deg, var(--g1), var(--g2));
   /* plain fallback first — a browser without color-mix() would drop the
      whole declaration and render no shadow at all */
@@ -2198,11 +2198,11 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:1.25rem;
+  gap:1.5rem;
   min-width:0;
-  padding:2.1rem 1.4rem;
+  padding:2.7rem 1.5rem;
   border:0;
-  border-radius:20px;
+  border-radius:24px;
   background:transparent;
   color:var(--muted);
   text-align:left;
@@ -2212,12 +2212,12 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 
 .portfolio-tab:hover{ color:var(--text); transform:translateY(-2px); }
 .portfolio-tab.is-active{ color:#fff; transform:none; }
-.portfolio-tab:focus-visible{ outline:2px solid var(--blue); outline-offset:-4px; border-radius:20px; }
+.portfolio-tab:focus-visible{ outline:2px solid var(--blue); outline-offset:-4px; border-radius:24px; }
 
 .portfolio-tab strong{
   display:block;
   font-family:'Bricolage Grotesque', sans-serif;
-  font-size:1.62rem;
+  font-size:2rem;
   font-weight:800;
   letter-spacing:-.025em;
   white-space:nowrap;
@@ -2228,11 +2228,11 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 .portfolio-tab-icon{
   position:relative;
   display:grid;
-  flex:0 0 68px;
-  width:68px;
-  height:68px;
+  flex:0 0 84px;
+  width:84px;
+  height:84px;
   place-items:center;
-  border-radius:20px;
+  border-radius:25px;
   color:#fff;
   background:linear-gradient(140deg, var(--i1), var(--i2));
   box-shadow:0 10px 24px -8px rgba(20,50,110,.5), inset 0 1px 0 rgba(255,255,255,.4);
@@ -2260,14 +2260,22 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.45), 0 8px 20px -8px rgba(0,0,0,.4);
 }
 
-.portfolio-tab-icon svg{ position:relative; z-index:1; width:30px; height:30px; }
-.portfolio-play-icon svg{ width:24px; height:24px; }
+.portfolio-tab-icon svg{ position:relative; z-index:1; width:37px; height:37px; }
+.portfolio-play-icon svg{ width:30px; height:30px; }
 
-@media (max-width:1080px){
-  .portfolio-tab{ gap:.9rem; padding:1.6rem 1rem; }
-  .portfolio-tab strong{ font-size:1.24rem; }
-  .portfolio-tab-icon{ flex-basis:56px; width:56px; height:56px; border-radius:17px; }
-  .portfolio-tab-icon svg{ width:25px; height:25px; }
+@media (max-width:1240px){
+  .portfolio-tab{ gap:1.1rem; padding:2.1rem 1.1rem; }
+  .portfolio-tab strong{ font-size:1.5rem; }
+  .portfolio-tab-icon{ flex-basis:68px; width:68px; height:68px; border-radius:20px; }
+  .portfolio-tab-icon svg{ width:30px; height:30px; }
+  .portfolio-play-icon svg{ width:24px; height:24px; }
+}
+@media (max-width:1000px){
+  .portfolio-tab{ gap:.85rem; padding:1.6rem .9rem; }
+  .portfolio-tab strong{ font-size:1.2rem; }
+  .portfolio-tab-icon{ flex-basis:54px; width:54px; height:54px; border-radius:16px; }
+  .portfolio-tab-icon svg{ width:24px; height:24px; }
+  .portfolio-play-icon svg{ width:19px; height:19px; }
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -2811,4 +2819,123 @@ html[data-theme="light"] .portfolio-page .video-feature{
 @media (prefers-reduced-motion:reduce){
   .loc-soon::before, .loc-plane{ animation:none; }
   .loc-soon::before{ opacity:0; }
+}
+
+/* ============================================================
+   PORTFOLIO SWITCHER — motion
+
+   Everything below animates the `scale` property or opacity rather
+   than `transform`, because the glider already uses transform for its
+   position and the icons use it for hover. Keeping them on separate
+   properties means the two never fight.
+   ============================================================ */
+
+/* ── the pill squashes as it travels, like a liquid blob ── */
+.portfolio-switch-glider.is-moving{
+  animation:gliderSquash .6s cubic-bezier(.3,.9,.3,1);
+}
+@keyframes gliderSquash{
+  0%,100%{ scale:1 1; }
+  38%    { scale:1.06 .92; }
+}
+
+/* ── light sweeping across the pill each time it lands ── */
+.portfolio-switch-glider::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(100deg, transparent 28%, rgba(255,255,255,.55), transparent 72%);
+  opacity:0;
+  pointer-events:none;
+}
+.portfolio-switch-glider.is-moving::before{
+  animation:gliderSheen .75s ease-out;
+}
+@keyframes gliderSheen{
+  0%  { opacity:1; transform:translateX(-115%); }
+  100%{ opacity:0; transform:translateX(115%); }
+}
+
+/* ── the chosen icon pops, the label rises ── */
+.portfolio-tab.is-active .portfolio-tab-icon{
+  animation:iconPop .62s cubic-bezier(.34,1.5,.4,1);
+}
+@keyframes iconPop{
+  0%  { scale:.8; }
+  55% { scale:1.13; }
+  100%{ scale:1; }
+}
+.portfolio-tab.is-active strong{
+  animation:labelRise .5s cubic-bezier(.2,.85,.25,1);
+}
+@keyframes labelRise{
+  from{ opacity:.35; transform:translateY(9px); }
+  to  { opacity:1;   transform:none; }
+}
+
+/* ── a flash runs over the icon tile on hover ── */
+.portfolio-tab-icon::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:1;
+  border-radius:inherit;
+  background:linear-gradient(100deg, transparent 34%, rgba(255,255,255,.6), transparent 66%);
+  opacity:0;
+  pointer-events:none;
+}
+.portfolio-tab:hover .portfolio-tab-icon::before{
+  animation:iconFlash .65s ease-out;
+}
+@keyframes iconFlash{
+  0%  { opacity:1; transform:translateX(-130%); }
+  100%{ opacity:0; transform:translateX(130%); }
+}
+
+/* ── before anything is picked, the icons breathe in turn to invite a click ── */
+.portfolio-switch:not([data-active]) .portfolio-tab-icon{
+  animation:iconBreathe 3.4s ease-in-out infinite;
+}
+.portfolio-switch:not([data-active]) .portfolio-tab:nth-of-type(2) .portfolio-tab-icon{ animation-delay:.28s; }
+.portfolio-switch:not([data-active]) .portfolio-tab:nth-of-type(3) .portfolio-tab-icon{ animation-delay:.56s; }
+@keyframes iconBreathe{
+  0%,100%{ scale:1; }
+  50%    { scale:1.07; }
+}
+
+/* ── ripple from the click point ── */
+.portfolio-tab-ripple{
+  position:absolute;
+  z-index:0;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.45), rgba(255,255,255,0) 68%);
+  transform:translate(-50%,-50%) scale(0);
+  pointer-events:none;
+  animation:tabRipple .75s cubic-bezier(.2,.7,.3,1) forwards;
+}
+@keyframes tabRipple{
+  0%  { transform:translate(-50%,-50%) scale(0);   opacity:.85; }
+  100%{ transform:translate(-50%,-50%) scale(1);   opacity:0; }
+}
+
+/* ── the whole track glows for a beat when the selection changes ── */
+.portfolio-switch.is-switching{
+  animation:trackPulse .7s ease-out;
+}
+@keyframes trackPulse{
+  0%  { box-shadow:0 18px 44px rgba(10,20,40,.13), inset 0 1px 0 rgba(255,255,255,.14); }
+  35% { box-shadow:0 22px 60px rgba(10,20,40,.2),  inset 0 1px 0 rgba(255,255,255,.34); }
+  100%{ box-shadow:0 18px 44px rgba(10,20,40,.13), inset 0 1px 0 rgba(255,255,255,.14); }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .portfolio-switch-glider.is-moving,
+  .portfolio-switch-glider.is-moving::before,
+  .portfolio-tab.is-active .portfolio-tab-icon,
+  .portfolio-tab.is-active strong,
+  .portfolio-tab:hover .portfolio-tab-icon::before,
+  .portfolio-switch:not([data-active]) .portfolio-tab-icon,
+  .portfolio-switch.is-switching{ animation:none; }
+  .portfolio-tab-ripple{ display:none; }
 }

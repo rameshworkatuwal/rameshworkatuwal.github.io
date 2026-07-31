@@ -625,9 +625,42 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   var panels = Array.prototype.slice.call(document.querySelectorAll('.portfolio-panel'));
   if (!switcher || !tabs.length || !panels.length) return;
 
-  function activate(name, updateHash) {
+  var glider = switcher.querySelector('.portfolio-switch-glider');
+  var reduceMotion = false;
+  try { reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  // Re-triggering a CSS animation needs the class removed and the element
+  // reflowed before adding it back, otherwise a second click does nothing.
+  function replay(el, cls, ms) {
+    if (!el || reduceMotion) return;
+    el.classList.remove(cls);
+    void el.offsetWidth;
+    el.classList.add(cls);
+    window.setTimeout(function () { el.classList.remove(cls); }, ms);
+  }
+
+  function ripple(tab, event) {
+    if (reduceMotion) return;
+    var r = tab.getBoundingClientRect();
+    var size = Math.max(r.width, r.height) * 2;
+    var dot = document.createElement('span');
+    dot.className = 'portfolio-tab-ripple';
+    dot.style.width = dot.style.height = size + 'px';
+    // centre on the pointer, or on the tab itself for keyboard activation
+    dot.style.left = (event && event.clientX ? event.clientX - r.left : r.width / 2) + 'px';
+    dot.style.top  = (event && event.clientY ? event.clientY - r.top  : r.height / 2) + 'px';
+    tab.appendChild(dot);
+    window.setTimeout(function () { dot.remove(); }, 780);
+  }
+
+  function activate(name, updateHash, event) {
+    var changed = switcher.getAttribute('data-active') !== name;
     switcher.setAttribute('data-active', name);
     if (hint) hint.hidden = true;
+    if (changed) {
+      replay(glider, 'is-moving', 700);
+      replay(switcher, 'is-switching', 750);
+    }
     tabs.forEach(function(tab) {
       var active = tab.getAttribute('data-panel') === name;
       tab.classList.toggle('is-active', active);
@@ -645,14 +678,16 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   }
 
   tabs.forEach(function(tab, index) {
-    tab.addEventListener('click', function() {
-      activate(tab.getAttribute('data-panel'), true);
+    tab.addEventListener('click', function(event) {
+      ripple(tab, event);
+      activate(tab.getAttribute('data-panel'), true, event);
     });
     tab.addEventListener('keydown', function(event) {
       if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
       event.preventDefault();
       var next = event.key === 'ArrowRight' ? (index + 1) % tabs.length : (index - 1 + tabs.length) % tabs.length;
       tabs[next].focus();
+      ripple(tabs[next]);
       activate(tabs[next].getAttribute('data-panel'), true);
     });
   });
