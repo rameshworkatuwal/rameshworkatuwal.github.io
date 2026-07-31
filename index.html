@@ -127,31 +127,39 @@ a:focus-visible,button:focus-visible{outline:3px solid rgba(56,225,255,.5);outli
 @keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
 
-/* ── rotating role badge ──
-   All labels are stacked on top of each other; the widest one sets the
-   pill's width so it never jumps as the text changes. */
-.orbit.o2{ display:grid; justify-items:start; min-height:1.05em; }
-.orbit.o2 > span{
-  grid-area:1 / 1;
-  display:flex; align-items:center; gap:.4rem;
-  white-space:nowrap;
-  opacity:0;
-  transform:translateY(70%);
-  transition:opacity .5s cubic-bezier(.2,.8,.2,1), transform .5s cubic-bezier(.2,.8,.2,1);
+/* ── role badges ringed around the portrait ──
+   Placed at roughly 1, 3, 5, 7, 9 and 11 o'clock. Each drifts on its own
+   loop with a different duration so they never move in lockstep. */
+.orbit.role{ white-space:nowrap; }
+.orbit i{ font-style:normal; }
+.orbit.r1{ top:36%;  left:-30%;  animation:float2 6.4s ease-in-out infinite }        /* 9  o'clock */
+.orbit.r2{ top:4%;   left:-19%;  animation:float1 7.2s ease-in-out infinite -1.2s }  /* 11 o'clock */
+.orbit.r3{ bottom:14%; left:-24%; animation:float1 5.8s ease-in-out infinite -2.4s } /* 7  o'clock */
+.orbit.r4{ top:40%;  right:-27%; animation:float2 6.9s ease-in-out infinite -0.8s }  /* 3  o'clock */
+.orbit.r5{ bottom:6%; right:-16%; animation:float1 6.1s ease-in-out infinite -3.1s } /* 5  o'clock */
+
+/* Below ~1150px the ring would collide with the text column, so the
+   badges drop into a tidy wrapped row under the photo instead. */
+@media (max-width:1150px){
+  .hero-visual{ flex-direction:column; gap:1.6rem; }
+  .orbit.role{
+    position:static;
+    animation:none;
+  }
+  .orbit.o1{ top:2%; right:2%; }
+  .role-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; max-width:26rem; }
 }
-.orbit.o2 > span.on{ opacity:1; transform:none; }
-.orbit.o2 > span.out{ opacity:0; transform:translateY(-70%); }
-.orbit.o2 i{ font-style:normal; }
 
 /* ── crossfading portrait stack ── */
 .photo-stack{position:absolute;inset:0;z-index:1;border-radius:50%;}
-.photo-stack .photo{opacity:0;transform:scale(1.045);transition:opacity 1.1s ease, transform 1.6s cubic-bezier(.2,.7,.2,1);}
+.photo-stack .photo{opacity:0;transform:scale(1.045);transition:opacity .85s ease, transform 1.5s cubic-bezier(.2,.7,.2,1);}
 .photo-stack .photo.on{opacity:1;transform:scale(1);}
 
 @media (prefers-reduced-motion:reduce){
   .photo-stack .photo{transition:none}
-  .orbit.o2 > span{transition:none}
+  .orbit.role{animation:none}
 }
+
 
 .scroll-hint{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);font-family:'Space Grotesk',sans-serif;font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.5rem;z-index:3}
 .scroll-hint .bar{width:1px;height:34px;background:linear-gradient(var(--cyan),transparent);animation:sd 1.8s ease-in-out infinite}
@@ -340,17 +348,18 @@ html[data-theme="light"] .cta-strip{ background:linear-gradient(120deg,rgba(2,13
         <img src="hero-1.jpg" alt="Ritesh Katuwal" class="photo on" width="720" height="720" fetchpriority="high" decoding="async">
         <img src="hero-2.jpg" alt="" aria-hidden="true" class="photo" width="720" height="720" decoding="async">
         <img src="hero-3.jpg" alt="" aria-hidden="true" class="photo" width="720" height="720" decoding="async">
+        <img src="hero-4.jpg" alt="" aria-hidden="true" class="photo" width="720" height="720" decoding="async">
       </div>
       <div class="photo-glare"></div>
     </div>
+    <!-- Every role sits around the circle at once, each drifting on its
+         own slow loop, rather than one label swapping in and out. -->
     <div class="orbit o1"><b>7+</b> yrs</div>
-    <div class="orbit o2" id="roleOrbit" aria-live="polite">
-      <span class="on"><i>🎬</i>Video Editor</span>
-      <span><i>✍️</i>Content Writer</span>
-      <span><i>📷</i>Photography</span>
-      <span><i>🎥</i>Videography</span>
-      <span><i>📝</i>Script Writing</span>
-    </div>
+    <div class="orbit role r1"><i>🎬</i>Video Editor</div>
+    <div class="orbit role r2"><i>✍️</i>Content Writer</div>
+    <div class="orbit role r3"><i>📷</i>Photography</div>
+    <div class="orbit role r4"><i>🎥</i>Videography</div>
+    <div class="orbit role r5"><i>📝</i>Script Writing</div>
   </div>
 
   <div class="scroll-hint"><span class="bar"></span>Scroll</div>
@@ -460,23 +469,7 @@ if(!reduce){
       shots[pi].classList.remove('on');
       pi=(pi+1)%shots.length;
       shots[pi].classList.add('on');
-    },3000);
-  }
-
-  /* floating role badge — cycles through everything I do */
-  const roles=document.querySelectorAll('#roleOrbit > span');
-  if(roles.length>1){
-    let oi=0;
-    setInterval(()=>{
-      const prev=roles[oi];
-      prev.classList.remove('on');
-      prev.classList.add('out');
-      /* clear the "leaving" state once it has finished sliding out, so the
-         label is ready to come up from below on its next turn */
-      setTimeout(()=>prev.classList.remove('out'),520);
-      oi=(oi+1)%roles.length;
-      roles[oi].classList.add('on');
-    },3000);
+    },1800);
   }
 }
 
