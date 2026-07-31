@@ -2620,3 +2620,339 @@ html[data-theme="light"] .portfolio-page .video-feature{
   .pending-dots i{ animation:none; opacity:.5; }
   [data-avail-before]{ transition:none; }
 }
+
+/* ============================================================
+   LIVE WEATHER + CLOCK WIDGET (nav)
+   ============================================================ */
+
+.wx{
+  position:relative;
+  flex:0 0 auto;
+  margin:0 auto 0 2.5rem;
+  opacity:0;
+  transform:translateY(-4px);
+  transition:opacity .5s ease, transform .5s ease;
+}
+.wx.is-in{ opacity:1; transform:none; }
+
+/* ── the pill ───────────────────────────────────────────── */
+.wx-pill{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.42rem .85rem .42rem .68rem;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--surface);
+  color:var(--text);
+  font-family:inherit;
+  font-size:.8rem;
+  line-height:1;
+  cursor:pointer;
+  overflow:hidden;
+  isolation:isolate;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .3s;
+}
+.wx-pill:hover{
+  transform:translateY(-1px);
+  border-color:rgba(93,211,255,.4);
+  box-shadow:0 8px 22px rgba(10,20,40,.16);
+}
+.wx-pill:focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
+
+.wx-icon{ display:flex; color:var(--blue); }
+.wx-icon svg{ width:17px; height:17px; display:block; }
+.wx-temp{ font-weight:600; font-variant-numeric:tabular-nums; }
+.wx-dot{ width:3px; height:3px; border-radius:50%; background:var(--muted); opacity:.5; }
+.wx-city{
+  max-width:11ch;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  color:var(--muted);
+}
+.wx-time{
+  color:var(--text);
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.02em;
+}
+/* the colon breathes, so the clock reads as live rather than a screenshot */
+.wx-colon{ animation:wx-blink 2s ease-in-out infinite; }
+@keyframes wx-blink{ 0%,45%{opacity:1} 55%,100%{opacity:.28} }
+
+/* everything inside .wx-anim sits behind the text */
+.wx-anim,
+.wx-panel-anim{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+  border-radius:inherit;
+  pointer-events:none;
+}
+
+/* ── per-condition tint ─────────────────────────────────── */
+.wx[data-cond="clear"][data-day="1"] .wx-pill{ background:linear-gradient(120deg,#fff6e2,#ffe9bd); border-color:rgba(240,180,60,.42); color:#4a3711; }
+.wx[data-cond="clear"][data-day="1"] .wx-icon{ color:#e8912a; }
+.wx[data-cond="clear"][data-day="1"] .wx-city{ color:#7d6532; }
+
+.wx[data-cond="clear"][data-day="0"] .wx-pill{ background:linear-gradient(120deg,#131c3a,#243b6b); border-color:rgba(140,175,255,.35); color:#eaf1ff; }
+.wx[data-cond="clear"][data-day="0"] .wx-icon{ color:#cfe0ff; }
+.wx[data-cond="clear"][data-day="0"] .wx-city{ color:rgba(220,232,255,.68); }
+.wx[data-cond="clear"][data-day="0"] .wx-time{ color:#fff; }
+
+.wx[data-cond="partly"] .wx-pill,
+.wx[data-cond="cloudy"] .wx-pill{ background:linear-gradient(120deg,#eef3f9,#dbe4ee); border-color:rgba(120,150,180,.36); color:#26313f; }
+.wx[data-cond="partly"] .wx-icon,
+.wx[data-cond="cloudy"] .wx-icon{ color:#6d8095; }
+.wx[data-cond="partly"] .wx-city,
+.wx[data-cond="cloudy"] .wx-city{ color:#61728a; }
+
+.wx[data-cond="fog"] .wx-pill{ background:linear-gradient(120deg,#e8ecef,#d3dade); border-color:rgba(130,145,155,.4); color:#2b3338; }
+.wx[data-cond="fog"] .wx-icon{ color:#78878f; }
+.wx[data-cond="fog"] .wx-city{ color:#66757d; }
+
+.wx[data-cond="drizzle"] .wx-pill,
+.wx[data-cond="rain"] .wx-pill{ background:linear-gradient(120deg,#dfe9f4,#c3d5e8); border-color:rgba(80,130,180,.4); color:#1e2e40; }
+.wx[data-cond="drizzle"] .wx-icon,
+.wx[data-cond="rain"] .wx-icon{ color:#3c7db8; }
+.wx[data-cond="drizzle"] .wx-city,
+.wx[data-cond="rain"] .wx-city{ color:#4d6b88; }
+
+.wx[data-cond="snow"] .wx-pill{ background:linear-gradient(120deg,#f4f8fc,#dfeaf5); border-color:rgba(150,180,210,.5); color:#22303d; }
+.wx[data-cond="snow"] .wx-icon{ color:#6ba3d0; }
+.wx[data-cond="snow"] .wx-city{ color:#5b7690; }
+
+.wx[data-cond="storm"] .wx-pill{ background:linear-gradient(120deg,#2b3346,#1a2030); border-color:rgba(120,140,180,.4); color:#e9eefb; }
+.wx[data-cond="storm"] .wx-icon{ color:#ffd66b; }
+.wx[data-cond="storm"] .wx-city{ color:rgba(215,226,250,.66); }
+.wx[data-cond="storm"] .wx-time{ color:#fff; }
+
+/* ── sun ────────────────────────────────────────────────── */
+.wx-sun{
+  position:absolute;
+  top:50%; left:11px;
+  width:46px; height:46px;
+  margin:-23px 0 0 -23px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,199,84,.55) 0%, rgba(255,199,84,.18) 45%, transparent 70%);
+  animation:wx-pulse 4.5s ease-in-out infinite;
+}
+.wx-sun-peek{ opacity:.6; }
+@keyframes wx-pulse{ 0%,100%{transform:scale(1);opacity:.85} 50%{transform:scale(1.14);opacity:1} }
+
+/* ── stars ──────────────────────────────────────────────── */
+.wx-star{
+  position:absolute;
+  width:2px; height:2px;
+  border-radius:50%;
+  background:#fff;
+  opacity:.25;
+  animation:wx-twinkle 3.4s ease-in-out infinite;
+}
+@keyframes wx-twinkle{ 0%,100%{opacity:.18;transform:scale(.8)} 50%{opacity:.95;transform:scale(1.25)} }
+
+/* ── clouds ─────────────────────────────────────────────── */
+.wx-cloud{
+  position:absolute;
+  height:26px;
+  border-radius:999px;
+  background:rgba(255,255,255,.75);
+  filter:blur(7px);
+}
+.wx-cloud-0{ top:-6px;  left:-40%; width:62%; animation:wx-drift 17s linear infinite; }
+.wx-cloud-1{ top:34%;   left:-55%; width:78%; opacity:.72; animation:wx-drift 24s linear infinite -6s; }
+.wx-cloud-2{ bottom:-9px;left:-45%; width:56%; opacity:.55; animation:wx-drift 20s linear infinite -13s; }
+@keyframes wx-drift{ from{transform:translateX(0)} to{transform:translateX(260%)} }
+
+/* ── fog ────────────────────────────────────────────────── */
+.wx-fog{
+  position:absolute;
+  left:-60%;
+  width:80%; height:9px;
+  border-radius:999px;
+  background:rgba(255,255,255,.8);
+  filter:blur(5px);
+}
+.wx-fog-0{ top:28%; animation:wx-drift 13s linear infinite; }
+.wx-fog-1{ top:58%; opacity:.6; animation:wx-drift 18s linear infinite -7s; }
+
+/* ── rain ───────────────────────────────────────────────── */
+.wx-drop{
+  position:absolute;
+  top:-24%;
+  width:1.5px; height:9px;
+  border-radius:999px;
+  background:linear-gradient(180deg, rgba(70,140,200,0), rgba(60,130,195,.95));
+  animation-name:wx-fall;
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+}
+@keyframes wx-fall{ from{transform:translateY(0)} to{transform:translateY(280%)} }
+
+/* ── snow ───────────────────────────────────────────────── */
+.wx-flake{
+  position:absolute;
+  top:-20%;
+  width:3.5px; height:3.5px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 3px rgba(140,190,230,.9);
+  animation-name:wx-flutter;
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+}
+@keyframes wx-flutter{
+  from{ transform:translate(0,0) }
+  50% { transform:translate(6px,140%) }
+  to  { transform:translate(0,300%) }
+}
+
+/* ── lightning ──────────────────────────────────────────── */
+.wx-flash{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(255,245,205,.92), rgba(255,220,140,.15) 60%, transparent);
+  opacity:0;
+  animation:wx-strike 6.5s linear infinite;
+}
+@keyframes wx-strike{
+  0%,88%     { opacity:0 }
+  89%        { opacity:.85 }
+  90.5%      { opacity:0 }
+  92%        { opacity:.6 }
+  93.5%,100% { opacity:0 }
+}
+
+/* ── detail panel ───────────────────────────────────────── */
+.wx-panel{
+  position:absolute;
+  top:calc(100% + .6rem);
+  left:0;
+  z-index:20;
+  width:252px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--surface);
+  box-shadow:0 24px 54px rgba(10,20,40,.26);
+  animation:wx-pop .28s cubic-bezier(.2,.9,.25,1);
+}
+@keyframes wx-pop{ from{opacity:0;transform:translateY(-6px) scale(.97)} to{opacity:1;transform:none} }
+.wx-panel-anim{ z-index:0; opacity:.5; }
+.wx-panel-body{ position:relative; z-index:1; padding:1rem 1.05rem 1.05rem; }
+
+.wx-panel-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:.8rem;
+  margin-bottom:.9rem;
+}
+.wx-panel-city{ display:block; font-size:.92rem; font-weight:700; color:var(--text); line-height:1.25; }
+.wx-panel-desc{ display:block; margin-top:.15rem; font-size:.76rem; color:var(--muted); }
+.wx-panel-temp{
+  font-family:'Bricolage Grotesque', sans-serif;
+  font-size:2rem;
+  font-weight:700;
+  line-height:1;
+  color:var(--text);
+  letter-spacing:-.03em;
+}
+.wx-panel-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.55rem .8rem;
+  padding-top:.85rem;
+  border-top:1px solid var(--line);
+}
+.wx-panel-grid div{ display:flex; flex-direction:column; gap:.15rem; }
+.wx-panel-grid span{ font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+.wx-panel-grid b{ font-size:.85rem; font-weight:600; color:var(--text); font-variant-numeric:tabular-nums; }
+
+.wx-locate{
+  width:100%;
+  margin-top:.95rem;
+  padding:.55rem;
+  border:1px solid rgba(93,211,255,.35);
+  border-radius:9px;
+  background:rgba(56,225,255,.09);
+  color:var(--blue);
+  font-family:inherit;
+  font-size:.76rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:background .25s, border-color .25s;
+}
+.wx-locate:hover:not(:disabled){ background:rgba(56,225,255,.18); border-color:rgba(93,211,255,.6); }
+.wx-locate:disabled{ opacity:.6; cursor:progress; }
+.wx-note{ margin:.6rem 0 0; font-size:.66rem; line-height:1.45; color:var(--muted); }
+
+/* ── responsive: shed detail before the nav gets crowded ── */
+@media (max-width:1240px){
+  .wx{ margin-left:1.4rem; }
+  .wx-city{ max-width:8ch; }
+}
+@media (max-width:1100px){
+  .wx-city, .wx-dot{ display:none; }
+}
+@media (max-width:940px){
+  .wx-time, .wx-dot{ display:none; }
+  .wx-pill{ padding:.42rem .7rem; }
+}
+@media (max-width:820px){
+  .wx{ display:none; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .wx, .wx-pill{ transition:none; }
+  .wx-sun, .wx-star, .wx-cloud, .wx-fog, .wx-drop, .wx-flake, .wx-flash, .wx-colon{ animation:none; }
+  .wx-drop, .wx-flake{ opacity:.35; }
+  .wx-flash{ opacity:0; }
+  .wx-panel{ animation:none; }
+}
+
+/* Dark theme is the site default; these soften the daytime cards so a
+   bright weather pill doesn't glare against a dark nav. */
+html:not([data-theme="light"]) .wx[data-cond="clear"][data-day="1"] .wx-pill{
+  background:linear-gradient(120deg,#3a2f14,#553f14); border-color:rgba(240,190,90,.34); color:#ffeec6;
+}
+html:not([data-theme="light"]) .wx[data-cond="clear"][data-day="1"] .wx-icon{ color:#ffc861; }
+html:not([data-theme="light"]) .wx[data-cond="clear"][data-day="1"] .wx-city{ color:rgba(255,236,197,.62); }
+
+html:not([data-theme="light"]) .wx[data-cond="partly"] .wx-pill,
+html:not([data-theme="light"]) .wx[data-cond="cloudy"] .wx-pill{
+  background:linear-gradient(120deg,#222b38,#2d3a4a); border-color:rgba(140,170,200,.28); color:#e6eef8;
+}
+html:not([data-theme="light"]) .wx[data-cond="partly"] .wx-icon,
+html:not([data-theme="light"]) .wx[data-cond="cloudy"] .wx-icon{ color:#a8bed4; }
+html:not([data-theme="light"]) .wx[data-cond="partly"] .wx-city,
+html:not([data-theme="light"]) .wx[data-cond="cloudy"] .wx-city{ color:rgba(225,236,248,.6); }
+html:not([data-theme="light"]) .wx-cloud{ background:rgba(190,210,235,.42); }
+
+html:not([data-theme="light"]) .wx[data-cond="fog"] .wx-pill{
+  background:linear-gradient(120deg,#262c30,#333c41); border-color:rgba(150,165,175,.3); color:#e6ecef;
+}
+html:not([data-theme="light"]) .wx[data-cond="fog"] .wx-icon{ color:#adbcc4; }
+html:not([data-theme="light"]) .wx[data-cond="fog"] .wx-city{ color:rgba(226,236,240,.6); }
+html:not([data-theme="light"]) .wx-fog{ background:rgba(200,215,225,.45); }
+
+html:not([data-theme="light"]) .wx[data-cond="drizzle"] .wx-pill,
+html:not([data-theme="light"]) .wx[data-cond="rain"] .wx-pill{
+  background:linear-gradient(120deg,#1d2a38,#274056); border-color:rgba(110,165,215,.32); color:#e4f0fb;
+}
+html:not([data-theme="light"]) .wx[data-cond="drizzle"] .wx-icon,
+html:not([data-theme="light"]) .wx[data-cond="rain"] .wx-icon{ color:#7dc0f0; }
+html:not([data-theme="light"]) .wx[data-cond="drizzle"] .wx-city,
+html:not([data-theme="light"]) .wx[data-cond="rain"] .wx-city{ color:rgba(222,238,251,.6); }
+html:not([data-theme="light"]) .wx-drop{
+  background:linear-gradient(180deg, rgba(150,205,245,0), rgba(150,205,245,.95));
+}
+
+html:not([data-theme="light"]) .wx[data-cond="snow"] .wx-pill{
+  background:linear-gradient(120deg,#243240,#324658); border-color:rgba(160,195,225,.34); color:#eaf4fd;
+}
+html:not([data-theme="light"]) .wx[data-cond="snow"] .wx-icon{ color:#b9dcf5; }
+html:not([data-theme="light"]) .wx[data-cond="snow"] .wx-city{ color:rgba(230,243,253,.62); }
