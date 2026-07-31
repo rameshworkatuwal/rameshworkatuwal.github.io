@@ -101,7 +101,6 @@ a:focus-visible,button:focus-visible{outline:3px solid rgba(56,225,255,.5);outli
 .role-swap{position:relative;display:inline-block;min-width:12ch}
 .role-swap span{position:absolute;left:0;white-space:nowrap;color:var(--cyan);opacity:0;transform:translateY(12px);filter:blur(6px);transition:all .5s var(--ease)}
 .role-swap span.on{opacity:1;transform:translateY(0);filter:blur(0)}
-.hero-sub{font-size:.95rem;color:var(--muted);max-width:440px;margin-bottom:2rem}
 .socials{display:flex;gap:.6rem;margin-bottom:2rem}
 .soc{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--panel);color:var(--muted);transition:all .3s var(--ease)}
 .soc svg{width:18px;height:18px}
@@ -237,7 +236,6 @@ footer b{color:var(--cyan)}
   .hero{grid-template-columns:1fr;text-align:center;padding-top:7rem;gap:2.5rem}
   .hero-visual{order:-1}
   .eyebrow,.roles,.socials,.cta-row{justify-content:center}
-  .hero-sub{margin-left:auto;margin-right:auto}
   .stats{grid-template-columns:repeat(2,1fr)}
   .cards{grid-template-columns:1fr}
   .cm-tabs{grid-template-columns:1fr}
@@ -327,7 +325,6 @@ html[data-theme="light"] .cta-strip{ background:linear-gradient(120deg,rgba(2,13
         <span>Storytelling</span>
       </span>
     </div>
-    <p class="hero-sub">I turn ideas into short-form videos and content that earns attention, grows audiences, and performs across social and search.</p>
     <div class="socials">
       <a href="https://www.youtube.com/@RiteshKatwal" target="_blank" class="soc" data-hot title="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></a>
       <a href="https://www.instagram.com/riteshhrk/" target="_blank" class="soc" data-hot title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2Zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0Zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9Z"/></svg></a>
@@ -366,33 +363,27 @@ html[data-theme="light"] .cta-strip{ background:linear-gradient(120deg,rgba(2,13
   <div class="scroll-hint"><span class="bar"></span>Scroll</div>
 </header>
 
-</div>
-
 <section class="section">
   <h2 class="sec-title" data-anim="blur">What I do</h2>
   <div class="cards">
     <div class="card reveal d1" data-glow>
       <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="14" height="14" rx="2"/><path d="m22 8-6 4 6 4V8z"/></svg></div>
       <h3>Video Editing</h3>
-      <p>Short-form reels that hook in the first second — cut, captioned, and colour-graded for TikTok, Reels, and Shorts.</p>
       <div class="chips"><span class="chip">Premiere Pro</span><span class="chip">CapCut</span><span class="chip">Subtitling</span></div>
     </div>
     <div class="card reveal d2" data-glow>
       <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg></div>
       <h3>Social Media</h3>
-      <p>Growing channels from zero — content calendars, posting cadence, and analytics that turn views into a real audience.</p>
       <div class="chips"><span class="chip">TikTok</span><span class="chip">Meta</span><span class="chip">YouTube</span></div>
     </div>
     <div class="card reveal d3" data-glow>
       <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
       <h3>SEO Content</h3>
-      <p>Research-backed writing that ranks and reads well — from strategy and briefs to the final proofed draft.</p>
       <div class="chips"><span class="chip">Content Strategy</span><span class="chip">Copywriting</span><span class="chip">Analytics</span></div>
     </div>
     <div class="card reveal d4" data-glow>
       <div class="card-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/></svg></div>
       <h3>Content Operations</h3>
-      <p>Reliable publishing at scale — from content calendars and quality checks to performance reporting and team coordination.</p>
       <div class="chips"><span class="chip">Content Calendars</span><span class="chip">Quality Control</span><span class="chip">Reporting</span></div>
     </div>
   </div>
