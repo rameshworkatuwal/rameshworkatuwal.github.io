@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Ritesh Katuwal</title>
 <meta name="description" content="Ritesh Katuwal's photography and videography portfolio, featuring curated travel, event, and music video projects.">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
 /* ===== editorial gallery ===== */
@@ -24,7 +24,7 @@
 .album-folder:focus-visible .album-folder-frame{ outline:2px solid var(--blue); outline-offset:3px; }
 .album-folder-copy{ display:flex; align-items:flex-start; justify-content:space-between; gap:.6rem; margin-top:.65rem; }
 .album-folder-title{ display:flex; flex-direction:column; align-items:flex-start; gap:.4rem; min-width:0; }
-.album-folder strong{ position:relative; display:block; font-family:'Playfair Display',serif; font-weight:700; font-size:1.02rem; line-height:1.25; color:var(--text); }
+.album-folder strong{ position:relative; display:block; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:1.02rem; line-height:1.25; color:var(--text); }
 .album-folder strong::after{ content:''; position:absolute; left:0; right:100%; bottom:-4px; height:1px;
   background:currentColor; opacity:.45; transition:right .45s cubic-bezier(.2,.7,.2,1); }
 .album-folder:hover strong::after{ right:0; }
@@ -42,7 +42,7 @@
 .gal-set{ margin-bottom:3rem; }
 .gal-set-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap;
   margin-bottom:1.4rem; padding-top:1.2rem; border-top:1px solid var(--line); }
-.gal-set-head h3{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.55rem; color:var(--text); }
+.gal-set-head h3{ font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:1.55rem; color:var(--text); }
 .gal-set-head span{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); }
 .gal-empty{ color:var(--muted); font-size:.88rem; }
 .gal-grid{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; }
@@ -66,15 +66,25 @@
     radial-gradient(circle at 80% 20%, rgba(139,108,255,.13), transparent 55%),
     radial-gradient(circle at 50% 80%, rgba(255,107,157,.08), transparent 55%);
   filter:blur(10px); pointer-events:none; }
-.edit-reel-note{ margin:0 0 1.4rem; font-size:.82rem; color:var(--muted); letter-spacing:.01em; }
-.edit-reel-grid{ position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.6rem;
-  max-width:1220px; margin:0 0 3.4rem; }
+/* client credit */
+.ewan-credit{ display:inline-flex; align-items:center; gap:.7rem; margin:0 0 1.7rem;
+  padding:.5rem .95rem .5rem .85rem; border-radius:999px; text-decoration:none;
+  background:#0b0f16; border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 6px 18px rgba(10,20,40,.18);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, border-color .3s; }
+.ewan-credit:hover{ transform:translateY(-2px);
+  border-color:rgba(240,130,30,.5); box-shadow:0 12px 28px rgba(10,20,40,.28); }
+.ewan-credit-label{ color:rgba(255,255,255,.55); font-size:.72rem; font-weight:500;
+  letter-spacing:.09em; text-transform:uppercase; }
+.ewan-credit img{ display:block; width:auto; height:19px; }
+
+.edit-reel-grid{ position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1.6rem 1.6rem; max-width:1220px; margin:0 0 3.4rem; }
 .edit-reel-item{ margin:0; }
 .edit-reel-item figcaption{ margin-top:.7rem; font-size:.8rem; color:var(--muted); }
 
-/* The grid holds plain <img> thumbnails inside <button>s — no iframes at all.
-   That means (a) the page stays light, (b) mouse events are never swallowed
-   by a cross-origin frame, so hover tracking is exact. */
+/* The grid holds plain <img> thumbnails inside <button>s — no iframes at all,
+   so the page stays light no matter how many reels are listed. */
 .reel-card{ position:relative; display:block; width:100%; padding:0; aspect-ratio:9/16;
   border:0; border-radius:14px; overflow:hidden; cursor:pointer; background:#0a0f1c;
   box-shadow:0 10px 26px rgba(10,20,40,.16); -webkit-appearance:none; appearance:none;
@@ -101,18 +111,9 @@
 .reel-modal{ position:fixed; inset:0; z-index:9998; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:1rem;
   opacity:0; visibility:hidden; pointer-events:none; transition:opacity .3s ease, visibility .3s ease; }
-.reel-modal.on{ opacity:1; visibility:visible; }
-/* Deliberately keep the overlay click-through: while the player is only
-   hover-open, the card underneath must keep receiving hover, otherwise the
-   pointer "leaves" it the instant the overlay appears and it flickers shut.
-   Only the interactive parts opt back in. */
-.reel-modal.on .reel-modal-stage,
-.reel-modal.on .reel-modal-close,
-.reel-modal.on .reel-modal-nav{ pointer-events:auto; }
-.reel-modal.on.is-pinned{ pointer-events:auto; }
-.reel-modal-scrim{ position:absolute; inset:0; pointer-events:none; background:rgba(4,8,16,.74);
+.reel-modal.on{ opacity:1; visibility:visible; pointer-events:auto; }
+.reel-modal-scrim{ position:absolute; inset:0; cursor:zoom-out; background:rgba(4,8,16,.74);
   backdrop-filter:blur(16px) saturate(.9); -webkit-backdrop-filter:blur(16px) saturate(.9); }
-.reel-modal.is-pinned .reel-modal-scrim{ pointer-events:auto; cursor:zoom-out; }
 .reel-modal-stage{ position:relative; height:min(78vh,690px); aspect-ratio:9/16; max-width:90vw;
   border-radius:18px; overflow:hidden; background:#05080f;
   box-shadow:0 40px 100px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08);
@@ -260,7 +261,7 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
 }
 .video-details h3{
   margin:0 0 .85rem;
-  font-family:'Playfair Display',serif;
+  font-family:'Bricolage Grotesque',sans-serif;
   font-size:clamp(1.55rem,3vw,2.15rem);
   line-height:1.12;
   color:#fff;
@@ -356,7 +357,6 @@ html[data-theme="light"] .video-feature{
         </span>
         <span>
           <strong>Photography</strong>
-          <small>Travel, events &amp; stories</small>
         </span>
       </button>
       <button class="portfolio-tab" type="button" role="tab" id="videography-tab"
@@ -366,7 +366,6 @@ html[data-theme="light"] .video-feature{
         </span>
         <span>
           <strong>Videography</strong>
-          <small>Shoot, direction &amp; edit</small>
         </span>
       </button>
       <button class="portfolio-tab" type="button" role="tab" id="video-editing-tab"
@@ -376,7 +375,6 @@ html[data-theme="light"] .video-feature{
         </span>
         <span>
           <strong>Video Editing</strong>
-          <small>Cuts, color &amp; sound</small>
         </span>
       </button>
     </div>
@@ -493,7 +491,10 @@ html[data-theme="light"] .video-feature{
         </div>
       </div>
 
-      <p class="edit-reel-note">Hover a reel to preview it — click to keep it open.</p>
+      <a class="ewan-credit" href="https://www.youtube.com/@RiteshKatwal" target="_blank" rel="noopener noreferrer">
+        <span class="ewan-credit-label">Work with</span>
+        <img src="ewan-byte-logo.png" alt="Ewan Byte" width="167" height="34">
+      </a>
       <div class="edit-reel-grid" aria-label="Video editing reel">
         <figure class="edit-reel-item">
           <button type="button" class="reel-card" data-video="l63X_wwvAAE" data-title="Edit 01" aria-label="Play Edit 01">
@@ -522,6 +523,34 @@ html[data-theme="light"] .video-feature{
             <span class="reel-card-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
           </button>
           <figcaption>Edit 04</figcaption>
+        </figure>
+        <figure class="edit-reel-item">
+          <button type="button" class="reel-card" data-video="WIeSuVOM2YQ" data-title="Edit 05" aria-label="Play Edit 05">
+            <img alt="" loading="lazy" decoding="async">
+            <span class="reel-card-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
+          </button>
+          <figcaption>Edit 05</figcaption>
+        </figure>
+        <figure class="edit-reel-item">
+          <button type="button" class="reel-card" data-video="zojpGQ5xK6w" data-title="Edit 06" aria-label="Play Edit 06">
+            <img alt="" loading="lazy" decoding="async">
+            <span class="reel-card-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
+          </button>
+          <figcaption>Edit 06</figcaption>
+        </figure>
+        <figure class="edit-reel-item">
+          <button type="button" class="reel-card" data-video="w3QLVB41LF0" data-title="Edit 07" aria-label="Play Edit 07">
+            <img alt="" loading="lazy" decoding="async">
+            <span class="reel-card-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
+          </button>
+          <figcaption>Edit 07</figcaption>
+        </figure>
+        <figure class="edit-reel-item">
+          <button type="button" class="reel-card" data-video="M8TSCMqJ1zE" data-title="Edit 08" aria-label="Play Edit 08">
+            <img alt="" loading="lazy" decoding="async">
+            <span class="reel-card-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
+          </button>
+          <figcaption>Edit 08</figcaption>
         </figure>
       </div>
     </section>
@@ -759,11 +788,10 @@ document.querySelectorAll('.nav-links a').forEach(link => {
    2. There is exactly ONE YouTube player on the page, inside the
       centred modal. Two reels playing at once is therefore impossible
       by construction rather than by cleanup logic.
-   3. Nothing in the modal ever moves while the pointer is on it, so
-      no "element slid out from under the cursor" glitches.
-   4. Closing is driven by a single pointermove watcher with a grace
-      period, so travelling from a small grid card to the centred
-      player never dismisses it mid-way.
+   3. Playback is click-only. Hover previews were tried and removed:
+      they fire on every accidental pass of the cursor and fight with
+      the browser's autoplay rules, which block sound on anything the
+      user didn't actually click.
    ============================================================ */
 (function(){
   var modal = document.getElementById('reel-modal');
@@ -784,16 +812,8 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     return { id: card.dataset.video, title: card.dataset.title || '', card: card };
   });
 
-  var HOVER_OPEN_DELAY  = 220;   // ignore cursors that are just passing through
-  var HOVER_CLOSE_GRACE = 700;   // time to travel from a card to the centre
-  // Touch screens get click-to-open only: a "hover" there is really a tap,
-  // and previewing on tap would fight with the click handler.
-  var canHover = true;
-  try { canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches; } catch (err) {}
-
   var player = null, apiReady = false, apiRequested = false, apiQueue = [];
-  var current = -1, isOpen = false, pinned = false;
-  var openTimer = null, closeTimer = null, qualityTimer = null;
+  var current = -1, isOpen = false, qualityTimer = null;
   var lastTrigger = null;
 
   /* ---------- thumbnails ----------
@@ -911,8 +931,8 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     cards.forEach(function(card, i){ card.classList.toggle('is-active', i === index); });
 
     ensureApi(function(){
-      // `current` (not `index`) on purpose: if the pointer moved to another
-      // card while the API was still downloading, play what is wanted now.
+      // `current` (not `index`) on purpose: if the viewer hit next/prev while
+      // the API was still downloading, play what is wanted now.
       var reel = reels[current];
       if (!reel) return;
       if (!player) { buildPlayer(reel.id); return; }
@@ -926,26 +946,15 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
   }
 
-  // "Pinned" = opened deliberately (click / arrows / sound), so it stays put
-  // until dismissed. Un-pinned = hover preview, which follows the pointer.
-  function setPinned(value){
-    pinned = value;
-    modal.classList.toggle('is-pinned', value);
-    lockScroll(value);
-  }
-
-  function openModal(index, viaClick){
-    clearTimers();
-    if (!isOpen) { isOpen = true; modal.classList.add('on'); }
-    if (viaClick && !pinned) setPinned(true);
+  function openModal(index){
+    if (!isOpen) { isOpen = true; modal.classList.add('on'); lockScroll(true); }
     if (index !== current) show(index);
   }
 
   function closeModal(){
-    clearTimers();
     if (!isOpen) return;
     isOpen = false;
-    setPinned(false);
+    lockScroll(false);
     modal.classList.remove('on', 'is-loading');
     cards.forEach(function(card){ card.classList.remove('is-active'); });
     current = -1;
@@ -968,78 +977,26 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     }
   }
 
-  function clearTimers(){
-    if (openTimer)  { clearTimeout(openTimer);  openTimer = null; }
-    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
-  }
-  function cancelClose(){
-    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
-  }
-  function scheduleClose(){
-    if (pinned || closeTimer) return;   // don't restart the clock on every move
-    closeTimer = setTimeout(closeModal, HOVER_CLOSE_GRACE);
-  }
-
-  /* ---------- card interaction ---------- */
+  /* ---------- card interaction: click only ---------- */
   cards.forEach(function(card, i){
     card.addEventListener('click', function(){
       lastTrigger = card;
-      openModal(i, true);
-    });
-    if (!canHover) return;
-    card.addEventListener('mouseenter', function(){
-      // A pinned player was opened on purpose — hovering the grid behind it
-      // must not yank it to a different video.
-      if (pinned) return;
-      cancelClose();
-      if (openTimer) clearTimeout(openTimer);
-      openTimer = setTimeout(function(){ openTimer = null; openModal(i, false); }, HOVER_OPEN_DELAY);
-    });
-    card.addEventListener('mouseleave', function(){
-      if (openTimer) { clearTimeout(openTimer); openTimer = null; }
-      if (isOpen && !pinned) scheduleClose();
+      openModal(i);
     });
     card.addEventListener('focus', function(){ lastTrigger = card; });
   });
-
-  /* Single source of truth for "is the pointer still somewhere relevant".
-     Note the pointer produces no events while it is over the YouTube
-     iframe — that is fine, because the last event before it entered was
-     over the stage (cancelling any close), and the next one arrives when
-     it leaves again. */
-  if (canHover) {
-    document.addEventListener('pointermove', function(e){
-      if (!isOpen || pinned) return;
-      var node = e.target;
-      if (!node || !node.closest) return;
-      if (node.closest('.reel-card') || node.closest('.reel-modal-stage') ||
-          node.closest('.reel-modal-nav') || node.closest('.reel-modal-close')) {
-        cancelClose();
-      } else {
-        scheduleClose();
-      }
-    }, { passive: true });
-
-    // A hover-opened player shouldn't follow the page around.
-    window.addEventListener('scroll', function(){
-      if (isOpen && !pinned) closeModal();
-    }, { passive: true });
-  }
 
   /* ---------- modal controls ---------- */
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
   if (scrim)    scrim.addEventListener('click', closeModal);
   if (prevBtn)  prevBtn.addEventListener('click', function(){
-    if (!pinned) setPinned(true);
     show((current - 1 + reels.length) % reels.length);
   });
   if (nextBtn)  nextBtn.addEventListener('click', function(){
-    if (!pinned) setPinned(true);
     show((current + 1) % reels.length);
   });
   if (soundBtn) soundBtn.addEventListener('click', function(){
     // A click is a real user gesture, so this unmute actually sticks.
-    if (!pinned) setPinned(true);
     tryUnmute();
   });
   if (fsBtn) fsBtn.addEventListener('click', function(){
@@ -1052,8 +1009,8 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   document.addEventListener('keydown', function(e){
     if (!isOpen) return;
     if (e.key === 'Escape') { closeModal(); return; }
-    if (e.key === 'ArrowRight') { pinned = true; show((current + 1) % reels.length); }
-    if (e.key === 'ArrowLeft')  { pinned = true; show((current - 1 + reels.length) % reels.length); }
+    if (e.key === 'ArrowRight') show((current + 1) % reels.length);
+    if (e.key === 'ArrowLeft')  show((current - 1 + reels.length) % reels.length);
   });
 
   // Warm the API up as soon as the tab is opened so the first play is instant.
