@@ -2534,3 +2534,89 @@ html[data-theme="light"] .portfolio-page .video-feature{
     transition:none;
   }
 }
+
+/* ============================================================
+   AVAILABILITY AUTO-SWITCH + "pending" placeholders
+   ============================================================ */
+
+/* Only used if the page happens to be open at the exact moment the
+   1 Aug 2026 wording flips — a quiet fade rather than a hard jump. */
+[data-avail-before]{
+  transition:opacity .3s ease, transform .3s ease;
+}
+.avail-swapping{
+  opacity:0;
+  transform:translateY(-4px);
+}
+
+/* A value that isn't available yet. Reads as deliberately "coming",
+   not as broken or missing. */
+.pending-value{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+}
+
+.pending-text{
+  position:relative;
+  color:var(--muted);
+  font-style:italic;
+  background:linear-gradient(
+    100deg,
+    var(--muted) 0%,
+    var(--muted) 38%,
+    var(--blue) 50%,
+    var(--muted) 62%,
+    var(--muted) 100%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:pending-sheen 3.6s ease-in-out infinite;
+}
+
+@keyframes pending-sheen{
+  0%,  12% { background-position:130% 0; }
+  62%,100% { background-position:-30% 0; }
+}
+
+.pending-dots{
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+}
+
+.pending-dots i{
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:var(--blue);
+  opacity:.25;
+  animation:pending-dot 1.4s ease-in-out infinite;
+}
+.pending-dots i:nth-child(2){ animation-delay:.18s; }
+.pending-dots i:nth-child(3){ animation-delay:.36s; }
+
+@keyframes pending-dot{
+  0%,60%,100% { opacity:.22; transform:translateY(0); }
+  30%         { opacity:1;   transform:translateY(-2.5px); }
+}
+
+/* The pending contact row isn't a link, so soften it slightly to signal
+   there is nothing to click yet. */
+.contact-row.is-pending{
+  cursor:default;
+}
+.contact-row.is-pending .contact-icon{
+  opacity:.72;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .pending-text{
+    animation:none;
+    -webkit-text-fill-color:currentColor;
+    background:none;
+  }
+  .pending-dots i{ animation:none; opacity:.5; }
+  [data-avail-before]{ transition:none; }
+}
