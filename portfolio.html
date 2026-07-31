@@ -66,59 +66,106 @@
     radial-gradient(circle at 80% 20%, rgba(139,108,255,.13), transparent 55%),
     radial-gradient(circle at 50% 80%, rgba(255,107,157,.08), transparent 55%);
   filter:blur(10px); pointer-events:none; }
-.reel-spotlight-backdrop{ position:fixed; inset:0; z-index:55; background:rgba(4,8,16,.72);
-  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-  opacity:0; pointer-events:none; transition:opacity .4s ease; }
-.reel-spotlight-backdrop.on{ opacity:1; pointer-events:auto; }
+.edit-reel-note{ margin:0 0 1.4rem; font-size:.82rem; color:var(--muted); letter-spacing:.01em; }
 .edit-reel-grid{ position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.6rem;
   max-width:1220px; margin:0 0 3.4rem; }
 .edit-reel-item{ margin:0; }
-.edit-reel-item .video-frame{ position:relative; aspect-ratio:9/16; border-radius:12px; overflow:hidden;
-  border:1px solid transparent; box-shadow:0 10px 26px rgba(10,20,40,.16); opacity:1;
-  transition:top .45s cubic-bezier(.2,.8,.2,1), left .45s cubic-bezier(.2,.8,.2,1),
-    width .45s cubic-bezier(.2,.8,.2,1), height .45s cubic-bezier(.2,.8,.2,1),
-    transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s cubic-bezier(.2,.8,.2,1), opacity .4s cubic-bezier(.2,.8,.2,1); }
-.edit-reel-item .video-frame::before{ content:''; position:absolute; inset:0; z-index:4; border-radius:inherit; padding:2px;
+.edit-reel-item figcaption{ margin-top:.7rem; font-size:.8rem; color:var(--muted); }
+
+/* The grid holds plain <img> thumbnails inside <button>s — no iframes at all.
+   That means (a) the page stays light, (b) mouse events are never swallowed
+   by a cross-origin frame, so hover tracking is exact. */
+.reel-card{ position:relative; display:block; width:100%; padding:0; aspect-ratio:9/16;
+  border:0; border-radius:14px; overflow:hidden; cursor:pointer; background:#0a0f1c;
+  box-shadow:0 10px 26px rgba(10,20,40,.16); -webkit-appearance:none; appearance:none;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s cubic-bezier(.2,.8,.2,1); }
+.reel-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1); }
+.reel-card::after{ content:''; position:absolute; inset:0; z-index:2; border-radius:inherit; padding:2px;
   background:linear-gradient(135deg,#38e1ff,#8b6cff 50%,#ff6b9d);
   -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
-  -webkit-mask-composite:xor; mask-composite:exclude; opacity:0; transition:opacity .45s; pointer-events:none; }
-.edit-reel-item .video-frame::after{ border-radius:inherit; }
-/* A plain dim scrim (not a blur filter) — blurring boxes that contain live
-   iframes is expensive and causes the whole page to stutter/haze in some
-   browsers, so dimming gives the same "focus" feel safely. */
-.edit-reel-item .video-frame-dim{ position:absolute; inset:0; z-index:3; background:rgba(3,8,18,0);
-  border-radius:inherit; pointer-events:none; transition:background .4s cubic-bezier(.2,.8,.2,1); }
-/* While one card is spotlighted (moved to the centre of the screen via JS),
-   every other card dims and shrinks slightly behind the blurred backdrop. */
-.edit-reel-grid:has(.video-frame.is-spotlight) .edit-reel-item .video-frame:not(.is-spotlight){
-  opacity:.4; transform:scale(.94); }
-.edit-reel-grid:has(.video-frame.is-spotlight) .edit-reel-item .video-frame:not(.is-spotlight) .video-frame-dim{
-  background:rgba(3,8,18,.6); }
-.edit-reel-item .video-frame.is-spotlight{ z-index:60; opacity:1; box-shadow:0 40px 90px rgba(0,0,0,.55); }
-.edit-reel-item .video-frame.is-spotlight .video-frame-dim{ background:rgba(3,8,18,0); }
-.edit-reel-item .video-frame.is-spotlight::before{ opacity:1; }
-.edit-reel-item figcaption{ margin-top:.7rem; font-size:.8rem; color:var(--muted); }
-.reel-play-hint{ position:absolute; inset:0; z-index:1; display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(180deg, rgba(2,6,14,0) 55%, rgba(2,6,14,.45) 100%);
-  opacity:0; pointer-events:none; transition:opacity .4s cubic-bezier(.2,.7,.2,1); }
-.video-frame.is-spotlight .reel-play-hint{ opacity:1; }
-.reel-play-hint svg{ width:20px; height:20px; padding:14px; color:#fff; border-radius:50%;
-  background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.35); backdrop-filter:blur(6px);
-  transform:scale(.65); transition:transform .45s cubic-bezier(.34,1.5,.4,1), background .3s; }
-.video-frame.is-spotlight .reel-play-hint svg{ transform:scale(1); background:rgba(255,255,255,.26); }
-.reel-mute-badge{ position:absolute; left:.6rem; bottom:.6rem; z-index:2; display:flex; align-items:center; justify-content:center;
-  width:26px; height:26px; border-radius:50%; color:#fff; background:rgba(3,8,18,.55); backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.2); opacity:0; transform:translateY(4px); pointer-events:none;
-  transition:opacity .35s, transform .35s; }
-.reel-mute-badge svg{ width:13px; height:13px; }
-.video-frame.is-muted.is-spotlight .reel-mute-badge{ opacity:1; transform:none; }
-.reel-fullscreen-btn{ position:absolute; right:.6rem; bottom:.6rem; z-index:2; display:flex; align-items:center; justify-content:center;
-  width:30px; height:30px; border-radius:8px; color:#fff; background:rgba(3,8,18,.55); backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.2); opacity:0; transform:translateY(4px); cursor:pointer;
-  transition:opacity .35s, transform .35s, background .25s; }
-.reel-fullscreen-btn svg{ width:14px; height:14px; }
-.video-frame.is-spotlight .reel-fullscreen-btn{ opacity:1; transform:none; }
-.reel-fullscreen-btn:hover{ background:rgba(56,225,255,.28); }
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:0; transition:opacity .35s; pointer-events:none; }
+.reel-card:hover, .reel-card:focus-visible, .reel-card.is-active{
+  outline:none; transform:translateY(-6px) scale(1.02); box-shadow:0 26px 54px rgba(10,20,40,.34); }
+.reel-card:hover::after, .reel-card:focus-visible::after, .reel-card.is-active::after{ opacity:1; }
+.reel-card:hover img{ transform:scale(1.05); }
+.reel-card-play{ position:absolute; inset:0; z-index:3; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg,rgba(2,6,14,0) 45%,rgba(2,6,14,.5) 100%); pointer-events:none; }
+.reel-card-play svg{ width:20px; height:20px; padding:15px; color:#fff; border-radius:50%;
+  background:rgba(8,14,26,.5); border:1px solid rgba(255,255,255,.4);
+  transform:scale(.9); transition:transform .4s cubic-bezier(.34,1.5,.4,1), background .3s; }
+.reel-card:hover .reel-card-play svg{ transform:scale(1.08); background:rgba(56,225,255,.45); }
+
+/* ===== centred single player ===== */
+.reel-modal{ position:fixed; inset:0; z-index:9998; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:1rem;
+  opacity:0; visibility:hidden; pointer-events:none; transition:opacity .3s ease, visibility .3s ease; }
+.reel-modal.on{ opacity:1; visibility:visible; }
+/* Deliberately keep the overlay click-through: while the player is only
+   hover-open, the card underneath must keep receiving hover, otherwise the
+   pointer "leaves" it the instant the overlay appears and it flickers shut.
+   Only the interactive parts opt back in. */
+.reel-modal.on .reel-modal-stage,
+.reel-modal.on .reel-modal-close,
+.reel-modal.on .reel-modal-nav{ pointer-events:auto; }
+.reel-modal.on.is-pinned{ pointer-events:auto; }
+.reel-modal-scrim{ position:absolute; inset:0; pointer-events:none; background:rgba(4,8,16,.74);
+  backdrop-filter:blur(16px) saturate(.9); -webkit-backdrop-filter:blur(16px) saturate(.9); }
+.reel-modal.is-pinned .reel-modal-scrim{ pointer-events:auto; cursor:zoom-out; }
+.reel-modal-stage{ position:relative; height:min(78vh,690px); aspect-ratio:9/16; max-width:90vw;
+  border-radius:18px; overflow:hidden; background:#05080f;
+  box-shadow:0 40px 100px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08);
+  transform:scale(.92) translateY(16px); transition:transform .38s cubic-bezier(.2,.9,.25,1); }
+.reel-modal.on .reel-modal-stage{ transform:none; }
+.reel-modal-stage iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+.reel-modal-stage::after{ content:''; position:absolute; inset:0; z-index:3; border-radius:inherit; padding:2px;
+  background:linear-gradient(135deg,#38e1ff,#8b6cff 50%,#ff6b9d);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; }
+.reel-modal-caption{ position:relative; margin:0; color:rgba(233,242,252,.72);
+  font-family:'Space Grotesk',sans-serif; font-size:.82rem; letter-spacing:.1em; text-transform:uppercase; }
+.reel-modal-spinner{ position:absolute; top:50%; left:50%; z-index:2; width:34px; height:34px; margin:-17px 0 0 -17px;
+  border-radius:50%; border:2px solid rgba(255,255,255,.22); border-top-color:#38e1ff;
+  animation:reel-spin .8s linear infinite; opacity:0; transition:opacity .25s; pointer-events:none; }
+.reel-modal.is-loading .reel-modal-spinner{ opacity:1; }
+@keyframes reel-spin{ to{ transform:rotate(360deg); } }
+.reel-modal-close,.reel-modal-nav{ position:absolute; z-index:4; display:flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:50%; cursor:pointer; color:#eaf4fb;
+  background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.2);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  transition:background .25s, transform .25s; }
+.reel-modal-close:hover,.reel-modal-nav:hover{ background:rgba(56,225,255,.24); transform:scale(1.08); }
+.reel-modal-close svg,.reel-modal-nav svg{ width:20px; height:20px; }
+.reel-modal-close{ top:1.5rem; right:1.7rem; }
+.reel-modal-nav{ top:50%; margin-top:-22px; }
+.reel-modal-prev{ left:max(1.5rem, calc(50vw - min(78vh,690px)*.28 - 74px)); }
+.reel-modal-next{ right:max(1.5rem, calc(50vw - min(78vh,690px)*.28 - 74px)); }
+.reel-modal-fs{ position:absolute; right:.7rem; bottom:.7rem; z-index:4; display:flex; align-items:center; justify-content:center;
+  width:32px; height:32px; border-radius:9px; cursor:pointer; color:#fff;
+  background:rgba(3,8,18,.55); border:1px solid rgba(255,255,255,.2);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  opacity:0; transform:translateY(4px); transition:opacity .3s, transform .3s, background .25s; }
+.reel-modal-fs svg{ width:15px; height:15px; }
+.reel-modal-stage:hover .reel-modal-fs{ opacity:1; transform:none; }
+.reel-modal-fs:hover{ background:rgba(56,225,255,.3); }
+.reel-modal-sound{ position:absolute; left:50%; bottom:1.1rem; z-index:4; transform:translateX(-50%);
+  display:flex; align-items:center; gap:.45rem; padding:.5rem .85rem; border-radius:999px; cursor:pointer;
+  color:#fff; font-size:.76rem; letter-spacing:.03em;
+  background:rgba(3,8,18,.7); border:1px solid rgba(255,255,255,.24);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); transition:background .25s; }
+.reel-modal-sound svg{ width:14px; height:14px; }
+.reel-modal-sound:hover{ background:rgba(56,225,255,.32); }
+@media (max-width:760px){
+  .reel-modal-stage{ height:auto; width:min(92vw,420px); max-width:92vw; }
+  .reel-modal-nav{ top:auto; bottom:1.4rem; margin-top:0; }
+  .reel-modal-prev{ left:1.2rem; }
+  .reel-modal-next{ right:1.2rem; }
+}
+@media (prefers-reduced-motion:reduce){
+  .reel-card,.reel-card img,.reel-modal,.reel-modal-stage{ transition:none !important; }
+  .reel-modal-spinner{ animation:none; }
+}
 
 @media (max-width:1050px){
   .album-folders{ grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -183,25 +230,6 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
     radial-gradient(circle at 90% 10%,rgba(139,108,255,.18),transparent 34%),
     linear-gradient(135deg,#07111d 0%,#0b1725 55%,#11142a 100%);
   box-shadow:0 24px 70px rgba(0,0,0,.3);
-}
-.video-frame{
-  position:relative;
-  aspect-ratio:16 / 9;
-  min-width:0;
-  background:#02050a;
-}
-.video-frame::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  border:1px solid rgba(255,255,255,.08);
-}
-.video-frame iframe{
-  width:100%;
-  height:100%;
-  display:block;
-  border:0;
 }
 .video-details{
   position:relative;
@@ -465,69 +493,37 @@ html[data-theme="light"] .video-feature{
         </div>
       </div>
 
+      <p class="edit-reel-note">Hover a reel to preview it — click to keep it open.</p>
       <div class="edit-reel-grid" aria-label="Video editing reel">
         <figure class="edit-reel-item">
-          <div class="video-frame">
-            <iframe id="yt-reel-1" class="yt-reel" src="https://www.youtube.com/embed/l63X_wwvAAE?enablejsapi=1&amp;playsinline=1&amp;rel=0&amp;modestbranding=1&amp;cc_load_policy=0"
-              allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Video edit 01"></iframe>
-            <span class="video-frame-dim" aria-hidden="true"></span>
-            <span class="reel-play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
-            <span class="reel-mute-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-            </span>
-            <button type="button" class="reel-fullscreen-btn" aria-label="View fullscreen">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
-            </button>
-          </div>
+          <button type="button" class="reel-card" data-video="l63X_wwvAAE" data-title="Edit 01" aria-label="Play Edit 01">
+            <img alt="" loading="lazy" decoding="async">
+            <span class="reel-card-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
+          </button>
           <figcaption>Edit 01</figcaption>
         </figure>
         <figure class="edit-reel-item">
-          <div class="video-frame">
-            <iframe id="yt-reel-2" class="yt-reel" src="https://www.youtube.com/embed/kyrT4Fz0o6I?enablejsapi=1&amp;playsinline=1&amp;rel=0&amp;modestbranding=1&amp;cc_load_policy=0"
-              allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Video edit 02"></iframe>
-            <span class="video-frame-dim" aria-hidden="true"></span>
-            <span class="reel-play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
-            <span class="reel-mute-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-            </span>
-            <button type="button" class="reel-fullscreen-btn" aria-label="View fullscreen">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
-            </button>
-          </div>
+          <button type="button" class="reel-card" data-video="kyrT4Fz0o6I" data-title="Edit 02" aria-label="Play Edit 02">
+            <img alt="" loading="lazy" decoding="async">
+            <span class="reel-card-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
+          </button>
           <figcaption>Edit 02</figcaption>
         </figure>
         <figure class="edit-reel-item">
-          <div class="video-frame">
-            <iframe id="yt-reel-3" class="yt-reel" src="https://www.youtube.com/embed/HQorngBu9vY?enablejsapi=1&amp;playsinline=1&amp;rel=0&amp;modestbranding=1&amp;cc_load_policy=0"
-              allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Video edit 03"></iframe>
-            <span class="video-frame-dim" aria-hidden="true"></span>
-            <span class="reel-play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
-            <span class="reel-mute-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-            </span>
-            <button type="button" class="reel-fullscreen-btn" aria-label="View fullscreen">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
-            </button>
-          </div>
+          <button type="button" class="reel-card" data-video="HQorngBu9vY" data-title="Edit 03" aria-label="Play Edit 03">
+            <img alt="" loading="lazy" decoding="async">
+            <span class="reel-card-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
+          </button>
           <figcaption>Edit 03</figcaption>
         </figure>
         <figure class="edit-reel-item">
-          <div class="video-frame">
-            <iframe id="yt-reel-4" class="yt-reel" src="https://www.youtube.com/embed/rZEcdJsUD-0?enablejsapi=1&amp;playsinline=1&amp;rel=0&amp;modestbranding=1&amp;cc_load_policy=0"
-              allow="autoplay; encrypted-media" allowfullscreen loading="lazy" title="Video edit 04"></iframe>
-            <span class="video-frame-dim" aria-hidden="true"></span>
-            <span class="reel-play-hint" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
-            <span class="reel-mute-badge" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-            </span>
-            <button type="button" class="reel-fullscreen-btn" aria-label="View fullscreen">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
-            </button>
-          </div>
+          <button type="button" class="reel-card" data-video="rZEcdJsUD-0" data-title="Edit 04" aria-label="Play Edit 04">
+            <img alt="" loading="lazy" decoding="async">
+            <span class="reel-card-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6v12l10-6z"/></svg></span>
+          </button>
           <figcaption>Edit 04</figcaption>
         </figure>
       </div>
-      <div class="reel-spotlight-backdrop" aria-hidden="true"></div>
     </section>
   </div>
 </main>
@@ -541,6 +537,35 @@ html[data-theme="light"] .video-feature{
   </div>
   © 2026 Ritesh Katuwal
 </footer>
+
+<!-- One single player for the whole page. Because only one iframe ever
+     exists, it is structurally impossible for two reels to play at once.
+     It lives here at the end of <body> so no ancestor can trap it in a
+     stacking context underneath the blurred scrim. -->
+<div class="reel-modal" id="reel-modal" role="dialog" aria-modal="true" aria-label="Video editing reel player">
+  <div class="reel-modal-scrim"></div>
+  <button type="button" class="reel-modal-close" aria-label="Close player">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button type="button" class="reel-modal-nav reel-modal-prev" aria-label="Previous reel">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <button type="button" class="reel-modal-nav reel-modal-next" aria-label="Next reel">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  <div class="reel-modal-stage">
+    <div id="reel-modal-player"></div>
+    <span class="reel-modal-spinner" aria-hidden="true"></span>
+    <button type="button" class="reel-modal-sound" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      Tap for sound
+    </button>
+    <button type="button" class="reel-modal-fs" aria-label="View fullscreen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
+    </button>
+  </div>
+  <p class="reel-modal-caption"></p>
+</div>
 
 <script>
 // Smooth page exit
@@ -721,206 +746,321 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 <script src="site.js"></script>
 <script src="theme.js"></script>
 <script>
-/* ===== reel hover-to-play (only one plays at a time) ===== */
+/* ============================================================
+   VIDEO EDITING REEL — hover to preview, click to keep open.
+
+   Design notes (this replaced an earlier version that moved live
+   <iframe> elements around the page, which was unreliable):
+
+   1. The grid contains only <img> thumbnails inside <button>s. A
+      cross-origin iframe swallows every mouse event that lands on it,
+      so hover state over an iframe can never be tracked accurately —
+      images have no such problem.
+   2. There is exactly ONE YouTube player on the page, inside the
+      centred modal. Two reels playing at once is therefore impossible
+      by construction rather than by cleanup logic.
+   3. Nothing in the modal ever moves while the pointer is on it, so
+      no "element slid out from under the cursor" glitches.
+   4. Closing is driven by a single pointermove watcher with a grace
+      period, so travelling from a small grid card to the centred
+      player never dismisses it mid-way.
+   ============================================================ */
 (function(){
-  var allFrames = document.querySelectorAll('.edit-reel-item .video-frame');
-  if (!allFrames.length) return;
+  var modal = document.getElementById('reel-modal');
+  var cards = [].slice.call(document.querySelectorAll('.reel-card'));
+  if (!modal || !cards.length) return;
 
-  var reelIframes = document.querySelectorAll('iframe.yt-reel');
-  var players = {};
+  var stage    = modal.querySelector('.reel-modal-stage');
+  var mount    = modal.querySelector('#reel-modal-player');
+  var caption  = modal.querySelector('.reel-modal-caption');
+  var closeBtn = modal.querySelector('.reel-modal-close');
+  var scrim    = modal.querySelector('.reel-modal-scrim');
+  var prevBtn  = modal.querySelector('.reel-modal-prev');
+  var nextBtn  = modal.querySelector('.reel-modal-next');
+  var fsBtn    = modal.querySelector('.reel-modal-fs');
+  var soundBtn = modal.querySelector('.reel-modal-sound');
 
-  function stopFrame(frame){
-    var iframe = frame.querySelector('iframe');
-    if (!iframe) return;
-    if (iframe.classList.contains('yt-reel')) {
-      var p = players[iframe.id];
-      if (p && typeof p.pauseVideo === 'function') {
-        p.pauseVideo();
-        if (typeof p.seekTo === 'function') p.seekTo(0, true);
-      }
-    } else {
-      // Drive (or any other non-API) iframe has no pause method we can call,
-      // so force-stop it the only way possible: reload it.
-      iframe.src = iframe.src;
-    }
-  }
-
-  function stopOthers(activeFrame){
-    allFrames.forEach(function(frame){
-      if (frame !== activeFrame) stopFrame(frame);
-    });
-  }
-
-  var ytApiLoaded = false;
-  function loadYouTubeApiOnce(){
-    if (ytApiLoaded || !reelIframes.length) return;
-    ytApiLoaded = true;
-
-    window.onYouTubeIframeAPIReady = function(){
-      reelIframes.forEach(function(iframe){
-        var qualityTimer = null;
-        function pushHighestQuality(target){
-          // Best-effort only — see note below. Re-asserted on an interval
-          // because YouTube can silently step the resolution back down
-          // during playback (bandwidth changes, its own heuristics, etc).
-          try { target.setPlaybackQuality('highres'); } catch (err) {}
-        }
-        players[iframe.id] = new YT.Player(iframe.id, {
-          events: {
-            onReady: function(e){ pushHighestQuality(e.target); },
-            onStateChange: function(e){
-              var frame = iframe.closest('.video-frame');
-              // Browsers often silently force-mute unrequested autoplay that
-              // isn't triggered by a click. If that happens, quietly show the
-              // mute badge instead of pretending sound is on.
-              if (frame) frame.classList.toggle('is-muted', e.target.isMuted());
-              if (e.data === YT.PlayerState.PLAYING) {
-                stopOthers(frame);
-                pushHighestQuality(e.target);
-                if (qualityTimer) clearInterval(qualityTimer);
-                qualityTimer = setInterval(function(){ pushHighestQuality(e.target); }, 3000);
-              } else if (qualityTimer) {
-                clearInterval(qualityTimer);
-                qualityTimer = null;
-              }
-            }
-          }
-        });
-      });
-    };
-
-    var apiTag = document.createElement('script');
-    apiTag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(apiTag);
-  }
-
-  // Don't fetch YouTube's ~100KB API script (or the reel iframes' own
-  // network requests) until someone actually opens the Video Editing tab —
-  // most visitors browsing Photography/Videography never need it.
-  var editTab = document.getElementById('video-editing-tab');
-  if (editTab) editTab.addEventListener('click', loadYouTubeApiOnce, { once: true });
-  if (document.getElementById('video-editing-panel') && !document.getElementById('video-editing-panel').hidden) {
-    loadYouTubeApiOnce();
-  }
-
-  // ----- centre-screen "spotlight" on hover -----
-  // Hovering a card lifts its video out of the grid, pins it at its current
-  // screen position (so the jump-to-fixed doesn't cause a visual snap), then
-  // on the next frame animates it to the centre of the viewport over a
-  // blurred backdrop. A short grace period lets the cursor travel from the
-  // small grid cell to the now-enlarged, centred video without the
-  // spotlight closing mid-way.
-  var allItems = document.querySelectorAll('.edit-reel-item');
-  var backdrop = document.querySelector('.reel-spotlight-backdrop');
-  var CLOSE_DELAY = 180;
-
-  allItems.forEach(function(item){
-    var frame = item.querySelector('.video-frame');
-    if (!frame) return;
-    var startRect = null;
-    var closeTimer = null;
-
-    function cancelClose(){
-      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
-    }
-
-    function openSpotlight(){
-      cancelClose();
-      if (frame.classList.contains('is-spotlight')) return;
-      stopOthers(frame);
-      var itemRect = item.getBoundingClientRect();
-      startRect = frame.getBoundingClientRect();
-      // Reserve the grid cell's height so pulling the frame out of flow
-      // doesn't collapse/reflow the rest of the grid.
-      item.style.minHeight = itemRect.height + 'px';
-      frame.style.position = 'fixed';
-      frame.style.top = startRect.top + 'px';
-      frame.style.left = startRect.left + 'px';
-      frame.style.width = startRect.width + 'px';
-      frame.style.height = startRect.height + 'px';
-      frame.style.margin = '0';
-      frame.style.transform = 'none';
-      void frame.offsetWidth; // force a reflow so the pinned rect above paints first
-      frame.classList.add('is-spotlight');
-      if (backdrop) backdrop.classList.add('on');
-      requestAnimationFrame(function(){
-        frame.style.top = '50%';
-        frame.style.left = '50%';
-        frame.style.width = 'min(380px, 86vw)';
-        frame.style.height = 'min(660px, 82vh)';
-        frame.style.transform = 'translate(-50%,-50%)';
-      });
-
-      var iframe = frame.querySelector('iframe.yt-reel');
-      if (!iframe) return;
-      var p = players[iframe.id];
-      if (!p) return;
-      if (typeof p.unMute === 'function') p.unMute();
-      if (typeof p.setVolume === 'function') p.setVolume(100);
-      if (typeof p.playVideo === 'function') p.playVideo();
-    }
-
-    function closeSpotlight(){
-      if (!frame.classList.contains('is-spotlight')) return;
-      if (backdrop) backdrop.classList.remove('on');
-      if (startRect){
-        frame.style.top = startRect.top + 'px';
-        frame.style.left = startRect.left + 'px';
-        frame.style.width = startRect.width + 'px';
-        frame.style.height = startRect.height + 'px';
-        frame.style.transform = 'none';
-      }
-      frame.classList.remove('is-spotlight');
-      var iframe = frame.querySelector('iframe.yt-reel');
-      if (iframe) {
-        var p = players[iframe.id];
-        if (p && typeof p.pauseVideo === 'function') {
-          p.pauseVideo();
-          if (typeof p.seekTo === 'function') p.seekTo(0, true);
-        }
-      }
-      window.setTimeout(function(){
-        if (frame.classList.contains('is-spotlight')) return; // reopened meanwhile
-        frame.style.position = '';
-        frame.style.top = '';
-        frame.style.left = '';
-        frame.style.width = '';
-        frame.style.height = '';
-        frame.style.transform = '';
-        frame.style.margin = '';
-        item.style.minHeight = '';
-      }, 460);
-    }
-
-    function scheduleClose(){
-      cancelClose();
-      closeTimer = window.setTimeout(closeSpotlight, CLOSE_DELAY);
-    }
-
-    item.addEventListener('mouseenter', openSpotlight);
-    item.addEventListener('mouseleave', scheduleClose);
-    frame.addEventListener('mouseenter', cancelClose);
-    frame.addEventListener('mouseleave', scheduleClose);
-
-    var fsBtn = frame.querySelector('.reel-fullscreen-btn');
-    if (fsBtn) {
-      fsBtn.addEventListener('click', function(e){
-        e.stopPropagation();
-        var iframe = frame.querySelector('iframe');
-        if (!iframe) return;
-        var req = iframe.requestFullscreen || iframe.webkitRequestFullscreen || iframe.mozRequestFullScreen;
-        if (req) req.call(iframe);
-      });
-    }
+  var reels = cards.map(function(card){
+    return { id: card.dataset.video, title: card.dataset.title || '', card: card };
   });
 
-  if (backdrop) {
-    backdrop.addEventListener('click', function(){
-      document.querySelectorAll('.video-frame.is-spotlight').forEach(function(f){
-        f.dispatchEvent(new Event('mouseleave'));
-      });
+  var HOVER_OPEN_DELAY  = 220;   // ignore cursors that are just passing through
+  var HOVER_CLOSE_GRACE = 700;   // time to travel from a card to the centre
+  // Touch screens get click-to-open only: a "hover" there is really a tap,
+  // and previewing on tap would fight with the click handler.
+  var canHover = true;
+  try { canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches; } catch (err) {}
+
+  var player = null, apiReady = false, apiRequested = false, apiQueue = [];
+  var current = -1, isOpen = false, pinned = false;
+  var openTimer = null, closeTimer = null, qualityTimer = null;
+  var lastTrigger = null;
+
+  /* ---------- thumbnails ----------
+     YouTube serves a true vertical still at oardefault.jpg for
+     non-16:9 uploads; fall back down the chain if a video doesn't
+     have one so a card can never render broken. */
+  reels.forEach(function(reel){
+    var img = reel.card.querySelector('img');
+    if (!img) return;
+    var chain = [
+      'https://i.ytimg.com/vi/' + reel.id + '/oardefault.jpg',
+      'https://i.ytimg.com/vi/' + reel.id + '/maxresdefault.jpg',
+      'https://i.ytimg.com/vi/' + reel.id + '/hq720.jpg',
+      'https://i.ytimg.com/vi/' + reel.id + '/hqdefault.jpg'
+    ];
+    var step = 0;
+    img.addEventListener('error', function(){
+      step += 1;
+      if (step < chain.length) img.src = chain[step];
+    });
+    // YouTube returns a 120x90 grey placeholder rather than a 404 for
+    // missing sizes, so treat a suspiciously tiny image as a miss too.
+    img.addEventListener('load', function(){
+      if (img.naturalWidth && img.naturalWidth <= 150 && step < chain.length - 1) {
+        step += 1;
+        img.src = chain[step];
+      }
+    });
+    img.src = chain[0];
+    img.alt = reel.title + ' thumbnail';
+  });
+
+  /* ---------- YouTube IFrame API, loaded only when needed ---------- */
+  function ensureApi(cb){
+    if (apiReady) { if (cb) cb(); return; }
+    if (cb) apiQueue.push(cb);
+    if (apiRequested) return;
+    apiRequested = true;
+    window.onYouTubeIframeAPIReady = function(){
+      apiReady = true;
+      var queued = apiQueue.slice();
+      apiQueue.length = 0;
+      queued.forEach(function(fn){ fn(); });
+    };
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+  }
+
+  function pushQuality(target){
+    // Best effort only — YouTube ignores this whenever it wants to, and
+    // silently steps back down mid-playback, hence the re-assertion.
+    try { target.setPlaybackQuality('highres'); } catch (err) {}
+  }
+
+  function startQualityLoop(target){
+    stopQualityLoop();
+    qualityTimer = setInterval(function(){ pushQuality(target); }, 4000);
+  }
+  function stopQualityLoop(){
+    if (qualityTimer) { clearInterval(qualityTimer); qualityTimer = null; }
+  }
+
+  function syncSound(){
+    if (!player || !soundBtn) return;
+    var muted = true;
+    try { muted = player.isMuted(); } catch (err) {}
+    // Browsers block unmuted playback that wasn't started by a real click,
+    // so rather than pretending there is sound, offer a one-tap unmute.
+    soundBtn.hidden = !muted;
+  }
+
+  function tryUnmute(){
+    if (!player) return;
+    try { player.unMute(); player.setVolume(100); } catch (err) {}
+    setTimeout(syncSound, 350);
+  }
+
+  function buildPlayer(videoId){
+    modal.classList.add('is-loading');
+    player = new YT.Player(mount, {
+      videoId: videoId,
+      playerVars: {
+        playsinline: 1, rel: 0, modestbranding: 1,
+        cc_load_policy: 0, iv_load_policy: 3, autoplay: 1
+      },
+      events: {
+        onReady: function(e){
+          pushQuality(e.target);
+          tryUnmute();
+          try { e.target.playVideo(); } catch (err) {}
+        },
+        onStateChange: function(e){
+          if (e.data === YT.PlayerState.PLAYING) {
+            modal.classList.remove('is-loading');
+            pushQuality(e.target);
+            startQualityLoop(e.target);
+            syncSound();
+          } else if (e.data === YT.PlayerState.BUFFERING) {
+            modal.classList.add('is-loading');
+          } else {
+            modal.classList.remove('is-loading');
+            stopQualityLoop();
+          }
+        },
+        onError: function(){ modal.classList.remove('is-loading'); }
+      }
     });
   }
+
+  function show(index){
+    if (index < 0 || index >= reels.length) return;
+    current = index;
+    if (caption) caption.textContent = reels[index].title;
+    cards.forEach(function(card, i){ card.classList.toggle('is-active', i === index); });
+
+    ensureApi(function(){
+      // `current` (not `index`) on purpose: if the pointer moved to another
+      // card while the API was still downloading, play what is wanted now.
+      var reel = reels[current];
+      if (!reel) return;
+      if (!player) { buildPlayer(reel.id); return; }
+      modal.classList.add('is-loading');
+      try {
+        player.loadVideoById(reel.id);
+        tryUnmute();
+      } catch (err) {
+        modal.classList.remove('is-loading');
+      }
+    });
+  }
+
+  // "Pinned" = opened deliberately (click / arrows / sound), so it stays put
+  // until dismissed. Un-pinned = hover preview, which follows the pointer.
+  function setPinned(value){
+    pinned = value;
+    modal.classList.toggle('is-pinned', value);
+    lockScroll(value);
+  }
+
+  function openModal(index, viaClick){
+    clearTimers();
+    if (!isOpen) { isOpen = true; modal.classList.add('on'); }
+    if (viaClick && !pinned) setPinned(true);
+    if (index !== current) show(index);
+  }
+
+  function closeModal(){
+    clearTimers();
+    if (!isOpen) return;
+    isOpen = false;
+    setPinned(false);
+    modal.classList.remove('on', 'is-loading');
+    cards.forEach(function(card){ card.classList.remove('is-active'); });
+    current = -1;
+    stopQualityLoop();
+    if (player) {
+      try { player.pauseVideo(); player.seekTo(0, true); } catch (err) {}
+    }
+    if (lastTrigger && lastTrigger.focus) { lastTrigger.focus(); lastTrigger = null; }
+  }
+
+  function lockScroll(on){
+    if (on) {
+      // Compensate for the vanishing scrollbar so the page doesn't jump.
+      var gap = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      if (gap > 0) document.body.style.paddingRight = gap + 'px';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+  }
+
+  function clearTimers(){
+    if (openTimer)  { clearTimeout(openTimer);  openTimer = null; }
+    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+  }
+  function cancelClose(){
+    if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+  }
+  function scheduleClose(){
+    if (pinned || closeTimer) return;   // don't restart the clock on every move
+    closeTimer = setTimeout(closeModal, HOVER_CLOSE_GRACE);
+  }
+
+  /* ---------- card interaction ---------- */
+  cards.forEach(function(card, i){
+    card.addEventListener('click', function(){
+      lastTrigger = card;
+      openModal(i, true);
+    });
+    if (!canHover) return;
+    card.addEventListener('mouseenter', function(){
+      // A pinned player was opened on purpose — hovering the grid behind it
+      // must not yank it to a different video.
+      if (pinned) return;
+      cancelClose();
+      if (openTimer) clearTimeout(openTimer);
+      openTimer = setTimeout(function(){ openTimer = null; openModal(i, false); }, HOVER_OPEN_DELAY);
+    });
+    card.addEventListener('mouseleave', function(){
+      if (openTimer) { clearTimeout(openTimer); openTimer = null; }
+      if (isOpen && !pinned) scheduleClose();
+    });
+    card.addEventListener('focus', function(){ lastTrigger = card; });
+  });
+
+  /* Single source of truth for "is the pointer still somewhere relevant".
+     Note the pointer produces no events while it is over the YouTube
+     iframe — that is fine, because the last event before it entered was
+     over the stage (cancelling any close), and the next one arrives when
+     it leaves again. */
+  if (canHover) {
+    document.addEventListener('pointermove', function(e){
+      if (!isOpen || pinned) return;
+      var node = e.target;
+      if (!node || !node.closest) return;
+      if (node.closest('.reel-card') || node.closest('.reel-modal-stage') ||
+          node.closest('.reel-modal-nav') || node.closest('.reel-modal-close')) {
+        cancelClose();
+      } else {
+        scheduleClose();
+      }
+    }, { passive: true });
+
+    // A hover-opened player shouldn't follow the page around.
+    window.addEventListener('scroll', function(){
+      if (isOpen && !pinned) closeModal();
+    }, { passive: true });
+  }
+
+  /* ---------- modal controls ---------- */
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (scrim)    scrim.addEventListener('click', closeModal);
+  if (prevBtn)  prevBtn.addEventListener('click', function(){
+    if (!pinned) setPinned(true);
+    show((current - 1 + reels.length) % reels.length);
+  });
+  if (nextBtn)  nextBtn.addEventListener('click', function(){
+    if (!pinned) setPinned(true);
+    show((current + 1) % reels.length);
+  });
+  if (soundBtn) soundBtn.addEventListener('click', function(){
+    // A click is a real user gesture, so this unmute actually sticks.
+    if (!pinned) setPinned(true);
+    tryUnmute();
+  });
+  if (fsBtn) fsBtn.addEventListener('click', function(){
+    if (!player || !player.getIframe) return;
+    var frame = player.getIframe();
+    var req = frame.requestFullscreen || frame.webkitRequestFullscreen || frame.mozRequestFullScreen;
+    if (req) req.call(frame);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (!isOpen) return;
+    if (e.key === 'Escape') { closeModal(); return; }
+    if (e.key === 'ArrowRight') { pinned = true; show((current + 1) % reels.length); }
+    if (e.key === 'ArrowLeft')  { pinned = true; show((current - 1 + reels.length) % reels.length); }
+  });
+
+  // Warm the API up as soon as the tab is opened so the first play is instant.
+  var editTab = document.getElementById('video-editing-tab');
+  if (editTab) editTab.addEventListener('click', function(){ ensureApi(null); }, { once: true });
+  var editPanel = document.getElementById('video-editing-panel');
+  if (editPanel && !editPanel.hidden) ensureApi(null);
 })();
 </script>
 </body>
