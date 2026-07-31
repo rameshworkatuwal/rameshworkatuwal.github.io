@@ -7,22 +7,6 @@
 
     if (!links.id) links.id = 'site-navigation';
 
-    var channelLink = links.querySelector('a[href="channel.html"]');
-    if (channelLink && channelLink.parentElement) {
-      channelLink.parentElement.remove();
-    }
-
-    var portfolioLink = links.querySelector('a[href="photography.html"], a[href="portfolio.html"]');
-    if (portfolioLink) {
-      portfolioLink.href = 'portfolio.html';
-      portfolioLink.textContent = 'Portfolio';
-
-      var certificationsLink = links.querySelector('a[href="certifications.html"]');
-      if (certificationsLink && certificationsLink.parentElement && portfolioLink.parentElement) {
-        links.insertBefore(portfolioLink.parentElement, certificationsLink.parentElement);
-      }
-    }
-
     var toggle = nav.querySelector('.nav-toggle');
     if (!toggle) {
       toggle = document.createElement('button');

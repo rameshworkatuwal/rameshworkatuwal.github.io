@@ -12,12 +12,13 @@
   content="Contact Ritesh Katuwal for video editing, social media, SEO content, full-time roles, or freelance projects in Dubai and remotely.">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="widgets.css">
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>R.Katuwal</a>
+  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Katuwal</a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
@@ -32,12 +33,12 @@
 </nav>
 
 <div class="page reveal">
-  <p class="page-label">Get in Touch</p>
-  <h2 class="page-title">Contact Me</h2>
-  <div class="divider-line"></div>
+  <p class="page-label" data-anim="fade-down" data-anim-now>Get in Touch</p>
+  <h2 class="page-title" data-anim="blur" data-anim-now>Contact Me</h2>
+  <div class="divider-line" data-anim="clip" data-anim-now style="--d:1"></div>
 
   <div class="contact-grid">
-    <div class="contact-info">
+    <div class="contact-info" data-anim="left">
       <p>
         Whether you have a full-time role, contract position, or just want to connect — feel free to reach out!
       </p>
@@ -76,7 +77,7 @@
       </div>
     </div>
 
-    <div class="availability-card">
+    <div class="availability-card" data-anim="right" data-glow>
       <h3>Availability Status</h3>
       <div class="avail-item">
         <div class="avail-dot"></div>
@@ -128,15 +129,6 @@
 </footer>
 
 <script>
-// ── Cursor glow ──
-const glow = document.createElement('div');
-glow.className = 'cursor-glow';
-document.body.appendChild(glow);
-document.addEventListener('mousemove', e => {
-  glow.style.left = e.clientX + 'px';
-  glow.style.top  = e.clientY + 'px';
-});
-
 // ── Scroll reveal ──
 const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
 const observer = new IntersectionObserver((entries) => {
@@ -185,5 +177,7 @@ document.querySelectorAll('.stat-num').forEach(el => {
 <script src="site.js"></script>
 <script src="theme.js"></script>
 <script src="availability.js"></script>
+<script src="weather.js"></script>
+<script src="motion.js"></script>
 </body>
 </html>

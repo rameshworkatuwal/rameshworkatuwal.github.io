@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Photography — Ritesh Katuwal</title>
 <meta name="description" content="A curated collection of travel and event photography by Ritesh Katuwal.">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="widgets.css">
 <style>
 .photo-coming-soon {
   display: flex;
@@ -40,7 +41,7 @@
 }
 
 .photo-coming-soon h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Bricolage Grotesque', sans-serif;
   font-size: 1.6rem;
   color: var(--text);
   margin-bottom: 0.7rem;
@@ -78,7 +79,7 @@
 .gal-set{ margin-bottom:3rem; }
 .gal-set-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap;
   margin-bottom:1.4rem; padding-top:1.2rem; border-top:1px solid var(--line); }
-.gal-set-head h3{ font-family:'Playfair Display',serif; font-weight:700; font-size:1.55rem; color:var(--text); }
+.gal-set-head h3{ font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:1.55rem; color:var(--text); }
 .gal-set-head span{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); }
 .gal-empty{ color:var(--muted); font-size:.88rem; }
 .gal-grid{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; }
@@ -147,7 +148,7 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
 .album-folder:hover img{ transform:scale(1.05); }
 .album-folder-copy{ position:absolute; left:1.4rem; right:1.4rem; bottom:1.25rem; }
 .album-folder small{ display:block; color:#9eefff; font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; margin-bottom:.25rem; }
-.album-folder strong{ display:block; font-family:'Playfair Display',serif; font-size:1.45rem; line-height:1.2; }
+.album-folder strong{ display:block; font-family:'Bricolage Grotesque',sans-serif; font-size:1.45rem; line-height:1.2; }
 .camera-meta{ display:inline-flex !important; align-items:center; gap:.42rem; width:max-content; padding:.2rem .5rem;
   border-radius:999px; background:rgba(255,255,255,.92); color:#232323 !important; margin-bottom:.45rem !important;
   font-size:.68rem !important; letter-spacing:.08em !important; line-height:1; }
@@ -169,7 +170,7 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>R.Katuwal</a>
+  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Katuwal</a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
@@ -185,8 +186,8 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
 </nav>
 
 <main class="page gallery-page reveal">
-  <h2 class="page-title">Photography</h2>
-  <div class="divider-line"></div>
+  <h2 class="page-title" data-anim="blur" data-anim-now>Photography</h2>
+  <div class="divider-line" data-anim="clip" data-anim-now style="--d:1"></div>
 
   <div class="album-folders" aria-label="Photography albums">
     <a class="album-folder" href="#switzerland">
@@ -214,7 +215,15 @@ html[data-theme="light"] .lb-x, html[data-theme="light"] .lb-nav{ background:rgb
   <div id="gallery"></div>
 </main>
 
-<footer>© 2026 Ritesh Katuwal</footer>
+<footer>
+  <div class="social-row" style="justify-content:center;margin-bottom:1rem">
+    <a href="https://www.youtube.com/@RiteshKatwal" target="_blank" class="soc" title="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></a>
+    <a href="https://www.instagram.com/riteshhrk/" target="_blank" class="soc" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2Zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9Z"/></svg></a>
+    <a href="https://www.linkedin.com/in/riteshkatwal/" target="_blank" class="soc" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.5h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3ZM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1Zm1.8 13.1H3.5V9h3.6v11.5ZM22.2 0H1.8C.8 0 0 .8 0 1.7v20.5C0 23.2.8 24 1.8 24h20.4c1 0 1.8-.8 1.8-1.8V1.7C24 .8 23.2 0 22.2 0Z"/></svg></a>
+    <a href="https://www.facebook.com/profile.php?id=100063894348763" target="_blank" class="soc" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1c0 6 4.4 11 10.1 11.9v-8.4H7.1v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3H15.8c-1.5 0-2 .9-2 1.9v2.3h3.3l-.5 3.5h-2.8V24C19.6 23 24 18.1 24 12.1Z"/></svg></a>
+  </div>
+  © 2026 Ritesh Katuwal
+</footer>
 
 <script>
 // Smooth page exit
@@ -348,5 +357,8 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 <script src="gallery.js"></script>
 <script src="site.js"></script>
 <script src="theme.js"></script>
+<script src="availability.js"></script>
+<script src="weather.js"></script>
+<script src="motion.js"></script>
 </body>
 </html>
