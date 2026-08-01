@@ -617,3 +617,96 @@ html[data-theme="light"] .wx-panel{
   .float-slow{ animation:none }
   .reveal-words > span{ opacity:1; transform:none; animation:none }
 }
+
+/* ============================================================
+   PHOTO LIKE — only visible while a photo is open in the lightbox
+   ============================================================ */
+.lb-like{
+  position:absolute;
+  left:50%;
+  bottom:3.4rem;
+  z-index:3;
+  transform:translateX(-50%);
+}
+
+.lb-like-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  min-width:64px;
+  justify-content:center;
+  padding:.6rem 1.15rem;
+  border-radius:999px;
+  cursor:pointer;
+  color:#eaf4fb;
+  font-family:inherit;
+  font-size:.9rem;
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.2);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  transition:background .25s, border-color .25s, transform .25s cubic-bezier(.2,.8,.2,1);
+}
+.lb-like-btn:hover{
+  background:rgba(255,255,255,.16);
+  border-color:rgba(255,255,255,.36);
+  transform:translateY(-2px);
+}
+.lb-like-btn:focus-visible{ outline:3px solid var(--blue, #38e1ff); outline-offset:3px; }
+
+.lb-like-btn svg{
+  width:19px;
+  height:19px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.9;
+  stroke-linejoin:round;
+  transition:fill .3s ease, stroke .3s ease, transform .3s cubic-bezier(.34,1.5,.4,1);
+}
+
+/* liked */
+.lb-like-btn.is-liked{
+  color:#fff;
+  background:rgba(244,63,94,.24);
+  border-color:rgba(244,63,94,.6);
+}
+.lb-like-btn.is-liked svg{ fill:#f43f5e; stroke:#f43f5e; }
+
+/* a small kick each time it is pressed */
+.lb-like-btn.pop svg{ animation:likePop .5s cubic-bezier(.34,1.6,.4,1); }
+@keyframes likePop{
+  0%  { transform:scale(1) }
+  35% { transform:scale(1.35) }
+  60% { transform:scale(.92) }
+  100%{ transform:scale(1) }
+}
+
+/* while the count is still being fetched */
+.lb-like.is-loading .lb-like-num{ opacity:.35; }
+.lb-like-num{ transition:opacity .25s; }
+.lb-like-num:empty{ display:none; }
+
+html[data-theme="light"] .lb-like-btn{
+  color:#10202e;
+  background:rgba(255,255,255,.82);
+  border-color:rgba(20,60,100,.16);
+}
+html[data-theme="light"] .lb-like-btn:hover{ background:#fff; }
+html[data-theme="light"] .lb-like-btn.is-liked{
+  color:#9f1239;
+  background:rgba(244,63,94,.14);
+  border-color:rgba(244,63,94,.45);
+}
+
+@media (max-width:620px){
+  .lb-like{ bottom:2.9rem; }
+  .lb-like-btn{ padding:.5rem 1rem; font-size:.84rem; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .lb-like-btn, .lb-like-btn svg{ transition:none; }
+  .lb-like-btn.pop svg{ animation:none; }
+  .lb-like-btn:hover{ transform:none; }
+}
