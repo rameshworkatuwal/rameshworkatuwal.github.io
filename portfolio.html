@@ -151,13 +151,6 @@
 .reel-modal-fs svg{ width:15px; height:15px; }
 .reel-modal-stage:hover .reel-modal-fs{ opacity:1; transform:none; }
 .reel-modal-fs:hover{ background:rgba(56,225,255,.3); }
-.reel-modal-sound{ position:absolute; left:50%; bottom:1.1rem; z-index:4; transform:translateX(-50%);
-  display:flex; align-items:center; gap:.45rem; padding:.5rem .85rem; border-radius:999px; cursor:pointer;
-  color:#fff; font-size:.76rem; letter-spacing:.03em;
-  background:rgba(3,8,18,.7); border:1px solid rgba(255,255,255,.24);
-  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); transition:background .25s; }
-.reel-modal-sound svg{ width:14px; height:14px; }
-.reel-modal-sound:hover{ background:rgba(56,225,255,.32); }
 @media (max-width:760px){
   .reel-modal-stage{ height:auto; width:min(92vw,420px); max-width:92vw; }
   .reel-modal-nav{ top:auto; bottom:1.4rem; margin-top:0; }
@@ -335,11 +328,9 @@ html[data-theme="light"] .video-feature{
     <li><a href="about.html">About</a></li>
     <li><a href="skills.html">Skills</a></li>
     <li><a href="experience.html">Experience</a></li>
-    <li><a href="certifications.html">Certifications</a></li>
-    <li><a href="youtube.html">YouTube</a></li>
     <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    <li><a href="youtube.html">YouTube</a></li>
     <li><a href="blog.html">Blog</a></li>
-    <li><a href="contact.html">Contact</a></li>
   </ul>
 </nav>
 
@@ -586,10 +577,6 @@ html[data-theme="light"] .video-feature{
   <div class="reel-modal-stage">
     <div id="reel-modal-player"></div>
     <span class="reel-modal-spinner" aria-hidden="true"></span>
-    <button type="button" class="reel-modal-sound" hidden>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-      Tap for sound
-    </button>
     <button type="button" class="reel-modal-fs" aria-label="View fullscreen">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/></svg>
     </button>
@@ -845,7 +832,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   var prevBtn  = modal.querySelector('.reel-modal-prev');
   var nextBtn  = modal.querySelector('.reel-modal-next');
   var fsBtn    = modal.querySelector('.reel-modal-fs');
-  var soundBtn = modal.querySelector('.reel-modal-sound');
 
   var reels = cards.map(function(card){
     return { id: card.dataset.video, title: card.dataset.title || '', card: card };
@@ -916,19 +902,11 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     if (qualityTimer) { clearInterval(qualityTimer); qualityTimer = null; }
   }
 
-  function syncSound(){
-    if (!player || !soundBtn) return;
-    var muted = true;
-    try { muted = player.isMuted(); } catch (err) {}
-    // Browsers block unmuted playback that wasn't started by a real click,
-    // so rather than pretending there is sound, offer a one-tap unmute.
-    soundBtn.hidden = !muted;
-  }
-
+  // Best effort: browsers block unmuted playback that wasn't started by a
+  // click, and YouTube's own player controls handle it from there.
   function tryUnmute(){
     if (!player) return;
     try { player.unMute(); player.setVolume(100); } catch (err) {}
-    setTimeout(syncSound, 350);
   }
 
   function buildPlayer(videoId){
@@ -950,7 +928,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
             modal.classList.remove('is-loading');
             pushQuality(e.target);
             startQualityLoop(e.target);
-            syncSound();
           } else if (e.data === YT.PlayerState.BUFFERING) {
             modal.classList.add('is-loading');
           } else {
@@ -1033,10 +1010,6 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   });
   if (nextBtn)  nextBtn.addEventListener('click', function(){
     show((current + 1) % reels.length);
-  });
-  if (soundBtn) soundBtn.addEventListener('click', function(){
-    // A click is a real user gesture, so this unmute actually sticks.
-    tryUnmute();
   });
   if (fsBtn) fsBtn.addEventListener('click', function(){
     if (!player || !player.getIframe) return;
