@@ -340,8 +340,19 @@ html[data-theme="light"] .video-feature{
       <h1>Visual <span class="portfolio-gradient-word">Portfolio</span></h1>
     </div>
 
+  </header>
+
     <div class="portfolio-switch" role="tablist" aria-label="Portfolio categories">
       <span class="portfolio-switch-glider" aria-hidden="true"></span>
+      <button class="portfolio-tab" type="button" role="tab" id="video-editing-tab"
+        aria-selected="false" aria-controls="video-editing-panel" data-panel="video-editing">
+        <span class="portfolio-tab-icon portfolio-edit-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+        </span>
+        <span>
+          <strong>Video Editing</strong>
+        </span>
+      </button>
       <button class="portfolio-tab" type="button" role="tab" id="photography-tab"
         aria-selected="false" aria-controls="photography-panel" data-panel="photography">
         <span class="portfolio-tab-icon" aria-hidden="true">
@@ -360,17 +371,7 @@ html[data-theme="light"] .video-feature{
           <strong>Videography</strong>
         </span>
       </button>
-      <button class="portfolio-tab" type="button" role="tab" id="video-editing-tab"
-        aria-selected="false" aria-controls="video-editing-panel" data-panel="video-editing">
-        <span class="portfolio-tab-icon portfolio-edit-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-        </span>
-        <span>
-          <strong>Video Editing</strong>
-        </span>
-      </button>
     </div>
-  </header>
 
   <div class="portfolio-panels">
     <p class="portfolio-panel-hint">Pick a category above to view the work.</p>
@@ -670,7 +671,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
       panel.classList.toggle('is-active', active);
     });
     if (updateHash && history.replaceState) {
-      history.replaceState(null, '', name === 'videography' ? '#videography' : '#photography');
+      history.replaceState(null, '', '#' + name);
     }
   }
 
@@ -691,8 +692,8 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 
   // Nothing is shown until the user picks Photography or Videography —
   // unless the page was opened with a #photography / #videography link.
-  if (window.location.hash === '#videography') activate('videography', false);
-  else if (window.location.hash === '#photography') activate('photography', false);
+  var fromHash = (window.location.hash || '').slice(1);
+  if (fromHash && document.getElementById(fromHash + '-panel')) activate(fromHash, false);
 })();
 </script>
 <script>
