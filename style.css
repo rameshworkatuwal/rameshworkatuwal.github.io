@@ -3140,13 +3140,14 @@ html[data-theme="light"] .reach-card{
 
    Nothing chosen yet: the tabs ARE the page, so they stay big.
    Once a category is open the work matters more, so the bar shrinks
-   to a slim toolbar and sticks under the nav — you can jump between
-   categories without scrolling back up.
+   to a slim toolbar and gets out of the way.
+
+   It deliberately does NOT stick to the top: a narrow translucent bar
+   floating over a grid of photos reads as a rendering glitch, with the
+   gallery sliding along behind its glass. It scrolls away like normal
+   content instead.
    ============================================================ */
 .portfolio-switch[data-active]{
-  position:sticky;
-  top:74px;
-  z-index:60;
   max-width:760px;
   padding:6px;
   border-radius:18px;
@@ -3189,7 +3190,7 @@ html[data-theme="light"] .reach-card{
   .portfolio-switch[data-active] .portfolio-tab-icon svg{ width:17px; height:17px; }
 }
 @media (max-width:680px){
-  .portfolio-switch[data-active]{ top:66px; padding:5px; border-radius:15px; }
+  .portfolio-switch[data-active]{ padding:5px; border-radius:15px; }
   .portfolio-switch[data-active] .portfolio-switch-glider{
     top:5px; bottom:5px; left:5px; width:calc(33.333% - 5px); border-radius:11px;
   }
