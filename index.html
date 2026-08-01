@@ -96,12 +96,12 @@ a:focus-visible,button:focus-visible{outline:3px solid rgba(56,225,255,.5);outli
 .hero-name .word{display:inline-block}
 .hero-name .accent{background:linear-gradient(100deg,var(--cyan),var(--violet) 60%,var(--cyan));background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:shimmer 6s linear infinite;filter:drop-shadow(0 0 26px rgba(56,225,255,.35))}
 @keyframes shimmer{to{background-position:220% center}}
-.roles{font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem,2vw,1.4rem);font-weight:600;color:var(--text);height:1.6em;margin-bottom:1.1rem;display:flex;align-items:center;gap:.6rem}
+.roles{font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem,2vw,1.4rem);font-weight:600;color:var(--text);min-height:2.2em;margin-bottom:2.4rem;display:flex;align-items:center;gap:.6rem}
 .roles .tag{color:var(--muted);font-weight:400}
 .role-swap{position:relative;display:inline-block;min-width:12ch}
 .role-swap span{position:absolute;left:0;white-space:nowrap;color:var(--cyan);opacity:0;transform:translateY(12px);filter:blur(6px);transition:all .5s var(--ease)}
 .role-swap span.on{opacity:1;transform:translateY(0);filter:blur(0)}
-.cta-row{display:flex;gap:1rem;flex-wrap:wrap}
+.cta-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.4rem}
 .btn{position:relative;display:inline-flex;align-items:center;gap:.5rem;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;padding:.9rem 1.6rem;border-radius:12px;transition:transform .2s var(--ease),box-shadow .3s;will-change:transform}
 .btn-primary{background:linear-gradient(100deg,var(--cyan),var(--cyan-deep));color:#04121c;box-shadow:0 8px 30px rgba(56,225,255,.3)}
 .btn-primary:hover{box-shadow:0 12px 42px rgba(56,225,255,.5)}
@@ -267,6 +267,15 @@ html[data-theme="light"] nav{ background:rgba(255,255,255,0.8); }
 html[data-theme="light"] .card,
 html[data-theme="light"] .stat{ background:#fff; box-shadow:0 12px 30px rgba(20,50,90,0.08); }
 html[data-theme="light"] .chip{ background:#f1f5fa; }
+/* The cyan used on the dark background is far too pale on white — this
+   swaps in the deep blue and firms up the border so the pill is legible. */
+html[data-theme="light"] .eyebrow{
+  color:#0b5f86;
+  border-color:rgba(2,136,209,.4);
+  background:rgba(2,136,209,.08);
+  font-weight:600;
+}
+html[data-theme="light"] .role-swap span{ color:#0b5f86; }
 html[data-theme="light"] html[data-theme="light"] html[data-theme="light"] .btn-primary{ color:#fff; box-shadow:0 8px 24px rgba(2,136,209,.28); }
 html[data-theme="light"] .photo{ border-color:#fff; }
 html[data-theme="light"] .orbit{ background:rgba(255,255,255,.94); color:#10202e; box-shadow:0 8px 22px rgba(20,50,90,.12); }
@@ -446,7 +455,7 @@ if(!reduce){
       shots[pi].classList.remove('on');
       pi=(pi+1)%shots.length;
       shots[pi].classList.add('on');
-    },1800);
+    },2500);
   }
 }
 

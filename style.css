@@ -2077,10 +2077,12 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   isolation:isolate;
 }
 
+/* Centred to sit squarely above the (now centred) switcher. */
 .portfolio-heading-row{
   display:flex;
   align-items:flex-end;
-  justify-content:space-between;
+  justify-content:center;
+  text-align:center;
   gap:2rem;
   margin-bottom:2rem;
 }
@@ -2114,6 +2116,7 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   max-width:1240px;
+  margin:0 auto;          /* centred — it reads far better than pinned left */
   padding:12px;
   overflow:hidden;
   border:1px solid var(--line);
