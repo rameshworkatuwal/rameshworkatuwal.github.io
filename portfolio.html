@@ -45,6 +45,16 @@
   margin-bottom:1.4rem; padding-top:1.2rem; border-top:1px solid var(--line); }
 .gal-set-head h3{ font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:1.55rem; color:var(--text); }
 .gal-set-head span{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); }
+/* only shown once an album is opened — kept off the folder cards */
+.gal-set-note{ margin:-.9rem 0 1.4rem; font-size:.85rem; color:var(--muted); font-style:italic; }
+.gal-set-link{ display:inline-flex; align-items:center; gap:.35rem; padding:.3rem .7rem;
+  border:1px solid var(--line); border-radius:999px; text-decoration:none;
+  color:var(--blue) !important; font-size:.72rem !important; font-weight:600;
+  letter-spacing:.02em !important; text-transform:none !important;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1), background .3s, border-color .3s; }
+.gal-set-link svg{ width:12px; height:12px; }
+.gal-set-link:hover{ transform:translateY(-2px);
+  background:rgba(56,225,255,.1); border-color:rgba(93,211,255,.45); }
 .gal-empty{ color:var(--muted); font-size:.88rem; }
 .gal-grid{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; }
 .gal-item{ position:relative; flex:0 0 calc((100% - 42px)/4); min-width:0; aspect-ratio:4/3; padding:0; border-radius:14px; overflow:hidden;
@@ -443,6 +453,16 @@ html[data-theme="light"] .video-feature{
             <span class="album-count">11 photos</span>
           </span>
         </a>
+        <a class="album-folder" data-anim="pop" style="--d:6" href="#manamaiju-fc-2023">
+          <span class="album-folder-frame"><img src="manamaiju-fc-2023/manamaiju-03.jpg" alt="" loading="lazy" decoding="async"></span>
+          <span class="album-folder-copy">
+            <span class="album-folder-title">
+              <strong>Work With Manamaiju FC 2023</strong>
+              <span class="camera-meta camera-meta-wide"><img src="canon-logo.png" alt="Canon"><b>200D Mark II · 18–55mm kit lens</b></span>
+            </span>
+            <span class="album-count">12 photos</span>
+          </span>
+        </a>
       </div>
 
       <div id="gallery"></div>
@@ -800,6 +820,29 @@ document.querySelectorAll('.nav-links a').forEach(link => {
           'wild-one/wild-one-07.jpg',
           'wild-one/wild-one-08.jpg',
           'wild-one/wild-one-09.jpg'
+        ]
+      },
+      {
+        folder: 'manamaiju-fc-2023',
+        title: 'Work With Manamaiju FC 2023',
+        sub: '200D Mark II · 18–55mm kit lens',
+        cameraLogo: true,
+        link: 'https://www.instagram.com/fcmanamaiju/',
+        linkLabel: '@fcmanamaiju',
+        note: 'Shot in low light with the standard 18–55mm kit lens.',
+        files: [
+          'manamaiju-fc-2023/manamaiju-01.jpg',
+          'manamaiju-fc-2023/manamaiju-02.jpg',
+          'manamaiju-fc-2023/manamaiju-03.jpg',
+          'manamaiju-fc-2023/manamaiju-04.jpg',
+          'manamaiju-fc-2023/manamaiju-05.jpg',
+          'manamaiju-fc-2023/manamaiju-06.jpg',
+          'manamaiju-fc-2023/manamaiju-07.jpg',
+          'manamaiju-fc-2023/manamaiju-08.jpg',
+          'manamaiju-fc-2023/manamaiju-09.jpg',
+          'manamaiju-fc-2023/manamaiju-10.jpg',
+          'manamaiju-fc-2023/manamaiju-11.jpg',
+          'manamaiju-fc-2023/manamaiju-12.jpg'
         ]
       },
       {

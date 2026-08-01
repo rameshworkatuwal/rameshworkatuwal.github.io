@@ -177,11 +177,28 @@
       var meta = set.cameraLogo
         ? '<span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>' + (set.sub || '2000D') + '</b></span>'
         : (set.sub ? '<span>' + set.sub + '</span>' : '');
+      // Optional link out to the client / project, e.g. their Instagram.
+      var link = set.link
+        ? '<a class="gal-set-link" href="' + set.link + '" target="_blank" rel="noopener noreferrer">' +
+            (set.linkLabel || 'View') +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            '<path d="M7 17 17 7M9 7h8v8"/></svg>' +
+          '</a>'
+        : '';
       head.innerHTML = '<h3>' + (set.title || set.folder) + '</h3>' +
-                       meta;
+                       meta + link;
+      sec.appendChild(head);
+      // A short shooting note that only appears once the album is open —
+      // it would be clutter on the folder card.
+      if (set.note) {
+        var note = el('p', 'gal-set-note');
+        note.textContent = set.note;
+        sec.appendChild(note);
+      }
       var wrap = el('div');
       wrap.innerHTML = '<p class="gal-empty">Loading photos…</p>';
-      sec.appendChild(head); sec.appendChild(wrap);
+      sec.appendChild(wrap);
       host.appendChild(sec);
       resolveSet(set).then(function (files) { render(set, files || [], wrap); });
     });
