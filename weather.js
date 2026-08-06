@@ -5,13 +5,13 @@
    with an animated background that matches the conditions.
 
    How the location is worked out, in order:
-     1. A precise position the visitor previously granted (kept in
-        localStorage on their device only).
-     2. Otherwise their IANA time zone — "Asia/Kathmandu" tells us the
-        city without asking permission, without an IP lookup service,
-        and without any tracking.
-     3. If that name can't be geocoded, the widget stays hidden rather
-        than showing something wrong.
+     1. A location the visitor previously granted.
+     2. On a first visit, the browser asks permission for their current
+        location and updates the widget automatically when allowed.
+     3. Until then (or if permission is denied), their IANA time zone —
+        "Asia/Kathmandu" becomes Kathmandu without an IP lookup service.
+     4. If neither method works, the widget stays hidden rather than
+        showing something wrong.
 
    APIs: Open-Meteo (weather + geocoding) and BigDataCloud (reverse
    geocoding). Both are free, keyless and CORS-enabled, so this works
@@ -31,10 +31,11 @@
   var logo = nav.querySelector('.nav-logo');
   var anchor = logo ? logo.nextSibling : links;
 
-  // v2: v1 could cache a wrongly geocoded city, so the key is bumped to
-  // throw those stale entries away.
-  var PLACE_KEY = 'rk_wx_place_v2';
-  var DATA_KEY  = 'rk_wx_data_v2';
+  // v3 also clears old timezone-only locations so returning visitors get
+  // the new automatic location-permission flow once.
+  var PLACE_KEY = 'rk_wx_place_v3';
+  var DATA_KEY  = 'rk_wx_data_v3';
+  var AUTO_KEY  = 'rk_wx_auto_location_v1';
   var TTL_MS    = 10 * 60 * 1000;   // re-fetch at most every 10 minutes
 
   // Plenty of devices still report the old tzdata spellings. Left as-is,
@@ -242,8 +243,8 @@
     q('.wx-hum').textContent   = isFinite(cur.relative_humidity_2m) ? Math.round(cur.relative_humidity_2m) + '%' : '—';
     q('.wx-wind').textContent  = isFinite(cur.wind_speed_10m) ? Math.round(cur.wind_speed_10m) + ' km/h' : '—';
     q('.wx-note').textContent = place.precise
-      ? 'Using your exact location. It stays on this device.'
-      : 'Detected from your time zone. Nothing leaves this device.';
+      ? 'Using your approximate location for local weather.'
+      : 'Estimated from your device time zone.';
     q('.wx-locate').hidden = !!place.precise;
 
     tz = place.timezone || wx.timezone || currentTimeZone();
@@ -357,12 +358,36 @@
     });
   }
 
+  function requestCurrentPlace() {
+    if (!navigator.geolocation) return Promise.reject(new Error('geolocation unavailable'));
+    return new Promise(function (resolve, reject) {
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        // Around 1 km of precision is plenty for city-level weather and avoids
+        // sending unnecessary street-level coordinates to the weather APIs.
+        var lat = +pos.coords.latitude.toFixed(2);
+        var lon = +pos.coords.longitude.toFixed(2);
+        placeFromCoords(lat, lon).then(resolve, reject);
+      }, reject, { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 });
+    });
+  }
+
   function start() {
     var saved = read(PLACE_KEY);
     var chosen = saved && isFinite(saved.lat) ? Promise.resolve(saved) : placeFromTimeZone();
     chosen
       .then(function (place) { write(PLACE_KEY, place); return load(place, true); })
       .catch(function () { el.hidden = true; });   // stay silent rather than show something wrong
+
+    // Ask only once automatically. Browsers always keep the visitor in
+    // control with their own Allow/Block prompt. The manual button remains
+    // available if they block or dismiss it and later change their mind.
+    if (!read(AUTO_KEY) && navigator.geolocation) {
+      write(AUTO_KEY, { at: Date.now() });
+      requestCurrentPlace().then(function (place) {
+        write(PLACE_KEY, place);
+        return load(place, false);
+      }).catch(function () {});
+    }
   }
 
   /* ---------- interaction ---------- */
@@ -396,21 +421,17 @@
     if (!navigator.geolocation) { btn.textContent = 'Not supported here'; return; }
     btn.disabled = true;
     btn.textContent = 'Locating…';
-    navigator.geolocation.getCurrentPosition(function (pos) {
-      var lat = +pos.coords.latitude.toFixed(3);   // street-level precision isn't needed for weather
-      var lon = +pos.coords.longitude.toFixed(3);
-      placeFromCoords(lat, lon).then(function (place) {
-        write(PLACE_KEY, place);
-        return load(place, false);
-      }).then(function () {
-        btn.disabled = false;
-        btn.textContent = 'Use my exact location';
-      });
+    requestCurrentPlace().then(function (place) {
+      write(PLACE_KEY, place);
+      return load(place, false);
+    }).then(function () {
+      btn.disabled = false;
+      btn.textContent = 'Use my exact location';
     }, function () {
       btn.disabled = false;
       btn.textContent = 'Permission denied';
       setTimeout(function () { btn.textContent = 'Use my exact location'; }, 2500);
-    }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 });
+    });
   });
 
   setInterval(tickClock, 1000);
