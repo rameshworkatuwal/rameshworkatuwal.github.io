@@ -146,13 +146,7 @@ a:focus-visible,button:focus-visible{outline:3px solid rgba(56,225,255,.5);outli
   .role-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; max-width:26rem; }
 }
 
-/* ── crossfading portrait stack ── */
-.photo-stack{position:absolute;inset:0;z-index:1;border-radius:50%;}
-.photo-stack .photo{opacity:0;transform:scale(1.045);transition:opacity .85s ease, transform 1.5s cubic-bezier(.2,.7,.2,1);}
-.photo-stack .photo.on{opacity:1;transform:scale(1);}
-
 @media (prefers-reduced-motion:reduce){
-  .photo-stack .photo{transition:none}
   .orbit.role{animation:none}
 }
 
@@ -335,14 +329,7 @@ html[data-theme="light"] .cta-strip{ background:linear-gradient(120deg,rgba(2,13
   <div class="hero-visual" data-parallax="34">
     <div class="photo-wrap" id="tilt">
       <div class="photo-ring"></div>
-      <!-- Three portraits crossfading every 3s. All are stacked and loaded
-           up front so a swap never shows a blank frame. -->
-      <div class="photo-stack" id="photoStack">
-        <img src="hero-1.jpg" alt="Ritesh Katuwal" class="photo on" width="720" height="720" fetchpriority="high" decoding="async">
-        <img src="hero-2.jpg" alt="" aria-hidden="true" class="photo" width="720" height="720" decoding="async">
-        <img src="hero-3.jpg" alt="" aria-hidden="true" class="photo" width="720" height="720" decoding="async">
-        <img src="hero-4.jpg" alt="" aria-hidden="true" class="photo" width="720" height="720" decoding="async">
-      </div>
+      <img src="hero-1.jpg" alt="Ritesh Katuwal" class="photo" width="720" height="720" fetchpriority="high" decoding="async">
       <div class="photo-glare"></div>
     </div>
     <!-- Every role sits around the circle at once, each drifting on its
@@ -447,16 +434,6 @@ if(!reduce){
   const swaps=document.querySelectorAll('#roleSwap span');let ri=0;
   setInterval(()=>{swaps[ri].classList.remove('on');ri=(ri+1)%swaps.length;swaps[ri].classList.add('on');},2200);
 
-  /* hero portrait crossfade — one photo every 3s */
-  const shots=document.querySelectorAll('#photoStack .photo');
-  if(shots.length>1){
-    let pi=0;
-    setInterval(()=>{
-      shots[pi].classList.remove('on');
-      pi=(pi+1)%shots.length;
-      shots[pi].classList.add('on');
-    },2500);
-  }
 }
 
 /* scroll progress */

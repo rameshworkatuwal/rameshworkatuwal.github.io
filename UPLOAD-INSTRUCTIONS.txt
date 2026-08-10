@@ -1,13 +1,5 @@
-PORTFOLIO UPDATE — 6 August 2026
+GitHub repository ko main/root folder ma index.html upload garnuhos.
 
-Upload these two files to the root of your GitHub Pages repository and replace the existing files:
-
-1. portfolio.html
-2. weather.js
-
-What is included:
-- New YouTube Short added as Edit 09 in Video Editing.
-- Visitor location is requested automatically on the first visit.
-- If the visitor allows location access, their local city, weather and time are shown.
-- If they block location access, the existing timezone-based weather fallback remains active.
-
+GitHub le existing index.html replace garne confirmation dekhaye replace/commit garnuhos.
+Yo update ma profile photo slideshow hataera hero-1.jpg lai static photo banाइएको छ.
+Arko photo वा folder फेरि upload गर्नुपर्दैन।
