@@ -1,5 +1,8 @@
-GitHub repository ko main/root folder ma index.html upload garnuhos.
+GitHub repository ko main/root folder ma index.html ra about.html upload garnuhos.
 
-GitHub le existing index.html replace garne confirmation dekhaye replace/commit garnuhos.
-Yo update ma profile photo slideshow hataera hero-1.jpg lai static photo banाइएको छ.
-Arko photo वा folder फेरि upload गर्नुपर्दैन।
+Existing files replace garera commit garnuhos.
+Arko photo वा folder upload गर्नुपर्दैन।
+
+Updated details:
+Phone: +971 55 767 1561
+Address: Abu Hail 1, Dubai
