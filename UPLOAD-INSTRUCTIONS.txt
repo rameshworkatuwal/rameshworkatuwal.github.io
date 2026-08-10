@@ -1,8 +1,9 @@
-GitHub repository ko main/root folder ma index.html ra about.html upload garnuhos.
+GitHub repository को main/root folder मा portfolio.html upload गर्नुहोस्।
 
-Existing files replace garera commit garnuhos.
-Arko photo वा folder upload गर्नुपर्दैन।
+Existing portfolio.html replace गर्न सोधे Replace/Commit changes गर्नुहोस्।
+Photo folders फेरि upload गर्नु पर्दैन; existing tihar-2024 folder प्रयोग हुन्छ।
 
-Updated details:
-Phone: +971 55 767 1561
-Address: Abu Hail 1, Dubai
+Fix included:
+- Broken Dewali thumbnail path corrected
+- Album renamed to Tihar 2024
+- Correct 2-photo count and gallery paths
