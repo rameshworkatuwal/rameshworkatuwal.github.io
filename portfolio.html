@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Ritesh Katuwal</title>
 <meta name="description" content="Ritesh Katuwal's photography and videography portfolio, featuring curated travel, event, and music video projects.">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="widgets.css">
 <style>
@@ -382,6 +382,15 @@ html[data-theme="light"] .video-feature{
           <strong>Videography</strong>
         </span>
       </button>
+      <button class="portfolio-tab" type="button" role="tab" id="gear-tab"
+        aria-selected="false" aria-controls="gear-panel" data-panel="gear">
+        <span class="portfolio-tab-icon portfolio-gear-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.16.37.38.7.6 1 .28.36.67.55 1.1.6h.09v4h-.09a1.7 1.7 0 0 0-1.7.4Z"/></svg>
+        </span>
+        <span>
+          <strong>Gear</strong>
+        </span>
+      </button>
     </div>
 
   <div class="portfolio-panels">
@@ -515,6 +524,67 @@ html[data-theme="light"] .video-feature{
           </a>
         </div>
       </article>
+    </section>
+
+    <section class="portfolio-panel gear-panel" id="gear-panel" role="tabpanel"
+      aria-labelledby="gear-tab" data-panel-name="gear" hidden>
+      <div class="gear-heading">
+        <div>
+          <span class="gear-eyebrow">Production toolkit</span>
+          <h2>The Gear I Use</h2>
+          <p>Cameras and creator tools I have strong hands-on experience with.</p>
+        </div>
+        <div class="gear-controls" aria-label="Gear slider controls">
+          <button class="gear-arrow gear-prev" type="button" aria-label="Previous gear">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button class="gear-arrow gear-next" type="button" aria-label="Next gear">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="gear-stage">
+        <div class="gear-track" tabindex="0" aria-label="Hands-on camera and creator gear">
+          <article class="gear-card gear-canon">
+            <span class="gear-number">01</span>
+            <span class="gear-type">DSLR Camera</span>
+            <div class="gear-product"><img src="gear/canon-2000d.png" alt="Canon EOS 2000D camera" loading="lazy" decoding="async"></div>
+            <div class="gear-card-copy"><h3>Canon EOS 2000D</h3><span>Hands-on experience</span></div>
+          </article>
+          <article class="gear-card gear-canon">
+            <span class="gear-number">02</span>
+            <span class="gear-type">DSLR Camera</span>
+            <div class="gear-product"><img src="gear/canon-200d-mark-ii.png" alt="Canon EOS 200D Mark II camera" loading="lazy" decoding="async"></div>
+            <div class="gear-card-copy"><h3>Canon EOS 200D Mark II</h3><span>Hands-on experience</span></div>
+          </article>
+          <article class="gear-card gear-sony">
+            <span class="gear-number">03</span>
+            <span class="gear-type">APS-C Mirrorless</span>
+            <div class="gear-product"><img src="gear/sony-a6600.jpg" alt="Sony Alpha 6600 camera" loading="lazy" decoding="async"></div>
+            <div class="gear-card-copy"><h3>Sony α6600</h3><span>Hands-on experience</span></div>
+          </article>
+          <article class="gear-card gear-sony">
+            <span class="gear-number">04</span>
+            <span class="gear-type">Full-Frame Mirrorless</span>
+            <div class="gear-product"><img src="gear/sony-a7iii.png" alt="Sony Alpha 7 III camera" loading="lazy" decoding="async"></div>
+            <div class="gear-card-copy"><h3>Sony α7 III</h3><span>Hands-on experience</span></div>
+          </article>
+          <article class="gear-card gear-gopro">
+            <span class="gear-number">05</span>
+            <span class="gear-type">Action Camera</span>
+            <div class="gear-product"><img src="gear/gopro-action-camera.png" alt="GoPro action camera" loading="lazy" decoding="async"></div>
+            <div class="gear-card-copy"><h3>GoPro Action Camera</h3><span>Hands-on experience</span></div>
+          </article>
+          <article class="gear-card gear-dji">
+            <span class="gear-number">06</span>
+            <span class="gear-type">Pocket Gimbal Camera</span>
+            <div class="gear-product"><img src="gear/dji-osmo-pocket-3.png" alt="DJI Osmo Pocket 3 camera" loading="lazy" decoding="async"></div>
+            <div class="gear-card-copy"><h3>DJI Osmo Pocket 3</h3><span>Hands-on experience</span></div>
+          </article>
+        </div>
+        <div class="gear-progress" aria-hidden="true"><span></span></div>
+      </div>
     </section>
 
     <section class="portfolio-panel video-editing-panel-glow" id="video-editing-panel" role="tabpanel"
@@ -728,10 +798,79 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
   });
 
-  // Nothing is shown until the user picks Photography or Videography —
-  // unless the page was opened with a #photography / #videography link.
+    // Nothing is shown until the user picks a portfolio category —
+    // unless the page was opened with a matching category hash.
   var fromHash = (window.location.hash || '').slice(1);
   if (fromHash && document.getElementById(fromHash + '-panel')) activate(fromHash, false);
+})();
+</script>
+<script>
+(function(){
+  var panel=document.getElementById('gear-panel');
+  if(!panel)return;
+  var track=panel.querySelector('.gear-track');
+  var cards=Array.prototype.slice.call(panel.querySelectorAll('.gear-card'));
+  var prev=panel.querySelector('.gear-prev');
+  var next=panel.querySelector('.gear-next');
+  var progress=panel.querySelector('.gear-progress span');
+  if(!track||!cards.length)return;
+
+  var paused=false;
+  var timer=null;
+  var reduce=false;
+  try{reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+
+  function nearestIndex(){
+    var centre=track.scrollLeft+track.clientWidth/2;
+    var best=0;
+    var distance=Infinity;
+    cards.forEach(function(card,index){
+      var cardCentre=card.offsetLeft+card.offsetWidth/2;
+      var delta=Math.abs(cardCentre-centre);
+      if(delta<distance){distance=delta;best=index;}
+    });
+    return best;
+  }
+
+  function updateProgress(index){
+    if(progress)progress.style.transform='translateX('+(index*100)+'%)';
+  }
+
+  function go(index){
+    if(index<0)index=cards.length-1;
+    if(index>=cards.length)index=0;
+    var left=cards[index].offsetLeft-(track.clientWidth-cards[index].offsetWidth)/2;
+    track.scrollTo({left:left,behavior:reduce?'auto':'smooth'});
+    updateProgress(index);
+  }
+
+  function step(direction){go(nearestIndex()+direction);}
+  if(prev)prev.addEventListener('click',function(){step(-1);restart();});
+  if(next)next.addEventListener('click',function(){step(1);restart();});
+
+  var scrollTick=0;
+  track.addEventListener('scroll',function(){
+    window.clearTimeout(scrollTick);
+    scrollTick=window.setTimeout(function(){updateProgress(nearestIndex());},80);
+  },{passive:true});
+
+  function start(){
+    if(reduce||timer)return;
+    timer=window.setInterval(function(){
+      if(!paused&&!panel.hidden&&document.visibilityState==='visible')step(1);
+    },3800);
+  }
+  function stop(){if(timer){window.clearInterval(timer);timer=null;}}
+  function restart(){stop();start();}
+  panel.addEventListener('mouseenter',function(){paused=true;});
+  panel.addEventListener('mouseleave',function(){paused=false;});
+  track.addEventListener('focusin',function(){paused=true;});
+  track.addEventListener('focusout',function(){paused=false;});
+  track.addEventListener('pointerdown',function(){paused=true;});
+  track.addEventListener('pointerup',function(){paused=false;});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
+  updateProgress(0);
+  start();
 })();
 </script>
 <script>
