@@ -1,9 +1,12 @@
 GitHub repository को main/root folder मा portfolio.html upload गर्नुहोस्।
 
-Existing portfolio.html replace गर्न सोधे Replace/Commit changes गर्नुहोस्।
-Photo folders फेरि upload गर्नु पर्दैन; existing tihar-2024 folder प्रयोग हुन्छ।
+Existing portfolio.html replace गरेर Commit changes गर्नुहोस्।
+अरू कुनै file वा video फेरि upload गर्नु पर्दैन।
 
-Fix included:
-- Broken Dewali thumbnail path corrected
-- Album renamed to Tihar 2024
-- Correct 2-photo count and gallery paths
+Included:
+- Smaller, compact video preview cards
+- 5 columns on desktop
+- 3 columns on tablet
+- 2 columns on mobile
+- Existing video play popup preserved
+- Previous Tihar 2024 photo-path fix preserved

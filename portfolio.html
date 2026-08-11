@@ -89,8 +89,8 @@
   letter-spacing:.09em; text-transform:uppercase; }
 .ewan-credit img{ display:block; width:auto; height:19px; }
 
-.edit-reel-grid{ position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:1.6rem 1.6rem; max-width:1220px; margin:0 0 3.4rem; }
+.edit-reel-grid{ position:relative; display:grid; grid-template-columns:repeat(5,minmax(0,150px));
+  gap:1.2rem; max-width:830px; margin:0 0 3.4rem; }
 .edit-reel-item{ margin:0; }
 .edit-reel-item figcaption{ margin-top:.7rem; font-size:.8rem; color:var(--muted); }
 
@@ -179,13 +179,14 @@
   .album-folders{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   .gal-grid{ gap:12px; }
   .gal-item{ flex-basis:calc((100% - 24px)/3); }
-  .edit-reel-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:520px; }
+  .edit-reel-grid{ grid-template-columns:repeat(3,minmax(0,140px)); gap:1rem; max-width:452px; }
 }
 @media (max-width:600px){
   .gallery-page{ padding-left:5%; padding-right:5%; }
   .album-folders{ grid-template-columns:1fr; }
   .gal-grid{ gap:10px; }
   .gal-item{ flex-basis:calc((100% - 10px)/2); }
+  .edit-reel-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:.9rem; max-width:300px; }
 }
 @media (max-width:430px){
   .gal-item{ flex-basis:100%; }
