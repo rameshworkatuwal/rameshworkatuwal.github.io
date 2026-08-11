@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Ritesh Katuwal</title>
 <meta name="description" content="Ritesh Katuwal's photography and videography portfolio, featuring curated travel, event, and music video projects.">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="widgets.css">
 <style>
@@ -88,156 +88,6 @@
 .ewan-credit-label{ color:rgba(255,255,255,.55); font-size:.72rem; font-weight:500;
   letter-spacing:.09em; text-transform:uppercase; }
 .ewan-credit img{ display:block; width:auto; height:19px; }
-
-/* ===== branded TikTok work ===== */
-.tiktok-showcase{
-  position:relative;
-  margin:2.2rem 0 3.5rem;
-  padding:1.35rem;
-  overflow:hidden;
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:
-    radial-gradient(circle at 88% 8%,rgba(56,225,255,.12),transparent 34%),
-    linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
-}
-.tiktok-showcase::after{
-  content:'';
-  position:absolute;
-  right:-80px;
-  bottom:-110px;
-  width:260px;
-  height:260px;
-  border:1px solid rgba(56,225,255,.14);
-  border-radius:50%;
-  box-shadow:0 0 0 34px rgba(139,108,255,.035),0 0 0 70px rgba(56,225,255,.025);
-  pointer-events:none;
-}
-.tiktok-showcase-head{
-  position:relative;
-  z-index:1;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:1rem;
-  margin-bottom:1.3rem;
-}
-.tiktok-showcase-head p{ margin:0; color:var(--muted); font-size:.8rem; }
-.client-credit{
-  display:inline-flex;
-  align-items:center;
-  gap:.7rem;
-  min-height:46px;
-  padding:.42rem .8rem;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:var(--surface);
-  color:var(--text);
-  text-decoration:none;
-  box-shadow:0 8px 22px rgba(10,20,40,.12);
-  transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s;
-}
-.client-credit:hover{ transform:translateY(-2px); border-color:rgba(56,225,255,.4); box-shadow:0 14px 30px rgba(10,20,40,.2); }
-.client-credit-label{ color:var(--muted); font-size:.64rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
-.client-credit img{ display:block; width:auto; max-width:118px; height:38px; object-fit:contain; }
-.baba-credit img{ height:44px; }
-.tiktok-card-grid{ position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,minmax(0,170px)); gap:1.15rem; }
-.tiktok-card-grid-single{ grid-template-columns:minmax(0,190px); }
-.tiktok-card{
-  display:block;
-  min-width:0;
-  color:inherit;
-  text-decoration:none;
-  border-radius:17px;
-  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;
-}
-.tiktok-card:hover,.tiktok-card:focus-visible{ outline:none; transform:translateY(-7px); box-shadow:0 22px 48px rgba(10,20,40,.24); }
-.tiktok-card-media{
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  aspect-ratio:9/16;
-  overflow:hidden;
-  padding:1rem;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:17px;
-  background:
-    linear-gradient(155deg,rgba(255,255,255,.1),transparent 32%),
-    radial-gradient(circle at 75% 18%,rgba(255,71,105,.42),transparent 30%),
-    radial-gradient(circle at 18% 78%,rgba(37,244,238,.34),transparent 32%),
-    #08111d;
-  box-shadow:0 12px 30px rgba(10,20,40,.18);
-}
-.tiktok-card-media::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  opacity:.28;
-  background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
-  background-size:28px 28px;
-  -webkit-mask-image:linear-gradient(to bottom,#000,transparent 80%);
-  mask-image:linear-gradient(to bottom,#000,transparent 80%);
-}
-.tiktok-card-media::after{
-  content:'';
-  position:absolute;
-  inset:auto 0 0;
-  height:48%;
-  background:linear-gradient(transparent,rgba(3,7,14,.92));
-}
-.tiktok-card-logo{
-  position:relative;
-  z-index:1;
-  width:82%;
-  max-height:46%;
-  object-fit:contain;
-  padding:.65rem;
-  border-radius:13px;
-  background:rgba(255,255,255,.94);
-  box-shadow:0 12px 30px rgba(0,0,0,.24);
-}
-.baba-tiktok-card:nth-child(2) .tiktok-card-media{ background:radial-gradient(circle at 18% 20%,rgba(255,180,55,.46),transparent 32%),radial-gradient(circle at 84% 82%,rgba(30,90,145,.48),transparent 36%),#07131f; }
-.baba-tiktok-card:nth-child(3) .tiktok-card-media{ background:radial-gradient(circle at 78% 18%,rgba(17,65,110,.7),transparent 34%),radial-gradient(circle at 12% 84%,rgba(255,126,46,.45),transparent 35%),#08111d; }
-.tiktok-badge{
-  position:absolute;
-  z-index:3;
-  top:.75rem;
-  left:.75rem;
-  padding:.28rem .5rem;
-  border:1px solid rgba(255,255,255,.22);
-  border-radius:999px;
-  background:rgba(4,8,16,.52);
-  color:#fff;
-  font-size:.6rem;
-  font-weight:700;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  backdrop-filter:blur(8px);
-}
-.tiktok-play{
-  position:absolute;
-  z-index:3;
-  left:50%;
-  bottom:1rem;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:46px;
-  height:46px;
-  border:1px solid rgba(255,255,255,.5);
-  border-radius:50%;
-  color:#fff;
-  background:linear-gradient(135deg,rgba(37,244,238,.82),rgba(255,45,85,.86));
-  box-shadow:0 8px 22px rgba(0,0,0,.3);
-  transform:translateX(-50%);
-}
-.tiktok-play svg{ width:19px; height:19px; fill:currentColor; transform:translateX(1px); }
-.tiktok-card-copy{ display:block; padding:.75rem .15rem .15rem; }
-.tiktok-card-copy strong{ display:block; color:var(--text); font-family:'Bricolage Grotesque',sans-serif; font-size:.92rem; line-height:1.25; }
-.tiktok-card-copy small{ display:block; margin-top:.28rem; color:var(--muted); font-size:.67rem; line-height:1.4; }
-.baba-showcase{ margin-top:.5rem; background:radial-gradient(circle at 90% 0,rgba(255,168,48,.12),transparent 38%),linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015)); }
-html[data-theme="light"] .tiktok-showcase{ background:radial-gradient(circle at 88% 8%,rgba(56,180,255,.11),transparent 34%),linear-gradient(145deg,#fff,rgba(242,247,252,.92)); box-shadow:0 18px 48px rgba(20,50,90,.08); }
 
 .edit-reel-grid{ position:relative; display:grid; grid-template-columns:repeat(5,minmax(0,150px));
   gap:1.2rem; max-width:830px; margin:0 0 3.4rem; }
@@ -330,7 +180,6 @@ html[data-theme="light"] .tiktok-showcase{ background:radial-gradient(circle at 
   .gal-grid{ gap:12px; }
   .gal-item{ flex-basis:calc((100% - 24px)/3); }
   .edit-reel-grid{ grid-template-columns:repeat(3,minmax(0,140px)); gap:1rem; max-width:452px; }
-  .tiktok-card-grid{ grid-template-columns:repeat(3,minmax(0,150px)); }
 }
 @media (max-width:600px){
   .gallery-page{ padding-left:5%; padding-right:5%; }
@@ -338,10 +187,6 @@ html[data-theme="light"] .tiktok-showcase{ background:radial-gradient(circle at 
   .gal-grid{ gap:10px; }
   .gal-item{ flex-basis:calc((100% - 10px)/2); }
   .edit-reel-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:.9rem; max-width:300px; }
-  .tiktok-showcase{ padding:1rem; }
-  .tiktok-showcase-head{ align-items:flex-start; flex-direction:column; }
-  .tiktok-card-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:.9rem; }
-  .tiktok-card-grid-single{ grid-template-columns:minmax(0,170px); }
 }
 @media (max-width:430px){
   .gal-item{ flex-basis:100%; }
@@ -537,15 +382,6 @@ html[data-theme="light"] .video-feature{
           <strong>Videography</strong>
         </span>
       </button>
-      <button class="portfolio-tab" type="button" role="tab" id="gear-tab"
-        aria-selected="false" aria-controls="gear-panel" data-panel="gear">
-        <span class="portfolio-tab-icon portfolio-gear-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.16.37.38.7.6 1 .28.36.67.55 1.1.6h.09v4h-.09a1.7 1.7 0 0 0-1.7.4Z"/></svg>
-        </span>
-        <span>
-          <strong>Gear</strong>
-        </span>
-      </button>
     </div>
 
   <div class="portfolio-panels">
@@ -679,90 +515,6 @@ html[data-theme="light"] .video-feature{
           </a>
         </div>
       </article>
-
-      <section class="tiktok-showcase prabhu-showcase" aria-labelledby="prabhu-video-title">
-        <div class="tiktok-showcase-head">
-          <a class="client-credit prabhu-credit" href="https://www.tiktok.com/@prabhu_motors_nepal" target="_blank" rel="noopener noreferrer">
-            <span class="client-credit-label">Videography with</span>
-            <img src="prabhu-motors-logo.png" alt="Prabhu Motors" loading="lazy" decoding="async">
-          </a>
-          <p>Automotive short-form content</p>
-        </div>
-        <div class="tiktok-card-grid tiktok-card-grid-single">
-          <a class="tiktok-card prabhu-tiktok-card" href="https://www.tiktok.com/@prabhu_motors_nepal/video/7649355973156457735" target="_blank" rel="noopener noreferrer" aria-label="Watch Prabhu Motors videography project on TikTok">
-            <span class="tiktok-card-media">
-              <span class="tiktok-badge">TikTok project</span>
-              <img class="tiktok-card-logo" src="prabhu-motors-logo.png" alt="" loading="lazy" decoding="async">
-              <span class="tiktok-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-            </span>
-            <span class="tiktok-card-copy">
-              <strong id="prabhu-video-title">Prabhu Motors Social Video</strong>
-              <small>@prabhu_motors_nepal · Watch on TikTok</small>
-            </span>
-          </a>
-        </div>
-      </section>
-    </section>
-
-    <section class="portfolio-panel gear-panel" id="gear-panel" role="tabpanel"
-      aria-labelledby="gear-tab" data-panel-name="gear" hidden>
-      <div class="gear-heading">
-        <div>
-          <span class="gear-eyebrow">Production toolkit</span>
-          <h2>The Gear I Use</h2>
-          <p>Cameras and creator tools I have strong hands-on experience with.</p>
-        </div>
-        <div class="gear-controls" aria-label="Gear slider controls">
-          <button class="gear-arrow gear-prev" type="button" aria-label="Previous gear">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-          </button>
-          <button class="gear-arrow gear-next" type="button" aria-label="Next gear">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="gear-stage">
-        <div class="gear-track" tabindex="0" aria-label="Hands-on camera and creator gear">
-          <article class="gear-card gear-canon">
-            <span class="gear-number">01</span>
-            <span class="gear-type">DSLR Camera</span>
-            <div class="gear-product"><img src="gear/canon-2000d.png" alt="Canon EOS 2000D camera" loading="lazy" decoding="async"></div>
-            <div class="gear-card-copy"><h3>Canon EOS 2000D</h3><span>Hands-on experience</span></div>
-          </article>
-          <article class="gear-card gear-canon">
-            <span class="gear-number">02</span>
-            <span class="gear-type">DSLR Camera</span>
-            <div class="gear-product"><img src="gear/canon-200d-mark-ii.png" alt="Canon EOS 200D Mark II camera" loading="lazy" decoding="async"></div>
-            <div class="gear-card-copy"><h3>Canon EOS 200D Mark II</h3><span>Hands-on experience</span></div>
-          </article>
-          <article class="gear-card gear-sony">
-            <span class="gear-number">03</span>
-            <span class="gear-type">APS-C Mirrorless</span>
-            <div class="gear-product"><img src="gear/sony-a6600.jpg" alt="Sony Alpha 6600 camera" loading="lazy" decoding="async"></div>
-            <div class="gear-card-copy"><h3>Sony α6600</h3><span>Hands-on experience</span></div>
-          </article>
-          <article class="gear-card gear-sony">
-            <span class="gear-number">04</span>
-            <span class="gear-type">Full-Frame Mirrorless</span>
-            <div class="gear-product"><img src="gear/sony-a7iii.png" alt="Sony Alpha 7 III camera" loading="lazy" decoding="async"></div>
-            <div class="gear-card-copy"><h3>Sony α7 III</h3><span>Hands-on experience</span></div>
-          </article>
-          <article class="gear-card gear-gopro">
-            <span class="gear-number">05</span>
-            <span class="gear-type">Action Camera</span>
-            <div class="gear-product"><img src="gear/gopro-action-camera.png" alt="GoPro action camera" loading="lazy" decoding="async"></div>
-            <div class="gear-card-copy"><h3>GoPro Action Camera</h3><span>Hands-on experience</span></div>
-          </article>
-          <article class="gear-card gear-dji">
-            <span class="gear-number">06</span>
-            <span class="gear-type">Pocket Gimbal Camera</span>
-            <div class="gear-product"><img src="gear/dji-osmo-pocket-3.png" alt="DJI Osmo Pocket 3 camera" loading="lazy" decoding="async"></div>
-            <div class="gear-card-copy"><h3>DJI Osmo Pocket 3</h3><span>Hands-on experience</span></div>
-          </article>
-        </div>
-        <div class="gear-progress" aria-hidden="true"><span></span></div>
-      </div>
     </section>
 
     <section class="portfolio-panel video-editing-panel-glow" id="video-editing-panel" role="tabpanel"
@@ -842,50 +594,6 @@ html[data-theme="light"] .video-feature{
           <figcaption>Edit 09</figcaption>
         </figure>
       </div>
-
-      <section class="tiktok-showcase baba-showcase" aria-labelledby="baba-editing-title">
-        <div class="tiktok-showcase-head">
-          <a class="client-credit baba-credit" href="https://www.tiktok.com/@babaadventure" target="_blank" rel="noopener noreferrer">
-            <span class="client-credit-label">Work with</span>
-            <img src="baba-adventure-logo.png" alt="Baba Adventure Travels &amp; Tours" loading="lazy" decoding="async">
-          </a>
-          <p id="baba-editing-title">Travel and adventure social-video edits</p>
-        </div>
-        <div class="tiktok-card-grid" aria-label="Baba Adventure video editing projects">
-          <a class="tiktok-card baba-tiktok-card" href="https://www.tiktok.com/@babaadventure/video/7638233333813480722" target="_blank" rel="noopener noreferrer" aria-label="Watch Baba Adventure edit 1 on TikTok">
-            <span class="tiktok-card-media">
-              <span class="tiktok-badge">Baba Adventure</span>
-              <img class="tiktok-card-logo" src="baba-adventure-logo.png" alt="" loading="lazy" decoding="async">
-              <span class="tiktok-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-            </span>
-            <span class="tiktok-card-copy"><strong>Adventure Edit 01</strong><small>Video editing · Watch on TikTok</small></span>
-          </a>
-          <a class="tiktok-card baba-tiktok-card" href="https://www.tiktok.com/@babaadventure/video/7641568559113571592" target="_blank" rel="noopener noreferrer" aria-label="Watch Baba Adventure edit 2 on TikTok">
-            <span class="tiktok-card-media">
-              <span class="tiktok-badge">Baba Adventure</span>
-              <img class="tiktok-card-logo" src="baba-adventure-logo.png" alt="" loading="lazy" decoding="async">
-              <span class="tiktok-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-            </span>
-            <span class="tiktok-card-copy"><strong>Adventure Edit 02</strong><small>Video editing · Watch on TikTok</small></span>
-          </a>
-          <a class="tiktok-card baba-tiktok-card" href="https://www.tiktok.com/@babaadventure/video/7642281842867113234" target="_blank" rel="noopener noreferrer" aria-label="Watch Baba Adventure edit 3 on TikTok">
-            <span class="tiktok-card-media">
-              <span class="tiktok-badge">Baba Adventure</span>
-              <img class="tiktok-card-logo" src="baba-adventure-logo.png" alt="" loading="lazy" decoding="async">
-              <span class="tiktok-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-            </span>
-            <span class="tiktok-card-copy"><strong>Adventure Edit 03</strong><small>Video editing · Watch on TikTok</small></span>
-          </a>
-          <a class="tiktok-card baba-tiktok-card" href="https://www.tiktok.com/@babaadventure/video/7633781825944489223" target="_blank" rel="noopener noreferrer" aria-label="Watch Baba Adventure edit 4 on TikTok">
-            <span class="tiktok-card-media">
-              <span class="tiktok-badge">Baba Adventure</span>
-              <img class="tiktok-card-logo" src="baba-adventure-logo.png" alt="" loading="lazy" decoding="async">
-              <span class="tiktok-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-            </span>
-            <span class="tiktok-card-copy"><strong>Adventure Edit 04</strong><small>Video editing · Watch on TikTok</small></span>
-          </a>
-        </div>
-      </section>
     </section>
   </div>
 </main>
@@ -1020,79 +728,10 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
   });
 
-    // Nothing is shown until the user picks a portfolio category —
-    // unless the page was opened with a matching category hash.
+  // Nothing is shown until the user picks Photography or Videography —
+  // unless the page was opened with a #photography / #videography link.
   var fromHash = (window.location.hash || '').slice(1);
   if (fromHash && document.getElementById(fromHash + '-panel')) activate(fromHash, false);
-})();
-</script>
-<script>
-(function(){
-  var panel=document.getElementById('gear-panel');
-  if(!panel)return;
-  var track=panel.querySelector('.gear-track');
-  var cards=Array.prototype.slice.call(panel.querySelectorAll('.gear-card'));
-  var prev=panel.querySelector('.gear-prev');
-  var next=panel.querySelector('.gear-next');
-  var progress=panel.querySelector('.gear-progress span');
-  if(!track||!cards.length)return;
-
-  var paused=false;
-  var timer=null;
-  var reduce=false;
-  try{reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
-
-  function nearestIndex(){
-    var centre=track.scrollLeft+track.clientWidth/2;
-    var best=0;
-    var distance=Infinity;
-    cards.forEach(function(card,index){
-      var cardCentre=card.offsetLeft+card.offsetWidth/2;
-      var delta=Math.abs(cardCentre-centre);
-      if(delta<distance){distance=delta;best=index;}
-    });
-    return best;
-  }
-
-  function updateProgress(index){
-    if(progress)progress.style.transform='translateX('+(index*100)+'%)';
-  }
-
-  function go(index){
-    if(index<0)index=cards.length-1;
-    if(index>=cards.length)index=0;
-    var left=cards[index].offsetLeft-(track.clientWidth-cards[index].offsetWidth)/2;
-    track.scrollTo({left:left,behavior:reduce?'auto':'smooth'});
-    updateProgress(index);
-  }
-
-  function step(direction){go(nearestIndex()+direction);}
-  if(prev)prev.addEventListener('click',function(){step(-1);restart();});
-  if(next)next.addEventListener('click',function(){step(1);restart();});
-
-  var scrollTick=0;
-  track.addEventListener('scroll',function(){
-    window.clearTimeout(scrollTick);
-    scrollTick=window.setTimeout(function(){updateProgress(nearestIndex());},80);
-  },{passive:true});
-
-  function start(){
-    if(reduce||timer)return;
-    timer=window.setInterval(function(){
-      if(!paused&&!panel.hidden&&document.visibilityState==='visible')step(1);
-    },3800);
-  }
-  function stop(){if(timer){window.clearInterval(timer);timer=null;}}
-  function restart(){stop();start();}
-  panel.addEventListener('mouseenter',function(){paused=true;});
-  panel.addEventListener('mouseleave',function(){paused=false;});
-  track.addEventListener('focusin',function(){paused=true;});
-  track.addEventListener('focusout',function(){paused=false;});
-  track.addEventListener('pointerdown',function(){paused=true;});
-  track.addEventListener('pointerup',function(){paused=false;});
-  document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else start();});
-  updateProgress(0);
-  start();
 })();
 </script>
 <script>
