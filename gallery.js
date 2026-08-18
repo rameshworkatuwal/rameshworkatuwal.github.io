@@ -11,6 +11,16 @@
   var SETS = (CFG.sets || []).slice();
   var EXT = /\.(jpe?g|png|webp|avif|gif)$/i;
 
+  /* Premium gallery skin is isolated in its own file so the rest of the
+     portfolio stays untouched. */
+  if (!document.querySelector('link[data-gallery-premium]')) {
+    var premium = document.createElement('link');
+    premium.rel = 'stylesheet';
+    premium.href = 'gallery-premium.css?v=20260819-premium';
+    premium.setAttribute('data-gallery-premium', 'true');
+    document.head.appendChild(premium);
+  }
+
   function hasSet(folder) {
     return SETS.some(function (set) { return set.folder === folder; });
   }
@@ -19,9 +29,6 @@
     if (!hasSet(set.folder)) SETS.push(set);
   }
 
-  /* These albums are deliberately appended after the page's existing albums.
-     Kulekhani stays hidden until its originals are uploaded. The 2015 album
-     is year-tagged so it remains at the bottom of the Photography folders. */
   addSet({
     folder: 'kulekhani',
     title: 'Kulekhani',
@@ -292,6 +299,30 @@
     if (previousFocus && previousFocus.focus) previousFocus.focus();
   }
 
+  function bindGalleryMotion(item) {
+    if (!item || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var frame = 0;
+    item.addEventListener('pointermove', function (event) {
+      if (window.innerWidth < 760 || frame) return;
+      frame = requestAnimationFrame(function () {
+        frame = 0;
+        var rect = item.getBoundingClientRect();
+        var px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        var py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+        item.style.setProperty('--rx', ((0.5 - py) * 5.5).toFixed(2) + 'deg');
+        item.style.setProperty('--ry', ((px - 0.5) * 7).toFixed(2) + 'deg');
+        item.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+        item.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+      });
+    }, { passive: true });
+    item.addEventListener('pointerleave', function () {
+      item.style.setProperty('--rx', '0deg');
+      item.style.setProperty('--ry', '0deg');
+      item.style.setProperty('--mx', '50%');
+      item.style.setProperty('--my', '50%');
+    });
+  }
+
   function render(set, files, wrap) {
     var grid = el('div', 'gal-grid');
     files.forEach(function (src, position) {
@@ -300,13 +331,19 @@
       var button = el('button', 'gal-item');
       button.type = 'button';
       button.setAttribute('aria-label', 'Open ' + (set.title || 'travel') + ' photograph ' + (position + 1));
+      button.setAttribute('data-index', String(position + 1).padStart(2, '0'));
       var image = el('img');
       image.src = src;
       image.loading = 'lazy';
       image.decoding = 'async';
       image.alt = (set.title || 'Travel') + ' photograph ' + (position + 1);
+      image.addEventListener('load', function () {
+        if (image.naturalHeight > image.naturalWidth * 1.16) button.classList.add('is-portrait');
+        else if (Math.abs(image.naturalWidth - image.naturalHeight) < Math.max(image.naturalWidth, image.naturalHeight) * 0.08) button.classList.add('is-square');
+      }, { once: true });
       button.appendChild(image);
       button.addEventListener('click', function () { open(index, button); });
+      bindGalleryMotion(button);
       grid.appendChild(button);
     });
     wrap.innerHTML = '';
