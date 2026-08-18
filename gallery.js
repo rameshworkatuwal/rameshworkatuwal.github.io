@@ -47,7 +47,7 @@
     folder: 'photography-2015',
     title: '2015',
     year: 2015,
-    sub: 'Canon PowerShot — model to confirm',
+    sub: 'Canon PowerShot SX740 HS Lite Edition',
     cameraLogo: true,
     dynamicFolder: true
   });
@@ -223,9 +223,9 @@
     card.className = 'gear-card gear-canon gear-sx740';
     card.innerHTML =
       '<span class="gear-number">00</span>' +
-      '<span class="gear-type">Travel Zoom Compact</span>' +
-      '<div class="gear-product"><img alt="Canon PowerShot SX740 HS compact camera" loading="lazy" decoding="async"></div>' +
-      '<div class="gear-card-copy"><h3>Canon PowerShot SX740 HS</h3></div>';
+      '<span class="gear-type">Lite Edition · Travel Compact</span>' +
+      '<div class="gear-product"><img alt="Canon PowerShot SX740 HS Lite Edition camera" loading="lazy" decoding="async"></div>' +
+      '<div class="gear-card-copy"><h3>Canon PowerShot SX740 HS Lite Edition</h3></div>';
     card.querySelector('img').src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
     track.appendChild(card);
   }
