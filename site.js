@@ -119,9 +119,28 @@
 #gear-panel .gear-heading{
   position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:1.25rem;margin:0 0 .75rem;
 }
-#gear-panel .gear-eyebrow{display:block;margin-bottom:.38rem;color:#68dfff;font:700 .64rem/1 'Space Grotesk',sans-serif;letter-spacing:.17em;text-transform:uppercase}
-#gear-panel .gear-heading h2{margin:0;color:#f3f8ff;font:800 clamp(1.8rem,3.8vw,3rem)/.98 'Bricolage Grotesque',sans-serif;letter-spacing:-.045em}
-#gear-panel .gear-heading p{max-width:640px;margin:.48rem 0 0;color:#91a5bd;font-size:clamp(.76rem,1.1vw,.88rem);line-height:1.55}
+#gear-panel .gear-eyebrow{display:block;margin-bottom:.48rem;color:#68dfff;font:700 .64rem/1 'Space Grotesk',sans-serif;letter-spacing:.17em;text-transform:uppercase}
+#gear-panel .gear-heading h2{
+  margin:0;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(2.15rem,4.45vw,3.75rem);
+  font-weight:700;
+  line-height:.9;
+  letter-spacing:-.067em;
+  background:linear-gradient(105deg,#ffffff 0%,#eef8ff 36%,#78e8ff 70%,#ab98ff 100%);
+  background-size:185% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:transparent;
+  filter:drop-shadow(0 10px 28px rgba(53,153,228,.13));
+  animation:gearTitleFlow 5.2s ease-in-out infinite alternate;
+}
+@keyframes gearTitleFlow{
+  from{background-position:0 50%;filter:drop-shadow(0 8px 22px rgba(53,153,228,.1))}
+  to{background-position:100% 50%;filter:drop-shadow(0 12px 32px rgba(114,100,255,.2))}
+}
+#gear-panel .gear-heading p{display:none!important}
 #gear-panel .gear-controls{display:flex;gap:.5rem;flex:0 0 auto}
 #gear-panel .gear-arrow{
   display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid rgba(123,172,215,.18);border-radius:50%;
@@ -261,13 +280,11 @@
 #gear-panel .gear-eosr .gear-product img{max-width:88%!important;max-height:82%!important;padding:.3rem;background:#f7f8fa;border-radius:14px}
 #gear-panel .gear-dji-pocket4 .gear-product img{max-height:94%!important;max-width:76%!important}
 
-#gear-panel .gear-card-copy{position:relative;z-index:6;padding:.62rem 1rem 1.1rem;transform:translateZ(36px)}
+#gear-panel .gear-card-copy{position:relative;z-index:6;padding:.82rem 1rem 1.18rem;transform:translateZ(36px)}
 #gear-panel .gear-card-copy h3{margin:0;color:#f4f8ff;font:800 1.08rem/1.14 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em;transition:text-shadow .35s,transform .35s}
 #gear-panel .gear-card.is-current .gear-card-copy h3{transform:translateY(-1px);text-shadow:0 0 22px rgba(var(--brand),.18)}
-#gear-panel .gear-card-copy span{display:block;margin-top:.38rem;color:#8093aa;font-size:.62rem;letter-spacing:.09em;text-transform:uppercase}
-#gear-panel .gear-currently-using .gear-card-copy span{color:#86efac;font-weight:700}
 #gear-panel .gear-now{
-  display:inline-flex!important;align-items:center;gap:.34rem!important;width:max-content;margin-top:.52rem!important;padding:.26rem .48rem;border:1px solid rgba(74,222,128,.22);border-radius:999px;background:rgba(34,197,94,.08);color:#86efac!important;font-size:.52rem!important;letter-spacing:.08em!important;
+  display:inline-flex!important;align-items:center;gap:.34rem!important;width:max-content;margin-top:.56rem!important;padding:.26rem .48rem;border:1px solid rgba(74,222,128,.22);border-radius:999px;background:rgba(34,197,94,.08);color:#86efac!important;font-size:.52rem!important;font-weight:700;letter-spacing:.08em!important;text-transform:uppercase;
 }
 #gear-panel .gear-now::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.48);animation:gearNowPulse 1.7s infinite}
 @keyframes gearNowPulse{70%{box-shadow:0 0 0 7px rgba(74,222,128,0)}}
@@ -290,7 +307,7 @@ html[data-theme="light"] #gear-panel{
   .portfolio-page .portfolio-tab-icon svg{width:17px;height:17px}
   #gear-panel{padding:.95rem!important;border-radius:20px!important}
   #gear-panel .gear-heading{align-items:flex-start}
-  #gear-panel .gear-heading p{font-size:.74rem}
+  #gear-panel .gear-heading h2{font-size:clamp(2rem,10vw,2.8rem);letter-spacing:-.055em}
   #gear-panel .gear-arrow{width:36px;height:36px}
   #gear-panel .gear-track{scroll-padding-inline:calc((100% - min(82vw,278px))/2);padding-inline:calc((100% - min(82vw,278px))/2)}
   #gear-panel .gear-card{flex-basis:min(82vw,278px);width:min(82vw,278px);max-width:278px;min-height:358px}
@@ -299,6 +316,7 @@ html[data-theme="light"] #gear-panel{
 }
 @media(prefers-reduced-motion:reduce){
   #gear-panel::before,
+  #gear-panel .gear-heading h2,
   #gear-panel .gear-card::before,
   #gear-panel .gear-card::after,
   #gear-panel .gear-orbit,
@@ -320,14 +338,20 @@ html[data-theme="light"] #gear-panel{
     /* Wording reflects experience, not current ownership. */
     var heading = panel.querySelector('.gear-heading h2');
     var intro = panel.querySelector('.gear-heading p');
-    if (heading) heading.textContent = "The Gear I've Used";
-    if (intro) intro.textContent = "Cameras and creator tools I've personally used and worked with.";
+    if (heading) heading.textContent = "The Gear I’ve Used";
+    if (intro) intro.remove();
 
     var oldTrack = panel.querySelector('.gear-track');
     if (!oldTrack) return;
 
     /* Clone the rail so older autoplay listeners become detached. */
     var track = oldTrack.cloneNode(true);
+
+    /* The compact cards only need the gear name. Remove generic secondary
+       labels such as HANDS-ON EXPERIENCE from every existing card. */
+    Array.prototype.slice.call(track.querySelectorAll('.gear-card-copy > span')).forEach(function (sub) {
+      sub.remove();
+    });
 
     function makeGearCard(className, type, imageUrl, alt, title) {
       var card = document.createElement('article');
@@ -355,10 +379,7 @@ html[data-theme="light"] #gear-panel{
       copy.className = 'gear-card-copy';
       var cardHeading = document.createElement('h3');
       cardHeading.textContent = title;
-      var sub = document.createElement('span');
-      sub.textContent = 'Hands-on experience';
       copy.appendChild(cardHeading);
-      copy.appendChild(sub);
 
       card.appendChild(number);
       card.appendChild(badge);
@@ -403,8 +424,6 @@ html[data-theme="light"] #gear-panel{
       var title = card.querySelector('.gear-card-copy h3');
       if (title && title.textContent.trim() === 'DJI Osmo Pocket 3') {
         card.classList.add('gear-currently-using');
-        var sub = card.querySelector('.gear-card-copy > span');
-        if (sub) sub.textContent = 'Currently using';
         var now = document.createElement('span');
         now.className = 'gear-now';
         now.textContent = 'Current setup';
