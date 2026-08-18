@@ -112,6 +112,18 @@ html[data-theme="light"] .lotus-work-status{color:#102234}
 .portfolio-page .tiktok-card-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:1rem!important}
 .portfolio-page .tiktok-card{width:100%;min-width:0}
 .portfolio-page .tiktok-card-media{width:100%}
+
+/* Gear: remove the two obvious white image boxes */
+#gear-panel .gear-eosr .gear-product img,
+#gear-panel .gear-a6600 .gear-product img{
+  padding:0!important;
+  background:transparent!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+#gear-panel .gear-eosr .gear-product img{max-width:91%!important;max-height:87%!important}
+#gear-panel .gear-a6600 .gear-product img{max-width:92%!important;max-height:91%!important}
+
 @media(max-width:980px){
   .portfolio-page #video-editing-panel .edit-reel-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
   .portfolio-page .tiktok-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
@@ -186,12 +198,116 @@ html[data-theme="light"] .lotus-work-status{color:#102234}
     });
   }
 
+  /* Removes bright, edge-connected white/gray backgrounds while keeping
+     enclosed silver camera details intact. Local JPG/PNG assets are safe to
+     process; remote images simply fall back if their CDN blocks canvas CORS. */
+  function cleanGearBackground(img) {
+    if (!img || img.getAttribute('data-rk-gear-clean')) return;
+    img.setAttribute('data-rk-gear-clean', 'pending');
+
+    var source = img.getAttribute('src');
+    if (!source) return;
+
+    var probe = new Image();
+    if (/^https?:\/\//i.test(source)) probe.crossOrigin = 'anonymous';
+    probe.decoding = 'async';
+
+    probe.onload = function () {
+      try {
+        var width = probe.naturalWidth;
+        var height = probe.naturalHeight;
+        if (!width || !height) throw new Error('empty image');
+
+        var canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext('2d', {willReadFrequently:true});
+        ctx.drawImage(probe, 0, 0);
+        var pixels = ctx.getImageData(0, 0, width, height);
+        var data = pixels.data;
+        var total = width * height;
+        var seen = new Uint8Array(total);
+        var queue = new Int32Array(total);
+        var head = 0;
+        var tail = 0;
+
+        function isBrightNeutral(index) {
+          var p = index * 4;
+          var r = data[p], g = data[p + 1], b = data[p + 2];
+          var max = Math.max(r,g,b), min = Math.min(r,g,b);
+          var avg = (r + g + b) / 3;
+          return avg > 178 && (max - min) < 38;
+        }
+
+        function push(index) {
+          if (index < 0 || index >= total || seen[index] || !isBrightNeutral(index)) return;
+          seen[index] = 1;
+          queue[tail++] = index;
+        }
+
+        var x, y;
+        for (x = 0; x < width; x++) {
+          push(x);
+          push((height - 1) * width + x);
+        }
+        for (y = 0; y < height; y++) {
+          push(y * width);
+          push(y * width + width - 1);
+        }
+
+        while (head < tail) {
+          var index = queue[head++];
+          data[index * 4 + 3] = 0;
+          x = index % width;
+          y = (index / width) | 0;
+          if (x > 0) push(index - 1);
+          if (x + 1 < width) push(index + 1);
+          if (y > 0) push(index - width);
+          if (y + 1 < height) push(index + width);
+        }
+
+        ctx.putImageData(pixels, 0, 0);
+        img.src = canvas.toDataURL('image/png');
+        img.setAttribute('data-rk-gear-clean', 'true');
+      } catch (error) {
+        img.setAttribute('data-rk-gear-clean', 'failed');
+      }
+    };
+
+    probe.onerror = function () {
+      img.setAttribute('data-rk-gear-clean', 'failed');
+    };
+    probe.src = source;
+  }
+
+  function fixGearImageBackgrounds() {
+    var panel = document.getElementById('gear-panel');
+    if (!panel) return;
+
+    var a6600 = panel.querySelector('img[src*="sony-a6600"]');
+    if (a6600) {
+      var a6600Card = a6600.closest('.gear-card');
+      if (a6600Card) a6600Card.classList.add('gear-a6600');
+      cleanGearBackground(a6600);
+    }
+
+    var eos = panel.querySelector('.gear-eosr img');
+    if (eos) {
+      /* Canon's old URL explicitly requested a white background. Ask for PNG
+         without that white-background parameter, then clean only if needed. */
+      eos.src = 'https://i1.adis.ws/i/canon/3075C003_EOS-R_01?fmt=png&qlt=90&w=940';
+      eos.removeAttribute('data-rk-gear-clean');
+      cleanGearBackground(eos);
+    }
+  }
+
   function init() {
     applyAvailability(false);
     injectSitePolish();
     addHomeLotusCard();
     addExperienceLotusCard();
     updateLotusText(false);
+    fixGearImageBackgrounds();
     schedule();
   }
 
@@ -210,6 +326,7 @@ html[data-theme="light"] .lotus-work-status{color:#102234}
     if (!document.hidden) {
       applyAvailability(true);
       updateLotusText(true);
+      fixGearImageBackgrounds();
     }
   });
 
