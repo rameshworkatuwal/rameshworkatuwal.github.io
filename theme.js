@@ -87,6 +87,102 @@ p,li,.hero-subtitle,.about-text,.info-row,
   letter-spacing:.105em!important;
 }
 
+/* Portfolio album cards: keep the desktop gallery intentionally compact.
+   The old fluid four-column grid stretched every card across a wide screen. */
+.album-folders{
+  grid-template-columns:repeat(4,minmax(0,245px))!important;
+  justify-content:center!important;
+  gap:1.15rem!important;
+  width:100%!important;
+  max-width:1040px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+.album-folder-frame{
+  border-radius:12px!important;
+}
+.album-folder-copy{
+  margin-top:.52rem!important;
+  gap:.45rem!important;
+}
+.album-folder strong{
+  font-size:.92rem!important;
+  line-height:1.18!important;
+}
+.album-folder small,.album-count{
+  font-size:.66rem!important;
+}
+.camera-meta{
+  padding:.15rem .42rem!important;
+  font-size:.59rem!important;
+}
+.camera-meta img{
+  width:34px!important;
+  height:12px!important;
+}
+
+/* Gear rail: remove the half-track side padding that was deliberately
+   centering one card and leaving a large empty block on the left. */
+#gear-panel{
+  padding-left:clamp(1rem,2.2vw,1.8rem)!important;
+  padding-right:clamp(1rem,2.2vw,1.8rem)!important;
+}
+#gear-panel .gear-stage{
+  width:100%!important;
+  overflow:hidden!important;
+}
+#gear-panel .gear-track{
+  width:100%!important;
+  padding:.8rem 2px 1.1rem!important;
+  scroll-padding-inline:2px!important;
+  gap:12px!important;
+}
+#gear-panel .gear-card{
+  flex:0 0 min(72vw,270px)!important;
+  width:min(72vw,270px)!important;
+  max-width:270px!important;
+  min-height:356px!important;
+}
+#gear-panel .gear-card.is-current{
+  --rail-lift:-7px!important;
+  --rail-scale:1.02!important;
+}
+#gear-panel .gear-product{
+  min-height:210px!important;
+}
+
+@media(max-width:1050px){
+  .album-folders{
+    grid-template-columns:repeat(3,minmax(0,230px))!important;
+    max-width:730px!important;
+  }
+}
+@media(max-width:780px){
+  .album-folders{
+    grid-template-columns:repeat(2,minmax(0,225px))!important;
+    max-width:470px!important;
+  }
+  #gear-panel .gear-card{
+    flex-basis:min(76vw,255px)!important;
+    width:min(76vw,255px)!important;
+    max-width:255px!important;
+  }
+}
+@media(max-width:520px){
+  .album-folders{
+    grid-template-columns:minmax(0,320px)!important;
+    max-width:320px!important;
+    gap:1rem!important;
+  }
+  #gear-panel{
+    padding-left:.85rem!important;
+    padding-right:.85rem!important;
+  }
+  #gear-panel .gear-track{
+    gap:10px!important;
+  }
+}
+
 @media(max-width:620px){
   h1,h2,h3,h4,h5,h6,
   .hero-name,.page-title,.portfolio-title,
