@@ -1,102 +1,104 @@
 /* ============================================================
    AUTO GALLERY
-   Just upload images to the folder on GitHub — nothing to edit here.
-
-   How it finds your photos, in order:
-     1. Asks GitHub what files are in the folder (any filename works)
-     2. If that fails, looks for 01.jpg, 02.jpg, 03.jpg ... in the folder
-     3. If that fails, looks for the same names in the site root
+   Photography albums are resolved from GitHub folders. Dynamic albums are
+   only shown after their original image files really exist in the repo.
    ============================================================ */
 (function () {
+  'use strict';
+
   var CFG = window.GALLERY_CONFIG || {};
   var USER = CFG.user, REPO = CFG.repo;
-  var SETS = CFG.sets || [];
+  var SETS = (CFG.sets || []).slice();
   var EXT = /\.(jpe?g|png|webp|avif|gif)$/i;
 
-  /* Kulekhani is registered here, but intentionally has no fallback image
-     list. The gallery reads the real files from the GitHub folder, so the
-     originals are used exactly as uploaded and no generated preview replaces
-     them. */
-  var hasKulekhani = SETS.some(function (set) { return set.folder === 'kulekhani'; });
-  if (!hasKulekhani) {
-    SETS.push({
-      folder: 'kulekhani',
-      title: 'Kulekhani',
-      sub: 'Kulekhani, Nepal'
-    });
+  function hasSet(folder) {
+    return SETS.some(function (set) { return set.folder === folder; });
   }
 
-  function el(tag, cls) { var e = document.createElement(tag); if (cls) e.className = cls; return e; }
+  function addSet(set) {
+    if (!hasSet(set.folder)) SETS.push(set);
+  }
+
+  /* These albums are deliberately appended after the page's existing albums.
+     Kulekhani stays hidden until its originals are uploaded. The 2015 album
+     is year-tagged so it remains at the bottom of the Photography folders. */
+  addSet({
+    folder: 'kulekhani',
+    title: 'Kulekhani',
+    sub: 'Kulekhani, Nepal',
+    dynamicFolder: true,
+    verifyFiles: true,
+    files: [
+      'kulekhani/kulekhani-01.png',
+      'kulekhani/kulekhani-02.png',
+      'kulekhani/kulekhani-03.png',
+      'kulekhani/kulekhani-04.png'
+    ]
+  });
+
+  addSet({
+    folder: 'photography-2015',
+    title: '2015',
+    year: 2015,
+    sub: 'Canon PowerShot — model to confirm',
+    cameraLogo: true,
+    dynamicFolder: true
+  });
+
+  function el(tag, cls) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    return e;
+  }
 
   function canLoad(src) {
-    return new Promise(function (res) {
-      var i = new Image();
-      i.onload = function () { res(true); };
-      i.onerror = function () { res(false); };
-      i.src = src;
+    return new Promise(function (resolve) {
+      var image = new Image();
+      image.onload = function () { resolve(true); };
+      image.onerror = function () { resolve(false); };
+      image.src = src;
     });
   }
 
-  function ensureKulekhaniFolderCard() {
-    var folders = document.querySelector('.album-folders');
-    if (!folders || folders.querySelector('a[href="#kulekhani"]')) return;
-
-    /* Do not expose a broken album card while the binary originals are not yet
-       present in the repository. The card appears automatically as soon as the
-       first original exists. */
-    canLoad('kulekhani/kulekhani-01.png').then(function (ok) {
-      if (!ok || folders.querySelector('a[href="#kulekhani"]')) return;
-
-      var card = document.createElement('a');
-      card.className = 'album-folder';
-      card.href = '#kulekhani';
-      card.setAttribute('data-anim', 'pop');
-      card.style.setProperty('--d', String(folders.children.length));
-
-      if (folders.querySelector('.album-folder-frame')) {
-        card.innerHTML =
-          '<span class="album-folder-frame"><img src="kulekhani/kulekhani-01.png" alt="Kulekhani lake and boats" loading="lazy" decoding="async"></span>' +
-          '<span class="album-folder-copy">' +
-            '<span class="album-folder-title"><strong>Kulekhani</strong><small>Kulekhani · Nepal</small></span>' +
-            '<span class="album-count">4 photos</span>' +
-          '</span>';
-      } else {
-        card.innerHTML =
-          '<img src="kulekhani/kulekhani-01.png" alt="Kulekhani lake and boats" loading="lazy" decoding="async">' +
-          '<span class="album-folder-copy"><small>Kulekhani · Nepal</small><strong>Kulekhani</strong></span>';
-      }
-
-      folders.appendChild(card);
+  function verifyFiles(files) {
+    return Promise.all(files.map(function (src) {
+      return canLoad(src).then(function (ok) { return ok ? src : null; });
+    })).then(function (list) {
+      return list.filter(Boolean);
     });
   }
 
-  // 1) GitHub contents API — any filename, no config
   function fromGitHub(folder) {
     if (!USER || !REPO) return Promise.resolve(null);
     var url = 'https://api.github.com/repos/' + USER + '/' + REPO + '/contents/' + folder;
     return fetch(url, { cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw new Error('gh'); return r.json(); })
+      .then(function (response) {
+        if (!response.ok) throw new Error('github');
+        return response.json();
+      })
       .then(function (list) {
         if (!Array.isArray(list)) return null;
         var files = list
-          .filter(function (f) { return f.type === 'file' && EXT.test(f.name); })
-          .sort(function (a, b) { return a.name.localeCompare(b.name, undefined, { numeric: true }); })
-          .map(function (f) { return folder + '/' + f.name; });
+          .filter(function (file) { return file.type === 'file' && EXT.test(file.name); })
+          .sort(function (a, b) {
+            return a.name.localeCompare(b.name, undefined, { numeric: true });
+          })
+          .map(function (file) { return folder + '/' + file.name; });
         return files.length ? files : null;
       })
       .catch(function () { return null; });
   }
 
-  // 2/3) numbered probe — 01.jpg, 02.jpg, ... (stops after 3 misses in a row)
   function probe(prefix) {
-    var found = [], misses = 0, i = 1;
-    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    var found = [], misses = 0, index = 1;
+    function pad(n) { return n < 10 ? '0' + n : String(n); }
     function step() {
-      if (i > 60 || misses >= 3) return Promise.resolve(found);
-      var name = prefix + pad(i) + '.jpg';
-      i++;
+      if (index > 60 || misses >= 3) return Promise.resolve(found);
+      var name = prefix + pad(index) + '.jpg';
+      index++;
       return canLoad(name).then(function (ok) {
-        if (ok) { found.push(name); misses = 0; } else { misses++; }
+        if (ok) { found.push(name); misses = 0; }
+        else misses++;
         return step();
       });
     }
@@ -105,26 +107,127 @@
 
   function resolveSet(set) {
     if (Array.isArray(set.files) && set.files.length) {
+      if (set.verifyFiles) return verifyFiles(set.files);
       return Promise.resolve(set.files.slice());
     }
-    var folder = set.folder;
-    return fromGitHub(folder).then(function (files) {
+    return fromGitHub(set.folder).then(function (files) {
       if (files && files.length) return files;
-      /* Kulekhani originals are PNG and must not fall back to unrelated root
-         probes. If the images are not there yet, leave this set empty. */
-      if (folder === 'kulekhani') return [];
-      return probe(folder + '/').then(function (f) {
-        if (f.length) return f;
+      return probe(set.folder + '/').then(function (found) {
+        if (found.length) return found;
+        if (set.dynamicFolder) return [];
         return probe('');
       });
     });
   }
 
-  /* ---------- lightbox (shared) ---------- */
+  function yearFromCard(card) {
+    var own = parseInt(card.getAttribute('data-year') || '', 10);
+    if (own) return own;
+    var title = card.querySelector('strong');
+    var match = title && title.textContent.match(/\b(19|20)\d{2}\b/);
+    return match ? parseInt(match[0], 10) : null;
+  }
+
+  function insertFolderByYear(folders, card, year) {
+    var children = Array.prototype.slice.call(folders.children);
+
+    if (!year) {
+      var firstDated = children.find(function (item) { return yearFromCard(item); });
+      if (firstDated) folders.insertBefore(card, firstDated);
+      else folders.appendChild(card);
+      return;
+    }
+
+    var inserted = false;
+    children.forEach(function (item) {
+      if (inserted) return;
+      var existingYear = yearFromCard(item);
+      if (existingYear && existingYear < year) {
+        folders.insertBefore(card, item);
+        inserted = true;
+      }
+    });
+    if (!inserted) folders.appendChild(card);
+  }
+
+  function ensureFolderCard(set, files) {
+    if (!set.dynamicFolder || !files.length) return;
+    var folders = document.querySelector('.album-folders');
+    if (!folders) return;
+
+    var existing = folders.querySelector('a[href="#' + set.folder + '"]');
+    if (existing) {
+      var existingCount = existing.querySelector('.album-count');
+      if (existingCount) existingCount.textContent = files.length + ' photos';
+      return;
+    }
+
+    var card = document.createElement('a');
+    card.className = 'album-folder';
+    card.href = '#' + set.folder;
+    card.setAttribute('data-anim', 'pop');
+    if (set.year) card.setAttribute('data-year', String(set.year));
+    card.style.setProperty('--d', String(folders.children.length));
+
+    var subtitle = set.sub ? '<small>' + set.sub + '</small>' : '';
+    if (folders.querySelector('.album-folder-frame')) {
+      card.innerHTML =
+        '<span class="album-folder-frame"><img src="' + files[0] + '" alt="' + set.title + ' photography album" loading="lazy" decoding="async"></span>' +
+        '<span class="album-folder-copy">' +
+          '<span class="album-folder-title"><strong>' + set.title + '</strong>' + subtitle + '</span>' +
+          '<span class="album-count">' + files.length + ' photos</span>' +
+        '</span>';
+    } else {
+      card.innerHTML =
+        '<img src="' + files[0] + '" alt="' + set.title + ' photography album" loading="lazy" decoding="async">' +
+        '<span class="album-folder-copy">' + subtitle + '<strong>' + set.title + '</strong></span>';
+    }
+
+    insertFolderByYear(folders, card, set.year || null);
+  }
+
+  function ensureSX740GearCard() {
+    var track = document.querySelector('#gear-panel .gear-track');
+    if (!track || track.querySelector('.gear-sx740')) return;
+
+    var svg =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500">' +
+      '<defs>' +
+        '<linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3d424a"/><stop offset=".42" stop-color="#15181d"/><stop offset="1" stop-color="#050608"/></linearGradient>' +
+        '<radialGradient id="l"><stop stop-color="#2f3540"/><stop offset=".45" stop-color="#0b0d11"/><stop offset=".7" stop-color="#303943"/><stop offset=".84" stop-color="#080a0d"/><stop offset="1" stop-color="#010203"/></radialGradient>' +
+        '<linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#8b939d"/><stop offset="1" stop-color="#2e333b"/></linearGradient>' +
+        '<filter id="s" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#000" flood-opacity=".55"/></filter>' +
+      '</defs>' +
+      '<g filter="url(#s)">' +
+        '<path d="M118 145c0-29 23-52 52-52h420c29 0 52 23 52 52v236c0 29-23 52-52 52H170c-29 0-52-23-52-52z" fill="url(#b)" stroke="#69717b" stroke-width="5"/>' +
+        '<path d="M138 143h172l29-40h125l32 40h126" fill="none" stroke="#585f68" stroke-width="9" stroke-linecap="round"/>' +
+        '<rect x="165" y="128" width="92" height="24" rx="8" fill="#0a0c0f" stroke="#4b515a" stroke-width="3"/>' +
+        '<rect x="525" y="126" width="56" height="24" rx="12" fill="url(#g)"/>' +
+        '<circle cx="385" cy="276" r="126" fill="#090b0e" stroke="#505964" stroke-width="9"/>' +
+        '<circle cx="385" cy="276" r="104" fill="url(#l)" stroke="#15191e" stroke-width="10"/>' +
+        '<circle cx="385" cy="276" r="65" fill="#020305" stroke="#3d4651" stroke-width="7"/>' +
+        '<circle cx="360" cy="247" r="24" fill="#526b82" opacity=".34"/>' +
+        '<path d="M220 198h76" stroke="#bfc4ca" stroke-width="12" stroke-linecap="round" opacity=".9"/>' +
+        '<text x="170" y="365" fill="#f6f7f8" font-family="Arial,sans-serif" font-size="34" font-weight="700">Canon</text>' +
+        '<text x="500" y="365" fill="#c8d0d9" font-family="Arial,sans-serif" font-size="21" font-weight="700">SX740 HS</text>' +
+      '</g></svg>';
+
+    var card = document.createElement('article');
+    card.className = 'gear-card gear-canon gear-sx740';
+    card.innerHTML =
+      '<span class="gear-number">00</span>' +
+      '<span class="gear-type">Travel Zoom Compact</span>' +
+      '<div class="gear-product"><img alt="Canon PowerShot SX740 HS compact camera" loading="lazy" decoding="async"></div>' +
+      '<div class="gear-card-copy"><h3>Canon PowerShot SX740 HS</h3></div>';
+    card.querySelector('img').src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+    track.appendChild(card);
+  }
+
   var all = [], lb, lbImg, lbCount, cur = 0, previousFocus = null;
 
   function buildLightbox() {
-    lb = el('div', 'lb'); lb.id = 'lb';
+    lb = el('div', 'lb');
+    lb.id = 'lb';
     lb.setAttribute('role', 'dialog');
     lb.setAttribute('aria-modal', 'true');
     lb.setAttribute('aria-label', 'Photo viewer');
@@ -139,119 +242,141 @@
     lbCount = lb.querySelector('#lbCount');
 
     lb.querySelector('.lb-x').addEventListener('click', close);
-    lb.querySelector('.lb-prev').addEventListener('click', function (e) { e.stopPropagation(); show(cur - 1); });
-    lb.querySelector('.lb-next').addEventListener('click', function (e) { e.stopPropagation(); show(cur + 1); });
-    lb.addEventListener('click', function (e) { if (e.target === lb || e.target.className === 'lb-stage') close(); });
-
-    document.addEventListener('keydown', function (e) {
-      if (!lb.classList.contains('on')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowRight') show(cur + 1);
-      if (e.key === 'ArrowLeft') show(cur - 1);
+    lb.querySelector('.lb-prev').addEventListener('click', function (event) {
+      event.stopPropagation(); show(cur - 1);
     });
-    var sx = null;
-    lb.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
-    lb.addEventListener('touchend', function (e) {
-      if (sx === null) return;
-      var dx = e.changedTouches[0].clientX - sx;
-      if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
-      sx = null;
+    lb.querySelector('.lb-next').addEventListener('click', function (event) {
+      event.stopPropagation(); show(cur + 1);
+    });
+    lb.addEventListener('click', function (event) {
+      if (event.target === lb || event.target.className === 'lb-stage') close();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (!lb.classList.contains('on')) return;
+      if (event.key === 'Escape') close();
+      if (event.key === 'ArrowRight') show(cur + 1);
+      if (event.key === 'ArrowLeft') show(cur - 1);
+    });
+
+    var startX = null;
+    lb.addEventListener('touchstart', function (event) {
+      startX = event.touches[0].clientX;
+    }, { passive: true });
+    lb.addEventListener('touchend', function (event) {
+      if (startX === null) return;
+      var delta = event.changedTouches[0].clientX - startX;
+      if (Math.abs(delta) > 50) show(cur + (delta < 0 ? 1 : -1));
+      startX = null;
     }, { passive: true });
   }
 
-  function show(i) {
-    cur = (i + all.length) % all.length;
+  function show(index) {
+    if (!all.length) return;
+    cur = (index + all.length) % all.length;
     lbImg.src = all[cur];
     lbCount.textContent = (cur + 1) + ' / ' + all.length;
   }
-  function open(i, trigger) {
+
+  function open(index, trigger) {
     previousFocus = trigger || document.activeElement;
-    show(i);
+    show(index);
     lb.classList.add('on');
     document.body.style.overflow = 'hidden';
     lb.querySelector('.lb-x').focus();
   }
+
   function close() {
     lb.classList.remove('on');
     document.body.style.overflow = '';
     if (previousFocus && previousFocus.focus) previousFocus.focus();
   }
 
-  /* ---------- render ---------- */
   function render(set, files, wrap) {
-    if (!files.length) {
-      wrap.innerHTML = '<p class="gal-empty">No photos in this folder yet.</p>';
-      return;
-    }
     var grid = el('div', 'gal-grid');
     files.forEach(function (src, position) {
-      var idx = all.length;
+      var index = all.length;
       all.push(src);
-      var a = el('button', 'gal-item');
-      a.type = 'button';
-      a.setAttribute('aria-label', 'Open ' + (set.title || 'travel') + ' photograph ' + (position + 1));
-      var img = el('img');
-      img.src = src;
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      img.alt = (set.title || 'Travel') + ' photograph ' + (position + 1);
-      a.appendChild(img);
-      a.addEventListener('click', function () { open(idx, a); });
-      grid.appendChild(a);
+      var button = el('button', 'gal-item');
+      button.type = 'button';
+      button.setAttribute('aria-label', 'Open ' + (set.title || 'travel') + ' photograph ' + (position + 1));
+      var image = el('img');
+      image.src = src;
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      image.alt = (set.title || 'Travel') + ' photograph ' + (position + 1);
+      button.appendChild(image);
+      button.addEventListener('click', function () { open(index, button); });
+      grid.appendChild(button);
     });
     wrap.innerHTML = '';
     wrap.appendChild(grid);
 
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (e.isIntersecting) {
-          var items = [].slice.call(grid.querySelectorAll('.gal-item'));
-          e.target.style.transitionDelay = (Math.min(items.indexOf(e.target), 6) * 0.08) + 's';
-          e.target.classList.add('in');
-          io.unobserve(e.target);
-        }
+    if (!('IntersectionObserver' in window)) {
+      grid.querySelectorAll('.gal-item').forEach(function (item) { item.classList.add('in'); });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var items = Array.prototype.slice.call(grid.querySelectorAll('.gal-item'));
+        entry.target.style.transitionDelay = (Math.min(items.indexOf(entry.target), 6) * 0.08) + 's';
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
       });
     }, { threshold: 0.1 });
-    grid.querySelectorAll('.gal-item').forEach(function (n) { io.observe(n); });
+    grid.querySelectorAll('.gal-item').forEach(function (item) { io.observe(item); });
+  }
+
+  function makeSection(set, files, host) {
+    var section = el('div', 'gal-set');
+    section.id = set.folder;
+    var head = el('div', 'gal-set-head');
+    var meta = set.cameraLogo
+      ? '<span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>' + (set.sub || 'Canon') + '</b></span>'
+      : (set.sub ? '<span>' + set.sub + '</span>' : '');
+    var link = set.link
+      ? '<a class="gal-set-link" href="' + set.link + '" target="_blank" rel="noopener noreferrer">' +
+          (set.linkLabel || 'View') +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>' +
+        '</a>'
+      : '';
+    head.innerHTML = '<h3>' + (set.title || set.folder) + '</h3>' + meta + link;
+    section.appendChild(head);
+
+    if (set.note) {
+      var note = el('p', 'gal-set-note');
+      note.textContent = set.note;
+      section.appendChild(note);
+    }
+
+    var wrap = el('div');
+    section.appendChild(wrap);
+    host.appendChild(section);
+    render(set, files, wrap);
   }
 
   function init() {
-    ensureKulekhaniFolderCard();
+    ensureSX740GearCard();
     buildLightbox();
+
     var host = document.getElementById('gallery');
     if (!host) return;
-    SETS.forEach(function (set) {
-      var sec = el('div', 'gal-set');
-      sec.id = set.folder;
-      var head = el('div', 'gal-set-head');
-      var meta = set.cameraLogo
-        ? '<span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>' + (set.sub || '2000D') + '</b></span>'
-        : (set.sub ? '<span>' + set.sub + '</span>' : '');
-      var link = set.link
-        ? '<a class="gal-set-link" href="' + set.link + '" target="_blank" rel="noopener noreferrer">' +
-            (set.linkLabel || 'View') +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
-            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-            '<path d="M7 17 17 7M9 7h8v8"/></svg>' +
-          '</a>'
-        : '';
-      head.innerHTML = '<h3>' + (set.title || set.folder) + '</h3>' + meta + link;
-      sec.appendChild(head);
-      if (set.note) {
-        var note = el('p', 'gal-set-note');
-        note.textContent = set.note;
-        sec.appendChild(note);
-      }
-      var wrap = el('div');
-      wrap.innerHTML = '<p class="gal-empty">Loading photos…</p>';
-      sec.appendChild(wrap);
-      host.appendChild(sec);
-      resolveSet(set).then(function (files) {
-        if (set.folder === 'kulekhani' && (!files || !files.length)) {
-          sec.remove();
+
+    Promise.all(SETS.map(resolveSet)).then(function (resolved) {
+      SETS.forEach(function (set, index) {
+        var files = resolved[index] || [];
+        if (!files.length) {
+          if (set.dynamicFolder) return;
+          var section = el('div', 'gal-set');
+          section.id = set.folder;
+          section.innerHTML = '<div class="gal-set-head"><h3>' + (set.title || set.folder) + '</h3></div><p class="gal-empty">No photos in this folder yet.</p>';
+          host.appendChild(section);
           return;
         }
-        render(set, files || [], wrap);
+        ensureFolderCard(set, files);
+        makeSection(set, files, host);
       });
     });
   }
