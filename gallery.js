@@ -13,53 +13,20 @@
   var SETS = CFG.sets || [];
   var EXT = /\.(jpe?g|png|webp|avif|gif)$/i;
 
-  /* Kulekhani is kept as lossless PNG originals. Keeping the explicit file
-     list means the gallery never swaps them for generated previews or resized
-     variants. If this album has already been added in page config, do nothing. */
+  /* Kulekhani is registered here, but intentionally has no fallback image
+     list. The gallery reads the real files from the GitHub folder, so the
+     originals are used exactly as uploaded and no generated preview replaces
+     them. */
   var hasKulekhani = SETS.some(function (set) { return set.folder === 'kulekhani'; });
   if (!hasKulekhani) {
     SETS.push({
       folder: 'kulekhani',
       title: 'Kulekhani',
-      sub: 'Kulekhani, Nepal',
-      files: [
-        'kulekhani/kulekhani-01.png',
-        'kulekhani/kulekhani-02.png',
-        'kulekhani/kulekhani-03.png',
-        'kulekhani/kulekhani-04.png'
-      ]
+      sub: 'Kulekhani, Nepal'
     });
   }
 
   function el(tag, cls) { var e = document.createElement(tag); if (cls) e.className = cls; return e; }
-
-  function ensureKulekhaniFolderCard() {
-    var folders = document.querySelector('.album-folders');
-    if (!folders || folders.querySelector('a[href="#kulekhani"]')) return;
-
-    var card = document.createElement('a');
-    card.className = 'album-folder';
-    card.href = '#kulekhani';
-    card.setAttribute('data-anim', 'pop');
-    card.style.setProperty('--d', String(folders.children.length));
-
-    /* Supports both the portfolio folder-card markup and the older dedicated
-       photography page styling. */
-    if (folders.querySelector('.album-folder-frame')) {
-      card.innerHTML =
-        '<span class="album-folder-frame"><img src="kulekhani/kulekhani-01.png" alt="Kulekhani lake and boats" loading="lazy" decoding="async"></span>' +
-        '<span class="album-folder-copy">' +
-          '<span class="album-folder-title"><strong>Kulekhani</strong><small>Kulekhani · Nepal</small></span>' +
-          '<span class="album-count">4 photos</span>' +
-        '</span>';
-    } else {
-      card.innerHTML =
-        '<img src="kulekhani/kulekhani-01.png" alt="Kulekhani lake and boats" loading="lazy" decoding="async">' +
-        '<span class="album-folder-copy"><small>Kulekhani · Nepal</small><strong>Kulekhani</strong></span>';
-    }
-
-    folders.appendChild(card);
-  }
 
   function canLoad(src) {
     return new Promise(function (res) {
@@ -67,6 +34,39 @@
       i.onload = function () { res(true); };
       i.onerror = function () { res(false); };
       i.src = src;
+    });
+  }
+
+  function ensureKulekhaniFolderCard() {
+    var folders = document.querySelector('.album-folders');
+    if (!folders || folders.querySelector('a[href="#kulekhani"]')) return;
+
+    /* Do not expose a broken album card while the binary originals are not yet
+       present in the repository. The card appears automatically as soon as the
+       first original exists. */
+    canLoad('kulekhani/kulekhani-01.png').then(function (ok) {
+      if (!ok || folders.querySelector('a[href="#kulekhani"]')) return;
+
+      var card = document.createElement('a');
+      card.className = 'album-folder';
+      card.href = '#kulekhani';
+      card.setAttribute('data-anim', 'pop');
+      card.style.setProperty('--d', String(folders.children.length));
+
+      if (folders.querySelector('.album-folder-frame')) {
+        card.innerHTML =
+          '<span class="album-folder-frame"><img src="kulekhani/kulekhani-01.png" alt="Kulekhani lake and boats" loading="lazy" decoding="async"></span>' +
+          '<span class="album-folder-copy">' +
+            '<span class="album-folder-title"><strong>Kulekhani</strong><small>Kulekhani · Nepal</small></span>' +
+            '<span class="album-count">4 photos</span>' +
+          '</span>';
+      } else {
+        card.innerHTML =
+          '<img src="kulekhani/kulekhani-01.png" alt="Kulekhani lake and boats" loading="lazy" decoding="async">' +
+          '<span class="album-folder-copy"><small>Kulekhani · Nepal</small><strong>Kulekhani</strong></span>';
+      }
+
+      folders.appendChild(card);
     });
   }
 
@@ -110,6 +110,9 @@
     var folder = set.folder;
     return fromGitHub(folder).then(function (files) {
       if (files && files.length) return files;
+      /* Kulekhani originals are PNG and must not fall back to unrelated root
+         probes. If the images are not there yet, leave this set empty. */
+      if (folder === 'kulekhani') return [];
       return probe(folder + '/').then(function (f) {
         if (f.length) return f;
         return probe('');
@@ -224,7 +227,6 @@
       var meta = set.cameraLogo
         ? '<span class="camera-meta"><img src="canon-logo.png" alt="Canon"><b>' + (set.sub || '2000D') + '</b></span>'
         : (set.sub ? '<span>' + set.sub + '</span>' : '');
-      // Optional link out to the client / project, e.g. their Instagram.
       var link = set.link
         ? '<a class="gal-set-link" href="' + set.link + '" target="_blank" rel="noopener noreferrer">' +
             (set.linkLabel || 'View') +
@@ -233,11 +235,8 @@
             '<path d="M7 17 17 7M9 7h8v8"/></svg>' +
           '</a>'
         : '';
-      head.innerHTML = '<h3>' + (set.title || set.folder) + '</h3>' +
-                       meta + link;
+      head.innerHTML = '<h3>' + (set.title || set.folder) + '</h3>' + meta + link;
       sec.appendChild(head);
-      // A short shooting note that only appears once the album is open —
-      // it would be clutter on the folder card.
       if (set.note) {
         var note = el('p', 'gal-set-note');
         note.textContent = set.note;
@@ -247,7 +246,13 @@
       wrap.innerHTML = '<p class="gal-empty">Loading photos…</p>';
       sec.appendChild(wrap);
       host.appendChild(sec);
-      resolveSet(set).then(function (files) { render(set, files || [], wrap); });
+      resolveSet(set).then(function (files) {
+        if (set.folder === 'kulekhani' && (!files || !files.length)) {
+          sec.remove();
+          return;
+        }
+        render(set, files || [], wrap);
+      });
     });
   }
 
