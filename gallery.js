@@ -13,7 +13,53 @@
   var SETS = CFG.sets || [];
   var EXT = /\.(jpe?g|png|webp|avif|gif)$/i;
 
+  /* Kulekhani is kept as lossless PNG originals. Keeping the explicit file
+     list means the gallery never swaps them for generated previews or resized
+     variants. If this album has already been added in page config, do nothing. */
+  var hasKulekhani = SETS.some(function (set) { return set.folder === 'kulekhani'; });
+  if (!hasKulekhani) {
+    SETS.push({
+      folder: 'kulekhani',
+      title: 'Kulekhani',
+      sub: 'Kulekhani, Nepal',
+      files: [
+        'kulekhani/kulekhani-01.png',
+        'kulekhani/kulekhani-02.png',
+        'kulekhani/kulekhani-03.png',
+        'kulekhani/kulekhani-04.png'
+      ]
+    });
+  }
+
   function el(tag, cls) { var e = document.createElement(tag); if (cls) e.className = cls; return e; }
+
+  function ensureKulekhaniFolderCard() {
+    var folders = document.querySelector('.album-folders');
+    if (!folders || folders.querySelector('a[href="#kulekhani"]')) return;
+
+    var card = document.createElement('a');
+    card.className = 'album-folder';
+    card.href = '#kulekhani';
+    card.setAttribute('data-anim', 'pop');
+    card.style.setProperty('--d', String(folders.children.length));
+
+    /* Supports both the portfolio folder-card markup and the older dedicated
+       photography page styling. */
+    if (folders.querySelector('.album-folder-frame')) {
+      card.innerHTML =
+        '<span class="album-folder-frame"><img src="kulekhani/kulekhani-01.png" alt="Kulekhani lake and boats" loading="lazy" decoding="async"></span>' +
+        '<span class="album-folder-copy">' +
+          '<span class="album-folder-title"><strong>Kulekhani</strong><small>Kulekhani · Nepal</small></span>' +
+          '<span class="album-count">4 photos</span>' +
+        '</span>';
+    } else {
+      card.innerHTML =
+        '<img src="kulekhani/kulekhani-01.png" alt="Kulekhani lake and boats" loading="lazy" decoding="async">' +
+        '<span class="album-folder-copy"><small>Kulekhani · Nepal</small><strong>Kulekhani</strong></span>';
+    }
+
+    folders.appendChild(card);
+  }
 
   function canLoad(src) {
     return new Promise(function (res) {
@@ -167,6 +213,7 @@
   }
 
   function init() {
+    ensureKulekhaniFolderCard();
     buildLightbox();
     var host = document.getElementById('gallery');
     if (!host) return;
