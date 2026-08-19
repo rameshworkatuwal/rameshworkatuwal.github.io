@@ -31,7 +31,9 @@
     folder: 'kulekhani',
     title: 'Kulekhani 2022',
     year: 2022,
-    sub: 'Kulekhani, Nepal',
+    sub: 'Canon EOS 200D Mark II · 75–300mm lens',
+    cameraLogo: true,
+    note: 'Kulekhani, Nepal',
     dynamicFolder: true,
     verifyFiles: true,
     files: [
