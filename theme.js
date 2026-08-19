@@ -79,72 +79,154 @@ p,li,.hero-subtitle,.about-text,.info-row,
   word-spacing:.05em!important;
 }
 
-/* Photography overview: keep cards compact but use the available width.
-   Five cards fit across wide desktop screens; wrapped rows stay centered. */
+/* ---------- Photography overview ----------
+   A real grid keeps every row on the same rails. No centered partial rows,
+   no different card widths, and no big empty gutters on both sides. */
 .gallery-page{
-  width:min(94%,1440px)!important;
-  max-width:1440px!important;
+  width:min(95%,1540px)!important;
+  max-width:1540px!important;
   margin-left:auto!important;
   margin-right:auto!important;
+  padding-left:0!important;
+  padding-right:0!important;
 }
 .album-folders{
-  display:flex!important;
-  flex-wrap:wrap!important;
-  justify-content:center!important;
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  grid-auto-flow:row!important;
   align-items:stretch!important;
-  gap:1rem!important;
+  justify-content:stretch!important;
+  gap:18px!important;
   width:100%!important;
-  max-width:1320px!important;
+  max-width:1480px!important;
   margin-left:auto!important;
   margin-right:auto!important;
 }
 .album-folder{
-  flex:1 1 218px!important;
-  width:auto!important;
-  min-width:205px!important;
-  max-width:245px!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  height:100%!important;
+  opacity:1!important;
+  visibility:visible!important;
+  filter:none!important;
 }
 .album-folder-frame{
   aspect-ratio:16/10!important;
-  border-radius:12px!important;
+  border-radius:13px!important;
 }
 .album-folder-copy{
-  margin-top:.52rem!important;
-  gap:.45rem!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:start!important;
+  column-gap:.55rem!important;
+  min-height:78px!important;
+  margin:.55rem .08rem .05rem!important;
+}
+.album-folder-title{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  gap:.34rem!important;
+  min-width:0!important;
 }
 .album-folder strong{
-  font-size:.91rem!important;
-  line-height:1.18!important;
+  display:block!important;
+  width:100%!important;
+  min-height:2.18em!important;
+  margin:0!important;
+  font-size:.94rem!important;
+  line-height:1.09!important;
+  overflow-wrap:anywhere!important;
 }
-.album-folder small,.album-count{
+.album-count{
+  align-self:start!important;
+  margin:0!important;
+  padding:.28rem .52rem!important;
   font-size:.64rem!important;
-  line-height:1.3!important;
+  line-height:1!important;
+  white-space:nowrap!important;
 }
-.camera-meta{
-  padding:.15rem .42rem!important;
-  font-size:.59rem!important;
+.album-folder small{
+  max-width:100%!important;
+  margin:0!important;
+  font-size:.62rem!important;
+  line-height:1.24!important;
+  letter-spacing:.055em!important;
+  overflow-wrap:anywhere!important;
 }
-.camera-meta img{
+
+/* Canon/meta badge fix. gallery-premium.css styles every album image as a
+   cover image, so logo images must be explicitly reset inside metadata. */
+.album-folder .camera-meta,
+.gal-set-head .camera-meta{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:.36rem!important;
+  max-width:100%!important;
+  width:max-content!important;
+  min-width:0!important;
+  padding:.24rem .48rem!important;
+  border-radius:999px!important;
+  overflow:hidden!important;
+}
+.album-folder .camera-meta img,
+.gal-set-head .camera-meta img{
+  position:static!important;
+  inset:auto!important;
+  display:block!important;
+  flex:0 0 auto!important;
   width:34px!important;
   height:12px!important;
+  max-width:34px!important;
+  object-fit:contain!important;
+  transform:none!important;
+  filter:none!important;
+  opacity:1!important;
+}
+.album-folder .camera-meta b,
+.gal-set-head .camera-meta b{
+  min-width:0!important;
+  margin:0!important;
+  font-size:.58rem!important;
+  line-height:1.15!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+.gal-set-head .camera-meta img{
+  width:45px!important;
+  height:16px!important;
+  max-width:45px!important;
+}
+.gal-set-head .camera-meta b{
+  font-size:.68rem!important;
 }
 
-/* Long confirmed PowerShot model stays neat on the 2015 card and open album. */
 a[href="#photography-2015"] small{
-  max-width:178px!important;
+  max-width:180px!important;
   white-space:normal!important;
-  letter-spacing:.035em!important;
+  letter-spacing:.04em!important;
 }
 #photography-2015 .camera-meta{
-  max-width:min(100%,360px)!important;
-}
-#photography-2015 .camera-meta b{
-  white-space:normal!important;
-  line-height:1.2!important;
+  max-width:min(100%,390px)!important;
 }
 
-/* Gear rail: cards begin from the useful content edge, with no artificial
-   half-track spacer. */
+/* Slightly calmer heading/card proportion on the overview. */
+.portfolio-panel .panel-intro h2{
+  font-size:clamp(2.7rem,4.7vw,4.6rem)!important;
+  line-height:.96!important;
+}
+
+/* Album cards should never sit half-faded while already visible. Keep hover
+   motion from the premium skin, but remove reveal opacity/blur leftovers. */
+.album-folders .album-folder,
+.album-folders .album-folder.in,
+.album-folders .album-folder[data-anim]{
+  opacity:1!important;
+  filter:none!important;
+}
+
+/* ---------- Gear ---------- */
 #gear-panel{
   padding-left:clamp(1rem,2.2vw,1.8rem)!important;
   padding-right:clamp(1rem,2.2vw,1.8rem)!important;
@@ -180,23 +262,25 @@ a[href="#photography-2015"] small{
   line-height:1.18!important;
 }
 
-@media(max-width:1100px){
-  .album-folders{max-width:1040px!important}
-  .album-folder{flex-basis:215px!important;max-width:235px!important}
+@media(max-width:1280px){
+  .gallery-page{width:min(94%,1180px)!important}
+  .album-folders{grid-template-columns:repeat(4,minmax(0,1fr))!important;max-width:1160px!important}
 }
-@media(max-width:780px){
-  .album-folders{max-width:720px!important}
-  .album-folder{flex-basis:205px!important;max-width:225px!important}
+@media(max-width:980px){
+  .album-folders{grid-template-columns:repeat(3,minmax(0,1fr))!important;max-width:840px!important}
+}
+@media(max-width:720px){
+  .gallery-page{width:92%!important}
+  .album-folders{grid-template-columns:repeat(2,minmax(0,1fr))!important;max-width:590px!important;gap:14px!important}
   #gear-panel .gear-card{
     flex-basis:min(76vw,255px)!important;
     width:min(76vw,255px)!important;
     max-width:255px!important;
   }
 }
-@media(max-width:520px){
-  .gallery-page{width:92%!important}
-  .album-folders{max-width:320px!important;gap:1rem!important}
-  .album-folder{flex:1 1 100%!important;min-width:0!important;max-width:320px!important}
+@media(max-width:470px){
+  .album-folders{grid-template-columns:1fr!important;max-width:320px!important;gap:1rem!important}
+  .album-folder-copy{min-height:72px!important}
   #gear-panel{padding-left:.85rem!important;padding-right:.85rem!important}
   #gear-panel .gear-track{gap:10px!important}
 }
@@ -262,9 +346,6 @@ a[href="#photography-2015"] small{
     document.body.appendChild(button);
   }
 
-  /* gallery.js creates the 2015 album and SX740 card dynamically. Keep every
-     visible camera reference synced to the exact Canon UAE model supplied by
-     the portfolio owner. */
   function syncCameraModel() {
     var album = document.querySelector('a[href="#photography-2015"]');
     if (album) {
