@@ -110,6 +110,33 @@ nav.rk-motion-nav.rk-nav-condensed{
   backdrop-filter:blur(24px) saturate(1.25)!important;
   -webkit-backdrop-filter:blur(24px) saturate(1.25)!important;
 }
+/* Light mode needed its own glass recipe. Reusing the dark-mode surface here
+   made the sticky header look like a gray slab over otherwise bright pages. */
+html[data-theme="light"] nav.rk-motion-nav.rk-nav-condensed{
+  background:rgba(248,251,255,.88)!important;
+  border-bottom-color:rgba(95,139,180,.16)!important;
+  box-shadow:0 12px 34px rgba(40,72,110,.08),inset 0 1px 0 rgba(255,255,255,.88)!important;
+  backdrop-filter:blur(24px) saturate(1.12)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(1.12)!important;
+}
+html[data-theme="light"] nav.rk-motion-nav::before{
+  background:linear-gradient(110deg,rgba(255,255,255,.7),transparent 32%,rgba(75,192,238,.055) 61%,rgba(128,101,255,.035) 76%,transparent 88%);
+}
+html[data-theme="light"] nav.rk-motion-nav .nav-logo{
+  color:#122235!important;
+}
+html[data-theme="light"] nav.rk-motion-nav .nav-links a{
+  color:#5a6e82!important;
+}
+html[data-theme="light"] nav.rk-motion-nav .nav-links a.active,
+html[data-theme="light"] nav.rk-motion-nav .nav-links a[aria-current="page"]{
+  color:#058cd3!important;
+}
+html[data-theme="light"] nav.rk-motion-nav .rk-nav-pill{
+  border-color:rgba(62,164,224,.13);
+  background:linear-gradient(145deg,rgba(76,192,239,.085),rgba(112,96,244,.05));
+  box-shadow:inset 0 1px rgba(255,255,255,.9),0 8px 22px rgba(52,123,183,.055);
+}
 @keyframes rkNavGlass{0%,55%{background-position:130% 0}100%{background-position:-80% 0}}
 .rk-nav-pill{
   position:absolute;
