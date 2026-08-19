@@ -20,6 +20,12 @@
     var style = document.createElement('style');
     style.id = 'rk-site-polish';
     style.textContent = `
+@property --rk-edge-angle{
+  syntax:'<angle>';
+  inherits:false;
+  initial-value:0deg;
+}
+
 :root{
   --rk-ig-sans:'Plus Jakarta Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
@@ -258,6 +264,61 @@ a[href="#photography-2015"] small{
   filter:none!important;
 }
 
+/* Open-album photos: replace the old dark outline with a 1px animated
+   hairline. The color travels around the edge only on interaction, so the
+   gallery stays calm and does not animate 100+ thumbnails continuously. */
+#photography-panel .gal-item,
+#photography-panel .gal-item:nth-child(n),
+#photography-panel .gal-item.is-portrait,
+#photography-panel .gal-item.is-square{
+  --rk-edge-angle:225deg;
+  border:1px solid transparent!important;
+  border-radius:13px!important;
+  background:
+    linear-gradient(#07101b,#07101b) padding-box,
+    conic-gradient(
+      from var(--rk-edge-angle),
+      rgba(71,203,242,.11) 0deg,
+      transparent 24deg 244deg,
+      rgba(75,209,246,.14) 258deg,
+      rgba(72,214,255,.92) 282deg,
+      rgba(132,116,255,.88) 304deg,
+      rgba(255,255,255,.48) 320deg,
+      transparent 342deg 360deg
+    ) border-box!important;
+  box-shadow:0 6px 18px rgba(6,14,28,.1)!important;
+  animation:rkEdgeOrbit 5.4s linear infinite!important;
+  animation-play-state:paused!important;
+  transition:transform .56s cubic-bezier(.22,1,.36,1),box-shadow .46s ease,filter .42s ease!important;
+}
+#photography-panel .gal-item:hover,
+#photography-panel .gal-item:focus-visible{
+  border-color:transparent!important;
+  box-shadow:0 13px 30px rgba(5,14,28,.18),0 0 0 1px rgba(91,209,246,.025)!important;
+  animation-play-state:running!important;
+}
+html[data-theme="light"] #photography-panel .gal-item,
+html[data-theme="light"] #photography-panel .gal-item:nth-child(n),
+html[data-theme="light"] #photography-panel .gal-item.is-portrait,
+html[data-theme="light"] #photography-panel .gal-item.is-square{
+  background:
+    linear-gradient(#f7fbff,#f7fbff) padding-box,
+    conic-gradient(
+      from var(--rk-edge-angle),
+      rgba(42,151,205,.1) 0deg,
+      transparent 24deg 244deg,
+      rgba(45,172,224,.14) 258deg,
+      rgba(29,174,234,.86) 282deg,
+      rgba(108,89,244,.82) 304deg,
+      rgba(255,255,255,.9) 320deg,
+      transparent 342deg 360deg
+    ) border-box!important;
+  box-shadow:0 6px 18px rgba(55,82,111,.09)!important;
+}
+@keyframes rkEdgeOrbit{
+  to{--rk-edge-angle:585deg}
+}
+
 /* ---------- Gear ---------- */
 #gear-panel{
   padding-left:clamp(1rem,2.2vw,1.8rem)!important;
@@ -322,6 +383,14 @@ a[href="#photography-2015"] small{
   .panel-intro h2,.gal-set-head h3,#gear-panel .gear-heading h2{
     letter-spacing:-.018em!important;
     word-spacing:.075em!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #photography-panel .gal-item,
+  #photography-panel .gal-item:nth-child(n),
+  #photography-panel .gal-item.is-portrait,
+  #photography-panel .gal-item.is-square{
+    animation:none!important;
   }
 }
 `;
