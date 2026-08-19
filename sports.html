@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Sports & Results — Ritesh Katuwal</title>
+<meta name="description" content="A visitor-friendly live sports and results dashboard with worldwide events, live scores, local kickoff times and sport filters.">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="widgets.css">
+<script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+<style>
+.sports-page{max-width:1420px;padding-top:7.2rem;padding-bottom:5rem}
+.sports-hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:end;margin-bottom:1.8rem;padding:clamp(1.1rem,2vw,1.7rem) 0}
+.sports-kicker{display:flex;align-items:center;gap:.55rem;margin:0 0 .45rem;color:#4fd7ff;font:800 .66rem/1 'Space Grotesk',sans-serif;letter-spacing:.17em;text-transform:uppercase}
+.sports-kicker i{width:8px;height:8px;border-radius:50%;background:#ff416c;box-shadow:0 0 0 0 rgba(255,65,108,.6);animation:spPulse 1.8s ease-out infinite}
+@keyframes spPulse{70%{box-shadow:0 0 0 9px rgba(255,65,108,0)}}
+.sports-hero h1{margin:0;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(2.6rem,6vw,5.8rem);font-weight:850;line-height:.92;letter-spacing:-.065em;color:var(--text)}
+.sports-hero h1 span{background:linear-gradient(98deg,#43d9ff,#469dff 50%,#997aff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sports-hero p{max-width:700px;margin:.9rem 0 0;color:var(--muted);font-size:.92rem;line-height:1.65}
+.sports-live-meta{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;justify-content:flex-end;color:var(--muted);font-size:.7rem}
+.sp-updated,.sp-count{padding:.45rem .7rem;border:1px solid var(--line);border-radius:999px;background:var(--surface);white-space:nowrap}
+.sp-refresh{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:#42cff5;cursor:pointer;transition:transform .3s ease,background .3s ease}
+.sp-refresh:hover{transform:rotate(26deg) scale(1.05);background:rgba(66,207,245,.1)}
+#rkSportsPage.is-refreshing .sp-refresh{animation:spSpin .8s linear infinite}
+@keyframes spSpin{to{transform:rotate(360deg)}}
+.sports-shell{position:relative;overflow:hidden;padding:clamp(1rem,2vw,1.45rem);border:1px solid rgba(99,170,220,.17);border-radius:28px;background:radial-gradient(circle at 7% -20%,rgba(53,210,255,.09),transparent 30%),radial-gradient(circle at 96% -10%,rgba(130,91,255,.10),transparent 32%),linear-gradient(145deg,rgba(255,255,255,.032),rgba(255,255,255,.012));box-shadow:0 26px 70px rgba(7,18,34,.12),inset 0 1px 0 rgba(255,255,255,.04)}
+.sp-filters{display:flex;gap:.55rem;overflow-x:auto;padding:.1rem .05rem .95rem;scrollbar-width:none;overscroll-behavior-inline:contain}
+.sp-filters::-webkit-scrollbar{display:none}
+.sp-filter{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);padding:.56rem .8rem;font:700 .69rem/1 'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:transform .28s ease,color .28s ease,border-color .28s ease,background .28s ease}
+.sp-filter:hover{transform:translateY(-2px);color:var(--text);border-color:rgba(68,201,246,.35)}
+.sp-filter.is-active{color:#06131d;border-color:transparent;background:linear-gradient(110deg,#5adfff,#6599ff);box-shadow:0 10px 24px rgba(62,160,235,.18)}
+.sp-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(.7rem,1.2vw,1rem)}
+.sp-card{position:relative;min-height:190px;padding:1rem;border:1px solid rgba(111,164,206,.16);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.016));box-shadow:0 12px 28px rgba(7,16,30,.09);overflow:hidden;transform:translateZ(0);transition:transform .38s cubic-bezier(.16,1,.3,1),border-color .3s ease,box-shadow .38s ease}
+.sp-card::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 18%,rgba(255,255,255,.055),transparent 62%);transform:translateX(-120%);transition:transform .75s cubic-bezier(.16,1,.3,1)}
+.sp-card:hover{transform:translateY(-4px);border-color:rgba(73,202,249,.34);box-shadow:0 20px 38px rgba(7,16,30,.15)}
+.sp-card:hover::before{transform:translateX(120%)}
+.sp-card.sp-live{border-color:rgba(255,67,103,.24);box-shadow:0 14px 34px rgba(255,57,90,.07)}
+.sp-card-top{display:flex;align-items:center;justify-content:space-between;gap:.7rem;color:var(--muted);font-size:.63rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.sp-status{display:inline-flex;align-items:center;gap:.35rem;font-variant-numeric:tabular-nums;color:var(--muted)}
+.sp-live .sp-status{color:#ff4f6f}
+.rk-live-pip{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ff4264;box-shadow:0 0 0 0 rgba(255,66,100,.55);animation:livePip 1.45s ease-out infinite}
+@keyframes livePip{70%{box-shadow:0 0 0 7px rgba(255,66,100,0)}}
+.sp-league{margin:.5rem 0 .8rem;color:var(--muted);font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-match{display:grid;gap:.58rem;margin-top:.7rem}
+.sp-team{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:.62rem;align-items:center}
+.sp-logo{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.035);overflow:hidden;color:var(--muted);font-size:.63rem;font-weight:800}
+.sp-logo img{width:100%;height:100%;object-fit:contain;padding:4px}
+.sp-team b{min-width:0;color:var(--text);font-size:.82rem;line-height:1.25;font-weight:750;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-team strong{color:var(--text);font-family:'Space Grotesk',sans-serif;font-size:1.15rem;font-weight:800;font-variant-numeric:tabular-nums}
+.sp-event{display:flex;align-items:center;gap:.75rem;min-height:82px;color:var(--text)}
+.sp-event span{font-size:1.45rem}.sp-event b{font-size:.9rem;line-height:1.3}
+.sp-empty{padding:3rem 1rem;text-align:center;color:var(--muted)}
+.sports-note{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:.9rem;color:var(--muted);font-size:.64rem}
+.sports-note strong{color:var(--text)}
+.feed-error .sp-updated::after{content:' · reconnecting';color:#ff7890}
+
+.goal-burst{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;pointer-events:none;opacity:0;overflow:hidden;background:radial-gradient(circle at center,rgba(27,217,129,.28),rgba(4,11,17,.45) 34%,rgba(2,7,12,.72));backdrop-filter:blur(3px);transition:opacity .32s ease}
+.goal-burst.on{opacity:1}
+.goal-copy{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;transform:scale(.7);opacity:0;transition:transform .65s cubic-bezier(.16,1,.3,1),opacity .35s ease}
+.goal-burst.on .goal-copy{transform:scale(1);opacity:1}
+.goal-copy small{font:800 .7rem/1 'Space Grotesk',sans-serif;letter-spacing:.22em;color:#a9ffd8}.goal-copy strong{font:900 clamp(4rem,13vw,11rem)/.78 'Bricolage Grotesque',sans-serif;letter-spacing:-.08em;color:#fff;text-shadow:0 0 40px rgba(71,255,173,.42)}
+.goal-copy b{margin-top:1rem;font:800 clamp(1.2rem,3vw,2.4rem)/1 'Bricolage Grotesque',sans-serif;color:#eafff5}.goal-copy span{margin-top:.55rem;padding:.35rem .75rem;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(0,0,0,.18);color:#fff;font:700 .78rem/1 'Space Grotesk',sans-serif}
+.goal-rings{position:absolute;width:min(80vw,720px);aspect-ratio:1;border:2px solid rgba(89,255,177,.34);border-radius:50%;box-shadow:0 0 0 50px rgba(89,255,177,.08),0 0 0 110px rgba(89,255,177,.035);transform:scale(.35);opacity:0;transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .45s ease}
+.goal-burst.on .goal-rings{transform:scale(1.25);opacity:1}
+.goal-sparks{position:absolute;inset:0}.goal-sparks i{position:absolute;left:50%;top:50%;width:6px;height:34px;border-radius:999px;background:linear-gradient(#8dffca,#42d9ff);transform-origin:50% 0;transform:rotate(calc(var(--i)*22.5deg)) translateY(-20px) scaleY(.1);opacity:0}.goal-burst.on .goal-sparks i{animation:goalSpark 1s cubic-bezier(.16,1,.3,1) calc(var(--i)*12ms) both}@keyframes goalSpark{15%{opacity:1}100%{opacity:0;transform:rotate(calc(var(--i)*22.5deg)) translateY(-44vh) scaleY(1)}}
+
+html[data-theme="light"] .sports-shell{background:radial-gradient(circle at 7% -20%,rgba(53,210,255,.1),transparent 30%),radial-gradient(circle at 96% -10%,rgba(130,91,255,.08),transparent 32%),linear-gradient(145deg,#fff,rgba(244,249,255,.9));box-shadow:0 24px 60px rgba(43,76,112,.09)}
+html[data-theme="light"] .sp-card{background:linear-gradient(145deg,#fff,#f7fbff);box-shadow:0 12px 28px rgba(43,76,112,.07)}
+
+@media(max-width:1150px){.sp-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:860px){.sports-hero{grid-template-columns:1fr;align-items:start}.sports-live-meta{justify-content:flex-start}.sp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sports-page{padding-top:6.4rem}}
+@media(max-width:560px){.sp-grid{grid-template-columns:1fr}.sports-shell{padding:.75rem;border-radius:20px}.sp-card{min-height:170px}.sports-hero h1{font-size:clamp(2.6rem,15vw,4rem)}}
+@media(prefers-reduced-motion:reduce){.sports-kicker i,.rk-live-pip,.goal-sparks i{animation:none!important}.sp-card,.sp-filter,.sp-refresh{transition:none!important}.goal-burst{backdrop-filter:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Katuwal</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="youtube.html">YouTube</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+</nav>
+
+<main class="page sports-page" id="rkSportsPage">
+  <header class="sports-hero">
+    <div>
+      <div class="sports-kicker"><i></i>FOR WEBSITE VISITORS</div>
+      <h1>Live Sports <span>& Results</span></h1>
+      <p>Today’s matches from around the world in one fast dashboard. Live cards update in place, kickoff times use the visitor’s local clock, and football match clocks keep ticking every second between data refreshes.</p>
+    </div>
+    <div class="sports-live-meta">
+      <span class="sp-updated">Connecting…</span>
+      <span class="sp-count">0 events</span>
+      <button class="sp-refresh" type="button" aria-label="Refresh live sports">↻</button>
+    </div>
+  </header>
+
+  <section class="sports-shell" aria-label="Live sports and results">
+    <div class="sp-filters" aria-label="Filter by sport"><button class="sp-filter is-active" type="button">All Sports</button></div>
+    <div class="sp-grid" aria-live="polite"></div>
+    <p class="sp-empty" hidden>No matches found for this filter today.</p>
+    <div class="sports-note"><span><strong>Fast live mode:</strong> live feeds are checked every 3 seconds when available; the page itself never reloads.</span><span>Coverage and score latency depend on the sports data provider.</span></div>
+  </section>
+</main>
+
+<footer>
+  <div class="social-row" style="justify-content:center;margin-bottom:1rem">
+    <a href="https://www.youtube.com/@RiteshKatwal" target="_blank" class="soc" title="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></a>
+    <a href="https://www.instagram.com/riteshhrk/" target="_blank" class="soc" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2Zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9Z"/></svg></a>
+    <a href="https://www.linkedin.com/in/riteshkatwal/" target="_blank" class="soc" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.5h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3ZM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1Zm1.8 13.1H3.5V9h3.6v11.5ZM22.2 0H1.8C.8 0 0 .8 0 1.7v20.5C0 23.2.8 24 1.8 24h20.4c1 0 1.8-.8 1.8-1.8V1.7C24 .8 23.2 0 22.2 0Z"/></svg></a>
+  </div>
+  © 2026 Ritesh Katuwal
+</footer>
+
+<script src="site.js"></script>
+<script src="theme.js"></script>
+<script src="availability.js"></script>
+<script src="weather.js"></script>
+<script src="motion.js"></script>
+<script src="sports-live.js"></script>
+</body>
+</html>
