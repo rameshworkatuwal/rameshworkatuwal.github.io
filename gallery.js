@@ -11,8 +11,6 @@
   var SETS = (CFG.sets || []).slice();
   var EXT = /\.(jpe?g|png|webp|avif|gif)$/i;
 
-  /* Premium gallery skin is isolated in its own file so the rest of the
-     portfolio stays untouched. */
   if (!document.querySelector('link[data-gallery-premium]')) {
     var premium = document.createElement('link');
     premium.rel = 'stylesheet';
@@ -31,7 +29,8 @@
 
   addSet({
     folder: 'kulekhani',
-    title: 'Kulekhani',
+    title: 'Kulekhani 2022',
+    year: 2022,
     sub: 'Kulekhani, Nepal',
     dynamicFolder: true,
     verifyFiles: true,
