@@ -2,6 +2,11 @@
 
 Photography album assets for Kulekhani, Nepal (2022).
 
+Camera setup used for this album:
+
+- Canon EOS 200D Mark II
+- Canon EF 75–300mm lens
+
 Original uploads to keep lossless / uncompressed:
 
 - `kulekhani-01.png` — 2048 × 1365 — three boats on the lake
