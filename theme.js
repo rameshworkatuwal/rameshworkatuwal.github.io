@@ -156,6 +156,38 @@ p,li,.hero-subtitle,.about-text,.info-row,
   overflow-wrap:anywhere!important;
 }
 
+/* Dynamic camera albums are generated from JS, so their overview metadata is
+   plain <small> text. Turn it into the same Canon badge visually and add the
+   actual Canon logo without changing the original image assets. */
+a[href="#kulekhani"] .album-folder-title small,
+a[href="#photography-2015"] .album-folder-title small{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:.42rem!important;
+  width:auto!important;
+  max-width:100%!important;
+  padding:.27rem .5rem!important;
+  border:1px solid rgba(110,166,211,.18)!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.48)!important;
+  color:var(--muted)!important;
+  letter-spacing:.015em!important;
+  line-height:1.16!important;
+}
+a[href="#kulekhani"] .album-folder-title small::before,
+a[href="#photography-2015"] .album-folder-title small::before{
+  content:'';
+  display:block;
+  flex:0 0 38px;
+  width:38px;
+  height:14px;
+  background:url('canon-logo.png') center/contain no-repeat;
+}
+html:not([data-theme="light"]) a[href="#kulekhani"] .album-folder-title small,
+html:not([data-theme="light"]) a[href="#photography-2015"] .album-folder-title small{
+  background:rgba(255,255,255,.045)!important;
+}
+
 /* Canon/meta badge fix. gallery-premium.css styles every album image as a
    cover image, so logo images must be explicitly reset inside metadata. */
 .album-folder .camera-meta,
