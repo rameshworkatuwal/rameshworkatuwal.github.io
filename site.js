@@ -1,6 +1,6 @@
 /* Global site loader.
-   Keeps the existing site behaviour in site-core.js and groups Play + Live Sports
-   under the Games navigation experience. */
+   Keeps the existing site behaviour in site-core.js and groups local games,
+   online multiplayer and Live Sports under the Games navigation experience. */
 (function () {
   'use strict';
 
@@ -18,23 +18,31 @@
       var blog=links.querySelector('a[href="blog.html"]');
       if(blog&&blog.parentNode)links.insertBefore(item,blog.parentNode);else links.appendChild(item);
     }
-    if(page==='games.html'||page==='sports.html')link.classList.add('active');
+    if(page==='games.html'||page==='online-ludo.html'||page==='sports.html')link.classList.add('active');
   }
 
-  function addSportsGamesSwitch(){
-    if(currentPage()!=='sports.html')return;
-    var page=document.querySelector('.sports-page');
-    if(!page||page.querySelector('.games-hub-switch'))return;
-    var sw=document.createElement('div');
-    sw.className='games-hub-switch sports-games-switch';
-    sw.innerHTML='<a href="games.html"><span>Play Games</span></a><a href="sports.html" class="live-link is-active"><span>Live Sports</span></a>';
-    page.insertBefore(sw,page.firstChild);
-    if(!document.querySelector('link[href^="games-enhanced.css"]')){
-      var css=document.createElement('link');css.rel='stylesheet';css.href='games-enhanced.css?v=20260820-3';document.head.appendChild(css);
+  function ensureGamesHubStyles(){
+    if(document.querySelector('link[href^="games-enhanced.css"]'))return;
+    var css=document.createElement('link');css.rel='stylesheet';css.href='games-enhanced.css?v=20260820-3';document.head.appendChild(css);
+  }
+
+  function normalizeGamesSwitch(){
+    var page=currentPage();
+    if(page!=='games.html'&&page!=='sports.html'&&page!=='online-ludo.html')return;
+    ensureGamesHubStyles();
+    var sw=document.querySelector('.games-hub-switch');
+    if(!sw&&page==='sports.html'){
+      var container=document.querySelector('.sports-page');
+      if(!container)return;
+      sw=document.createElement('div');sw.className='games-hub-switch sports-games-switch';container.insertBefore(sw,container.firstChild);
     }
+    if(!sw)return;
+    sw.innerHTML='<a href="games.html"'+(page==='games.html'?' class="is-active"':'')+'><span>Play Games</span></a>'+
+      '<a href="online-ludo.html"'+(page==='online-ludo.html'?' class="is-active"':'')+'><span>Play Online</span></a>'+
+      '<a href="sports.html" class="live-link'+(page==='sports.html'?' is-active':'')+'"><span>Live Sports</span></a>';
   }
 
-  function init(){addGamesTab();addSportsGamesSwitch();}
+  function init(){addGamesTab();normalizeGamesSwitch();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 
   var core=document.createElement('script');
