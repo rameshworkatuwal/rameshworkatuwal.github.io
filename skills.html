@@ -11,81 +11,142 @@
 <link rel="stylesheet" href="widgets.css">
 <style>
 .tools-grid2{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
-.lp{display:inline-flex;align-items:center;gap:.6rem;padding:.45rem 1rem .45rem .45rem;border:1px solid var(--line);border-radius:40px;background:rgba(255,255,255,0.04);font-size:.9rem;color:var(--text);transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .28s,box-shadow .28s;cursor:default}
+.lp{display:inline-flex;align-items:center;gap:.6rem;padding:.45rem 1rem .45rem .45rem;border:1px solid var(--line);border-radius:40px;background:rgba(255,255,255,.04);font-size:.9rem;color:var(--text);transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .28s,box-shadow .28s;cursor:default}
 .lp:hover{transform:translateY(-4px);border-color:rgba(56,225,255,.4);box-shadow:0 10px 26px rgba(0,0,0,.4)}
 .lp-i{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:-.02em}
 .lp-i svg{width:17px;height:17px}
+html[data-theme="light"] .lp{background:#fff;box-shadow:0 8px 20px rgba(20,50,90,.07)}
+html[data-theme="light"] .lp:hover{border-color:rgba(2,136,209,.45)}
 
-html[data-theme="light"] .lp{ background:#fff; box-shadow:0 8px 20px rgba(20,50,90,.07); }
-html[data-theme="light"] .lp:hover{ border-color:rgba(2,136,209,.45); }
-
-/* Readability pass for the animated skills cards. Motion remains colorful,
-   while the copy sits on a cleaner high-contrast surface. These selectors
-   intentionally outrank the late-loaded motion.js light-theme rules. */
+/* Keep the colorful cards readable in light mode. */
 html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium{
-  background:
-    radial-gradient(380px circle at var(--skill-x) var(--skill-y),rgba(var(--skill-a),.075),transparent 54%),
-    linear-gradient(145deg,rgba(255,255,255,.985) 0%,rgba(249,252,255,.97) 62%,rgba(var(--skill-b),.045) 125%)!important;
+  background:radial-gradient(380px circle at var(--skill-x) var(--skill-y),rgba(var(--skill-a),.075),transparent 54%),linear-gradient(145deg,rgba(255,255,255,.985),rgba(249,252,255,.97) 62%,rgba(var(--skill-b),.045) 125%)!important;
   border-color:rgba(var(--skill-a),.25)!important;
   box-shadow:0 18px 44px rgba(40,71,105,.105),0 2px 8px rgba(40,71,105,.035),inset 0 1px 0 #fff!important;
 }
 html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium::before{opacity:.24!important}
-html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium::after{
-  background:radial-gradient(250px circle at var(--skill-x) var(--skill-y),rgba(var(--skill-a),.075),transparent 62%)!important;
-}
 html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium h3,
-html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover h3{
-  color:#102235!important;
-  font-weight:800!important;
-  text-shadow:0 1px 0 rgba(255,255,255,.65);
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover h3{color:#102235!important;font-weight:800!important;text-shadow:0 1px 0 rgba(255,255,255,.65)}
+
+/* --------------------------------------------------------------------------
+   SKILL TAGS — small premium 3D interactions on every chip.
+   Card motion stays dominant; tags add depth only when the visitor interacts.
+   -------------------------------------------------------------------------- */
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags{
+  perspective:720px!important;
+  transform-style:preserve-3d!important;
+  gap:.58rem!important;
 }
-html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium .tag,
-html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover .tag{
-  color:#334b62!important;
-  font-weight:600!important;
-  background:rgba(255,255,255,.72)!important;
-  border-color:rgba(32,77,116,.16)!important;
-  box-shadow:0 4px 12px rgba(37,70,105,.045),inset 0 1px 0 rgba(255,255,255,.95)!important;
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag{
+  --tag-x:50%;--tag-y:50%;--tag-rx:0deg;--tag-ry:0deg;
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:34px!important;
+  padding:.43rem .78rem!important;
+  border:1px solid rgba(var(--skill-a),.23)!important;
+  border-radius:999px!important;
+  background:
+    radial-gradient(120px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.10),transparent 64%),
+    linear-gradient(145deg,rgba(255,255,255,.095),rgba(var(--skill-b),.035))!important;
+  color:var(--text)!important;
+  font-weight:650!important;
+  line-height:1!important;
+  letter-spacing:-.012em!important;
+  box-shadow:0 5px 13px rgba(4,16,34,.075),inset 0 1px 0 rgba(255,255,255,.12)!important;
+  transform:perspective(560px) translate3d(0,0,10px) rotateX(var(--tag-rx)) rotateY(var(--tag-ry))!important;
+  transform-style:preserve-3d!important;
+  backface-visibility:hidden!important;
+  transition:transform .34s cubic-bezier(.16,1,.3,1),border-color .28s ease,box-shadow .32s ease,background .28s ease,color .28s ease!important;
 }
-html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover .tag{
-  color:#173148!important;
-  background:rgba(255,255,255,.9)!important;
-  border-color:rgba(var(--skill-a),.32)!important;
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  border-radius:inherit;
+  pointer-events:none;
+  background:radial-gradient(95px circle at var(--tag-x) var(--tag-y),rgba(255,255,255,.28),rgba(var(--skill-a),.12) 28%,transparent 68%);
+  opacity:0;
+  transition:opacity .25s ease;
+}
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag::after{
+  content:'';
+  position:absolute;
+  z-index:2;
+  top:-45%;bottom:-45%;left:-52%;
+  width:34%;
+  pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.62),rgba(255,255,255,.12),transparent);
+  transform:skewX(-18deg);
+  opacity:0;
+}
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(1){--tag-order:0}
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(2){--tag-order:1}
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(3){--tag-order:2}
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(4){--tag-order:3}
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(5){--tag-order:4}
+html.rk-ready body .page .skills-grid .skill-card.rk-skill-premium.rk-in .skill-tags .tag.rk-skill-tag{
+  animation:rkSkillTagEnter .58s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:calc(var(--tag-order,0) * 55ms + 80ms);
+}
+@keyframes rkSkillTagEnter{
+  from{opacity:0;transform:perspective(560px) translate3d(0,9px,5px) scale(.94) rotateX(7deg)!important}
+  to{opacity:1;transform:perspective(560px) translate3d(0,0,10px) scale(1) rotateX(0deg)!important}
+}
+@media(hover:hover) and (pointer:fine){
+  html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover{
+    color:var(--text)!important;
+    border-color:rgba(var(--skill-a),.52)!important;
+    background:radial-gradient(150px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.18),transparent 64%),linear-gradient(145deg,rgba(255,255,255,.145),rgba(var(--skill-b),.075))!important;
+    box-shadow:0 13px 26px rgba(4,16,34,.15),0 0 22px rgba(var(--skill-a),.10),inset 0 1px 0 rgba(255,255,255,.2)!important;
+    transform:perspective(560px) translate3d(0,-5px,24px) scale(1.035) rotateX(var(--tag-rx)) rotateY(var(--tag-ry))!important;
+    z-index:8!important;
+  }
+  html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover::before{opacity:1}
+  html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover::after{animation:rkSkillTagSheen .75s cubic-bezier(.16,1,.3,1)}
+  html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:active{
+    transform:perspective(560px) translate3d(0,-1px,12px) scale(.985) rotateX(0deg) rotateY(0deg)!important;
+    transition-duration:.12s!important;
+  }
+}
+@keyframes rkSkillTagSheen{0%{left:-52%;opacity:0}18%{opacity:.72}100%{left:126%;opacity:0}}
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag,
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover .skill-tags .tag.rk-skill-tag{
+  color:#29445d!important;
+  font-weight:650!important;
+  background:radial-gradient(120px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.085),transparent 64%),rgba(255,255,255,.80)!important;
+  border-color:rgba(var(--skill-a),.24)!important;
+  box-shadow:0 5px 13px rgba(37,70,105,.055),inset 0 1px 0 rgba(255,255,255,.98)!important;
+}
+@media(hover:hover) and (pointer:fine){
+  html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover{
+    color:#112d45!important;
+    background:radial-gradient(150px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.14),transparent 65%),rgba(255,255,255,.96)!important;
+    border-color:rgba(var(--skill-a),.48)!important;
+    box-shadow:0 13px 28px rgba(37,70,105,.12),0 0 20px rgba(var(--skill-a),.075),inset 0 1px 0 #fff!important;
+  }
 }
 
-/* Tool-logo polish. Keep remote requests only for icons that were previously
-   placeholders; every image has a local text fallback so a CDN miss never
-   leaves an empty tile. */
+/* Tool-logo polish + fail-safe fallbacks. */
 .tool-logo{width:28px;height:28px;display:block;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(15,31,49,.14))}
 .tool-fallback{display:none;width:100%;height:100%;place-items:center;font-weight:800;font-size:.82rem;color:#14283b}
-.lp-i.tool-logo-box{background:rgba(255,255,255,.92)!important;border:1px solid rgba(38,77,116,.10)!important}
+.lp-i.tool-logo-box{background:rgba(255,255,255,.94)!important;border:1px solid rgba(38,77,116,.10)!important}
 .tally-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.78;letter-spacing:-.055em;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;color:#e30613;font-size:.78rem}
 .tally-mark small{display:block;margin-top:.22rem;line-height:1;font-family:'Space Grotesk',sans-serif;letter-spacing:.06em;font-size:.34rem;font-weight:700;color:#1d1d1b;text-transform:uppercase}
-html:not([data-theme="light"]) .lp-i.tool-logo-box{background:rgba(255,255,255,.94)!important}
 
-/* The motion layer uses a 4-column grid; override it with a centered flex
-   layout so the final two cards never look stranded on the left. */
-html body .page .rk-tools-shell .tools-section .tools-grid2{
-  display:flex!important;
-  flex-wrap:wrap!important;
-  justify-content:center!important;
-  align-items:stretch!important;
-  gap:clamp(.72rem,1.15vw,1rem)!important;
-}
-html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{
-  flex:0 1 calc(25% - .8rem)!important;
-  width:calc(25% - .8rem)!important;
-  max-width:calc(25% - .8rem)!important;
-  min-width:230px!important;
-}
-@media(max-width:1150px){
-  html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:calc(33.333% - .8rem)!important;width:calc(33.333% - .8rem)!important;max-width:calc(33.333% - .8rem)!important}
-}
-@media(max-width:820px){
-  html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:calc(50% - .55rem)!important;width:calc(50% - .55rem)!important;max-width:calc(50% - .55rem)!important;min-width:210px!important}
-}
-@media(max-width:520px){
-  html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:100%!important;width:100%!important;max-width:100%!important;min-width:0!important}
+/* Center partial rows in the tools panel. */
+html body .page .rk-tools-shell .tools-section .tools-grid2{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-items:stretch!important;gap:clamp(.72rem,1.15vw,1rem)!important}
+html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex:0 1 calc(25% - .8rem)!important;width:calc(25% - .8rem)!important;max-width:calc(25% - .8rem)!important;min-width:230px!important}
+@media(max-width:1150px){html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:calc(33.333% - .8rem)!important;width:calc(33.333% - .8rem)!important;max-width:calc(33.333% - .8rem)!important}}
+@media(max-width:820px){html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:calc(50% - .55rem)!important;width:calc(50% - .55rem)!important;max-width:calc(50% - .55rem)!important;min-width:210px!important}}
+@media(max-width:520px){html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:100%!important;width:100%!important;max-width:100%!important;min-width:0!important}}
+@media(prefers-reduced-motion:reduce){
+  html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag{animation:none!important;transition:none!important;transform:none!important}
+  html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag::after{animation:none!important}
 }
 </style>
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
@@ -113,72 +174,58 @@ html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{
     <div class="skill-card" data-anim="pop" style="--d:0" data-glow data-lift>
       <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
       <h3>Digital Marketing</h3>
-      <div class="skill-tags">
-        <span class="tag">SEO</span><span class="tag">Content Strategy</span><span class="tag">Campaign Reporting</span><span class="tag">Social Media Management</span><span class="tag">Organic Traffic Growth</span>
-      </div>
+      <div class="skill-tags"><span class="tag rk-skill-tag">SEO</span><span class="tag rk-skill-tag">Content Strategy</span><span class="tag rk-skill-tag">Campaign Reporting</span><span class="tag rk-skill-tag">Social Media Management</span><span class="tag rk-skill-tag">Organic Traffic Growth</span></div>
     </div>
 
     <div class="skill-card" data-anim="pop" style="--d:1" data-glow data-lift>
       <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="14" height="14" rx="2"/><path d="m22 8-6 4 6 4V8z"/></svg></div>
       <h3>Content Creation &amp; Video</h3>
-      <div class="skill-tags"><span class="tag">Adobe Premiere Pro</span><span class="tag">CapCut</span><span class="tag">Script Writing</span><span class="tag">Copywriting</span><span class="tag">Canva</span></div>
+      <div class="skill-tags"><span class="tag rk-skill-tag">Adobe Premiere Pro</span><span class="tag rk-skill-tag">CapCut</span><span class="tag rk-skill-tag">Script Writing</span><span class="tag rk-skill-tag">Copywriting</span><span class="tag rk-skill-tag">Canva</span></div>
     </div>
 
     <div class="skill-card" data-anim="pop" style="--d:2" data-glow data-lift>
       <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/></svg></div>
       <h3>Accounting &amp; Finance</h3>
-      <div class="skill-tags"><span class="tag">Tally ERP / Prime</span><span class="tag">Bookkeeping</span><span class="tag">Bank Reconciliation</span><span class="tag">Invoice Processing</span><span class="tag">Financial Reporting</span></div>
+      <div class="skill-tags"><span class="tag rk-skill-tag">Tally ERP / Prime</span><span class="tag rk-skill-tag">Bookkeeping</span><span class="tag rk-skill-tag">Bank Reconciliation</span><span class="tag rk-skill-tag">Invoice Processing</span><span class="tag rk-skill-tag">Financial Reporting</span></div>
     </div>
 
     <div class="skill-card" data-anim="pop" style="--d:3" data-glow data-lift>
       <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
       <h3>Technical</h3>
-      <div class="skill-tags"><span class="tag">MS Office Suite</span><span class="tag">Google Workspace</span><span class="tag">HTML / CSS</span><span class="tag">Figma (basic)</span><span class="tag">Excel</span></div>
+      <div class="skill-tags"><span class="tag rk-skill-tag">MS Office Suite</span><span class="tag rk-skill-tag">Google Workspace</span><span class="tag rk-skill-tag">HTML / CSS</span><span class="tag rk-skill-tag">Figma (basic)</span><span class="tag rk-skill-tag">Excel</span></div>
     </div>
 
     <div class="skill-card" data-anim="pop" style="--d:4" data-glow data-lift>
       <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg></div>
       <h3>Social Media Platforms</h3>
-      <div class="skill-tags"><span class="tag">TikTok</span><span class="tag">Facebook</span><span class="tag">Instagram</span><span class="tag">YouTube</span><span class="tag">LinkedIn</span></div>
+      <div class="skill-tags"><span class="tag rk-skill-tag">TikTok</span><span class="tag rk-skill-tag">Facebook</span><span class="tag rk-skill-tag">Instagram</span><span class="tag rk-skill-tag">YouTube</span><span class="tag rk-skill-tag">LinkedIn</span></div>
     </div>
 
     <div class="skill-card" data-anim="pop" style="--d:5" data-glow data-lift>
       <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
       <h3>Writing &amp; Communication</h3>
-      <div class="skill-tags"><span class="tag">SEO Writing</span><span class="tag">News Writing</span><span class="tag">Trend Analysis</span><span class="tag">Competitor Research</span><span class="tag">Proofreading</span></div>
+      <div class="skill-tags"><span class="tag rk-skill-tag">SEO Writing</span><span class="tag rk-skill-tag">News Writing</span><span class="tag rk-skill-tag">Trend Analysis</span><span class="tag rk-skill-tag">Competitor Research</span><span class="tag rk-skill-tag">Proofreading</span></div>
     </div>
   </div>
 
-  <div style="background: rgba(255,255,255,0.04); border: 0.5px solid rgba(2,136,209,0.15); border-radius: 10px; padding: 1.8rem; backdrop-filter: blur(6px);">
+  <div style="background:rgba(255,255,255,.04);border:.5px solid rgba(2,136,209,.15);border-radius:10px;padding:1.8rem;backdrop-filter:blur(6px)">
     <div class="tools-section">
       <h3>All Tools &amp; Software</h3>
       <div class="tools-grid2">
-        <div class="lp" data-sound><span class="lp-i" style="background:#2a0a3d;color:#EA77FF">Pr</span>Adobe Premiere Pro</div>
-
+        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/adobepremierepro.svg?height=28&amp;color=%239999FF" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">Pr</span></span>Adobe Premiere Pro</div>
         <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/capcut.svg?height=28&amp;color=%23111111" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">CC</span></span>CapCut</div>
-
         <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/canva.svg?height=28&amp;color=%2300C4CC" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">C</span></span>Canva</div>
-
-        <div class="lp" data-sound><span class="lp-i" style="background:rgba(242,78,30,0.14);color:#F24E1E"><svg viewBox="0 0 24 24" fill="#F24E1E"><path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/></svg></span>Figma</div>
-
+        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/figma.svg?height=28&amp;color=%23F24E1E" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">Fi</span></span>Figma</div>
         <div class="lp" data-sound><span class="lp-i tool-logo-box"><span class="tally-mark">tally<small>ERP</small></span></span>Tally ERP</div>
         <div class="lp" data-sound><span class="lp-i tool-logo-box"><span class="tally-mark">tally<small>Prime</small></span></span>Tally Prime</div>
-
         <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/mdi/microsoft-excel.svg?height=28&amp;color=%23217346" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">X</span></span>Microsoft Excel</div>
-
         <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/mdi/microsoft-word.svg?height=28&amp;color=%232B579A" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">W</span></span>Microsoft Word</div>
-
-        <div class="lp" data-sound><span class="lp-i" style="background:rgba(52,168,83,0.14);color:#34A853"><svg viewBox="0 0 24 24" fill="#34A853"><path d="M11.318 12.545H7.91v-1.909h3.41v1.91zM14.728 0v6h6l-6-6zm1.363 10.636h-3.41v1.91h3.41v-1.91zm0 3.273h-3.41v1.91h3.41v-1.91zM20.727 6.5v15.864c0 .904-.732 1.636-1.636 1.636H4.909a1.636 1.636 0 0 1-1.636-1.636V1.636C3.273.732 4.005 0 4.909 0h9.318v6.5h6.5zm-3.273 2.773H6.545v7.909h10.91v-7.91zm-6.136 4.636H7.91v1.91h3.41v-1.91z"/></svg></span>Google Sheets</div>
-
-        <div class="lp" data-sound><span class="lp-i" style="background:rgba(227,116,0,0.14);color:#E37400"><svg viewBox="0 0 24 24" fill="#E37400"><path d="M22.84 2.9982v17.9987c.0086 1.6473-1.3197 2.9897-2.967 2.9984a2.9808 2.9808 0 01-.3677-.0208c-1.528-.226-2.6477-1.5558-2.6105-3.1V3.1204c-.0369-1.5458 1.0856-2.8762 2.6157-3.1 1.6361-.1915 3.1178.9796 3.3093 2.6158.014.1201.0208.241.0202.3619zM4.1326 18.0548c-1.6417 0-2.9726 1.331-2.9726 2.9726C1.16 22.6691 2.4909 24 4.1326 24s2.9726-1.3309 2.9726-2.9726-1.331-2.9726-2.9726-2.9726zm7.8728-9.0098c-.0171 0-.0342 0-.0513.0003-1.6495.0904-2.9293 1.474-2.891 3.1256v7.9846c0 2.167.9535 3.4825 2.3505 3.763 1.6118.3266 3.1832-.7152 3.5098-2.327.04-.1974.06-.3983.0593-.5998v-8.9585c.003-1.6474-1.33-2.9852-2.9773-2.9882z"/></svg></span>Google Analytics</div>
-
-        <div class="lp" data-sound><span class="lp-i" style="background:rgba(227,79,38,0.14);color:#E34F26"><svg viewBox="0 0 24 24" fill="#E34F26"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg></span>HTML / CSS</div>
-
+        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/googlesheets.svg?height=28&amp;color=%2334A853" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">GS</span></span>Google Sheets</div>
+        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/googleanalytics.svg?height=28&amp;color=%23E37400" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">GA</span></span>Google Analytics</div>
+        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/html5.svg?height=28&amp;color=%23E34F26" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">H5</span></span>HTML / CSS</div>
         <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/tiktok.svg?height=28&amp;color=%23111111" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">♪</span></span>TikTok Studio</div>
-
-        <div class="lp" data-sound><span class="lp-i" style="background:rgba(4,103,223,0.14);color:#0467DF"><svg viewBox="0 0 24 24" fill="#0467DF"><path d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"/></svg></span>Meta Business Suite</div>
-
-        <div class="lp" data-sound><span class="lp-i" style="background:rgba(255,0,0,0.14);color:#FF0000"><svg viewBox="0 0 24 24" fill="#FF0000"><path d="M20.919 13.176c.048-.384.084-.768.084-1.176s-.036-.792-.084-1.176l2.532-1.98a.605.605 0 0 0 .144-.768l-2.4-4.152a.603.603 0 0 0-.732-.264l-2.988 1.2a8.767 8.767 0 0 0-2.028-1.176l-.456-3.18A.585.585 0 0 0 14.403 0h-4.8c-.3 0-.552.216-.588.504l-.456 3.18A9.22 9.22 0 0 0 6.531 4.86l-2.988-1.2a.585.585 0 0 0-.732.264l-2.4 4.152a.592.592 0 0 0 .144.768l2.532 1.98c-.048.384-.084.78-.084 1.176s.036.792.084 1.176l-2.532 1.98a.605.605 0 0 0-.144.768l2.4 4.152c.144.264.468.36.732.264l2.988-1.2c.624.48 1.296.876 2.028 1.176l.456 3.18a.585.585 0 0 0 .588.504h4.8c.3 0 .552-.216.588-.504l.456-3.18a9.22 9.22 0 0 0 2.028-1.176l2.988 1.2c.276.108.588 0 .732-.264l2.4-4.152a.605.605 0 0 0-.144-.768l-2.532-1.98zM9.603 15.6V8.4l6 3.6-6 3.6z"/></svg></span>YouTube Studio</div>
+        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/meta.svg?height=28&amp;color=%230467DF" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">M</span></span>Meta Business Suite</div>
+        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/youtube.svg?height=28&amp;color=%23FF0000" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">YT</span></span>YouTube Studio</div>
       </div>
     </div>
   </div>
@@ -187,10 +234,10 @@ html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{
     <h2 class="page-title" data-anim="blur">Certifications</h2>
     <div class="divider-line" data-anim="clip" style="--d:1"></div>
     <div class="cert-grid">
-      <div class="cert-card" data-anim="pop" style="--d:0" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Understanding Logistics</div><span class="cert-issuer"> LinkedIn Learning</span></div>
-      <div class="cert-card" data-anim="pop" style="--d:1" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Excel Essential Training (Microsoft 365)</div><span class="cert-issuer"> LinkedIn Learning</span></div>
-      <div class="cert-card" data-anim="pop" style="--d:2" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Accounting Foundations: Bookkeeping</div><span class="cert-issuer"> LinkedIn Learning</span></div>
-      <div class="cert-card" data-anim="pop" style="--d:3" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Communicating with Confidence</div><span class="cert-issuer"> LinkedIn Learning</span></div>
+      <div class="cert-card" data-anim="pop" style="--d:0" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Understanding Logistics</div><span class="cert-issuer">LinkedIn Learning</span></div>
+      <div class="cert-card" data-anim="pop" style="--d:1" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Excel Essential Training (Microsoft 365)</div><span class="cert-issuer">LinkedIn Learning</span></div>
+      <div class="cert-card" data-anim="pop" style="--d:2" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Accounting Foundations: Bookkeeping</div><span class="cert-issuer">LinkedIn Learning</span></div>
+      <div class="cert-card" data-anim="pop" style="--d:3" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Communicating with Confidence</div><span class="cert-issuer">LinkedIn Learning</span></div>
     </div>
   </section>
 </div>
@@ -206,12 +253,40 @@ html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{
 </footer>
 
 <script>
-const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
-const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.12 });
-revealEls.forEach(el => observer.observe(el));
-['skills-grid','cert-list','blog-grid','timeline'].forEach(cls => { const el = document.querySelector('.' + cls); if (el) el.classList.add('card-group'); });
-document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', function(e) { const href = this.getAttribute('href'); if (href && !href.startsWith('#') && !href.startsWith('mailto') && !href.startsWith('tel')) { e.preventDefault(); document.body.classList.add('page-exit'); setTimeout(() => { window.location.href = href; }, 240); } }); });
-document.querySelectorAll('.stat-num').forEach(el => { const text = el.textContent.trim(); const num = parseInt(text); if (!isNaN(num)) { el.textContent = '0' + (text.includes('+') ? '+' : ''); let count = 0; const interval = setInterval(() => { count += Math.ceil(num / 30); if (count >= num) { count = num; clearInterval(interval); } el.textContent = count + (text.includes('+') ? '+' : ''); }, 40); } });
+(function(){
+  function initSkillTagMotion(){
+    var tags=[].slice.call(document.querySelectorAll('.rk-skill-tag'));
+    if(!tags.length)return;
+    var fine=false,reduce=false;
+    try{fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
+    if(!fine||reduce)return;
+    tags.forEach(function(tag){
+      var raf=0,x=.5,y=.5;
+      function paint(){
+        raf=0;
+        tag.style.setProperty('--tag-x',(x*100).toFixed(1)+'%');
+        tag.style.setProperty('--tag-y',(y*100).toFixed(1)+'%');
+        tag.style.setProperty('--tag-ry',((x-.5)*10).toFixed(2)+'deg');
+        tag.style.setProperty('--tag-rx',((.5-y)*8).toFixed(2)+'deg');
+      }
+      tag.addEventListener('pointermove',function(e){
+        var r=tag.getBoundingClientRect();
+        if(!r.width||!r.height)return;
+        x=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));
+        y=Math.max(0,Math.min(1,(e.clientY-r.top)/r.height));
+        if(!raf)raf=requestAnimationFrame(paint);
+      },{passive:true});
+      tag.addEventListener('pointerleave',function(){
+        if(raf){cancelAnimationFrame(raf);raf=0}
+        tag.style.setProperty('--tag-x','50%');
+        tag.style.setProperty('--tag-y','50%');
+        tag.style.setProperty('--tag-rx','0deg');
+        tag.style.setProperty('--tag-ry','0deg');
+      },{passive:true});
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initSkillTagMotion);else initSkillTagMotion();
+})();
 </script>
 <script src="site.js"></script>
 <script src="theme.js"></script>
