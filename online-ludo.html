@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07101d">
+<title>Online Ludo — Ritesh Katuwal</title>
+<meta name="description" content="Sign in with Google, create a private Ludo room, invite friends anywhere in the world, and keep your match history.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="widgets.css">
+<link rel="stylesheet" href="games.css">
+<link rel="stylesheet" href="games-fit.css?v=20260820-2245">
+<link rel="stylesheet" href="games-enhanced.css?v=20260820-3">
+<link rel="stylesheet" href="online-ludo.css?v=20260820-1">
+<script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+</head>
+<body class="games-body">
+<div class="game-bg" aria-hidden="true"><span></span><span></span><span></span></div>
+<nav>
+  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-.15em;margin-right:.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Katuwal</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="skills.html">Skills</a></li><li><a href="experience.html">Experience</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="youtube.html">YouTube</a></li><li><a href="games.html" class="active">Games</a></li><li><a href="blog.html">Blog</a></li>
+  </ul>
+</nav>
+
+<main class="games-page online-page">
+  <header class="online-hero">
+    <div>
+      <div class="online-kicker"><i></i>WORLDWIDE FRIEND MULTIPLAYER</div>
+      <h1>Online <span>Ludo</span></h1>
+      <p>Google sign-in, private room codes, live synced turns and your own match history — directly inside the website.</p>
+    </div>
+    <div class="online-lock">SIGNED-IN ROOMS</div>
+  </header>
+
+  <div class="games-hub-switch" aria-label="Games hub mode">
+    <a href="games.html"><span>Play Games</span></a>
+    <a href="online-ludo.html" class="is-active"><span>Play Online</span></a>
+    <a href="sports.html" class="live-link"><span>Live Sports</span></a>
+  </div>
+
+  <section class="online-shell" aria-label="Online multiplayer account and lobby">
+    <div class="auth-strip">
+      <div class="auth-state">
+        <div class="auth-avatar" id="authAvatar">G</div>
+        <div class="auth-copy"><b id="authName">Google account required</b><span id="authEmail">Sign in to create or join private rooms.</span></div>
+      </div>
+      <div class="auth-actions">
+        <button class="google-btn" id="googleSignIn" type="button"><span class="google-g">G</span><span>Continue with Google</span></button>
+        <button class="google-btn" id="googleSignOut" type="button" hidden><span>Sign out</span></button>
+      </div>
+    </div>
+
+    <div class="online-content">
+      <section class="online-card">
+        <div class="online-card-head">
+          <div><small>PRIVATE MATCHMAKING</small><h2>Play with friends</h2><p>Create a room or enter a code someone sent you.</p></div>
+          <span class="online-status-pill" id="connectionStatus"><i></i><span>SETUP</span></span>
+        </div>
+
+        <div class="room-tools" id="roomTools">
+          <div class="room-tool">
+            <b>Create a room</b><p>You become host. Start after 2–4 players join.</p>
+            <div class="room-row"><select id="maxPlayers" aria-label="Maximum players"><option value="2">2 players</option><option value="3">3 players</option><option value="4" selected>4 players</option></select><button class="game-btn" id="createRoom" type="button">Create</button></div>
+          </div>
+          <div class="room-tool">
+            <b>Join a friend</b><p>Enter the 6-character room code.</p>
+            <div class="room-row"><input id="joinCode" maxlength="6" inputmode="text" autocomplete="off" placeholder="ABC123" aria-label="Room code"><button class="game-btn" id="joinRoom" type="button">Join</button></div>
+          </div>
+        </div>
+
+        <div class="setup-note" id="setupNote"><b>Owner setup needed:</b> Firebase project details are still blank. Once configured, Google login, rooms and history turn on automatically.</div>
+
+        <div class="room-live" id="roomLive">
+          <div class="room-code-line">
+            <div class="room-code-copy"><span>ROOM CODE</span><strong id="roomCodeText">------</strong></div>
+            <div class="room-code-actions"><button class="mini-btn" id="copyRoom" type="button">Copy code</button><button class="mini-btn" id="shareRoom" type="button">Invite friend</button><button class="mini-btn" id="leaveRoom" type="button">Leave</button></div>
+          </div>
+          <div class="room-players" id="roomPlayers"></div>
+          <div class="room-host-actions"><button class="game-btn" id="startOnlineGame" type="button" disabled>Start Match</button></div>
+        </div>
+      </section>
+
+      <aside class="online-card history-card">
+        <div class="online-card-head"><div><small>YOUR ACCOUNT</small><h2>Game history</h2><p>Saved to your signed-in profile.</p></div></div>
+        <div class="history-summary"><div class="history-stat"><span>MATCHES</span><strong id="historyGames">0</strong></div><div class="history-stat"><span>WINS</span><strong id="historyWins">0</strong></div><div class="history-stat"><span>WIN RATE</span><strong id="historyRate">0%</strong></div></div>
+        <div class="history-list" id="historyList"><div class="history-empty">Sign in to see your match history.</div></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="online-game-wrap" id="onlineGameWrap" hidden>
+    <section class="game-shell" id="onlineLudoGame">
+      <div class="game-topbar">
+        <div class="game-title-wrap"><span class="game-number">ONLINE MATCH</span><h2>Ludo</h2><span class="online-room-badge" id="onlineRoomBadge">ROOM ------</span></div>
+        <div class="game-actions"><button class="game-btn secondary" id="onlineSoundToggle" type="button" aria-pressed="true">Sound On</button><button class="game-btn secondary" id="onlineInvite" type="button">Invite</button></div>
+      </div>
+
+      <div class="game-layout">
+        <div class="ludo-stage" id="onlineLudoStage">
+          <div class="ludo-board" id="onlineLudoBoard" aria-label="Online Ludo board">
+            <div class="home-zone red-home" data-color="red"><span>RED</span><div class="home-dots"></div></div>
+            <div class="home-zone green-home" data-color="green"><span>GREEN</span><div class="home-dots"></div></div>
+            <div class="home-zone yellow-home" data-color="yellow"><span>YELLOW</span><div class="home-dots"></div></div>
+            <div class="home-zone blue-home" data-color="blue"><span>BLUE</span><div class="home-dots"></div></div>
+            <div class="finish-core"><div class="finish-diamond"></div><b>HOME</b></div>
+            <div id="onlineBoardCells" class="board-cells"></div>
+            <div id="onlineTokensLayer" class="tokens-layer"></div>
+            <div class="goal-flare" id="onlineGoalFlare" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <aside class="game-panel">
+          <div class="turn-card">
+            <span class="turn-label">CURRENT TURN</span>
+            <div class="online-turn-meta"><div class="online-turn-photo" id="onlineTurnPhoto">?</div><div class="turn-player"><i id="onlineTurnDot"></i><strong id="onlineTurnName">Waiting…</strong></div></div>
+            <div class="turn-message" id="onlineTurnMessage">Waiting for the room to start.</div>
+          </div>
+
+          <button class="dice-zone not-yours" id="onlineRollDice" type="button" aria-label="Roll dice">
+            <span class="dice-copy">ROLL DICE</span>
+            <span class="dice-cube" id="onlineDiceCube" data-value="1"><b id="onlineDiceFace">⚀</b></span>
+            <small id="onlineDiceHint">Waiting…</small>
+          </button>
+
+          <div class="score-stack" id="onlineScoreStack"></div>
+          <div class="online-game-note"><b>Live room</b><span>Every legal turn is synced through the database. If a friend reloads, the same room state returns.</span></div>
+        </aside>
+      </div>
+    </section>
+  </section>
+</main>
+
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+<footer class="games-footer">© 2026 Ritesh Katuwal · Online games</footer>
+<script src="firebase-config.js"></script>
+<script src="site.js"></script>
+<script src="theme.js"></script>
+<script type="module" src="online-ludo.js?v=20260820-1"></script>
+</body>
+</html>
