@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="widgets.css">
+<link rel="stylesheet" href="certifications.css">
 <style>
 .tools-grid2{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
 .lp{display:inline-flex;align-items:center;gap:.6rem;padding:.45rem 1rem .45rem .45rem;border:1px solid var(--line);border-radius:40px;background:rgba(255,255,255,.04);font-size:.9rem;color:var(--text);transition:transform .28s cubic-bezier(.2,.7,.2,1),border-color .28s,box-shadow .28s;cursor:default}
@@ -17,238 +18,73 @@
 .lp-i svg{width:17px;height:17px}
 html[data-theme="light"] .lp{background:#fff;box-shadow:0 8px 20px rgba(20,50,90,.07)}
 html[data-theme="light"] .lp:hover{border-color:rgba(2,136,209,.45)}
-
-/* Keep the colorful cards readable in light mode. */
-html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium{
-  background:radial-gradient(380px circle at var(--skill-x) var(--skill-y),rgba(var(--skill-a),.075),transparent 54%),linear-gradient(145deg,rgba(255,255,255,.985),rgba(249,252,255,.97) 62%,rgba(var(--skill-b),.045) 125%)!important;
-  border-color:rgba(var(--skill-a),.25)!important;
-  box-shadow:0 18px 44px rgba(40,71,105,.105),0 2px 8px rgba(40,71,105,.035),inset 0 1px 0 #fff!important;
-}
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium{background:radial-gradient(380px circle at var(--skill-x) var(--skill-y),rgba(var(--skill-a),.075),transparent 54%),linear-gradient(145deg,rgba(255,255,255,.985),rgba(249,252,255,.97) 62%,rgba(var(--skill-b),.045) 125%)!important;border-color:rgba(var(--skill-a),.25)!important;box-shadow:0 18px 44px rgba(40,71,105,.105),0 2px 8px rgba(40,71,105,.035),inset 0 1px 0 #fff!important}
 html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium::before{opacity:.24!important}
-html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium h3,
-html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover h3{color:#102235!important;font-weight:800!important;text-shadow:0 1px 0 rgba(255,255,255,.65)}
-
-/* --------------------------------------------------------------------------
-   SKILL TAGS — small premium 3D interactions on every chip.
-   Card motion stays dominant; tags add depth only when the visitor interacts.
-   -------------------------------------------------------------------------- */
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium h3,html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover h3{color:#102235!important;font-weight:800!important;text-shadow:0 1px 0 rgba(255,255,255,.65)}
 html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags{perspective:720px!important;transform-style:preserve-3d!important;gap:.58rem!important}
-html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag{
-  --tag-x:50%;--tag-y:50%;--tag-rx:0deg;--tag-ry:0deg;position:relative!important;isolation:isolate!important;overflow:hidden!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:34px!important;padding:.43rem .78rem!important;border:1px solid rgba(var(--skill-a),.23)!important;border-radius:999px!important;background:radial-gradient(120px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.10),transparent 64%),linear-gradient(145deg,rgba(255,255,255,.095),rgba(var(--skill-b),.035))!important;color:var(--text)!important;font-weight:650!important;line-height:1!important;letter-spacing:-.012em!important;box-shadow:0 5px 13px rgba(4,16,34,.075),inset 0 1px 0 rgba(255,255,255,.12)!important;transform:perspective(560px) translate3d(0,0,10px) rotateX(var(--tag-rx)) rotateY(var(--tag-ry))!important;transform-style:preserve-3d!important;backface-visibility:hidden!important;transition:transform .34s cubic-bezier(.16,1,.3,1),border-color .28s ease,box-shadow .32s ease,background .28s ease,color .28s ease!important
-}
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag{--tag-x:50%;--tag-y:50%;--tag-rx:0deg;--tag-ry:0deg;position:relative!important;isolation:isolate!important;overflow:hidden!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:34px!important;padding:.43rem .78rem!important;border:1px solid rgba(var(--skill-a),.23)!important;border-radius:999px!important;background:radial-gradient(120px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.10),transparent 64%),linear-gradient(145deg,rgba(255,255,255,.095),rgba(var(--skill-b),.035))!important;color:var(--text)!important;font-weight:650!important;line-height:1!important;letter-spacing:-.012em!important;box-shadow:0 5px 13px rgba(4,16,34,.075),inset 0 1px 0 rgba(255,255,255,.12)!important;transform:perspective(560px) translate3d(0,0,10px) rotateX(var(--tag-rx)) rotateY(var(--tag-ry))!important;transform-style:preserve-3d!important;backface-visibility:hidden!important;transition:transform .34s cubic-bezier(.16,1,.3,1),border-color .28s ease,box-shadow .32s ease,background .28s ease,color .28s ease!important}
 html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:radial-gradient(95px circle at var(--tag-x) var(--tag-y),rgba(255,255,255,.28),rgba(var(--skill-a),.12) 28%,transparent 68%);opacity:0;transition:opacity .25s ease}
 html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag::after{content:'';position:absolute;z-index:2;top:-45%;bottom:-45%;left:-52%;width:34%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.62),rgba(255,255,255,.12),transparent);transform:skewX(-18deg);opacity:0}
-html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(1){--tag-order:0}
-html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(2){--tag-order:1}
-html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(3){--tag-order:2}
-html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(4){--tag-order:3}
-html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(5){--tag-order:4}
+html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(1){--tag-order:0}html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(2){--tag-order:1}html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(3){--tag-order:2}html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(4){--tag-order:3}html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:nth-child(5){--tag-order:4}
 html.rk-ready body .page .skills-grid .skill-card.rk-skill-premium.rk-in .skill-tags .tag.rk-skill-tag{animation:rkSkillTagEnter .58s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--tag-order,0) * 55ms + 80ms)}
 @keyframes rkSkillTagEnter{from{opacity:0;transform:perspective(560px) translate3d(0,9px,5px) scale(.94) rotateX(7deg)!important}to{opacity:1;transform:perspective(560px) translate3d(0,0,10px) scale(1) rotateX(0deg)!important}}
-@media(hover:hover) and (pointer:fine){
-  html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover{color:var(--text)!important;border-color:rgba(var(--skill-a),.52)!important;background:radial-gradient(150px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.18),transparent 64%),linear-gradient(145deg,rgba(255,255,255,.145),rgba(var(--skill-b),.075))!important;box-shadow:0 13px 26px rgba(4,16,34,.15),0 0 22px rgba(var(--skill-a),.10),inset 0 1px 0 rgba(255,255,255,.2)!important;transform:perspective(560px) translate3d(0,-5px,24px) scale(1.035) rotateX(var(--tag-rx)) rotateY(var(--tag-ry))!important;z-index:8!important}
-  html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover::before{opacity:1}
-  html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover::after{animation:rkSkillTagSheen .75s cubic-bezier(.16,1,.3,1)}
-  html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:active{transform:perspective(560px) translate3d(0,-1px,12px) scale(.985) rotateX(0deg) rotateY(0deg)!important;transition-duration:.12s!important}
-}
+@media(hover:hover) and (pointer:fine){html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover{color:var(--text)!important;border-color:rgba(var(--skill-a),.52)!important;background:radial-gradient(150px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.18),transparent 64%),linear-gradient(145deg,rgba(255,255,255,.145),rgba(var(--skill-b),.075))!important;box-shadow:0 13px 26px rgba(4,16,34,.15),0 0 22px rgba(var(--skill-a),.10),inset 0 1px 0 rgba(255,255,255,.2)!important;transform:perspective(560px) translate3d(0,-5px,24px) scale(1.035) rotateX(var(--tag-rx)) rotateY(var(--tag-ry))!important;z-index:8!important}html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover::before{opacity:1}html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover::after{animation:rkSkillTagSheen .75s cubic-bezier(.16,1,.3,1)}html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:active{transform:perspective(560px) translate3d(0,-1px,12px) scale(.985) rotateX(0deg) rotateY(0deg)!important;transition-duration:.12s!important}}
 @keyframes rkSkillTagSheen{0%{left:-52%;opacity:0}18%{opacity:.72}100%{left:126%;opacity:0}}
-html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag,
-html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover .skill-tags .tag.rk-skill-tag{color:#29445d!important;font-weight:650!important;background:radial-gradient(120px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.085),transparent 64%),rgba(255,255,255,.80)!important;border-color:rgba(var(--skill-a),.24)!important;box-shadow:0 5px 13px rgba(37,70,105,.055),inset 0 1px 0 rgba(255,255,255,.98)!important}
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag,html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover .skill-tags .tag.rk-skill-tag{color:#29445d!important;font-weight:650!important;background:radial-gradient(120px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.085),transparent 64%),rgba(255,255,255,.80)!important;border-color:rgba(var(--skill-a),.24)!important;box-shadow:0 5px 13px rgba(37,70,105,.055),inset 0 1px 0 rgba(255,255,255,.98)!important}
 @media(hover:hover) and (pointer:fine){html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag:hover{color:#112d45!important;background:radial-gradient(150px circle at var(--tag-x) var(--tag-y),rgba(var(--skill-a),.14),transparent 65%),rgba(255,255,255,.96)!important;border-color:rgba(var(--skill-a),.48)!important;box-shadow:0 13px 28px rgba(37,70,105,.12),0 0 20px rgba(var(--skill-a),.075),inset 0 1px 0 #fff!important}}
-
-/* Tool-logo polish + fail-safe fallbacks. */
-.tool-logo{width:28px;height:28px;display:block;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(15,31,49,.14))}
-.tool-fallback{display:none;width:100%;height:100%;place-items:center;font-weight:800;font-size:.82rem;color:#14283b}
-.lp-i.tool-logo-box{background:rgba(255,255,255,.94)!important;border:1px solid rgba(38,77,116,.10)!important}
-.tally-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.78;letter-spacing:-.055em;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;color:#e30613;font-size:.78rem}
-.tally-mark small{display:block;margin-top:.22rem;line-height:1;font-family:'Space Grotesk',sans-serif;letter-spacing:.06em;font-size:.34rem;font-weight:700;color:#1d1d1b;text-transform:uppercase}
-.flow-mark{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:-.06em;color:#fff;background:conic-gradient(from 35deg,#4285f4 0 25%,#34a853 25% 50%,#fbbc05 50% 75%,#ea4335 75% 100%);box-shadow:inset 0 0 0 4px rgba(255,255,255,.92),0 4px 10px rgba(66,133,244,.2)}
-
-/* Center partial rows in the tools panel. */
-html body .page .rk-tools-shell .tools-section .tools-grid2{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-items:stretch!important;gap:clamp(.72rem,1.15vw,1rem)!important}
-html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex:0 1 calc(25% - .8rem)!important;width:calc(25% - .8rem)!important;max-width:calc(25% - .8rem)!important;min-width:230px!important}
-@media(max-width:1150px){html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:calc(33.333% - .8rem)!important;width:calc(33.333% - .8rem)!important;max-width:calc(33.333% - .8rem)!important}}
-@media(max-width:820px){html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:calc(50% - .55rem)!important;width:calc(50% - .55rem)!important;max-width:calc(50% - .55rem)!important;min-width:210px!important}}
-@media(max-width:520px){html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:100%!important;width:100%!important;max-width:100%!important;min-width:0!important}}
-
-/* Smooth tools motion: remove the discrete idle bounce and keep interaction motion. */
-html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{
-  animation:none!important;
-  will-change:auto!important;
-  transition:transform .28s cubic-bezier(.22,.8,.2,1),border-color .28s ease,box-shadow .3s ease,background .28s ease,opacity .22s ease!important;
-}
-html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card .lp-i{
-  animation:none!important;
-  transition:transform .3s cubic-bezier(.22,.8,.2,1),box-shadow .28s ease,filter .28s ease!important;
-}
-html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card::before{
-  animation:none!important;
-  background-position:50% 0!important;
-  opacity:.26!important;
-}
-html body .page .rk-tools-shell.rk-tools-hovering .tools-grid2 .lp.rk-tool-card:not(.rk-tool-active){
-  opacity:.86!important;
-  transform:perspective(900px) translate3d(0,0,0) scale(.996)!important;
-}
-@media(hover:hover) and (pointer:fine){
-  html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card:hover{will-change:transform!important}
-}
-
+.tool-logo{width:28px;height:28px;display:block;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(15,31,49,.14))}.tool-fallback{display:none;width:100%;height:100%;place-items:center;font-weight:800;font-size:.82rem;color:#14283b}.lp-i.tool-logo-box{background:rgba(255,255,255,.94)!important;border:1px solid rgba(38,77,116,.10)!important}.tally-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.78;letter-spacing:-.055em;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;color:#e30613;font-size:.78rem}.tally-mark small{display:block;margin-top:.22rem;line-height:1;font-family:'Space Grotesk',sans-serif;letter-spacing:.06em;font-size:.34rem;font-weight:700;color:#1d1d1b;text-transform:uppercase}.flow-mark{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:-.06em;color:#fff;background:conic-gradient(from 35deg,#4285f4 0 25%,#34a853 25% 50%,#fbbc05 50% 75%,#ea4335 75% 100%);box-shadow:inset 0 0 0 4px rgba(255,255,255,.92),0 4px 10px rgba(66,133,244,.2)}
+html body .page .rk-tools-shell .tools-section .tools-grid2{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-items:stretch!important;gap:clamp(.72rem,1.15vw,1rem)!important}html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex:0 1 calc(25% - .8rem)!important;width:calc(25% - .8rem)!important;max-width:calc(25% - .8rem)!important;min-width:230px!important}@media(max-width:1150px){html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:calc(33.333% - .8rem)!important;width:calc(33.333% - .8rem)!important;max-width:calc(33.333% - .8rem)!important}}@media(max-width:820px){html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:calc(50% - .55rem)!important;width:calc(50% - .55rem)!important;max-width:calc(50% - .55rem)!important;min-width:210px!important}}@media(max-width:520px){html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{flex-basis:100%!important;width:100%!important;max-width:100%!important;min-width:0!important}}
+html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card{animation:none!important;will-change:auto!important;transition:transform .28s cubic-bezier(.22,.8,.2,1),border-color .28s ease,box-shadow .3s ease,background .28s ease,opacity .22s ease!important}html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card .lp-i{animation:none!important;transition:transform .3s cubic-bezier(.22,.8,.2,1),box-shadow .28s ease,filter .28s ease!important}html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card::before{animation:none!important;background-position:50% 0!important;opacity:.26!important}html body .page .rk-tools-shell.rk-tools-hovering .tools-grid2 .lp.rk-tool-card:not(.rk-tool-active){opacity:.86!important;transform:perspective(900px) translate3d(0,0,0) scale(.996)!important}@media(hover:hover) and (pointer:fine){html body .page .rk-tools-shell .tools-grid2 .lp.rk-tool-card:hover{will-change:transform!important}}
 @media(prefers-reduced-motion:reduce){html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag{animation:none!important;transition:none!important;transform:none!important}html body .page .skills-grid .skill-card.rk-skill-premium .skill-tags .tag.rk-skill-tag::after{animation:none!important}}
 </style>
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
 <body>
-
 <nav>
   <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Katuwal</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="skills.html" class="active">Skills</a></li>
-    <li><a href="experience.html">Experience</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
-    <li><a href="youtube.html">YouTube</a></li>
-    <li><a href="blog.html">Blog</a></li>
-  </ul>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="skills.html" class="active">Skills</a></li><li><a href="experience.html">Experience</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="youtube.html">YouTube</a></li><li><a href="blog.html">Blog</a></li></ul>
 </nav>
-
 <div class="page reveal">
-  <h2 class="page-title" data-anim="blur" data-anim-now>Core Skills</h2>
-  <div class="divider-line" data-anim="clip" data-anim-now style="--d:1"></div>
-
+  <h2 class="page-title" data-anim="blur" data-anim-now>Core Skills</h2><div class="divider-line" data-anim="clip" data-anim-now style="--d:1"></div>
   <div class="skills-grid reveal-stagger">
-    <div class="skill-card" data-anim="pop" style="--d:0" data-glow data-lift>
-      <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
-      <h3>Digital Marketing</h3>
-      <div class="skill-tags"><span class="tag rk-skill-tag">SEO</span><span class="tag rk-skill-tag">Content Strategy</span><span class="tag rk-skill-tag">Campaign Reporting</span><span class="tag rk-skill-tag">Social Media Management</span><span class="tag rk-skill-tag">Organic Traffic Growth</span></div>
-    </div>
-
-    <div class="skill-card" data-anim="pop" style="--d:1" data-glow data-lift>
-      <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="14" height="14" rx="2"/><path d="m22 8-6 4 6 4V8z"/></svg></div>
-      <h3>Content Creation &amp; Video</h3>
-      <div class="skill-tags"><span class="tag rk-skill-tag">Adobe Premiere Pro</span><span class="tag rk-skill-tag">CapCut</span><span class="tag rk-skill-tag">Script Writing</span><span class="tag rk-skill-tag">Copywriting</span><span class="tag rk-skill-tag">Canva</span></div>
-    </div>
-
-    <div class="skill-card" data-anim="pop" style="--d:2" data-glow data-lift>
-      <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/></svg></div>
-      <h3>Accounting &amp; Finance</h3>
-      <div class="skill-tags"><span class="tag rk-skill-tag">Tally ERP / Prime</span><span class="tag rk-skill-tag">Bookkeeping</span><span class="tag rk-skill-tag">Bank Reconciliation</span><span class="tag rk-skill-tag">Invoice Processing</span><span class="tag rk-skill-tag">Financial Reporting</span></div>
-    </div>
-
-    <div class="skill-card" data-anim="pop" style="--d:3" data-glow data-lift>
-      <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-      <h3>Technical</h3>
-      <div class="skill-tags"><span class="tag rk-skill-tag">MS Office Suite</span><span class="tag rk-skill-tag">Google Workspace</span><span class="tag rk-skill-tag">HTML / CSS</span><span class="tag rk-skill-tag">Figma (basic)</span><span class="tag rk-skill-tag">Excel</span></div>
-    </div>
-
-    <div class="skill-card" data-anim="pop" style="--d:4" data-glow data-lift>
-      <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg></div>
-      <h3>Social Media Platforms</h3>
-      <div class="skill-tags"><span class="tag rk-skill-tag">TikTok</span><span class="tag rk-skill-tag">Facebook</span><span class="tag rk-skill-tag">Instagram</span><span class="tag rk-skill-tag">YouTube</span><span class="tag rk-skill-tag">LinkedIn</span></div>
-    </div>
-
-    <div class="skill-card" data-anim="pop" style="--d:5" data-glow data-lift>
-      <div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
-      <h3>Writing &amp; Communication</h3>
-      <div class="skill-tags"><span class="tag rk-skill-tag">SEO Writing</span><span class="tag rk-skill-tag">News Writing</span><span class="tag rk-skill-tag">Trend Analysis</span><span class="tag rk-skill-tag">Competitor Research</span><span class="tag rk-skill-tag">Proofreading</span></div>
-    </div>
+    <div class="skill-card" data-anim="pop" style="--d:0" data-glow data-lift><div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><h3>Digital Marketing</h3><div class="skill-tags"><span class="tag rk-skill-tag">SEO</span><span class="tag rk-skill-tag">Content Strategy</span><span class="tag rk-skill-tag">Campaign Reporting</span><span class="tag rk-skill-tag">Social Media Management</span><span class="tag rk-skill-tag">Organic Traffic Growth</span></div></div>
+    <div class="skill-card" data-anim="pop" style="--d:1" data-glow data-lift><div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="14" height="14" rx="2"/><path d="m22 8-6 4 6 4V8z"/></svg></div><h3>Content Creation &amp; Video</h3><div class="skill-tags"><span class="tag rk-skill-tag">Adobe Premiere Pro</span><span class="tag rk-skill-tag">CapCut</span><span class="tag rk-skill-tag">Script Writing</span><span class="tag rk-skill-tag">Copywriting</span><span class="tag rk-skill-tag">Canva</span></div></div>
+    <div class="skill-card" data-anim="pop" style="--d:2" data-glow data-lift><div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/></svg></div><h3>Accounting &amp; Finance</h3><div class="skill-tags"><span class="tag rk-skill-tag">Tally ERP / Prime</span><span class="tag rk-skill-tag">Bookkeeping</span><span class="tag rk-skill-tag">Bank Reconciliation</span><span class="tag rk-skill-tag">Invoice Processing</span><span class="tag rk-skill-tag">Financial Reporting</span></div></div>
+    <div class="skill-card" data-anim="pop" style="--d:3" data-glow data-lift><div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3>Technical</h3><div class="skill-tags"><span class="tag rk-skill-tag">MS Office Suite</span><span class="tag rk-skill-tag">Google Workspace</span><span class="tag rk-skill-tag">HTML / CSS</span><span class="tag rk-skill-tag">Figma (basic)</span><span class="tag rk-skill-tag">Excel</span></div></div>
+    <div class="skill-card" data-anim="pop" style="--d:4" data-glow data-lift><div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg></div><h3>Social Media Platforms</h3><div class="skill-tags"><span class="tag rk-skill-tag">TikTok</span><span class="tag rk-skill-tag">Facebook</span><span class="tag rk-skill-tag">Instagram</span><span class="tag rk-skill-tag">YouTube</span><span class="tag rk-skill-tag">LinkedIn</span></div></div>
+    <div class="skill-card" data-anim="pop" style="--d:5" data-glow data-lift><div class="skill-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div><h3>Writing &amp; Communication</h3><div class="skill-tags"><span class="tag rk-skill-tag">SEO Writing</span><span class="tag rk-skill-tag">News Writing</span><span class="tag rk-skill-tag">Trend Analysis</span><span class="tag rk-skill-tag">Competitor Research</span><span class="tag rk-skill-tag">Proofreading</span></div></div>
   </div>
-
-  <div style="background:rgba(255,255,255,.04);border:.5px solid rgba(2,136,209,.15);border-radius:10px;padding:1.8rem;backdrop-filter:blur(6px)">
-    <div class="tools-section">
-      <h3>All Tools &amp; Software</h3>
-      <div class="tools-grid2">
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/adobepremierepro.svg?height=28&amp;color=%239999FF" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">Pr</span></span>Adobe Premiere Pro</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/adobelightroom.svg?height=28&amp;color=%2331A8FF" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">Lr</span></span>Adobe Lightroom</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/adobeexpress.svg?height=28&amp;color=%23FF0000" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">Ex</span></span>Adobe Express</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/capcut.svg?height=28&amp;color=%23111111" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">CC</span></span>CapCut</div>
-
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/wondersharefilmora.svg?height=28&amp;color=%2300ADEF" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">Fi</span></span>Wondershare Filmora</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/canva.svg?height=28&amp;color=%2300C4CC" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">C</span></span>Canva</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/figma.svg?height=28&amp;color=%23F24E1E" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">Fi</span></span>Figma</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><span class="flow-mark">F</span></span>Google Flow</div>
-
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/github.svg?height=28&amp;color=%23181717" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">GH</span></span>GitHub</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><span class="tally-mark">tally<small>ERP</small></span></span>Tally ERP</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><span class="tally-mark">tally<small>Prime</small></span></span>Tally Prime</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/mdi/microsoft-excel.svg?height=28&amp;color=%23217346" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">X</span></span>Microsoft Excel</div>
-
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/mdi/microsoft-word.svg?height=28&amp;color=%232B579A" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">W</span></span>Microsoft Word</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/mdi/microsoft-powerpoint.svg?height=28&amp;color=%23D24726" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">P</span></span>Microsoft PowerPoint</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/googlesheets.svg?height=28&amp;color=%2334A853" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">GS</span></span>Google Sheets</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/googleanalytics.svg?height=28&amp;color=%23E37400" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">GA</span></span>Google Analytics</div>
-
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/html5.svg?height=28&amp;color=%23E34F26" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">H5</span></span>HTML / CSS</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/tiktok.svg?height=28&amp;color=%23111111" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">♪</span></span>TikTok Studio</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/meta.svg?height=28&amp;color=%230467DF" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">M</span></span>Meta Business Suite</div>
-        <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/youtube.svg?height=28&amp;color=%23FF0000" alt="" decoding="async" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><span class="tool-fallback">YT</span></span>YouTube Studio</div>
-      </div>
-    </div>
-  </div>
-
-  <section class="skills-certs" id="certifications">
-    <h2 class="page-title" data-anim="blur">Certifications</h2>
-    <div class="divider-line" data-anim="clip" style="--d:1"></div>
-    <div class="cert-grid">
-      <div class="cert-card" data-anim="pop" style="--d:0" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Understanding Logistics</div><span class="cert-issuer">LinkedIn Learning</span></div>
-      <div class="cert-card" data-anim="pop" style="--d:1" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Excel Essential Training (Microsoft 365)</div><span class="cert-issuer">LinkedIn Learning</span></div>
-      <div class="cert-card" data-anim="pop" style="--d:2" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Accounting Foundations: Bookkeeping</div><span class="cert-issuer">LinkedIn Learning</span></div>
-      <div class="cert-card" data-anim="pop" style="--d:3" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Communicating with Confidence</div><span class="cert-issuer">LinkedIn Learning</span></div>
-    </div>
-  </section>
+  <div style="background:rgba(255,255,255,.04);border:.5px solid rgba(2,136,209,.15);border-radius:10px;padding:1.8rem;backdrop-filter:blur(6px)"><div class="tools-section"><h3>All Tools &amp; Software</h3><div class="tools-grid2">
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/adobepremierepro.svg?height=28&amp;color=%239999FF" alt="" decoding="async"><span class="tool-fallback">Pr</span></span>Adobe Premiere Pro</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/adobelightroom.svg?height=28&amp;color=%2331A8FF" alt="" decoding="async"><span class="tool-fallback">Lr</span></span>Adobe Lightroom</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/adobeexpress.svg?height=28&amp;color=%23FF0000" alt="" decoding="async"><span class="tool-fallback">Ex</span></span>Adobe Express</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/capcut.svg?height=28&amp;color=%23111111" alt="" decoding="async"><span class="tool-fallback">CC</span></span>CapCut</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/wondersharefilmora.svg?height=28&amp;color=%2300ADEF" alt="" decoding="async"><span class="tool-fallback">Fi</span></span>Wondershare Filmora</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/canva.svg?height=28&amp;color=%2300C4CC" alt="" decoding="async"><span class="tool-fallback">C</span></span>Canva</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/figma.svg?height=28&amp;color=%23F24E1E" alt="" decoding="async"><span class="tool-fallback">Fi</span></span>Figma</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><span class="flow-mark">F</span></span>Google Flow</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/github.svg?height=28&amp;color=%23181717" alt="" decoding="async"><span class="tool-fallback">GH</span></span>GitHub</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><span class="tally-mark">tally<small>ERP</small></span></span>Tally ERP</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><span class="tally-mark">tally<small>Prime</small></span></span>Tally Prime</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/mdi/microsoft-excel.svg?height=28&amp;color=%23217346" alt="" decoding="async"><span class="tool-fallback">X</span></span>Microsoft Excel</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/mdi/microsoft-word.svg?height=28&amp;color=%232B579A" alt="" decoding="async"><span class="tool-fallback">W</span></span>Microsoft Word</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/mdi/microsoft-powerpoint.svg?height=28&amp;color=%23D24726" alt="" decoding="async"><span class="tool-fallback">P</span></span>Microsoft PowerPoint</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/googlesheets.svg?height=28&amp;color=%2334A853" alt="" decoding="async"><span class="tool-fallback">GS</span></span>Google Sheets</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/googleanalytics.svg?height=28&amp;color=%23E37400" alt="" decoding="async"><span class="tool-fallback">GA</span></span>Google Analytics</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/html5.svg?height=28&amp;color=%23E34F26" alt="" decoding="async"><span class="tool-fallback">H5</span></span>HTML / CSS</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/tiktok.svg?height=28&amp;color=%23111111" alt="" decoding="async"><span class="tool-fallback">♪</span></span>TikTok Studio</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/meta.svg?height=28&amp;color=%230467DF" alt="" decoding="async"><span class="tool-fallback">M</span></span>Meta Business Suite</div>
+    <div class="lp" data-sound><span class="lp-i tool-logo-box"><img class="tool-logo" src="https://api.iconify.design/simple-icons/youtube.svg?height=28&amp;color=%23FF0000" alt="" decoding="async"><span class="tool-fallback">YT</span></span>YouTube Studio</div>
+  </div></div></div>
+  <section class="skills-certs" id="certifications"><h2 class="page-title" data-anim="blur">Certifications</h2><div class="divider-line" data-anim="clip" style="--d:1"></div><div class="cert-grid">
+    <div class="cert-card" data-anim="pop" style="--d:0" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Understanding Logistics</div><span class="cert-issuer">LinkedIn Learning</span></div>
+    <div class="cert-card" data-anim="pop" style="--d:1" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Excel Essential Training (Microsoft 365)</div><span class="cert-issuer">LinkedIn Learning</span></div>
+    <div class="cert-card" data-anim="pop" style="--d:2" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Accounting Foundations: Bookkeeping</div><span class="cert-issuer">LinkedIn Learning</span></div>
+    <div class="cert-card" data-anim="pop" style="--d:3" data-glow data-lift data-tilt><div class="cert-badge"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0288D1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="cert-title">Communicating with Confidence</div><span class="cert-issuer">LinkedIn Learning</span></div>
+  </div></section>
 </div>
-
-<footer>
-  <div class="social-row" style="justify-content:center;margin-bottom:1rem">
-    <a href="https://www.youtube.com/@RiteshKatwal" target="_blank" class="soc" title="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></a>
-    <a href="https://www.instagram.com/riteshhrk/" target="_blank" class="soc" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2Zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9Z"/></svg></a>
-    <a href="https://www.linkedin.com/in/riteshkatwal/" target="_blank" class="soc" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.5h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3ZM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1Zm1.8 13.1H3.5V9h3.6v11.5ZM22.2 0H1.8C.8 0 0 .8 0 1.7v20.5C0 23.2.8 24 1.8 24h20.4c1 0 1.8-.8 1.8-1.8V1.7C24 .8 23.2 0 22.2 0Z"/></svg></a>
-    <a href="https://www.facebook.com/profile.php?id=100063894348763" target="_blank" class="soc" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1c0 6 4.4 11 10.1 11.9v-8.4H7.1v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3H15.8c-1.5 0-2 .9-2 1.9v2.3h3.3l-.5 3.5h-2.8V24C19.6 23 24 18.1 24 12.1Z"/></svg></a>
-  </div>
-  © 2026 Ritesh Katuwal
-</footer>
-
-<script>
-(function(){
-  function initSkillTagMotion(){
-    var tags=[].slice.call(document.querySelectorAll('.rk-skill-tag'));
-    if(!tags.length)return;
-    var fine=false,reduce=false;
-    try{fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
-    if(!fine||reduce)return;
-    tags.forEach(function(tag){
-      var raf=0,x=.5,y=.5;
-      function paint(){
-        raf=0;
-        tag.style.setProperty('--tag-x',(x*100).toFixed(1)+'%');
-        tag.style.setProperty('--tag-y',(y*100).toFixed(1)+'%');
-        tag.style.setProperty('--tag-ry',((x-.5)*10).toFixed(2)+'deg');
-        tag.style.setProperty('--tag-rx',((.5-y)*8).toFixed(2)+'deg');
-      }
-      tag.addEventListener('pointermove',function(e){
-        var r=tag.getBoundingClientRect();
-        if(!r.width||!r.height)return;
-        x=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));
-        y=Math.max(0,Math.min(1,(e.clientY-r.top)/r.height));
-        if(!raf)raf=requestAnimationFrame(paint);
-      },{passive:true});
-      tag.addEventListener('pointerleave',function(){
-        if(raf){cancelAnimationFrame(raf);raf=0}
-        tag.style.setProperty('--tag-x','50%');
-        tag.style.setProperty('--tag-y','50%');
-        tag.style.setProperty('--tag-rx','0deg');
-        tag.style.setProperty('--tag-ry','0deg');
-      },{passive:true});
-    });
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initSkillTagMotion);else initSkillTagMotion();
-})();
-</script>
-<script src="site.js"></script>
-<script src="theme.js"></script>
-<script src="availability.js"></script>
-<script src="weather.js"></script>
-<script src="motion.js"></script>
+<footer><div class="social-row" style="justify-content:center;margin-bottom:1rem"><a href="https://www.youtube.com/@RiteshKatwal" target="_blank" class="soc" title="YouTube">YouTube</a><a href="https://www.instagram.com/riteshhrk/" target="_blank" class="soc" title="Instagram">Instagram</a><a href="https://www.linkedin.com/in/riteshkatwal/" target="_blank" class="soc" title="LinkedIn">LinkedIn</a><a href="https://www.facebook.com/profile.php?id=100063894348763" target="_blank" class="soc" title="Facebook">Facebook</a></div>© 2026 Ritesh Katuwal</footer>
+<script>(function(){function initSkillTagMotion(){var tags=[].slice.call(document.querySelectorAll('.rk-skill-tag'));if(!tags.length)return;var fine=false,reduce=false;try{fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}if(!fine||reduce)return;tags.forEach(function(tag){var raf=0,x=.5,y=.5;function paint(){raf=0;tag.style.setProperty('--tag-x',(x*100).toFixed(1)+'%');tag.style.setProperty('--tag-y',(y*100).toFixed(1)+'%');tag.style.setProperty('--tag-ry',((x-.5)*10).toFixed(2)+'deg');tag.style.setProperty('--tag-rx',((.5-y)*8).toFixed(2)+'deg')}tag.addEventListener('pointermove',function(e){var r=tag.getBoundingClientRect();if(!r.width||!r.height)return;x=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));y=Math.max(0,Math.min(1,(e.clientY-r.top)/r.height));if(!raf)raf=requestAnimationFrame(paint)},{passive:true});tag.addEventListener('pointerleave',function(){if(raf){cancelAnimationFrame(raf);raf=0}tag.style.setProperty('--tag-x','50%');tag.style.setProperty('--tag-y','50%');tag.style.setProperty('--tag-rx','0deg');tag.style.setProperty('--tag-ry','0deg')},{passive:true})})}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initSkillTagMotion);else initSkillTagMotion()})();</script>
+<script src="site.js"></script><script src="theme.js"></script><script src="availability.js"></script><script src="weather.js"></script><script src="motion.js"></script>
 </body>
 </html>
