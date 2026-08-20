@@ -21,9 +21,14 @@
     if(page==='games.html'||page==='online-ludo.html'||page==='sports.html')link.classList.add('active');
   }
 
+  function appendStyleOnce(href,prefix){
+    if(document.querySelector('link[href^="'+prefix+'"]'))return;
+    var css=document.createElement('link');css.rel='stylesheet';css.href=href;document.head.appendChild(css);
+  }
+
   function ensureGamesHubStyles(){
-    if(document.querySelector('link[href^="games-enhanced.css"]'))return;
-    var css=document.createElement('link');css.rel='stylesheet';css.href='games-enhanced.css?v=20260820-3';document.head.appendChild(css);
+    appendStyleOnce('games-enhanced.css?v=20260820-3','games-enhanced.css');
+    appendStyleOnce('games-realism.css?v=20260820-2327','games-realism.css');
   }
 
   function normalizeGamesSwitch(){
