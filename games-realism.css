@@ -1,0 +1,230 @@
+/* Realism pass inspired by the supplied Ludo dice + Snake asset references. */
+
+/* --------------------------------------------------------------------------
+   LUDO DICE — glossy white plastic + deep red inset pips
+   -------------------------------------------------------------------------- */
+.dice-zone{
+  --dice-white:#fffdfa;
+  --dice-edge:#e8e5e2;
+  --pip-red:#e30718;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 32%,rgba(255,255,255,.98),rgba(237,248,255,.76) 42%,rgba(216,237,250,.44) 72%,rgba(255,255,255,.18)),
+    linear-gradient(145deg,rgba(255,255,255,.88),rgba(226,244,255,.42))!important;
+}
+.dice-zone::before{
+  content:'';
+  position:absolute;
+  left:50%;
+  top:58%;
+  width:105px;
+  height:25px;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(8,29,43,.28),rgba(8,29,43,.10) 48%,transparent 72%);
+  filter:blur(5px);
+  transform:translate(-50%,24px) scaleX(.9);
+  pointer-events:none;
+  transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .3s;
+}
+.dice-zone:hover::before{transform:translate(-50%,29px) scaleX(1.04);opacity:.92}
+.dice-zone.rolling::before{animation:rkDiceShadow .72s cubic-bezier(.22,.72,.18,1)}
+@keyframes rkDiceShadow{0%,100%{transform:translate(-50%,24px) scaleX(.9);opacity:.72}45%{transform:translate(-50%,42px) scaleX(.55);opacity:.25}72%{transform:translate(-50%,18px) scaleX(1.08);opacity:.9}}
+
+.dice-cube{
+  --dice-size:64px!important;
+  width:var(--dice-size)!important;
+  height:var(--dice-size)!important;
+  filter:drop-shadow(0 13px 12px rgba(22,45,61,.22));
+}
+.dice-3d-face{
+  padding:12%!important;
+  border:1px solid rgba(183,190,194,.72)!important;
+  border-radius:21%!important;
+  background:
+    radial-gradient(circle at 22% 15%,rgba(255,255,255,1),rgba(255,255,255,.16) 34%,transparent 52%),
+    linear-gradient(145deg,#ffffff 0%,#fffdf9 34%,#efeeeb 72%,#d9dde1 100%)!important;
+  box-shadow:
+    inset 8px 7px 11px rgba(255,255,255,.94),
+    inset -7px -8px 12px rgba(86,96,105,.18),
+    inset 0 0 0 1px rgba(255,255,255,.62),
+    0 7px 18px rgba(26,44,55,.18)!important;
+}
+.dice-3d-face::before{
+  content:'';
+  position:absolute;
+  inset:7%;
+  border-radius:18%;
+  pointer-events:none;
+  background:linear-gradient(120deg,rgba(255,255,255,.72),transparent 38%,rgba(104,122,135,.05) 78%,rgba(255,255,255,.14));
+  mix-blend-mode:screen;
+}
+.dice-3d-face i{
+  width:47%!important;
+  aspect-ratio:1;
+  position:relative;
+  z-index:2;
+  background:
+    radial-gradient(circle at 36% 26%,#ff737a 0 8%,#f01627 27%,#d10012 60%,#8d000c 100%)!important;
+  box-shadow:
+    inset 1px 2px 2px rgba(255,255,255,.54),
+    inset -2px -4px 5px rgba(71,0,4,.42),
+    0 1px 0 rgba(255,255,255,.58),
+    0 2px 4px rgba(92,0,8,.22)!important;
+}
+.dice-zone:hover .dice-cube{filter:drop-shadow(0 16px 15px rgba(22,45,61,.28)) saturate(1.03)}
+.dice-zone.rolling .dice-cube{
+  filter:drop-shadow(0 22px 18px rgba(22,45,61,.23));
+  animation:rkRealDiceRoll .74s cubic-bezier(.18,.75,.18,1)!important;
+}
+@keyframes rkRealDiceRoll{
+  0%{transform:rotateX(0) rotateY(0) rotateZ(0) translateY(0) scale(1)}
+  16%{transform:rotateX(112deg) rotateY(154deg) rotateZ(25deg) translateY(-8px) scale(.96)}
+  38%{transform:rotateX(275deg) rotateY(341deg) rotateZ(97deg) translateY(-23px) scale(1.09)}
+  61%{transform:rotateX(488deg) rotateY(552deg) rotateZ(205deg) translateY(-12px) scale(1.02)}
+  82%{transform:rotateX(655deg) rotateY(742deg) rotateZ(318deg) translateY(-3px) scale(.96)}
+  100%{transform:rotateX(720deg) rotateY(810deg) rotateZ(360deg) translateY(0) scale(1)}
+}
+
+/* Give the hero die the same glossy material language. */
+.hero-die{
+  background:linear-gradient(145deg,#fff,#efefec 65%,#cfd6dc)!important;
+  border:1px solid rgba(161,174,182,.55)!important;
+  box-shadow:inset 8px 8px 14px rgba(255,255,255,.92),inset -8px -10px 14px rgba(84,98,109,.16),0 18px 34px rgba(22,49,68,.16)!important;
+}
+.hero-die b{color:#d70719!important;text-shadow:inset 0 2px 3px rgba(255,255,255,.4),0 2px 3px rgba(96,0,7,.18)!important}
+
+/* --------------------------------------------------------------------------
+   SNAKE — mossy stone arena + supplied-reference visual language
+   -------------------------------------------------------------------------- */
+#snakeGame{
+  --snake-green:#83b51d;
+  --snake-green-deep:#446c0a;
+  --snake-belly:#d4cf29;
+  --stone:#73766f;
+  --moss:#718e1e;
+}
+.snake-board-wrap{
+  border:0!important;
+  border-radius:28px!important;
+  background:
+    linear-gradient(135deg,rgba(193,220,85,.12),transparent 34%),
+    linear-gradient(145deg,#4f6026,#263814 58%,#182610)!important;
+  box-shadow:
+    0 36px 80px rgba(0,0,0,.34),
+    0 0 0 1px rgba(214,236,137,.09),
+    inset 0 0 0 12px rgba(46,55,38,.76),
+    inset 0 0 0 14px rgba(139,151,120,.16)!important;
+}
+.snake-board-wrap::before{
+  inset:13px!important;
+  border-radius:20px;
+  background-image:
+    linear-gradient(rgba(229,235,185,.10) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(229,235,185,.10) 1px,transparent 1px),
+    radial-gradient(circle at 20% 16%,rgba(202,235,109,.11),transparent 28%),
+    radial-gradient(circle at 80% 75%,rgba(56,88,16,.18),transparent 32%)!important;
+  background-size:5% 5%,5% 5%,100% 100%,100% 100%!important;
+  mask-image:none!important;
+  opacity:.9;
+}
+.snake-board-wrap::after{
+  content:'';
+  position:absolute;
+  z-index:4;
+  inset:0;
+  pointer-events:none;
+  border-radius:inherit;
+  box-shadow:
+    inset 0 0 0 3px rgba(213,222,197,.22),
+    inset 0 0 0 8px rgba(63,66,58,.66),
+    inset 0 0 38px rgba(5,12,4,.48);
+}
+.snake-vignette{z-index:5!important;box-shadow:inset 0 0 86px rgba(6,13,4,.34),inset 0 0 0 1px rgba(255,255,255,.025)!important}
+
+.snake-overlay{
+  z-index:8!important;
+  background:radial-gradient(circle at 50% 38%,rgba(91,119,28,.24),rgba(4,9,4,.78) 68%)!important;
+  backdrop-filter:blur(7px) saturate(1.08)!important;
+}
+.snake-overlay-card{
+  max-width:360px!important;
+  padding:1.15rem 1.25rem 1.25rem;
+  border:1px solid rgba(174,211,78,.17);
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(18,31,12,.84),rgba(7,16,7,.72));
+  box-shadow:0 26px 60px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.snake-overlay-icon{
+  position:relative;
+  width:116px!important;
+  height:90px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:none!important;
+  box-shadow:none!important;
+  color:transparent!important;
+  font-size:0!important;
+}
+.snake-overlay-icon::before{
+  content:'';
+  position:absolute;
+  left:15px;
+  top:22px;
+  width:84px;
+  height:38px;
+  border-radius:55% 45% 52% 48%;
+  background:
+    radial-gradient(circle at 27% 30%,#d7ed6c 0 5%,transparent 6%),
+    repeating-radial-gradient(circle at 40% 45%,rgba(255,255,255,.16) 0 1px,transparent 1.5px 4px),
+    linear-gradient(150deg,#98c52a,#5e920e 55%,#315c07);
+  border:1px solid rgba(226,245,141,.28);
+  box-shadow:inset 0 5px 9px rgba(255,255,255,.18),inset 0 -7px 10px rgba(37,69,6,.34),0 12px 24px rgba(0,0,0,.28);
+  transform:rotate(-8deg);
+}
+.snake-overlay-icon::after{
+  content:'';
+  position:absolute;
+  left:42px;
+  top:30px;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,#080909 0 32%,#f5dc35 35% 58%,#251f02 62% 68%,transparent 70%);
+  box-shadow:-30px 18px 0 -5px #ef304b;
+}
+.snake-overlay h3{color:#eef9df!important;text-shadow:0 3px 18px rgba(124,181,33,.16)}
+.snake-overlay p{color:#a9b99c!important}
+.snake-live-pill{border-color:rgba(152,203,43,.24)!important;background:rgba(109,155,25,.12)!important;color:#c5ef70!important}
+.snake-live-pill::before{background:#9bd62d!important;box-shadow:0 0 12px rgba(155,214,45,.6)!important}
+
+/* Stone-ish HUD cards so the controls belong to the arena. */
+.snake-stat,.snake-control-card{
+  border-color:rgba(137,157,104,.18)!important;
+  background:linear-gradient(145deg,rgba(38,50,27,.84),rgba(15,24,13,.78))!important;
+  box-shadow:0 14px 32px rgba(0,0,0,.23),inset 0 1px 0 rgba(255,255,255,.045)!important;
+}
+.snake-stat span,.snake-control-card small{color:#95a889!important}
+.snake-stat strong{color:#eff8e8!important}
+.snake-stat.score strong{color:#b5e844!important;text-shadow:0 0 18px rgba(181,232,68,.2)!important}
+.snake-dpad button{border-color:rgba(157,202,63,.18)!important;background:rgba(120,155,43,.075)!important;color:#d5f28f!important}
+.snake-dpad button:hover{background:rgba(151,199,54,.15)!important}
+
+html[data-theme="light"] .dice-zone{
+  background:radial-gradient(circle at 50% 30%,#fff,#edf8ff 58%,#e7f3fa)!important;
+}
+html[data-theme="light"] .snake-stat,html[data-theme="light"] .snake-control-card{
+  background:linear-gradient(145deg,#f7faef,#e8efdb)!important;
+  border-color:rgba(89,119,45,.19)!important;
+}
+html[data-theme="light"] .snake-stat span,html[data-theme="light"] .snake-control-card small{color:#617451!important}
+html[data-theme="light"] .snake-stat strong{color:#263b1a!important}
+
+@media(max-width:700px){
+  .dice-cube{--dice-size:58px!important}
+  .snake-overlay-card{max-width:315px!important;padding:1rem}
+  .snake-overlay-icon{width:100px!important;height:78px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .dice-zone.rolling .dice-cube,.dice-zone.rolling::before{animation:none!important}
+}
