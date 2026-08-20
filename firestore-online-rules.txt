@@ -1,0 +1,62 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isPlayer(data) {
+      return signedIn() && data.players is list &&
+        data.players.where(p, p.uid == request.auth.uid).size() > 0;
+    }
+
+    function joiningSelfOnly() {
+      return signedIn() &&
+        resource.data.status == 'waiting' &&
+        request.resource.data.status == 'waiting' &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['players', 'updatedAt']) &&
+        request.resource.data.players.size() == resource.data.players.size() + 1 &&
+        request.resource.data.players.where(p, p.uid == request.auth.uid).size() == 1;
+    }
+
+    match /rooms/{roomId} {
+      allow create: if signedIn() &&
+        request.resource.data.hostUid == request.auth.uid &&
+        request.resource.data.players is list &&
+        request.resource.data.players.size() == 1 &&
+        request.resource.data.players[0].uid == request.auth.uid;
+
+      allow read: if signedIn();
+
+      allow update: if joiningSelfOnly() || isPlayer(resource.data);
+      allow delete: if signedIn() && resource.data.hostUid == request.auth.uid;
+    }
+
+    match /users/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow create, update: if signedIn() && request.auth.uid == uid;
+      allow delete: if false;
+
+      match /matches/{matchId} {
+        allow read, create: if signedIn() && request.auth.uid == uid;
+        allow update, delete: if false;
+      }
+    }
+
+    match /likes/{photo} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['count']) &&
+                    request.resource.data.count == 1;
+      allow update: if request.resource.data.keys().hasOnly(['count']) &&
+                    request.resource.data.count >= 0 &&
+                    (request.resource.data.count == resource.data.count + 1 ||
+                     request.resource.data.count == resource.data.count - 1);
+      allow delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
