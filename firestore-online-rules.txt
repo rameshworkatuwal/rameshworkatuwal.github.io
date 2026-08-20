@@ -6,9 +6,23 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function playerAt(data, index) {
+      return data.players.size() > index && data.players[index].uid == request.auth.uid;
+    }
+
     function isPlayer(data) {
-      return signedIn() && data.players is list &&
-        data.players.where(p, p.uid == request.auth.uid).size() > 0;
+      return signedIn() && data.players is list && (
+        playerAt(data, 0) ||
+        playerAt(data, 1) ||
+        playerAt(data, 2) ||
+        playerAt(data, 3)
+      );
+    }
+
+    function appendedSelf() {
+      return (request.resource.data.players.size() == 2 && request.resource.data.players[1].uid == request.auth.uid) ||
+             (request.resource.data.players.size() == 3 && request.resource.data.players[2].uid == request.auth.uid) ||
+             (request.resource.data.players.size() == 4 && request.resource.data.players[3].uid == request.auth.uid);
     }
 
     function joiningSelfOnly() {
@@ -17,7 +31,8 @@ service cloud.firestore {
         request.resource.data.status == 'waiting' &&
         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['players', 'updatedAt']) &&
         request.resource.data.players.size() == resource.data.players.size() + 1 &&
-        request.resource.data.players.where(p, p.uid == request.auth.uid).size() == 1;
+        request.resource.data.players.size() <= resource.data.maxPlayers &&
+        appendedSelf();
     }
 
     match /rooms/{roomId} {
@@ -27,8 +42,12 @@ service cloud.firestore {
         request.resource.data.players.size() == 1 &&
         request.resource.data.players[0].uid == request.auth.uid;
 
+      // Room codes are private invitations, but a signed-in user must be able
+      // to read a room by code before joining it.
       allow read: if signedIn();
 
+      // A new player may only append their own seat while waiting.
+      // Once seated, room participants can update game state.
       allow update: if joiningSelfOnly() || isPlayer(resource.data);
       allow delete: if signedIn() && resource.data.hostUid == request.auth.uid;
     }
