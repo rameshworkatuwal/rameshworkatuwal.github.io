@@ -18,6 +18,40 @@
 
 html[data-theme="light"] .lp{ background:#fff; box-shadow:0 8px 20px rgba(20,50,90,.07); }
 html[data-theme="light"] .lp:hover{ border-color:rgba(2,136,209,.45); }
+
+/* Readability pass for the animated skills cards. Motion remains colorful,
+   while the copy sits on a cleaner high-contrast surface. These selectors
+   intentionally outrank the late-loaded motion.js light-theme rules. */
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium{
+  background:
+    radial-gradient(380px circle at var(--skill-x) var(--skill-y),rgba(var(--skill-a),.075),transparent 54%),
+    linear-gradient(145deg,rgba(255,255,255,.985) 0%,rgba(249,252,255,.97) 62%,rgba(var(--skill-b),.045) 125%)!important;
+  border-color:rgba(var(--skill-a),.25)!important;
+  box-shadow:0 18px 44px rgba(40,71,105,.105),0 2px 8px rgba(40,71,105,.035),inset 0 1px 0 #fff!important;
+}
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium::before{opacity:.24!important}
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium::after{
+  background:radial-gradient(250px circle at var(--skill-x) var(--skill-y),rgba(var(--skill-a),.075),transparent 62%)!important;
+}
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium h3,
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover h3{
+  color:#102235!important;
+  font-weight:800!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.65);
+}
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium .tag,
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover .tag{
+  color:#334b62!important;
+  font-weight:600!important;
+  background:rgba(255,255,255,.72)!important;
+  border-color:rgba(32,77,116,.16)!important;
+  box-shadow:0 4px 12px rgba(37,70,105,.045),inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+html[data-theme="light"] body .page .skills-grid .skill-card.rk-skill-premium:hover .tag{
+  color:#173148!important;
+  background:rgba(255,255,255,.9)!important;
+  border-color:rgba(var(--skill-a),.32)!important;
+}
 </style>
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
