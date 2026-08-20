@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07101d">
 <title>Games — Ritesh Katuwal</title>
-<meta name="description" content="A small interactive game lab by Ritesh Katuwal. Play a polished local multiplayer Ludo game in the browser.">
+<meta name="description" content="Play polished browser games or jump into live sports from one interactive Games hub.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="widgets.css">
 <link rel="stylesheet" href="games.css">
 <link rel="stylesheet" href="games-fit.css?v=20260820-2245">
+<link rel="stylesheet" href="games-enhanced.css?v=20260820-3">
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
 <body class="games-body">
@@ -31,10 +32,28 @@
     <div>
       <div class="games-kicker"><span></span>INTERACTIVE PLAYGROUND</div>
       <h1>Games <em>Lab</em></h1>
-      <p>Small browser games, built directly into my website.</p>
+      <p>Play browser games or jump into live sports.</p>
     </div>
     <div class="hero-die" aria-hidden="true"><b>⚄</b><i></i></div>
   </header>
+
+  <div class="games-hub-switch" aria-label="Games hub mode">
+    <a href="games.html" class="is-active"><span>Play Games</span></a>
+    <a href="sports.html" class="live-link"><span>Live Sports</span></a>
+  </div>
+
+  <div class="game-picker" aria-label="Choose a game">
+    <button class="game-pick is-active" type="button" data-game="ludo">
+      <span class="game-pick-icon">🎲</span>
+      <span class="game-pick-copy"><b>Ludo</b><small>2–4 player local multiplayer</small></span>
+      <span class="game-pick-status">PLAY</span>
+    </button>
+    <button class="game-pick" type="button" data-game="snake">
+      <span class="game-pick-icon">🐍</span>
+      <span class="game-pick-copy"><b>Snake</b><small>Classic arcade · keyboard + touch</small></span>
+      <span class="game-pick-status">PLAY</span>
+    </button>
+  </div>
 
   <section class="game-shell" id="ludoGame">
     <div class="game-topbar">
@@ -82,11 +101,36 @@
       </aside>
     </div>
   </section>
+
+  <section class="game-shell" id="snakeGame" hidden>
+    <div class="game-topbar">
+      <div class="game-title-wrap"><span class="game-number">GAME 02</span><h2>Snake</h2><span class="snake-live-pill" id="snakeStatus">READY</span></div>
+      <div class="game-actions"><button class="game-btn secondary" id="snakePause" type="button">Pause</button><button class="game-btn" id="snakeRestart" type="button">Restart</button></div>
+    </div>
+    <div class="snake-layout">
+      <div class="snake-stage">
+        <div class="snake-board-wrap">
+          <canvas id="snakeCanvas" aria-label="Snake game board"></canvas>
+          <div class="snake-vignette" aria-hidden="true"></div>
+          <div class="snake-overlay" id="snakeOverlay">
+            <div class="snake-overlay-card"><div class="snake-overlay-icon">🐍</div><h3>Snake</h3><p>Arrow keys / WASD on desktop. Touch controls are ready on mobile.</p><button class="game-btn snake-start" id="snakeStart" type="button">Start Game</button></div>
+          </div>
+        </div>
+      </div>
+      <aside class="snake-panel">
+        <div class="snake-hud"><div class="snake-stat score"><span>SCORE</span><strong id="snakeScore">0</strong></div><div class="snake-stat"><span>BEST</span><strong id="snakeBest">0</strong></div></div>
+        <div class="snake-control-card"><b>Controls</b><small>Arrow keys or WASD · Space pauses · swipe/tap controls on touch.</small><div class="snake-dpad" aria-label="Snake touch controls"><button type="button" data-dir="up">↑</button><button type="button" data-dir="left">←</button><button type="button" data-dir="down">↓</button><button type="button" data-dir="right">→</button></div></div>
+      </aside>
+    </div>
+  </section>
 </main>
 
 <footer class="games-footer">© 2026 Ritesh Katuwal · Built for the browser</footer>
 <script src="site.js"></script>
 <script src="theme.js"></script>
 <script src="games.js"></script>
+<script src="games-enhanced.js?v=20260820-3"></script>
+<script src="games-audio.js?v=20260820-3"></script>
+<script src="snake.js?v=20260820-3"></script>
 </body>
 </html>
