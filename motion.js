@@ -143,8 +143,6 @@ html.rk-ready .rk-page-heading{opacity:1;transform:none}
 .skills-grid .skill-card.rk-skill-premium:nth-child(4){--skill-a:255,159,72;--skill-b:104,122,255}
 .skills-grid .skill-card.rk-skill-premium:nth-child(5){--skill-a:255,83,139;--skill-b:152,97,255}
 .skills-grid .skill-card.rk-skill-premium:nth-child(6){--skill-a:255,196,75;--skill-b:255,103,125}
-
-/* Slow aura uses transform only, not a heavy filter loop. */
 .skills-grid .skill-card.rk-skill-premium::before{
   content:'';position:absolute;z-index:-2;left:-45%;top:-72%;width:190%;aspect-ratio:1;border-radius:50%;pointer-events:none;
   background:conic-gradient(from 0deg,transparent 0 18%,rgba(var(--skill-a),.16) 28%,transparent 40% 66%,rgba(var(--skill-b),.13) 76%,transparent 88%);
@@ -154,14 +152,11 @@ html.rk-ready .rk-page-heading{opacity:1;transform:none}
 }
 .skills-grid .skill-card.rk-skill-premium:nth-child(even)::before{animation-direction:reverse;animation-duration:19s}
 @keyframes rkSkillAuraSpin{to{transform:rotate(360deg)}}
-
-/* Cursor-follow light is only repainted while the pointer moves over a card. */
 .skills-grid .skill-card.rk-skill-premium::after{
   content:'';position:absolute;z-index:-1;inset:0;pointer-events:none;border-radius:inherit;
   background:radial-gradient(260px circle at var(--skill-x) var(--skill-y),rgba(255,255,255,.17),transparent 58%);
   opacity:0;transition:opacity .34s ease;
 }
-
 .skills-grid .skill-card.rk-skill-premium .skill-icon{
   position:relative;z-index:2;
   width:58px!important;height:58px!important;border-radius:18px!important;
@@ -187,7 +182,6 @@ html.rk-ready .rk-page-heading{opacity:1;transform:none}
   transition:transform .52s var(--rk-spring),filter .35s ease!important;
 }
 @keyframes rkSkillIconFloat{0%,100%{transform:translate3d(0,0,30px) rotate(-1deg)}50%{transform:translate3d(0,-6px,30px) rotate(2deg)}}
-
 .skills-grid .skill-card.rk-skill-premium h3{
   position:relative;z-index:2;
   margin-bottom:.9rem!important;
@@ -216,8 +210,6 @@ html.rk-ready .rk-page-heading{opacity:1;transform:none}
 .skills-grid .skill-card.rk-skill-premium .tag:nth-child(3){transition-delay:56ms!important}
 .skills-grid .skill-card.rk-skill-premium .tag:nth-child(4){transition-delay:84ms!important}
 .skills-grid .skill-card.rk-skill-premium .tag:nth-child(5){transition-delay:112ms!important}
-
-/* Heading gets the same richer visual language without making it loud. */
 .page:has(.skills-grid) > .page-title{
   font-size:clamp(2.2rem,4vw,3.45rem)!important;
   letter-spacing:-.045em!important;
@@ -233,7 +225,6 @@ html.rk-ready .rk-page-heading{opacity:1;transform:none}
   transform-origin:left center;
 }
 @keyframes rkSkillTitleFlow{to{background-position:180% center}}
-
 @media(hover:hover) and (pointer:fine){
   .skills-grid .skill-card.rk-skill-premium:hover{
     transform:perspective(950px) translate3d(0,-10px,0) rotateX(var(--skill-rx)) rotateY(var(--skill-ry)) scale(1.014)!important;
@@ -260,7 +251,6 @@ html.rk-ready .rk-page-heading{opacity:1;transform:none}
   }
   .skills-grid.rk-skills-hovering .skill-card.rk-skill-premium:not(.rk-skill-active){opacity:.72;transform:translate3d(0,2px,0) scale(.988)!important}
 }
-
 html[data-theme="light"] .skills-grid .skill-card.rk-skill-premium{
   background:
     radial-gradient(420px circle at var(--skill-x) var(--skill-y),rgba(var(--skill-a),.13),transparent 49%),
@@ -277,13 +267,136 @@ html[data-theme="light"] .skills-grid .skill-card.rk-skill-premium h3{color:#102
 html[data-theme="light"] .skills-grid .skill-card.rk-skill-premium .tag{color:#60778f!important;background:linear-gradient(135deg,rgba(var(--skill-a),.07),rgba(var(--skill-b),.035))!important}
 html[data-theme="light"] .skills-grid .skill-card.rk-skill-premium:hover h3{color:rgb(var(--skill-a))!important}
 html[data-theme="light"] .skills-grid .skill-card.rk-skill-premium:hover .tag{color:#17334c!important}
-
 @media(max-width:1050px){.skills-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:620px){
   .skills-grid{grid-template-columns:1fr!important;gap:.9rem!important}
   .skills-grid .skill-card.rk-skill-premium{min-height:0;padding:1.3rem!important;border-radius:20px!important}
   .skills-grid .skill-card.rk-skill-premium .skill-icon{width:52px!important;height:52px!important;border-radius:16px!important}
 }
+
+/* ============================================================
+   ALL TOOLS & SOFTWARE — keep the existing logos, upgrade the presentation.
+   Motion is intentionally transform/opacity-based so it looks rich without
+   bringing back the portfolio-page lag problems.
+   ============================================================ */
+.rk-tools-shell{
+  position:relative!important;isolation:isolate;overflow:hidden!important;
+  padding:clamp(1.25rem,2.2vw,2rem)!important;border-radius:30px!important;
+  border:1px solid rgba(92,176,232,.20)!important;
+  background:
+    radial-gradient(circle at 8% 0%,rgba(55,214,255,.10),transparent 28%),
+    radial-gradient(circle at 95% 16%,rgba(135,104,255,.10),transparent 31%),
+    linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018))!important;
+  box-shadow:0 24px 68px rgba(4,15,30,.12),inset 0 1px 0 rgba(255,255,255,.07)!important;
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+}
+.rk-tools-shell::before{
+  content:'';position:absolute;z-index:-2;inset:-45% -10%;pointer-events:none;
+  background:conic-gradient(from 0deg at 50% 50%,transparent 0 18%,rgba(55,215,255,.12) 28%,transparent 41% 62%,rgba(142,107,255,.11) 72%,transparent 86%);
+  animation:rkToolsAura 18s linear infinite;
+  transform:translateZ(0);
+}
+.rk-tools-shell::after{
+  content:'';position:absolute;z-index:-1;inset:0;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(118deg,transparent 6%,rgba(255,255,255,.035) 28%,transparent 48%,rgba(82,211,255,.035) 68%,transparent 92%);
+  background-size:220% 100%;animation:rkToolsShellSweep 9s linear infinite;
+}
+@keyframes rkToolsAura{to{transform:rotate(360deg)}}
+@keyframes rkToolsShellSweep{to{background-position:220% 0}}
+.rk-tools-shell .tools-section{position:relative;z-index:2}
+.rk-tools-shell .tools-section>h3{
+  margin:0 0 1.25rem!important;font:800 clamp(.86rem,1.2vw,1.05rem)/1 'Space Grotesk',sans-serif!important;
+  letter-spacing:.08em!important;text-transform:uppercase!important;
+  background:linear-gradient(90deg,#27d7ff,#448dff 48%,#8a72ff 86%);background-size:180% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent!important;
+  animation:rkToolsTitle 7s linear infinite;
+}
+@keyframes rkToolsTitle{to{background-position:180% 0}}
+.rk-tools-shell .tools-grid2{
+  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:clamp(.72rem,1.15vw,1rem)!important;margin-top:0!important;perspective:1100px;
+}
+.rk-tools-shell .lp.rk-tool-card{
+  --tool-a:66,207,255;--tool-x:50%;--tool-y:50%;--tool-rx:0deg;--tool-ry:0deg;
+  position:relative!important;isolation:isolate;overflow:hidden;
+  display:flex!important;align-items:center!important;gap:.78rem!important;min-width:0!important;min-height:82px;
+  padding:.72rem .9rem .72rem .72rem!important;border-radius:22px!important;
+  border:1px solid rgba(var(--tool-a),.20)!important;
+  background:
+    radial-gradient(220px circle at var(--tool-x) var(--tool-y),rgba(var(--tool-a),.115),transparent 57%),
+    linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025) 58%,rgba(var(--tool-a),.045))!important;
+  color:var(--text)!important;font-family:'Plus Jakarta Sans',sans-serif!important;font-size:.80rem!important;font-weight:650!important;
+  box-shadow:0 12px 30px rgba(4,15,30,.11),inset 0 1px 0 rgba(255,255,255,.08)!important;
+  transform-style:preserve-3d;backface-visibility:hidden;will-change:transform;
+  transform:perspective(900px) translate3d(0,var(--tool-float,0px),0) rotateX(var(--tool-rx)) rotateY(var(--tool-ry));
+  transition:transform .42s var(--rk-spring),border-color .32s ease,box-shadow .38s ease,background .32s ease,opacity .3s ease!important;
+  animation:rkToolDrift 6.4s ease-in-out infinite;
+  animation-delay:calc(var(--tool-index,0) * -430ms);
+}
+.rk-tools-shell .lp.rk-tool-card::before{
+  content:'';position:absolute;z-index:-1;inset:-1px;padding:1px;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(120deg,transparent 5%,rgba(var(--tool-a),.85) 24%,transparent 41%,rgba(255,255,255,.24) 56%,transparent 74%,rgba(var(--tool-a),.58) 91%);
+  background-size:240% 100%;opacity:.33;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  animation:rkToolEdge 5.6s linear infinite;
+}
+.rk-tools-shell .lp.rk-tool-card::after{
+  content:'';position:absolute;top:-34%;bottom:-34%;left:-50%;width:30%;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.26),rgba(255,255,255,.08),transparent);
+  transform:skewX(-18deg);opacity:0;
+}
+@keyframes rkToolDrift{0%,100%{--tool-float:0px}50%{--tool-float:-3px}}
+@keyframes rkToolEdge{to{background-position:240% 0}}
+.rk-tools-shell .lp.rk-tool-card .lp-i{
+  position:relative!important;z-index:3;display:grid!important;place-items:center!important;flex:0 0 auto!important;
+  width:46px!important;height:46px!important;border-radius:15px!important;
+  box-shadow:0 10px 24px rgba(6,20,39,.14),0 0 0 1px rgba(255,255,255,.05) inset!important;
+  transform:translateZ(28px) rotateY(-5deg) rotateX(3deg);
+  transition:transform .48s var(--rk-spring),box-shadow .38s ease,filter .35s ease!important;
+  animation:rkToolIconFloat 4.8s ease-in-out infinite;
+  animation-delay:calc(var(--tool-index,0) * -310ms);
+}
+.rk-tools-shell .lp.rk-tool-card .lp-i::after{
+  content:'';position:absolute;inset:-6px;border:1px solid rgba(var(--tool-a),.18);border-radius:20px;pointer-events:none;
+  opacity:.6;transform:rotate(-6deg) scale(.92);transition:transform .48s var(--rk-spring),opacity .35s ease;
+}
+.rk-tools-shell .lp.rk-tool-card .lp-i svg{width:23px!important;height:23px!important}
+@keyframes rkToolIconFloat{0%,100%{transform:translate3d(0,0,28px) rotateY(-5deg) rotateX(3deg)}50%{transform:translate3d(0,-4px,28px) rotateY(4deg) rotateX(-2deg)}}
+.rk-tools-shell.rk-tools-hovering .lp.rk-tool-card:not(.rk-tool-active){opacity:.58!important;transform:perspective(900px) translate3d(0,2px,0) scale(.985)!important}
+
+@media(hover:hover) and (pointer:fine){
+  .rk-tools-shell .lp.rk-tool-card:hover{
+    animation-play-state:paused;
+    transform:perspective(900px) translate3d(0,-8px,0) rotateX(var(--tool-rx)) rotateY(var(--tool-ry)) scale(1.018)!important;
+    border-color:rgba(var(--tool-a),.48)!important;
+    box-shadow:0 24px 52px rgba(4,16,34,.19),0 0 26px rgba(var(--tool-a),.09),inset 0 1px 0 rgba(255,255,255,.13)!important;
+    z-index:8;
+  }
+  .rk-tools-shell .lp.rk-tool-card:hover::before{opacity:.9}
+  .rk-tools-shell .lp.rk-tool-card:hover::after{animation:rkToolSheen .78s var(--rk-spring)}
+  .rk-tools-shell .lp.rk-tool-card:hover .lp-i{
+    animation-play-state:paused;
+    transform:translate3d(0,-3px,38px) rotateY(10deg) rotateX(-7deg) scale(1.08);
+    box-shadow:0 18px 34px rgba(6,20,39,.18),0 0 0 7px rgba(var(--tool-a),.055)!important;
+    filter:saturate(1.1) contrast(1.03);
+  }
+  .rk-tools-shell .lp.rk-tool-card:hover .lp-i::after{opacity:1;transform:rotate(7deg) scale(1.02)}
+}
+@keyframes rkToolSheen{0%{left:-50%;opacity:0}18%{opacity:.68}100%{left:125%;opacity:0}}
+
+html[data-theme="light"] .rk-tools-shell{
+  background:radial-gradient(circle at 8% 0%,rgba(55,214,255,.09),transparent 28%),radial-gradient(circle at 95% 16%,rgba(135,104,255,.08),transparent 31%),linear-gradient(145deg,#fff,rgba(247,251,255,.95))!important;
+  border-color:rgba(74,151,207,.18)!important;box-shadow:0 24px 68px rgba(48,81,118,.08),inset 0 1px 0 #fff!important;
+}
+html[data-theme="light"] .rk-tools-shell .lp.rk-tool-card{
+  background:radial-gradient(220px circle at var(--tool-x) var(--tool-y),rgba(var(--tool-a),.09),transparent 58%),linear-gradient(145deg,#fff,#f9fbff 64%,rgba(var(--tool-a),.035))!important;
+  color:#14283b!important;border-color:rgba(var(--tool-a),.20)!important;
+  box-shadow:0 12px 28px rgba(44,75,111,.08),inset 0 1px 0 #fff!important;
+}
+html[data-theme="light"] .rk-tools-shell .lp.rk-tool-card .lp-i{box-shadow:0 10px 22px rgba(42,71,105,.11),0 0 0 1px rgba(255,255,255,.7) inset!important}
+@media(max-width:1150px){.rk-tools-shell .tools-grid2{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:820px){.rk-tools-shell .tools-grid2{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:520px){.rk-tools-shell{padding:1rem!important;border-radius:22px!important}.rk-tools-shell .tools-grid2{grid-template-columns:1fr!important}.rk-tools-shell .lp.rk-tool-card{min-height:72px}}
 
 /* Buttons: retain a tiny lift but remove magnetic pointer tracking. */
 .rk-magnet{
@@ -322,6 +435,8 @@ body.rk-page-leave{opacity:.88;transition:opacity .16s ease}
   }
   .skills-grid .skill-card.rk-skill-premium::before,.skills-grid .skill-card.rk-skill-premium .skill-icon,.page:has(.skills-grid) > .page-title{animation:none!important}
   .skills-grid .skill-card.rk-skill-premium,.skills-grid .skill-card.rk-skill-premium .skill-icon{transform:none!important}
+  .rk-tools-shell::before,.rk-tools-shell::after,.rk-tools-shell .lp.rk-tool-card,.rk-tools-shell .lp.rk-tool-card::before,.rk-tools-shell .lp.rk-tool-card .lp-i,.rk-tools-shell .tools-section>h3{animation:none!important}
+  .rk-tools-shell .lp.rk-tool-card,.rk-tools-shell .lp.rk-tool-card .lp-i{transform:none!important;transition:none!important}
 }
 `;
     document.head.appendChild(style);
@@ -456,6 +571,64 @@ body.rk-page-leave{opacity:.88;transition:opacity .16s ease}
     });
   }
 
+  function setupToolsShowcase() {
+    var tools = document.querySelector('.tools-grid2');
+    if (!tools) return;
+    var shell = tools.closest('.tools-section');
+    if (!shell) return;
+    var wrapper = shell.parentElement;
+    if (wrapper) wrapper.classList.add('rk-tools-shell');
+
+    var colors = [
+      '153,69,255','43,43,52','0,196,204','242,78,30','200,16,46','22,105,183','28,122,72',
+      '43,87,154','52,168,83','227,116,0','227,79,38','255,58,120','4,103,223','255,0,0'
+    ];
+    var cards = qsa('.lp', tools);
+    cards.forEach(function (card, index) {
+      card.classList.add('rk-tool-card');
+      card.style.setProperty('--tool-index', index);
+      card.style.setProperty('--tool-a', colors[index % colors.length]);
+    });
+
+    if (reduce) return;
+    var canHover = false;
+    try { canHover = window.matchMedia('(hover:hover) and (pointer:fine)').matches; } catch (e) {}
+    if (!canHover) return;
+
+    cards.forEach(function (card) {
+      var frame = 0, px = .5, py = .5;
+      function paint() {
+        frame = 0;
+        var x = Math.max(0,Math.min(1,px));
+        var y = Math.max(0,Math.min(1,py));
+        card.style.setProperty('--tool-x',(x*100).toFixed(1)+'%');
+        card.style.setProperty('--tool-y',(y*100).toFixed(1)+'%');
+        card.style.setProperty('--tool-ry',((x-.5)*8).toFixed(2)+'deg');
+        card.style.setProperty('--tool-rx',((.5-y)*7).toFixed(2)+'deg');
+      }
+      card.addEventListener('pointerenter',function(){
+        card.classList.add('rk-tool-active');
+        if (wrapper) wrapper.classList.add('rk-tools-hovering');
+      },{passive:true});
+      card.addEventListener('pointermove',function(event){
+        var rect=card.getBoundingClientRect();
+        if(!rect.width||!rect.height)return;
+        px=(event.clientX-rect.left)/rect.width;
+        py=(event.clientY-rect.top)/rect.height;
+        if(!frame)frame=requestAnimationFrame(paint);
+      },{passive:true});
+      card.addEventListener('pointerleave',function(){
+        if(frame){cancelAnimationFrame(frame);frame=0;}
+        card.classList.remove('rk-tool-active');
+        if(wrapper)wrapper.classList.remove('rk-tools-hovering');
+        card.style.setProperty('--tool-x','50%');
+        card.style.setProperty('--tool-y','50%');
+        card.style.setProperty('--tool-rx','0deg');
+        card.style.setProperty('--tool-ry','0deg');
+      },{passive:true});
+    });
+  }
+
   function setupPageLeave() {
     qsa('a[href]').forEach(function (link) {
       link.addEventListener('click', function () {
@@ -479,6 +652,7 @@ body.rk-page-leave{opacity:.88;transition:opacity .16s ease}
     setupReveals();
     setupButtons();
     setupSkillsShowcase();
+    setupToolsShowcase();
     setupPortfolioPanelMotion();
     setupPageLeave();
 
