@@ -219,3 +219,51 @@ html[data-theme="light"] .skills-certs .cert-issuer{
   }
   .skills-certs .cert-card::after{display:none!important}
 }
+
+/* Skills page footer: normalize old text-only social links into icon buttons. */
+footer .social-row{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:.75rem!important;
+  margin:0 0 1rem!important;
+  animation:none!important;
+}
+footer .soc{
+  flex:0 0 42px!important;
+  width:42px!important;
+  height:42px!important;
+  padding:0!important;
+  font-size:0!important;
+  line-height:0!important;
+  overflow:hidden;
+}
+footer .soc::before{
+  content:'';
+  display:block;
+  width:18px;
+  height:18px;
+  background:currentColor;
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+  -webkit-mask-position:center;
+  mask-position:center;
+  -webkit-mask-size:contain;
+  mask-size:contain;
+}
+footer .soc[title="YouTube"]::before{
+  -webkit-mask-image:url("https://api.iconify.design/simple-icons/youtube.svg");
+  mask-image:url("https://api.iconify.design/simple-icons/youtube.svg");
+}
+footer .soc[title="Instagram"]::before{
+  -webkit-mask-image:url("https://api.iconify.design/simple-icons/instagram.svg");
+  mask-image:url("https://api.iconify.design/simple-icons/instagram.svg");
+}
+footer .soc[title="LinkedIn"]::before{
+  -webkit-mask-image:url("https://api.iconify.design/simple-icons/linkedin.svg");
+  mask-image:url("https://api.iconify.design/simple-icons/linkedin.svg");
+}
+footer .soc[title="Facebook"]::before{
+  -webkit-mask-image:url("https://api.iconify.design/simple-icons/facebook.svg");
+  mask-image:url("https://api.iconify.design/simple-icons/facebook.svg");
+}
