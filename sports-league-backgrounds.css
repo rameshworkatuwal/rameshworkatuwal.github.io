@@ -1,0 +1,264 @@
+/* Premium competition-specific backgrounds for Match Center + fixture groups.
+   Identity is driven by the league theme already attached to each fixture group.
+   Keep the information cards calm; make the competition hero memorable. */
+
+:root{
+  --rk-league-a:#12243a;
+  --rk-league-b:#07111d;
+  --rk-league-c:#36c7ff;
+  --rk-league-d:#7c5cff;
+  --rk-league-rgb:54,199,255;
+  --rk-league-rgb2:124,92,255;
+  --rk-league-on:#f7fbff;
+  --rk-league-muted:#b8c6d6;
+}
+
+/* ---------- THEME TOKENS ---------- */
+[data-league-theme="premier"]{--rk-league-a:#2f124b;--rk-league-b:#0d1532;--rk-league-c:#00e3ff;--rk-league-d:#ff3fc4;--rk-league-rgb:0,227,255;--rk-league-rgb2:255,63,196;--rk-league-on:#fff;--rk-league-muted:#d9c9ee}
+[data-league-theme="laliga"]{--rk-league-a:#29151f;--rk-league-b:#111722;--rk-league-c:#ff5258;--rk-league-d:#ffc052;--rk-league-rgb:255,82,88;--rk-league-rgb2:255,192,82;--rk-league-on:#fff;--rk-league-muted:#ecd6d8}
+[data-league-theme="seriea"]{--rk-league-a:#083a79;--rk-league-b:#071a35;--rk-league-c:#22b6ff;--rk-league-d:#52e6cb;--rk-league-rgb:34,182,255;--rk-league-rgb2:82,230,203;--rk-league-on:#fff;--rk-league-muted:#c8e2fb}
+[data-league-theme="ligue1"]{--rk-league-a:#082e39;--rk-league-b:#071923;--rk-league-c:#18d8cc;--rk-league-d:#b7df38;--rk-league-rgb:24,216,204;--rk-league-rgb2:183,223,56;--rk-league-on:#fff;--rk-league-muted:#c8e8e4}
+[data-league-theme="bundesliga"]{--rk-league-a:#3a1017;--rk-league-b:#13090d;--rk-league-c:#f23348;--rk-league-d:#ff8b6e;--rk-league-rgb:242,51,72;--rk-league-rgb2:255,139,110;--rk-league-on:#fff;--rk-league-muted:#efd0d4}
+[data-league-theme="ucl"]{--rk-league-a:#111b4b;--rk-league-b:#05091b;--rk-league-c:#6e86ff;--rk-league-d:#44d9ff;--rk-league-rgb:110,134,255;--rk-league-rgb2:68,217,255;--rk-league-on:#fff;--rk-league-muted:#c7d1f4}
+[data-league-theme="europa"]{--rk-league-a:#2e1b10;--rk-league-b:#101113;--rk-league-c:#ff8a24;--rk-league-d:#ffd06a;--rk-league-rgb:255,138,36;--rk-league-rgb2:255,208,106;--rk-league-on:#fff;--rk-league-muted:#e8d4bf}
+[data-league-theme="conference"]{--rk-league-a:#183024;--rk-league-b:#0b1510;--rk-league-c:#55df7d;--rk-league-d:#bdf25e;--rk-league-rgb:85,223,125;--rk-league-rgb2:189,242,94;--rk-league-on:#fff;--rk-league-muted:#cde8d4}
+[data-league-theme="worldcup"]{--rk-league-a:#53162d;--rk-league-b:#251020;--rk-league-c:#f4d27a;--rk-league-d:#ec638f;--rk-league-rgb:244,210,122;--rk-league-rgb2:236,99,143;--rk-league-on:#fffaf1;--rk-league-muted:#e8cad5}
+[data-league-theme="euro"]{--rk-league-a:#16295c;--rk-league-b:#09142d;--rk-league-c:#4bb7ff;--rk-league-d:#f3bf41;--rk-league-rgb:75,183,255;--rk-league-rgb2:243,191,65;--rk-league-on:#fff;--rk-league-muted:#c6d8f2}
+[data-league-theme="mls"]{--rk-league-a:#102a42;--rk-league-b:#071622;--rk-league-c:#33c7ff;--rk-league-d:#f05065;--rk-league-rgb:51,199,255;--rk-league-rgb2:240,80,101;--rk-league-on:#fff;--rk-league-muted:#cad9e6}
+[data-league-theme="championship"]{--rk-league-a:#132a54;--rk-league-b:#081426;--rk-league-c:#3488ff;--rk-league-d:#e5bf65;--rk-league-rgb:52,136,255;--rk-league-rgb2:229,191,101;--rk-league-on:#fff;--rk-league-muted:#cedaf0}
+
+[data-league-theme="nba"]{--rk-league-a:#182d5c;--rk-league-b:#0a1328;--rk-league-c:#4385ff;--rk-league-d:#f14f5d;--rk-league-rgb:67,133,255;--rk-league-rgb2:241,79,93;--rk-league-on:#fff;--rk-league-muted:#ccd8ee}
+[data-league-theme="nfl"],[data-league-theme="american-football"]{--rk-league-a:#173052;--rk-league-b:#091624;--rk-league-c:#4ea0ff;--rk-league-d:#ef584d;--rk-league-rgb:78,160,255;--rk-league-rgb2:239,88,77;--rk-league-on:#fff;--rk-league-muted:#cbd8e8}
+[data-league-theme="mlb"],[data-league-theme="baseball"]{--rk-league-a:#17335a;--rk-league-b:#07182b;--rk-league-c:#4d8ff8;--rk-league-d:#e95664;--rk-league-rgb:77,143,248;--rk-league-rgb2:233,86,100;--rk-league-on:#fff;--rk-league-muted:#cbd8eb}
+[data-league-theme="nhl"],[data-league-theme="ice-hockey"]{--rk-league-a:#23303c;--rk-league-b:#0b1117;--rk-league-c:#94dfff;--rk-league-d:#d7f4ff;--rk-league-rgb:148,223,255;--rk-league-rgb2:215,244,255;--rk-league-on:#fff;--rk-league-muted:#cad9e4}
+[data-league-theme="basketball"]{--rk-league-a:#4a2415;--rk-league-b:#17100c;--rk-league-c:#ff9138;--rk-league-d:#ffc65e;--rk-league-rgb:255,145,56;--rk-league-rgb2:255,198,94;--rk-league-on:#fff;--rk-league-muted:#ebd5c5}
+[data-league-theme="cricket"]{--rk-league-a:#113c32;--rk-league-b:#071c18;--rk-league-c:#4bd39f;--rk-league-d:#e8c65b;--rk-league-rgb:75,211,159;--rk-league-rgb2:232,198,91;--rk-league-on:#fff;--rk-league-muted:#cde5dd}
+[data-league-theme="ipl"]{--rk-league-a:#35205f;--rk-league-b:#12112e;--rk-league-c:#7c79ff;--rk-league-d:#ffb43e;--rk-league-rgb:124,121,255;--rk-league-rgb2:255,180,62;--rk-league-on:#fff;--rk-league-muted:#d9d1ee}
+[data-league-theme="volleyball"]{--rk-league-a:#3f215d;--rk-league-b:#141025;--rk-league-c:#9b67ff;--rk-league-d:#ff6f9f;--rk-league-rgb:155,103,255;--rk-league-rgb2:255,111,159;--rk-league-on:#fff;--rk-league-muted:#ddcfeb}
+[data-league-theme="rugby"]{--rk-league-a:#25375b;--rk-league-b:#0b1427;--rk-league-c:#4d86ff;--rk-league-d:#e2b55c;--rk-league-rgb:77,134,255;--rk-league-rgb2:226,181,92;--rk-league-on:#fff;--rk-league-muted:#d1daec}
+[data-league-theme="tennis"]{--rk-league-a:#322055;--rk-league-b:#121024;--rk-league-c:#b0e63b;--rk-league-d:#8e6cff;--rk-league-rgb:176,230,59;--rk-league-rgb2:142,108,255;--rk-league-on:#fff;--rk-league-muted:#d8d5e7}
+[data-league-theme="motorsport"]{--rk-league-a:#321018;--rk-league-b:#09090b;--rk-league-c:#ff3450;--rk-league-d:#ff9d43;--rk-league-rgb:255,52,80;--rk-league-rgb2:255,157,67;--rk-league-on:#fff;--rk-league-muted:#e2cdd1}
+[data-league-theme="golf"]{--rk-league-a:#153d2c;--rk-league-b:#071a12;--rk-league-c:#4bd486;--rk-league-d:#d1b356;--rk-league-rgb:75,212,134;--rk-league-rgb2:209,179,86;--rk-league-on:#fff;--rk-league-muted:#d0e5d8}
+[data-league-theme="handball"]{--rk-league-a:#143e58;--rk-league-b:#081b28;--rk-league-c:#3ac8f2;--rk-league-d:#7ae4d8;--rk-league-rgb:58,200,242;--rk-league-rgb2:122,228,216;--rk-league-on:#fff;--rk-league-muted:#cce5ee}
+[data-league-theme="football"]{--rk-league-a:#123b4b;--rk-league-b:#071b27;--rk-league-c:#34bee7;--rk-league-d:#50dca8;--rk-league-rgb:52,190,231;--rk-league-rgb2:80,220,168;--rk-league-on:#fff;--rk-league-muted:#c9e3e8}
+
+/* ---------- FIXTURE GROUPS ---------- */
+.fixture-league-section{
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden!important;
+  border-color:rgba(var(--rk-league-rgb),.13)!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.985),rgba(249,251,254,.99))!important;
+  box-shadow:0 16px 40px rgba(33,58,86,.065)!important;
+}
+.fixture-league-section::before{
+  content:'';
+  position:absolute;
+  inset:0 auto 0 0;
+  width:4px;
+  z-index:4;
+  background:linear-gradient(180deg,var(--rk-league-c),var(--rk-league-d));
+  opacity:.92;
+}
+.fixture-league-section::after{
+  content:'';
+  position:absolute;
+  z-index:0;
+  right:-90px;
+  top:-115px;
+  width:300px;
+  height:230px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(var(--rk-league-rgb),.08),transparent 68%);
+  filter:blur(2px);
+  pointer-events:none;
+}
+.fixture-league-head{
+  position:relative!important;
+  z-index:2!important;
+  background:
+    linear-gradient(90deg,rgba(var(--rk-league-rgb),.055),rgba(var(--rk-league-rgb2),.025) 58%,transparent)!important;
+  border-bottom-color:rgba(var(--rk-league-rgb),.10)!important;
+}
+.fixture-league-logo{
+  border-color:rgba(var(--rk-league-rgb),.15)!important;
+  box-shadow:0 7px 16px rgba(var(--rk-league-rgb),.08)!important;
+}
+.fixture-league-count{
+  border-color:rgba(var(--rk-league-rgb),.11)!important;
+  background:rgba(var(--rk-league-rgb),.065)!important;
+  color:color-mix(in srgb,var(--rk-league-c) 62%,#31465c)!important;
+}
+.fixture-row{position:relative!important;z-index:2!important}
+.fixture-row:hover{
+  background:linear-gradient(90deg,rgba(var(--rk-league-rgb),.045),rgba(var(--rk-league-rgb2),.02),transparent)!important;
+}
+.fixture-row.is-live::before{
+  background:linear-gradient(180deg,#ff355e,var(--rk-league-c))!important;
+}
+
+html:not([data-theme="light"]) .fixture-league-section{
+  background:linear-gradient(180deg,#0d1722,#09131d)!important;
+  border-color:rgba(var(--rk-league-rgb),.15)!important;
+  box-shadow:0 18px 45px rgba(0,0,0,.23)!important;
+}
+html:not([data-theme="light"]) .fixture-league-head{
+  background:linear-gradient(90deg,rgba(var(--rk-league-rgb),.09),rgba(var(--rk-league-rgb2),.035),transparent)!important;
+}
+
+/* ---------- FULL MATCH CENTER HERO ---------- */
+.match-drawer[data-league-theme] .match-drawer-top{
+  border-bottom-color:rgba(var(--rk-league-rgb),.13)!important;
+  box-shadow:0 6px 20px rgba(9,19,31,.035)!important;
+}
+.match-center-v3[data-league-theme] .mc3-hero{
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden!important;
+  color:var(--rk-league-on)!important;
+  border-bottom:0!important;
+  background:
+    radial-gradient(circle at 15% 15%,rgba(var(--rk-league-rgb),.30),transparent 30%),
+    radial-gradient(circle at 85% 10%,rgba(var(--rk-league-rgb2),.24),transparent 31%),
+    radial-gradient(circle at 50% 120%,rgba(255,255,255,.08),transparent 35%),
+    linear-gradient(135deg,var(--rk-league-a) 0%,var(--rk-league-b) 67%,#050a10 100%)!important;
+  box-shadow:inset 0 -1px 0 rgba(255,255,255,.07)!important;
+}
+.match-center-v3[data-league-theme] .mc3-hero::before{
+  content:''!important;
+  position:absolute!important;
+  inset:-20%!important;
+  z-index:0!important;
+  opacity:.46!important;
+  background:
+    radial-gradient(circle at 22% 32%,rgba(255,255,255,.13) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 76% 61%,rgba(255,255,255,.09) 0 1px,transparent 1.7px)!important;
+  background-size:78px 78px,96px 96px!important;
+  transform:rotate(-7deg)!important;
+  animation:rkLeagueDrift 24s linear infinite!important;
+  pointer-events:none!important;
+}
+.match-center-v3[data-league-theme] .mc3-hero::after{
+  content:'';
+  position:absolute;
+  z-index:0;
+  left:50%;
+  bottom:-130px;
+  width:min(820px,88vw);
+  height:230px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(var(--rk-league-rgb),.18),transparent 67%);
+  filter:blur(12px);
+  pointer-events:none;
+}
+@keyframes rkLeagueDrift{to{transform:translate3d(48px,24px,0) rotate(-7deg)}}
+
+.match-center-v3[data-league-theme] .mc3-inner,
+.match-center-v3[data-league-theme] .mc3-strip{position:relative!important;z-index:3!important}
+.match-center-v3[data-league-theme] .mc3-comp strong,
+.match-center-v3[data-league-theme] .mc3-team-name,
+.match-center-v3[data-league-theme] .mc3-score,
+.match-center-v3[data-league-theme] .mc3-score.vs{color:var(--rk-league-on)!important;text-shadow:0 2px 20px rgba(0,0,0,.16)!important}
+.match-center-v3[data-league-theme] .mc3-comp span,
+.match-center-v3[data-league-theme] .mc3-team-sub,
+.match-center-v3[data-league-theme] .mc3-kickoff,
+.match-center-v3[data-league-theme] .mc3-note{color:var(--rk-league-muted)!important}
+.match-center-v3[data-league-theme] .mc3-comp-logo,
+.match-center-v3[data-league-theme] .mc3-crest{
+  background:rgba(255,255,255,.97)!important;
+  border-color:rgba(255,255,255,.48)!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.22),inset 0 1px 0 #fff!important;
+  transition:transform .32s cubic-bezier(.16,1,.3,1),box-shadow .32s ease!important;
+}
+.match-center-v3[data-league-theme] .mc3-team:hover .mc3-crest{
+  transform:translateY(-4px) rotateX(2deg) scale(1.025)!important;
+  box-shadow:0 24px 50px rgba(0,0,0,.27),0 0 0 1px rgba(var(--rk-league-rgb),.16)!important;
+}
+.match-center-v3[data-league-theme] .mc3-status{
+  border:1px solid rgba(255,255,255,.12)!important;
+  background:rgba(4,10,18,.48)!important;
+  backdrop-filter:blur(12px)!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.16)!important;
+}
+.match-center-v3[data-league-theme] .mc3-status.live{
+  background:linear-gradient(135deg,#e73258,#ff4d68)!important;
+  box-shadow:0 8px 24px rgba(231,50,88,.28)!important;
+}
+.match-center-v3[data-league-theme] .mc3-strip{
+  border-top-color:rgba(255,255,255,.10)!important;
+  background:rgba(3,9,16,.20)!important;
+  color:var(--rk-league-muted)!important;
+  backdrop-filter:blur(14px)!important;
+}
+.match-center-v3[data-league-theme] .mc3-strip b{color:var(--rk-league-on)!important}
+.match-center-v3[data-league-theme] .mc3-dot{background:rgba(255,255,255,.42)!important}
+.match-center-v3[data-league-theme] .mc3-weather{
+  background:rgba(255,255,255,.10)!important;
+  border:1px solid rgba(255,255,255,.09)!important;
+  color:var(--rk-league-on)!important;
+}
+
+/* Dynamic league-logo watermark added by JS. */
+.rk-league-watermark{
+  position:absolute;
+  z-index:1;
+  right:clamp(20px,6vw,90px);
+  top:50%;
+  width:clamp(170px,19vw,310px);
+  height:clamp(170px,19vw,310px);
+  transform:translateY(-47%) rotate(-7deg);
+  opacity:.055;
+  pointer-events:none;
+  filter:grayscale(.15) brightness(1.9) saturate(.3);
+  mix-blend-mode:screen;
+}
+.rk-league-watermark img{width:100%;height:100%;object-fit:contain}
+.rk-league-ring{
+  position:absolute;
+  z-index:1;
+  left:50%;
+  top:50%;
+  width:min(760px,64vw);
+  aspect-ratio:2.6/1;
+  transform:translate(-50%,-32%) rotateX(73deg);
+  border:1px solid rgba(var(--rk-league-rgb),.20);
+  border-radius:50%;
+  box-shadow:0 0 0 28px rgba(var(--rk-league-rgb),.022),0 0 0 64px rgba(var(--rk-league-rgb2),.016);
+  pointer-events:none;
+}
+
+/* Match center's supporting chrome inherits a soft hint from the league. */
+.match-center-v3[data-league-theme] .mc3-tabs-wrap{
+  box-shadow:0 7px 24px rgba(var(--rk-league-rgb),.035)!important;
+}
+.match-center-v3[data-league-theme] .mc3-tab::after{
+  background:linear-gradient(90deg,var(--rk-league-c),var(--rk-league-d))!important;
+}
+.match-center-v3[data-league-theme] .mc3-card,
+.match-center-v3[data-league-theme] .mc3-stat-card,
+.match-center-v3[data-league-theme] .mc3-lineup{
+  border-color:rgba(var(--rk-league-rgb),.095)!important;
+}
+.match-center-v3[data-league-theme] .mc3-card:hover,
+.match-center-v3[data-league-theme] .mc3-stat-card:hover,
+.match-center-v3[data-league-theme] .mc3-lineup:hover{
+  border-color:rgba(var(--rk-league-rgb),.17)!important;
+  box-shadow:0 12px 32px rgba(var(--rk-league-rgb),.055)!important;
+}
+
+/* Competition-specific micro-details. */
+.match-center-v3[data-league-theme="premier"] .mc3-hero::before{background:radial-gradient(circle at 20% 30%,rgba(0,227,255,.19) 0 1px,transparent 1.6px),radial-gradient(circle at 75% 56%,rgba(255,63,196,.14) 0 1px,transparent 1.6px)!important;background-size:74px 74px,103px 103px!important}
+.match-center-v3[data-league-theme="ucl"] .mc3-hero::before{background:radial-gradient(circle,rgba(255,255,255,.26) 0 1px,transparent 1.8px)!important;background-size:57px 57px!important;opacity:.68!important}
+.match-center-v3[data-league-theme="motorsport"] .mc3-hero::before{background:repeating-linear-gradient(116deg,rgba(255,255,255,.025) 0 2px,transparent 2px 38px)!important;opacity:.52!important}
+.match-center-v3[data-league-theme="golf"] .mc3-hero::before{background:radial-gradient(ellipse at 30% 70%,rgba(75,212,134,.10),transparent 42%),radial-gradient(ellipse at 75% 45%,rgba(209,179,86,.08),transparent 36%)!important;opacity:1!important}
+
+@media(max-width:760px){
+  .rk-league-watermark{width:170px;height:170px;right:-25px;opacity:.045}
+  .rk-league-ring{width:86vw}
+  .fixture-league-section::before{width:3px}
+}
+@media(prefers-reduced-motion:reduce){
+  .match-center-v3[data-league-theme] .mc3-hero::before{animation:none!important}
+  .match-center-v3[data-league-theme] .mc3-team:hover .mc3-crest{transform:none!important}
+}
