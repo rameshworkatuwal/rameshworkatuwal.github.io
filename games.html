@@ -10,163 +10,60 @@
 <meta name="description" content="Play Ludo and Snake, challenge friends online and follow live sports from the Games hub.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="widgets.css">
 <link rel="stylesheet" href="games.css">
-<link rel="stylesheet" href="games-fit.css?v=20260821-2">
-<link rel="stylesheet" href="games-enhanced.css?v=20260821-2">
-<link rel="stylesheet" href="games-realism.css?v=20260821-2">
-<link rel="stylesheet" href="games-studio.css?v=20260821-2">
+<link rel="stylesheet" href="games-fit.css?v=20260823-1">
+<link rel="stylesheet" href="games-studio.css?v=20260823-3">
+<link rel="stylesheet" href="games-v3.css?v=20260823-1">
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
 <body class="games-body">
 <div class="game-bg" aria-hidden="true"><span></span><span></span><span></span></div>
 <nav>
   <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-.15em;margin-right:.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Katuwal</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="skills.html">Skills</a></li><li><a href="experience.html">Experience</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="youtube.html">YouTube</a></li><li><a href="games.html" class="active">Games</a></li><li><a href="blog.html">Blog</a></li>
-  </ul>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="skills.html">Skills</a></li><li><a href="experience.html">Experience</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="youtube.html">YouTube</a></li><li><a href="games.html" class="active">Games</a></li><li><a href="blog.html">Blog</a></li></ul>
 </nav>
 
-<main class="games-page games-studio-page">
-  <header class="studio-hero">
-    <div>
-      <div class="studio-eyebrow">Katuwal Arcade</div>
-      <h1>Pick a game.<br><span>Start playing.</span></h1>
-      <p>A focused little game room built directly into the site — local games here, online multiplayer and live sports one tap away.</p>
-    </div>
-    <div class="studio-tabs" aria-label="Games sections">
-      <a href="games.html" class="is-active">Play</a>
-      <a href="online-ludo.html">Online</a>
-      <a href="sports.html"><i class="live-dot"></i>Live Sports</a>
-    </div>
+<main class="games-page games-studio-page games-v3-page">
+  <header class="games-v3-head">
+    <div><span class="games-v3-kicker"><i></i>KATUWAL ARCADE</span><h1>Game Library</h1></div>
+    <div class="games-v3-modes"><a href="games.html" class="active">Play</a><a href="online-ludo.html">Online</a><a href="sports.html"><i></i>Live Sports</a></div>
   </header>
-
-  <div class="library-head"><h2>Game Library</h2><span>2 playable games</span></div>
 
   <section class="studio-library" aria-label="Playable games">
     <article class="game-cover ludo-cover" data-game="ludo" tabindex="0" role="button" aria-label="Play Ludo">
       <span class="cover-chip">LOCAL · 2–4 PLAYERS</span>
-      <div class="cover-art" aria-hidden="true">
-        <div class="ludo-grid"></div>
-        <div class="ludo-rings"><i class="ludo-ring r1"></i><i class="ludo-ring r2"></i><i class="ludo-ring r3"></i></div>
-        <div class="ludo-pieces"><i class="ludo-piece p1"></i><i class="ludo-piece p2"></i><i class="ludo-piece p3"></i><i class="ludo-piece p4"></i></div>
-        <div class="cover-die"><i class="d1"></i><i class="d2"></i><i class="d3"></i><i class="d4"></i><i class="d5"></i></div>
-      </div>
-      <div class="cover-copy">
-        <div class="cover-copy-main"><span class="cover-label">Board Game</span><h3>Ludo</h3><p>Glossy dice, animated tokens and local multiplayer.</p></div>
-        <span class="cover-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-      </div>
+      <div class="cover-art" aria-hidden="true"><div class="ludo-grid"></div><div class="ludo-rings"><i class="ludo-ring r1"></i><i class="ludo-ring r2"></i><i class="ludo-ring r3"></i></div><div class="ludo-pieces"><i class="ludo-piece p1"></i><i class="ludo-piece p2"></i><i class="ludo-piece p3"></i><i class="ludo-piece p4"></i></div><div class="cover-die"><i class="d1"></i><i class="d2"></i><i class="d3"></i><i class="d4"></i><i class="d5"></i></div></div>
+      <div class="cover-copy"><div class="cover-copy-main"><span class="cover-label">Board Game</span><h3>Ludo</h3><p>Realistic dice · local multiplayer · animated board</p></div><span class="cover-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
     </article>
-
     <article class="game-cover snake-cover" data-game="snake" tabindex="0" role="button" aria-label="Play Snake">
       <span class="cover-chip">ARCADE · SOLO</span>
-      <div class="cover-art" aria-hidden="true">
-        <div class="snake-terrain"></div>
-        <div class="snake-orbit">
-          <i class="snake-seg s1"></i><i class="snake-seg s2"></i><i class="snake-seg s3"></i><i class="snake-seg s4"></i><i class="snake-seg s5"></i><i class="snake-seg s6"></i>
-          <i class="snake-head-art"><i class="snake-eye e1"></i><i class="snake-eye e2"></i><i class="snake-tongue-art"></i></i>
-        </div>
-        <span class="snake-food">🍎</span>
-      </div>
-      <div class="cover-copy">
-        <div class="cover-copy-main"><span class="cover-label">Arcade</span><h3>Snake</h3><p>Fast controls, score chasing and a polished arena.</p></div>
-        <span class="cover-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-      </div>
+      <div class="cover-art" aria-hidden="true"><div class="snake-terrain"></div><div class="snake-orbit"><i class="snake-seg s1"></i><i class="snake-seg s2"></i><i class="snake-seg s3"></i><i class="snake-seg s4"></i><i class="snake-seg s5"></i><i class="snake-seg s6"></i><i class="snake-head-art"><i class="snake-eye e1"></i><i class="snake-eye e2"></i><i class="snake-tongue-art"></i></i></div><span class="snake-food">🍎</span></div>
+      <div class="cover-copy"><div class="cover-copy-main"><span class="cover-label">Arcade</span><h3>Snake</h3><p>Fast controls · score chase · premium arena</p></div><span class="cover-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>
     </article>
   </section>
 
   <section class="studio-rail" aria-label="More game features">
-    <a class="rail-card" href="online-ludo.html">
-      <span class="rail-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-      <span class="rail-copy"><b>Play with friends</b><small>Online Ludo rooms</small></span><span class="rail-arrow">→</span>
-    </a>
-    <a class="rail-card live" href="sports.html">
-      <span class="rail-icon"><svg viewBox="0 0 24 24"><path d="M4 17V7M9 20V4M14 15V9M19 19V5"/></svg></span>
-      <span class="rail-copy"><b>Live Sports</b><small>Scores and results</small></span><span class="rail-arrow">→</span>
-    </a>
-    <a class="rail-card history" href="online-ludo.html#account">
-      <span class="rail-icon"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg></span>
-      <span class="rail-copy"><b>Game history</b><small>Account match records</small></span><span class="rail-arrow">→</span>
-    </a>
+    <a class="rail-card" href="online-ludo.html"><span class="rail-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="rail-copy"><b>Play with friends</b><small>Online Ludo rooms</small></span><span class="rail-arrow">→</span></a>
+    <a class="rail-card live" href="sports.html"><span class="rail-icon"><svg viewBox="0 0 24 24"><path d="M4 17V7M9 20V4M14 15V9M19 19V5"/></svg></span><span class="rail-copy"><b>Live Sports</b><small>Worldwide scores</small></span><span class="rail-arrow">→</span></a>
+    <a class="rail-card history" href="online-ludo.html#account"><span class="rail-icon"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg></span><span class="rail-copy"><b>Game history</b><small>Account match records</small></span><span class="rail-arrow">→</span></a>
   </section>
-
-  <!-- Existing switch hooks are kept invisible so the proven game logic stays intact. -->
-  <div class="game-picker game-picker-access" aria-hidden="true">
-    <button class="game-pick is-active" type="button" data-game="ludo" tabindex="-1"><span class="game-pick-copy"><b>Ludo</b></span></button>
-    <button class="game-pick" type="button" data-game="snake" tabindex="-1"><span class="game-pick-copy"><b>Snake</b></span></button>
-  </div>
 </main>
 
-<!-- Dedicated game mode: the actual board never clutters the landing page. -->
 <div class="game-theater" id="gameTheater" hidden>
-  <div class="theater-bar">
-    <div class="theater-left">
-      <button class="theater-close" id="closeGameTheater" type="button" aria-label="Back to game library"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
-      <div class="theater-title"><strong id="theaterGameTitle">Ludo</strong><span id="theaterGameMeta">Local multiplayer · 2–4 players</span></div>
-    </div>
-    <div class="theater-status"><i></i><span>Game mode</span></div>
-  </div>
-
+  <div class="theater-bar"><div class="theater-left"><button class="theater-close" id="closeGameTheater" type="button" aria-label="Back to game library"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><div class="theater-title"><strong id="theaterGameTitle">Ludo</strong><span id="theaterGameMeta">Local multiplayer · 2–4 players</span></div></div><div class="theater-status"><i></i><span>Game mode</span></div></div>
   <div class="theater-content">
     <section class="game-shell" id="ludoGame" hidden>
-      <div class="game-topbar">
-        <div class="game-title-wrap"><span class="game-number">GAME 01</span><h2>Ludo</h2><span class="local-badge">LOCAL MULTIPLAYER</span></div>
-        <div class="game-actions">
-          <label class="players-select"><span>Players</span><select id="playerCount" aria-label="Number of players"><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option></select></label>
-          <button class="game-btn secondary" id="soundToggle" type="button" aria-pressed="true">Sound On</button>
-          <button class="game-btn" id="newGame" type="button">New Game</button>
-        </div>
-      </div>
-
-      <div class="game-layout">
-        <div class="ludo-stage">
-          <div class="ludo-board" id="ludoBoard" aria-label="Ludo board">
-            <div class="home-zone red-home" data-color="red"><span>RED</span><div class="home-dots"></div></div>
-            <div class="home-zone green-home" data-color="green"><span>GREEN</span><div class="home-dots"></div></div>
-            <div class="home-zone yellow-home" data-color="yellow"><span>YELLOW</span><div class="home-dots"></div></div>
-            <div class="home-zone blue-home" data-color="blue"><span>BLUE</span><div class="home-dots"></div></div>
-            <div class="finish-core"><div class="finish-diamond"></div><b>HOME</b></div>
-            <div id="boardCells" class="board-cells"></div>
-            <div id="tokensLayer" class="tokens-layer"></div>
-            <div class="goal-flare" id="goalFlare" aria-hidden="true"></div>
-          </div>
-        </div>
-        <aside class="game-panel">
-          <div class="turn-card" id="turnCard"><span class="turn-label">CURRENT TURN</span><div class="turn-player"><i id="turnDot"></i><strong id="turnName">Red</strong></div><div class="turn-message" id="turnMessage">Roll the dice to start.</div></div>
-          <button class="dice-zone" id="rollDice" type="button" aria-label="Roll dice"><span class="dice-copy">ROLL DICE</span><span class="dice-cube" id="diceCube"><b id="diceFace">⚀</b></span><small id="diceHint">Tap to roll</small></button>
-          <div class="score-stack" id="scoreStack"></div>
-          <div class="rules-note"><b>Quick rules</b><span>Roll 6 to leave base · capture rivals · exact roll to reach Home.</span></div>
-        </aside>
-      </div>
+      <div class="game-topbar"><div class="game-title-wrap"><span class="game-number">GAME 01</span><h2>Ludo</h2><span class="local-badge">LOCAL MULTIPLAYER</span></div><div class="game-actions"><label class="players-select"><span>Players</span><select id="playerCount" aria-label="Number of players"><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option></select></label><button class="game-btn secondary" id="soundToggle" type="button" aria-pressed="true">Sound On</button><button class="game-btn" id="newGame" type="button">New Game</button></div></div>
+      <div class="game-layout"><div class="ludo-stage"><div class="ludo-board" id="ludoBoard" aria-label="Ludo board"><div class="home-zone red-home" data-color="red"><span>RED</span><div class="home-dots"></div></div><div class="home-zone green-home" data-color="green"><span>GREEN</span><div class="home-dots"></div></div><div class="home-zone yellow-home" data-color="yellow"><span>YELLOW</span><div class="home-dots"></div></div><div class="home-zone blue-home" data-color="blue"><span>BLUE</span><div class="home-dots"></div></div><div class="finish-core"><div class="finish-diamond"></div><b>HOME</b></div><div id="boardCells" class="board-cells"></div><div id="tokensLayer" class="tokens-layer"></div><div class="goal-flare" id="goalFlare" aria-hidden="true"></div></div></div>
+        <aside class="game-panel"><div class="turn-card" id="turnCard"><span class="turn-label">CURRENT TURN</span><div class="turn-player"><i id="turnDot"></i><strong id="turnName">Red</strong></div><div class="turn-message" id="turnMessage">Roll the dice to start.</div></div><button class="dice-zone" id="rollDice" type="button" aria-label="Roll dice"><span class="dice-copy">ROLL DICE</span><span class="dice-cube" id="diceCube"><b id="diceFace">⚀</b></span><small id="diceHint">Tap to roll</small></button><div class="score-stack" id="scoreStack"></div><div class="rules-note"><b>Quick rules</b><span>Roll 6 to leave base · capture rivals · exact roll to reach Home.</span></div></aside></div>
     </section>
-
-    <section class="game-shell" id="snakeGame" hidden>
-      <div class="game-topbar">
-        <div class="game-title-wrap"><span class="game-number">GAME 02</span><h2>Snake</h2><span class="snake-live-pill" id="snakeStatus">READY</span></div>
-        <div class="game-actions"><button class="game-btn secondary" id="snakePause" type="button">Pause</button><button class="game-btn" id="snakeRestart" type="button">Restart</button></div>
-      </div>
-      <div class="snake-layout">
-        <div class="snake-stage">
-          <div class="snake-board-wrap"><canvas id="snakeCanvas" aria-label="Snake game board"></canvas><div class="snake-vignette" aria-hidden="true"></div><div class="snake-overlay" id="snakeOverlay"><div class="snake-overlay-card"><div class="snake-overlay-icon">🐍</div><h3>Snake</h3><p>Arrow keys / WASD on desktop. Touch controls are ready on mobile.</p><button class="game-btn snake-start" id="snakeStart" type="button">Start Game</button></div></div></div>
-        </div>
-        <aside class="snake-panel">
-          <div class="snake-hud"><div class="snake-stat score"><span>SCORE</span><strong id="snakeScore">0</strong></div><div class="snake-stat"><span>BEST</span><strong id="snakeBest">0</strong></div></div>
-          <div class="snake-control-card"><b>Controls</b><small>Arrow keys or WASD · Space pauses · swipe/tap controls on touch.</small><div class="snake-dpad" aria-label="Snake touch controls"><button type="button" data-dir="up">↑</button><button type="button" data-dir="left">←</button><button type="button" data-dir="down">↓</button><button type="button" data-dir="right">→</button></div></div>
-        </aside>
-      </div>
-    </section>
+    <section class="game-shell" id="snakeGame" hidden><div class="game-topbar"><div class="game-title-wrap"><span class="game-number">GAME 02</span><h2>Snake</h2><span class="snake-live-pill" id="snakeStatus">READY</span></div><div class="game-actions"><button class="game-btn secondary" id="snakePause" type="button">Pause</button><button class="game-btn" id="snakeRestart" type="button">Restart</button></div></div><div class="snake-layout"><div class="snake-stage"><div class="snake-board-wrap"><canvas id="snakeCanvas" aria-label="Snake game board"></canvas><div class="snake-vignette" aria-hidden="true"></div><div class="snake-overlay" id="snakeOverlay"><div class="snake-overlay-card"><div class="snake-overlay-icon">🐍</div><h3>Snake</h3><p>Arrow keys / WASD on desktop. Touch controls are ready on mobile.</p><button class="game-btn snake-start" id="snakeStart" type="button">Start Game</button></div></div></div></div><aside class="snake-panel"><div class="snake-hud"><div class="snake-stat score"><span>SCORE</span><strong id="snakeScore">0</strong></div><div class="snake-stat"><span>BEST</span><strong id="snakeBest">0</strong></div></div><div class="snake-control-card"><b>Controls</b><small>Arrow keys or WASD · Space pauses · swipe/tap controls on touch.</small><div class="snake-dpad" aria-label="Snake touch controls"><button type="button" data-dir="up">↑</button><button type="button" data-dir="left">←</button><button type="button" data-dir="down">↓</button><button type="button" data-dir="right">→</button></div></div></aside></div></section>
   </div>
 </div>
-
-<footer class="games-footer">© 2026 Ritesh Katuwal · Games built for the browser</footer>
-<script src="site.js"></script>
-<script src="theme.js"></script>
-<script src="games.js"></script>
-<script src="games-enhanced.js?v=20260821-2"></script>
-<script src="games-audio.js?v=20260821-2"></script>
-<script src="snake.js?v=20260821-2"></script>
-<script src="games-studio.js?v=20260821-2"></script>
+<footer class="games-footer">© 2026 Ritesh Katuwal · Browser games</footer>
+<script src="site.js"></script><script src="theme.js"></script><script src="games.js"></script><script src="games-audio.js?v=20260823-1"></script><script src="snake.js?v=20260823-1"></script><script src="games-studio.js?v=20260823-3"></script><script src="games-v3.js?v=20260823-1"></script>
 </body>
 </html>
