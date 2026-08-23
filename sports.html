@@ -17,8 +17,8 @@
 <link rel="stylesheet" href="sports-league-themes.css?v=20260823-3">
 <link rel="stylesheet" href="sports-fixtures.css?v=20260823-1">
 <link rel="stylesheet" href="sports-premium-v3.css?v=20260823-1">
+<link rel="stylesheet" href="sports-league-backgrounds.css?v=20260823-1">
 <style>
-/* Sources stay available in the dedicated Sources tab, but the bulky pill bar is removed. */
 .mc3-sourcebar{display:none!important}
 </style>
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
@@ -86,11 +86,8 @@
 <script src="sports-league-themes.js?v=20260823-3"></script>
 <script src="sports-fixtures.js?v=20260823-1"></script>
 <script src="sports-matchcenter-v3.js?v=20260823-1"></script>
+<script src="sports-league-backgrounds.js?v=20260823-1"></script>
 <script>
-/* Seamless live match refresh layer.
-   The match-center provider refreshes every few seconds. During those refreshes it briefly
-   replaces the entire drawer with a loading screen. This observer keeps the already-rendered
-   match on screen while network requests run, then accepts the fresh DOM atomically. */
 (function(){
 'use strict';
 var content=document.getElementById('matchDrawerContent');
@@ -99,81 +96,12 @@ var activeTab='overview';
 var savedScroll=0;
 var lastStable=null;
 var internalSwap=false;
-
-function directMatchRoot(node){
-  if(!node||node.nodeType!==1)return null;
-  if(node.classList&&node.classList.contains('match-center-v3'))return node;
-  return node.querySelector&&node.querySelector('.match-center-v3');
-}
-function rememberState(node){
-  if(!node)return;
-  var active=node.querySelector('.mc3-tab.active');
-  if(active&&active.dataset.tab)activeTab=active.dataset.tab;
-  savedScroll=content.scrollTop;
-  lastStable=node;
-}
-function restoreView(node){
-  if(!node)return;
-  var target=node.querySelector('.mc3-tab[data-tab="'+activeTab+'"]');
-  if(!target){
-    target=node.querySelector('.mc3-tab[data-tab="overview"]')||node.querySelector('.mc3-tab');
-    if(target)activeTab=target.dataset.tab||'overview';
-  }
-  if(target){
-    node.querySelectorAll('.mc3-tab').forEach(function(b){b.classList.toggle('active',b===target)});
-    node.querySelectorAll('.mc3-panel').forEach(function(p){p.hidden=p.dataset.panel!==activeTab});
-  }
-  var sourcebar=node.querySelector('.mc3-sourcebar');
-  if(sourcebar)sourcebar.remove();
-  requestAnimationFrame(function(){content.scrollTop=savedScroll});
-}
-
-var initial=content.querySelector('.match-center-v3');
-if(initial){rememberState(initial);restoreView(initial)}
-
-content.addEventListener('click',function(e){
-  var b=e.target.closest('.mc3-tab');
-  if(b&&b.dataset.tab){activeTab=b.dataset.tab;savedScroll=content.scrollTop}
-},true);
-content.addEventListener('scroll',function(){
-  if(content.querySelector('.match-center-v3'))savedScroll=content.scrollTop;
-},{passive:true});
-
-var observer=new MutationObserver(function(records){
-  if(internalSwap)return;
-  var removedStable=null;
-  records.forEach(function(record){
-    record.removedNodes.forEach(function(node){
-      var root=directMatchRoot(node);
-      if(root){
-        var active=root.querySelector('.mc3-tab.active');
-        if(active&&active.dataset.tab)activeTab=active.dataset.tab;
-        removedStable=root;
-      }
-    });
-  });
-
-  var loader=content.querySelector(':scope > .match-loading');
-  var fresh=content.querySelector(':scope > .match-center-v3');
-
-  /* Auto-refresh: keep the exact previous DOM node (including its event listeners) visible.
-     MutationObserver runs before browser paint, so users never see the temporary loader. */
-  if(loader&&(removedStable||lastStable)){
-    var keep=removedStable||lastStable;
-    internalSwap=true;
-    content.replaceChildren(keep);
-    internalSwap=false;
-    lastStable=keep;
-    restoreView(keep);
-    return;
-  }
-
-  /* Fresh network data has arrived. Keep the same tab and scroll position. */
-  if(fresh){
-    lastStable=fresh;
-    restoreView(fresh);
-  }
-});
+function directMatchRoot(node){if(!node||node.nodeType!==1)return null;if(node.classList&&node.classList.contains('match-center-v3'))return node;return node.querySelector&&node.querySelector('.match-center-v3')}
+function restoreView(node){if(!node)return;var target=node.querySelector('.mc3-tab[data-tab="'+activeTab+'"]');if(!target){target=node.querySelector('.mc3-tab[data-tab="overview"]')||node.querySelector('.mc3-tab');if(target)activeTab=target.dataset.tab||'overview'}if(target){node.querySelectorAll('.mc3-tab').forEach(function(b){b.classList.toggle('active',b===target)});node.querySelectorAll('.mc3-panel').forEach(function(p){p.hidden=p.dataset.panel!==activeTab})}var sourcebar=node.querySelector('.mc3-sourcebar');if(sourcebar)sourcebar.remove();requestAnimationFrame(function(){content.scrollTop=savedScroll})}
+var initial=content.querySelector('.match-center-v3');if(initial){lastStable=initial;restoreView(initial)}
+content.addEventListener('click',function(e){var b=e.target.closest('.mc3-tab');if(b&&b.dataset.tab){activeTab=b.dataset.tab;savedScroll=content.scrollTop}},true);
+content.addEventListener('scroll',function(){if(content.querySelector('.match-center-v3'))savedScroll=content.scrollTop},{passive:true});
+var observer=new MutationObserver(function(records){if(internalSwap)return;var removedStable=null;records.forEach(function(record){record.removedNodes.forEach(function(node){var root=directMatchRoot(node);if(root){var active=root.querySelector('.mc3-tab.active');if(active&&active.dataset.tab)activeTab=active.dataset.tab;removedStable=root}})});var loader=content.querySelector(':scope > .match-loading');var fresh=content.querySelector(':scope > .match-center-v3');if(loader&&(removedStable||lastStable)){var keep=removedStable||lastStable;internalSwap=true;content.replaceChildren(keep);internalSwap=false;lastStable=keep;restoreView(keep);return}if(fresh){lastStable=fresh;restoreView(fresh)}});
 observer.observe(content,{childList:true});
 })();
 </script>
