@@ -1,0 +1,186 @@
+/* Runtime sports polish: second-resolution live clocks + premium match officials */
+
+/* Remove gambling/broadcast clutter requested by site owner. */
+.mc3-card.mc3-runtime-hidden{display:none!important}
+
+/* Live clock: use tabular numerals so seconds do not make the layout jump. */
+.fixture-live,
+.fixture-time[data-rk-live-clock],
+.mc3-status.live,
+.mc3-kickoff[data-rk-live-clock],
+.mc3-live-second-clock{
+  font-variant-numeric:tabular-nums!important;
+  font-feature-settings:'tnum' 1!important;
+  letter-spacing:.015em!important;
+}
+.fixture-live [data-rk-seconds],
+.mc3-status.live [data-rk-seconds]{
+  display:inline-block;
+  min-width:3.9em;
+  text-align:center;
+}
+
+/* Match officials — premium editorial card with a dimensional portrait panel. */
+.mc3-officials-card{
+  position:relative!important;
+  overflow:hidden!important;
+  grid-column:span 8!important;
+  min-height:290px!important;
+  padding:0!important;
+  background:
+    radial-gradient(circle at 18% 10%,rgba(67,166,255,.12),transparent 32%),
+    radial-gradient(circle at 100% 100%,rgba(112,74,226,.09),transparent 34%),
+    linear-gradient(145deg,#fff,#f8fbff)!important;
+  border-color:rgba(92,123,153,.16)!important;
+}
+.mc3-officials-card::after{
+  content:'';
+  position:absolute;
+  right:-80px;
+  top:-110px;
+  width:270px;
+  height:270px;
+  border:1px solid rgba(58,130,208,.10);
+  border-radius:50%;
+  box-shadow:0 0 0 34px rgba(58,130,208,.025),0 0 0 72px rgba(58,130,208,.018);
+  pointer-events:none;
+}
+.mc3-officials-layout{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:minmax(235px,.8fr) minmax(0,1.2fr);
+  min-height:290px;
+}
+.mc3-referee-visual{
+  position:relative;
+  display:grid;
+  place-items:end center;
+  overflow:hidden;
+  min-height:290px;
+  background:
+    radial-gradient(circle at 50% 30%,rgba(89,210,255,.25),transparent 28%),
+    linear-gradient(150deg,#081827,#0d2437 58%,#06111c);
+  isolation:isolate;
+  perspective:900px;
+}
+.mc3-referee-visual::before{
+  content:'';
+  position:absolute;
+  inset:auto 10% 8% 10%;
+  height:25px;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(0,0,0,.55),transparent 70%);
+  filter:blur(8px);
+  transform:rotateX(65deg);
+}
+.mc3-referee-orbit{
+  position:absolute;
+  width:210px;
+  height:210px;
+  left:50%;
+  top:48%;
+  border:1px solid rgba(109,220,255,.18);
+  border-radius:50%;
+  transform:translate(-50%,-50%) rotateX(62deg);
+  box-shadow:0 0 0 28px rgba(85,187,255,.025),0 0 46px rgba(75,185,255,.08);
+}
+.mc3-referee-photo{
+  position:relative;
+  z-index:3;
+  width:min(82%,270px);
+  height:260px;
+  object-fit:cover;
+  object-position:center top;
+  border-radius:28px 28px 0 0;
+  filter:saturate(.94) contrast(1.03) drop-shadow(0 24px 28px rgba(0,0,0,.34));
+  transform:translateZ(28px) rotateY(-2deg);
+  transform-origin:center bottom;
+  animation:rkRefFloat 5.5s ease-in-out infinite alternate;
+}
+@keyframes rkRefFloat{to{transform:translateY(-4px) translateZ(34px) rotateY(2deg)}}
+
+/* CSS fallback looks like a dimensional referee bust when no trusted portrait is found. */
+.mc3-referee-avatar{
+  position:relative;
+  z-index:3;
+  width:190px;
+  height:250px;
+  transform-style:preserve-3d;
+  filter:drop-shadow(0 25px 25px rgba(0,0,0,.32));
+  animation:rkRefFloat 5.5s ease-in-out infinite alternate;
+}
+.mc3-referee-avatar .head{
+  position:absolute;
+  left:50%;top:14px;
+  width:70px;height:82px;
+  transform:translateX(-50%);
+  border-radius:46% 46% 43% 43%;
+  background:linear-gradient(145deg,#d8a27e,#b87859 72%,#8e563f);
+  box-shadow:inset 10px 7px 15px rgba(255,255,255,.18),inset -9px -7px 14px rgba(71,32,18,.23);
+}
+.mc3-referee-avatar .hair{
+  position:absolute;left:50%;top:9px;width:72px;height:34px;transform:translateX(-50%);
+  border-radius:50% 50% 35% 35%;background:linear-gradient(145deg,#25282c,#080a0c);
+}
+.mc3-referee-avatar .neck{
+  position:absolute;left:50%;top:85px;width:38px;height:37px;transform:translateX(-50%);
+  background:linear-gradient(90deg,#a96e51,#cf9571,#9b6249);
+}
+.mc3-referee-avatar .body{
+  position:absolute;left:50%;bottom:0;width:178px;height:158px;transform:translateX(-50%);
+  clip-path:polygon(25% 5%,75% 5%,100% 35%,91% 100%,9% 100%,0 35%);
+  border-radius:28px 28px 12px 12px;
+  background:
+    linear-gradient(90deg,transparent 49.2%,rgba(0,0,0,.22) 49.2% 50.8%,transparent 50.8%),
+    linear-gradient(145deg,#30c8f2,#12a6d6 45%,#087fae 100%);
+  box-shadow:inset 18px 10px 26px rgba(255,255,255,.13),inset -20px -12px 25px rgba(0,35,57,.22);
+}
+.mc3-referee-avatar .body::before{
+  content:'';position:absolute;left:18px;top:26px;width:38px;height:48px;border:2px solid rgba(5,38,57,.72);border-radius:6px;
+  background:linear-gradient(145deg,#132432,#07111a);
+}
+.mc3-referee-avatar .body::after{
+  content:'REF';position:absolute;right:18px;top:30px;padding:5px 7px;border-radius:6px;background:#09141e;color:#7ee6ff;
+  font:800 10px/1 var(--sport-ui,Arial,sans-serif);letter-spacing:.12em;
+}
+.mc3-referee-badge{
+  position:absolute;z-index:5;left:16px;bottom:15px;padding:.38rem .55rem;border:1px solid rgba(127,224,255,.18);border-radius:999px;
+  background:rgba(5,17,28,.72);backdrop-filter:blur(10px);color:#99e9ff;font:750 .46rem/1 var(--sport-ui,Arial,sans-serif);letter-spacing:.08em;text-transform:uppercase;
+}
+.mc3-officials-copy{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:1.15rem 1.25rem 1.2rem;
+}
+.mc3-officials-eyebrow{margin-bottom:.3rem;color:#278fd0;font:800 .47rem/1 var(--sport-ui,Arial,sans-serif);letter-spacing:.13em;text-transform:uppercase}
+.mc3-officials-name{margin:0 0 .2rem;color:#101923;font:800 clamp(1.3rem,2vw,1.85rem)/1.02 var(--sport-ui,Arial,sans-serif);letter-spacing:-.035em}
+.mc3-officials-sub{margin-bottom:.8rem;color:#7a8798;font:600 .52rem/1.4 var(--sport-ui,Arial,sans-serif)}
+.mc3-officials-list{display:grid;gap:.12rem}
+.mc3-official-row{display:flex;align-items:center;justify-content:space-between;gap:.85rem;min-height:41px;padding:.42rem 0;border-bottom:1px solid rgba(92,123,153,.12)}
+.mc3-official-row:last-child{border-bottom:0}
+.mc3-official-row span{color:#8290a2;font:650 .5rem/1.2 var(--sport-ui,Arial,sans-serif)}
+.mc3-official-row b{max-width:68%;text-align:right;color:#263240;font:750 .55rem/1.25 var(--sport-ui,Arial,sans-serif)}
+.mc3-ref-photo-credit{margin-top:.55rem;color:#98a3b1;font:550 .42rem/1.3 var(--sport-ui,Arial,sans-serif)}
+
+html:not([data-theme="light"]) .mc3-officials-card{
+  background:radial-gradient(circle at 12% 0,rgba(61,187,255,.10),transparent 31%),linear-gradient(145deg,#111c29,#0e1722)!important;
+  border-color:rgba(151,190,220,.10)!important;
+}
+html:not([data-theme="light"]) .mc3-officials-name,
+html:not([data-theme="light"]) .mc3-official-row b{color:#eef4fa!important}
+html:not([data-theme="light"]) .mc3-official-row{border-color:rgba(255,255,255,.07)!important}
+
+@media(max-width:900px){.mc3-officials-card{grid-column:1/-1!important}.mc3-officials-layout{grid-template-columns:220px minmax(0,1fr)}}
+@media(max-width:620px){
+  .mc3-officials-layout{grid-template-columns:1fr}
+  .mc3-referee-visual{min-height:220px}
+  .mc3-referee-photo{height:205px;width:min(70%,225px)}
+  .mc3-referee-avatar{transform:scale(.82);transform-origin:center bottom;height:215px}
+  .mc3-officials-copy{padding:.9rem}
+  .mc3-officials-name{font-size:1.2rem}
+}
+@media(prefers-reduced-motion:reduce){.mc3-referee-photo,.mc3-referee-avatar{animation:none!important}}
