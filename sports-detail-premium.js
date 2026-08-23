@@ -2,7 +2,12 @@
 (function(){
 'use strict';
 var content=document.getElementById('matchDrawerContent');
+var drawerLeague=document.getElementById('drawerLeague');
 if(!content)return;
+var selectedEvent='';
+var headshotCache=new Map();
+var headshotRequest='';
+var ESPN_MAP=[[/premier league|english premier/i,'soccer/eng.1'],[/laliga|la liga|spanish/i,'soccer/esp.1'],[/bundesliga|german/i,'soccer/ger.1'],[/serie a|italian/i,'soccer/ita.1'],[/ligue 1|french/i,'soccer/fra.1'],[/champions league/i,'soccer/uefa.champions'],[/europa league/i,'soccer/uefa.europa'],[/conference league/i,'soccer/uefa.europa.conf'],[/major league soccer|\bmls\b/i,'soccer/usa.1'],[/\bnba\b/i,'basketball/nba'],[/\bwnba\b/i,'basketball/wnba'],[/\bnfl\b/i,'football/nfl'],[/\bmlb\b/i,'baseball/mlb'],[/\bnhl\b/i,'hockey/nhl']];
 var ICONS={
   'Match Info':'<svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 3v4M16 3v4M4 9h16"/></svg>',
   'Venue Weather':'<svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.5 1.5M11.5 11.5L13 13"/><path d="M8 19h10a3 3 0 0 0 0-6 5 5 0 0 0-9.5 1.5A2.5 2.5 0 0 0 8 19z"/></svg>',
@@ -18,6 +23,10 @@ var ICONS={
 function clean(v){return String(v||'').trim()}
 function initials(name){return clean(name).split(/\s+/).filter(Boolean).slice(0,2).map(function(x){return x.charAt(0)}).join('').toUpperCase()||'?'}
 function iconFor(title){return ICONS[title]||'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4M12 16h.01"/></svg>'}
+function espnPath(name){for(var i=0;i<ESPN_MAP.length;i++)if(ESPN_MAP[i][0].test(name||''))return ESPN_MAP[i][1];return''}
+function captureEvent(target){var n=target&&target.closest&&target.closest('[data-event]');if(n&&n.dataset.event){selectedEvent=n.dataset.event;headshotCache.clear();headshotRequest=''}}
+document.addEventListener('pointerdown',function(e){captureEvent(e.target)},true);
+document.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' ')captureEvent(e.target)},true);
 function decorateTitles(root){
   (root||document).querySelectorAll('.mc3-card-title h3').forEach(function(h){
     if(h.dataset.mc4Done)return;h.dataset.mc4Done='1';
@@ -34,31 +43,27 @@ function decorateRows(root){
     if(row.dataset.mc4Done)return;var s=row.querySelector('span');if(!s)return;row.dataset.mc4Done='1';var label=clean(s.textContent);s.classList.add('mc4-row-label');var i=document.createElement('i');i.className='mc4-row-icon';i.innerHTML=rowIcon(label);s.insertBefore(i,s.firstChild);
   });
 }
-function extractESPNPlayerImage(player){
-  if(!player)return'';
-  var a=player.athlete||player;
-  return a.headshot&&a.headshot.href||a.headshot&&a.headshot.url||a.photo||a.image||'';
+function avatarFace(name,url){var box=document.createElement('span');box.className='mc4-player-face';box.dataset.playerName=name.toLowerCase();if(url){var img=document.createElement('img');img.src=url;img.alt='';img.loading='lazy';img.decoding='async';img.referrerPolicy='no-referrer';img.onerror=function(){box.innerHTML='<span>'+initials(name)+'</span>'};box.appendChild(img)}else box.innerHTML='<span>'+initials(name)+'</span>';return box}
+function setFace(box,name,url){if(!box||!url)return;box.innerHTML='';var img=document.createElement('img');img.src=url;img.alt='';img.loading='lazy';img.decoding='async';img.referrerPolicy='no-referrer';img.onerror=function(){box.innerHTML='<span>'+initials(name)+'</span>'};box.appendChild(img)}
+function applyHeadshots(){content.querySelectorAll('.mc4-player-face').forEach(function(box){var name=box.dataset.playerName||'',url=headshotCache.get(name);if(url&&box.querySelector('span'))setFace(box,name,url)})}
+function fetchHeadshots(){
+  if(!selectedEvent||!/^espn-/.test(selectedEvent))return;
+  var league=clean(drawerLeague&&drawerLeague.textContent),path=espnPath(league);if(!path)return;
+  var id=selectedEvent.replace(/^espn-/,''),key=path+'|'+id;if(headshotRequest===key)return;headshotRequest=key;
+  fetch('https://site.api.espn.com/apis/site/v2/sports/'+path+'/summary?event='+encodeURIComponent(id),{cache:'no-store',mode:'cors'}).then(function(r){if(!r.ok)throw new Error('summary');return r.json()}).then(function(sum){
+    var rosters=sum&&sum.rosters;if(!Array.isArray(rosters))return;
+    rosters.forEach(function(team){var all=team.roster||team.athletes||[];all.forEach(function(entry){var a=entry.athlete||entry,name=clean(a.displayName||a.fullName||a.shortName),url=a.headshot&&a.headshot.href||a.headshot&&a.headshot.url||a.photo||a.image||'';if(name&&url)headshotCache.set(name.toLowerCase(),url)})});
+    applyHeadshots();
+  }).catch(function(){});
 }
-function getRostersFromESPN(sum){
-  var rs=sum&&sum.rosters;if(!Array.isArray(rs))return[];
-  return rs.map(function(t){var all=t.roster||t.athletes||[];return{team:t.team&&t.team.displayName||t.displayName||'',logo:t.team&&t.team.logo||'',players:all.filter(function(x){return x.starter===true||x.starter==='true'}).map(function(x){var a=x.athlete||x;return{name:a.displayName||a.fullName||a.shortName||'Player',image:extractESPNPlayerImage(x)}})}})
-}
-function playerImageMap(){
-  var m=new Map();
-  try{var root=content.querySelector('.match-center-v3');if(!root)return m;var raw=root.__rkSummary;if(raw){getRostersFromESPN(raw).forEach(function(r){r.players.forEach(function(p){if(p.name&&p.image)m.set(p.name.toLowerCase(),p.image)})})}}catch(e){}
-  return m;
-}
-function avatarFace(name,url){var box=document.createElement('span');box.className='mc4-player-face';if(url){var img=document.createElement('img');img.src=url;img.alt='';img.loading='lazy';img.decoding='async';img.referrerPolicy='no-referrer';img.onerror=function(){box.innerHTML='<span>'+initials(name)+'</span>'};box.appendChild(img)}else box.innerHTML='<span>'+initials(name)+'</span>';return box}
 function decorateLineups(root){
-  var imageMap=playerImageMap();
   (root||document).querySelectorAll('.mc3-lineup').forEach(function(card){
     var head=card.querySelector('.mc3-lineup-head');if(head&&!head.dataset.mc4Done){head.dataset.mc4Done='1';var strong=head.querySelector('strong');if(strong){var wrap=document.createElement('div');wrap.className='mc4-lineup-team';strong.parentNode.insertBefore(wrap,strong);wrap.appendChild(strong);var teamName=clean(strong.textContent);var rootMC=card.closest('.match-center-v3'),team=null;if(rootMC){var names=Array.from(rootMC.querySelectorAll('.mc3-team-name'));var idx=Array.from(card.parentNode.children).indexOf(card);var target=names[idx]||names[0];if(target){var teamBox=target.closest('.mc3-team');var img=teamBox&&teamBox.querySelector('.mc3-crest img');team={logo:img&&img.src||'',name:teamName}}}var badge=document.createElement('span');badge.className='mc4-team-badge';badge.innerHTML=team&&team.logo?'<img src="'+team.logo+'" alt="">':'<span>'+initials(teamName)+'</span>';wrap.insertBefore(badge,strong)}}
-    card.querySelectorAll('.mc3-player').forEach(function(row){if(row.dataset.mc4Done)return;row.dataset.mc4Done='1';var nameEl=row.querySelector('.mc3-player-name');if(!nameEl)return;var name=clean(nameEl.textContent),url=imageMap.get(name.toLowerCase())||'';row.insertBefore(avatarFace(name,url),row.firstChild)})
+    card.querySelectorAll('.mc3-player').forEach(function(row){if(row.dataset.mc4Done)return;row.dataset.mc4Done='1';var nameEl=row.querySelector('.mc3-player-name');if(!nameEl)return;var name=clean(nameEl.textContent),url=headshotCache.get(name.toLowerCase())||'';row.insertBefore(avatarFace(name,url),row.firstChild)})
   });
+  fetchHeadshots();applyHeadshots();
 }
-function removeDuplicateOverviewLineup(root){
-  (root||document).querySelectorAll('.mc3-card').forEach(function(card){var h=card.querySelector('.mc3-card-title h3');if(clean(h&&h.textContent)==='Lineups')card.classList.add('mc4-overview-lineups')})
-}
+function removeDuplicateOverviewLineup(root){(root||document).querySelectorAll('.mc3-card').forEach(function(card){var h=card.querySelector('.mc3-card-title h3');if(clean(h&&h.textContent)==='Lineups')card.classList.add('mc4-overview-lineups')})}
 function enhance(root){decorateTitles(root);decorateRows(root);decorateLineups(root);removeDuplicateOverviewLineup(root)}
 var pending=false;function queue(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;enhance(content)})}
 var obs=new MutationObserver(queue);obs.observe(content,{childList:true,subtree:true});
