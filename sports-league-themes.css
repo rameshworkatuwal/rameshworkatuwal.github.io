@@ -1,0 +1,243 @@
+/* League-themed premium skin for Match Center.
+   Lightweight: one-time entrance + pointer hover depth; no expensive infinite card animation. */
+
+.sports-body{
+  --sports-ink:#eef7ff;
+  --sports-muted:#8da4bb;
+}
+
+.sports-body .sw-shell{
+  border-color:rgba(91,153,209,.18)!important;
+  background:
+    radial-gradient(circle at 12% -8%,rgba(36,177,255,.13),transparent 28%),
+    radial-gradient(circle at 92% 0,rgba(115,73,255,.12),transparent 31%),
+    linear-gradient(155deg,#071521 0%,#06101b 52%,#07131e 100%)!important;
+  box-shadow:0 35px 90px rgba(4,14,25,.22),inset 0 1px 0 rgba(255,255,255,.045)!important;
+}
+.sports-body .sw-shell::before{
+  opacity:.82!important;
+  background-image:
+    linear-gradient(rgba(93,177,232,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(93,177,232,.035) 1px,transparent 1px)!important;
+  background-size:34px 34px!important;
+}
+.sports-body .sw-section-head h2{color:#eff8ff!important;font-family:'Sora',sans-serif!important;letter-spacing:-.035em}
+.sports-body .sw-section-kicker{display:block;margin-bottom:.25rem;color:#42c9f6;font:800 .5rem/1 'Manrope',sans-serif;letter-spacing:.14em}
+.sports-body .sw-local-time-note,.sports-body .sw-section-head>span{color:#7f96aa!important}
+
+/* Default variables, then JS applies league/sport variants. */
+.sw-card,.sw-feature{
+  --lrgb:47,158,255;
+  --lrgb2:112,85,255;
+  --laccent:#55d5ff;
+  --league-mark:none;
+  --mx:72%;
+  --my:18%;
+}
+
+.sports-body .sw-card{
+  position:relative;
+  isolation:isolate;
+  min-height:205px!important;
+  border:1px solid rgba(var(--lrgb),.26)!important;
+  background:
+    radial-gradient(circle at var(--mx) var(--my),rgba(var(--lrgb),.18),transparent 33%),
+    linear-gradient(118deg,rgba(4,12,22,.985) 0%,rgba(6,16,29,.955) 57%,rgba(var(--lrgb2),.15) 100%)!important;
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.23),
+    0 0 0 1px rgba(255,255,255,.015) inset,
+    0 0 36px rgba(var(--lrgb),.045)!important;
+  color:var(--sports-ink)!important;
+  overflow:hidden;
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(0);
+  transform-style:preserve-3d;
+  transition:transform .38s cubic-bezier(.16,1,.3,1),border-color .28s ease,box-shadow .34s ease!important;
+  animation:swThemeEnter .58s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:calc(var(--card-i,0) * 34ms);
+}
+@keyframes swThemeEnter{from{opacity:0;transform:perspective(900px) translateY(16px) scale(.982)}to{opacity:1;transform:perspective(900px) translateY(0) scale(1)}}
+
+.sports-body .sw-card::before{
+  content:'';
+  position:absolute;
+  z-index:-1;
+  width:188px;
+  height:188px;
+  right:-38px;
+  top:50%;
+  transform:translateY(-50%) rotate(-8deg) scale(.95);
+  background-image:var(--league-mark);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+  opacity:.065;
+  filter:grayscale(.12) saturate(.9) brightness(1.55);
+  pointer-events:none;
+  transition:opacity .35s ease,transform .5s cubic-bezier(.16,1,.3,1);
+}
+.sports-body .sw-card::after{
+  content:''!important;
+  position:absolute!important;
+  z-index:-1!important;
+  inset:-35% -28%!important;
+  width:auto!important;
+  background:
+    linear-gradient(118deg,transparent 37%,rgba(255,255,255,.075) 48%,transparent 58%),
+    radial-gradient(ellipse at 86% 90%,rgba(var(--lrgb),.12),transparent 35%)!important;
+  opacity:.42!important;
+  transform:translate3d(-14%,0,0) rotate(0)!important;
+  pointer-events:none;
+  transition:transform .8s cubic-bezier(.16,1,.3,1),opacity .4s ease!important;
+}
+.sports-body .sw-card:hover{
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-6px) scale(1.008)!important;
+  border-color:rgba(var(--lrgb),.48)!important;
+  box-shadow:0 28px 58px rgba(0,0,0,.31),0 0 45px rgba(var(--lrgb),.09),inset 0 1px 0 rgba(255,255,255,.04)!important;
+}
+.sports-body .sw-card:hover::before{opacity:.115;transform:translateY(-50%) rotate(-4deg) scale(1.035)}
+.sports-body .sw-card:hover::after{transform:translate3d(13%,0,0)!important;opacity:.75!important}
+
+.sw-theme-art{
+  position:absolute;
+  z-index:-1;
+  right:18px;
+  bottom:10px;
+  font-size:5.8rem;
+  line-height:1;
+  opacity:.055;
+  filter:grayscale(1) brightness(1.7);
+  transform:rotate(-9deg) translateZ(0);
+  pointer-events:none;
+  transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .35s ease;
+}
+.sw-card:hover .sw-theme-art{opacity:.09;transform:rotate(-4deg) translate3d(-8px,-5px,0) scale(1.035)}
+
+.sports-body .sw-card-top{position:relative;z-index:2;color:#a4b6c8!important;font-family:'Manrope',sans-serif!important;letter-spacing:.085em}
+.sports-body .sw-card-sport{color:var(--laccent)!important;font-weight:800!important;text-shadow:0 0 18px rgba(var(--lrgb),.22)}
+.sports-body .sw-card-state{color:#d5e2ed!important}
+.sports-body .sw-card.live .sw-card-state{color:#ff6683!important}
+.sports-body .sw-league-line{position:relative;z-index:2;display:flex;align-items:center;gap:.48rem;margin:.08rem 0 .7rem}
+.sports-body .sw-league{margin:0!important;color:#9fb2c4!important;font:600 .58rem/1.2 'Manrope',sans-serif!important}
+.sports-body .sw-mini-league-logo{
+  display:grid!important;
+  place-items:center;
+  width:26px!important;
+  height:26px!important;
+  flex:0 0 26px;
+  padding:4px;
+  border:1px solid rgba(var(--lrgb),.24);
+  border-radius:9px;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 6px 16px rgba(0,0,0,.16),0 0 20px rgba(var(--lrgb),.07);
+}
+.sports-body .sw-mini-league-logo img{max-width:100%;max-height:100%;object-fit:contain}
+.sports-body .sw-teams{position:relative;z-index:2;gap:.58rem!important}
+.sports-body .sw-team-row{grid-template-columns:44px minmax(0,1fr) auto!important}
+.sports-body .sw-team-logo{
+  width:44px!important;height:44px!important;
+  border-color:rgba(var(--lrgb),.20)!important;
+  border-radius:14px!important;
+  background:linear-gradient(145deg,#fff,#edf4f8)!important;
+  box-shadow:0 9px 21px rgba(0,0,0,.2),inset 0 1px 0 #fff!important;
+  transform:translateZ(14px);
+  transition:transform .34s cubic-bezier(.16,1,.3,1),box-shadow .34s ease!important;
+}
+.sports-body .sw-team-row:hover .sw-team-logo{transform:translateZ(18px) translateY(-2px) scale(1.045);box-shadow:0 13px 26px rgba(0,0,0,.25),0 0 22px rgba(var(--lrgb),.11),inset 0 1px 0 #fff!important}
+.sports-body .sw-team-name b{color:#f4f9fd!important;font:750 .75rem/1.15 'Manrope',sans-serif!important}
+.sports-body .sw-team-name small{color:#72899c!important;font-family:'Manrope',sans-serif!important}
+.sports-body .sw-team-score{color:#f5faff!important;font-family:'Sora',sans-serif!important}
+.sports-body .sw-card-foot{position:relative;z-index:2;border-top-color:rgba(var(--lrgb),.13)!important;color:#849caf!important}
+.sports-body .sw-card-clock{color:#c7d8e6!important}
+.sports-body .sw-open-hint{color:var(--laccent)!important;font-weight:800;text-shadow:0 0 18px rgba(var(--lrgb),.16)}
+
+/* Live treatment: restrained so the page stays fast. */
+.sports-body .sw-card.live{
+  border-color:rgba(255,77,109,.35)!important;
+  box-shadow:0 20px 48px rgba(0,0,0,.25),0 0 30px rgba(255,62,96,.06)!important;
+}
+.sports-body .sw-card.live::after{background:linear-gradient(118deg,transparent 38%,rgba(255,255,255,.07) 49%,transparent 59%),radial-gradient(circle at 90% 12%,rgba(255,60,100,.12),transparent 28%)!important}
+
+/* Featured match inherits exactly the same league palette. */
+.sports-body .sw-feature{
+  position:relative;
+  isolation:isolate;
+  border-color:rgba(var(--lrgb),.30)!important;
+  background:
+    radial-gradient(circle at 50% 18%,rgba(var(--lrgb),.16),transparent 31%),
+    linear-gradient(118deg,#06111d 0%,#071522 48%,rgba(var(--lrgb2),.16) 100%)!important;
+  box-shadow:0 25px 65px rgba(0,0,0,.26),0 0 44px rgba(var(--lrgb),.06),inset 0 1px 0 rgba(255,255,255,.035)!important;
+  overflow:hidden;
+}
+.sports-body .sw-feature::before{
+  content:'';
+  position:absolute;
+  z-index:-1;
+  right:-45px;
+  top:50%;
+  width:300px;
+  height:300px;
+  transform:translateY(-50%) rotate(-8deg);
+  background-image:var(--league-mark);
+  background-size:contain;
+  background-position:center;
+  background-repeat:no-repeat;
+  opacity:.055;
+  filter:brightness(1.55) saturate(.8);
+  pointer-events:none;
+}
+.sports-body .sw-feature::after{background:radial-gradient(ellipse,rgba(var(--lrgb),.12),transparent 62%)!important}
+.sports-body .sw-feature-league b,.sports-body .sw-feature-team h3{color:#f5fbff!important;font-family:'Sora',sans-serif!important}
+.sports-body .sw-feature-team small,.sports-body .sw-feature-note{color:#8098ac!important}
+.sports-body .sw-feature-logo{border-color:rgba(var(--lrgb),.23)!important;background:radial-gradient(circle at 30% 18%,#fff,#edf4f8 72%)!important;box-shadow:0 22px 48px rgba(0,0,0,.25),0 0 34px rgba(var(--lrgb),.09),inset 0 1px 0 #fff!important}
+.sports-body .sw-scoreline{color:#f7fbff!important;font-family:'Sora',sans-serif!important}
+.sports-body .sw-clock{border-color:rgba(var(--lrgb),.22)!important;background:rgba(var(--lrgb),.07)!important;color:var(--laccent)!important}
+
+/* League palettes */
+.sw-card[data-league-theme="premier"],.sw-feature[data-league-theme="premier"]{--lrgb:127,70,255;--lrgb2:70,22,123;--laccent:#c58cff}
+.sw-card[data-league-theme="ucl"],.sw-feature[data-league-theme="ucl"]{--lrgb:49,117,255;--lrgb2:43,44,132;--laccent:#72a9ff}
+.sw-card[data-league-theme="europa"],.sw-feature[data-league-theme="europa"]{--lrgb:255,122,44;--lrgb2:126,47,18;--laccent:#ff9b55}
+.sw-card[data-league-theme="laliga"],.sw-feature[data-league-theme="laliga"]{--lrgb:255,76,75;--lrgb2:129,25,59;--laccent:#ff8073}
+.sw-card[data-league-theme="bundesliga"],.sw-feature[data-league-theme="bundesliga"]{--lrgb:232,52,70;--lrgb2:116,17,27;--laccent:#ff6675}
+.sw-card[data-league-theme="seriea"],.sw-feature[data-league-theme="seriea"]{--lrgb:39,137,255;--lrgb2:24,63,145;--laccent:#6bb8ff}
+.sw-card[data-league-theme="ligue1"],.sw-feature[data-league-theme="ligue1"]{--lrgb:35,210,220;--lrgb2:26,70,109;--laccent:#62edf0}
+.sw-card[data-league-theme="mls"],.sw-feature[data-league-theme="mls"]{--lrgb:226,59,89;--lrgb2:38,74,146;--laccent:#ff758e}
+.sw-card[data-league-theme="nba"],.sw-feature[data-league-theme="nba"]{--lrgb:244,121,36;--lrgb2:41,70,152;--laccent:#ffa24d}
+.sw-card[data-league-theme="nfl"],.sw-feature[data-league-theme="nfl"]{--lrgb:36,171,193;--lrgb2:21,63,101;--laccent:#56e1e8}
+.sw-card[data-league-theme="mlb"],.sw-feature[data-league-theme="mlb"]{--lrgb:235,61,78;--lrgb2:31,70,139;--laccent:#ff7181}
+.sw-card[data-league-theme="nhl"],.sw-feature[data-league-theme="nhl"]{--lrgb:117,201,255;--lrgb2:55,85,126;--laccent:#9bddff}
+
+/* Sport fallback palettes */
+.sw-card[data-league-theme="football"],.sw-feature[data-league-theme="football"]{--lrgb:120,70,245;--lrgb2:52,27,107;--laccent:#bd8aff}
+.sw-card[data-league-theme="basketball"],.sw-feature[data-league-theme="basketball"]{--lrgb:255,127,39;--lrgb2:137,54,16;--laccent:#ffa24d}
+.sw-card[data-league-theme="volleyball"],.sw-feature[data-league-theme="volleyball"]{--lrgb:41,135,255;--lrgb2:18,67,157;--laccent:#65b7ff}
+.sw-card[data-league-theme="rugby"],.sw-feature[data-league-theme="rugby"]{--lrgb:239,160,36;--lrgb2:117,67,14;--laccent:#ffc05d}
+.sw-card[data-league-theme="american-football"],.sw-feature[data-league-theme="american-football"]{--lrgb:25,203,190;--lrgb2:21,67,102;--laccent:#51e7db}
+.sw-card[data-league-theme="cricket"],.sw-feature[data-league-theme="cricket"]{--lrgb:39,197,123;--lrgb2:22,89,70;--laccent:#65e4aa}
+.sw-card[data-league-theme="tennis"],.sw-feature[data-league-theme="tennis"]{--lrgb:173,213,48;--lrgb2:67,100,29;--laccent:#d0ed65}
+.sw-card[data-league-theme="motorsport"],.sw-feature[data-league-theme="motorsport"]{--lrgb:245,59,71;--lrgb2:111,19,24;--laccent:#ff717c}
+.sw-card[data-league-theme="baseball"],.sw-feature[data-league-theme="baseball"]{--lrgb:235,73,82;--lrgb2:39,75,142;--laccent:#ff7a83}
+.sw-card[data-league-theme="ice-hockey"],.sw-feature[data-league-theme="ice-hockey"]{--lrgb:95,192,249;--lrgb2:35,76,128;--laccent:#99dcff}
+.sw-card[data-league-theme="golf"],.sw-feature[data-league-theme="golf"]{--lrgb:45,190,102;--lrgb2:24,98,62;--laccent:#70e59e}
+.sw-card[data-league-theme="handball"],.sw-feature[data-league-theme="handball"]{--lrgb:92,145,255;--lrgb2:61,67,157;--laccent:#86b2ff}
+
+/* Dark cards stay dark even if the global site toggle is light. */
+html[data-theme="light"] .sports-body .sw-card,
+html[data-theme="light"] .sports-body .sw-feature{
+  color:#eff8ff!important;
+}
+html[data-theme="light"] .sports-body .sw-team-name b,
+html[data-theme="light"] .sports-body .sw-team-score,
+html[data-theme="light"] .sports-body .sw-feature-team h3,
+html[data-theme="light"] .sports-body .sw-feature-league b,
+html[data-theme="light"] .sports-body .sw-scoreline{color:#f5fbff!important}
+
+@media(max-width:760px){
+  .sports-body .sw-card{min-height:190px!important}
+  .sw-theme-art{font-size:4.6rem;right:8px}
+  .sports-body .sw-card::before{width:145px;height:145px;right:-34px}
+}
+@media(prefers-reduced-motion:reduce){
+  .sports-body .sw-card{animation:none!important;transition:none!important;transform:none!important}
+  .sports-body .sw-card::before,.sports-body .sw-card::after,.sw-theme-art,.sports-body .sw-team-logo{transition:none!important}
+  .sports-body .sw-card:hover{transform:none!important}
+}
