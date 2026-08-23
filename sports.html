@@ -5,19 +5,18 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="alternate icon" type="image/png" href="favicon.png">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07101d">
+<meta name="theme-color" content="#06101b">
 <title>Live Sports & Results — Ritesh Katuwal</title>
-<meta name="description" content="Worldwide live sports dashboard with football, basketball, cricket, tennis, baseball, hockey, rugby and more.">
+<meta name="description" content="Live and scheduled sports with premium match cards, team and league badges, venue weather, win probability and lineups when data is available.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="widgets.css">
-<link rel="stylesheet" href="games-enhanced.css?v=20260821-4">
-<link rel="stylesheet" href="sports-world.css?v=20260821-1">
+<link rel="stylesheet" href="sports-world.css?v=20260823-3">
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
-<body>
+<body class="sports-body">
 <nav>
   <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-.15em;margin-right:.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Katuwal</a>
   <ul class="nav-links">
@@ -33,20 +32,19 @@
 </nav>
 
 <main class="page sports-world-page" id="rkSportsPage">
-  <div class="games-hub-switch sports-games-switch" aria-label="Games hub mode">
-    <a href="games.html"><span>Play Games</span></a>
-    <a href="online-ludo.html"><span>Play Online</span></a>
-    <a href="sports.html" class="live-link is-active"><span>Live Sports</span></a>
+  <div class="sports-modebar" aria-label="Games hub mode">
+    <a href="games.html">Play Games</a>
+    <a href="online-ludo.html">Play Online</a>
+    <a href="sports.html" class="is-active"><i></i>Live Sports</a>
   </div>
 
   <header class="sw-hero">
-    <div>
-      <div class="sw-kicker"><i></i>WORLDWIDE MATCH CENTER</div>
-      <h1>Live Sports <span>Now</span></h1>
-      <p class="sw-sub">Live and scheduled events from multiple sports feeds, with local kickoff times, premium team badges and match clocks that keep moving without reloading the page.</p>
+    <div class="sw-title-wrap">
+      <div class="sw-kicker"><i></i>WORLDWIDE · LIVE DATA</div>
+      <h1>Match <span>Center</span></h1>
     </div>
     <div class="sw-meta">
-      <span class="sw-meta-pill sw-live-count"><strong>0</strong> live</span>
+      <span class="sw-meta-pill sw-live-count"><b class="sw-live-dot"></b><strong>0</strong> live</span>
       <span class="sw-meta-pill sw-count"><strong>0</strong> events</span>
       <span class="sw-meta-pill sw-updated">Connecting…</span>
       <button class="sw-refresh" type="button" aria-label="Refresh sports feed">↻</button>
@@ -59,14 +57,14 @@
     <article class="sw-feature" hidden aria-label="Featured match"></article>
 
     <div class="sw-section-head">
-      <h2>All Matches</h2>
-      <span>Live matches first · your local time</span>
+      <div><span class="sw-section-kicker">LIVE & TODAY</span><h2>Matches around the world</h2></div>
+      <span class="sw-local-time-note">Times shown in your local timezone</span>
     </div>
 
     <div class="sw-grid" aria-live="polite"></div>
 
     <div class="sw-empty" hidden>
-      <strong>No events right now.</strong>
+      <strong>No events found.</strong>
       <small>Try another sport or refresh the feed.</small>
     </div>
 
@@ -74,22 +72,25 @@
   </section>
 </main>
 
-<div class="sw-goal" aria-hidden="true">
-  <div class="sw-goal-inner"><small>LIVE UPDATE</small><strong>GOAL!</strong><b>Team</b><span>1-0</span></div>
+<div class="match-drawer" id="matchDrawer" hidden aria-hidden="true">
+  <button class="match-drawer-backdrop" type="button" data-close-match aria-label="Close match details"></button>
+  <section class="match-drawer-panel" role="dialog" aria-modal="true" aria-label="Match details">
+    <div class="match-drawer-top">
+      <div class="match-drawer-brand"><span class="match-drawer-league-logo" id="drawerLeagueLogo"></span><div><small id="drawerSport">MATCH CENTER</small><strong id="drawerLeague">Match details</strong></div></div>
+      <button class="match-drawer-close" type="button" data-close-match aria-label="Close">×</button>
+    </div>
+    <div class="match-drawer-scroll" id="matchDrawerContent"><div class="match-loading"><i></i><span>Loading match intelligence…</span></div></div>
+  </section>
 </div>
 
-<footer>
-  <div class="social-row" style="justify-content:center;margin-bottom:1rem">
-    <a href="https://www.youtube.com/@RiteshKatwal" target="_blank" class="soc" title="YouTube" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></a>
-    <a href="https://www.instagram.com/riteshkatuwal" target="_blank" class="soc" title="Instagram" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1" fill="currentColor" stroke="none"/></svg></a>
-    <a href="https://www.linkedin.com/in/ritesh-katuwal/" target="_blank" class="soc" title="LinkedIn" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6A2.5 2.5 0 1 1 5 3.5zM.5 8h4V24h-4V8zm7 0h3.8v2.2h.1c.5-1 1.8-2.5 3.8-2.5 4.1 0 4.8 2.7 4.8 6.2V24h-4v-9c0-2.1 0-4.9-3-4.9s-3.5 2.3-3.5 4.8V24h-4V8z"/></svg></a>
-  </div>
-  © 2026 Ritesh Katuwal
-</footer>
+<div class="sw-goal" aria-hidden="true">
+  <div class="sw-goal-inner"><small>LIVE UPDATE</small><strong>GOAL!</strong><b>Team</b><span>1–0</span></div>
+</div>
+
+<footer class="sports-footer">© 2026 Ritesh Katuwal</footer>
 
 <script src="site.js"></script>
 <script src="theme.js"></script>
-<script src="weather.js"></script>
-<script src="sports-live.js?v=20260821-world1"></script>
+<script src="sports-live.js?v=20260823-3"></script>
 </body>
 </html>
