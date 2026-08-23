@@ -59,4 +59,20 @@ var obs=new MutationObserver(queue),grid=root.querySelector('.sw-grid'),feature=
 if(grid)obs.observe(grid,{childList:true,subtree:true});
 if(feature)obs.observe(feature,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class']});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',decorate,{once:true});else decorate();
+
+/* Runtime enhancements are isolated so the main feed remains stable. */
+if(!document.querySelector('link[data-rk-sports-runtime]')){
+  var css=document.createElement('link');
+  css.rel='stylesheet';
+  css.href='sports-runtime-enhancements.css?v=20260823-2';
+  css.dataset.rkSportsRuntime='1';
+  document.head.appendChild(css);
+}
+if(!document.querySelector('script[data-rk-sports-runtime]')){
+  var js=document.createElement('script');
+  js.src='sports-runtime-enhancements.js?v=20260823-2';
+  js.defer=true;
+  js.dataset.rkSportsRuntime='1';
+  document.body.appendChild(js);
+}
 })();
