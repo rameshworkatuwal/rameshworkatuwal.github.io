@@ -1,108 +1,140 @@
-/* Match Center clean league skin v2.
-   League identity is intentionally restrained: accent rail, badge tint and a soft corner wash.
-   No 3D tilt, no giant watermarks, no mouse-follow glow. */
+/* Match Center — clean premium league skin v3
+   League identity is subtle. No mouse-follow lighting, no giant watermarks, no card tilt. */
 
 .sports-body{
-  --sports-card:#ffffff;
+  --sports-card:#fff;
   --sports-card-2:#fbfdff;
   --sports-ink:#10263a;
-  --sports-muted:#72879a;
+  --sports-muted:#73879a;
   --sports-line:rgba(39,83,118,.11);
   --sports-shadow:0 14px 34px rgba(39,70,99,.075);
 }
 html:not([data-theme="light"]) .sports-body{
   --sports-card:#0c1723;
-  --sports-card-2:#0a141f;
+  --sports-card-2:#09141f;
   --sports-ink:#edf6fd;
-  --sports-muted:#8297aa;
+  --sports-muted:#8499ac;
   --sports-line:rgba(151,190,220,.12);
   --sports-shadow:0 16px 38px rgba(0,0,0,.22);
 }
 
-.sports-body .sw-shell{
-  border:1px solid var(--sports-line)!important;
-  background:linear-gradient(180deg,rgba(255,255,255,.68),rgba(247,251,255,.82))!important;
-  box-shadow:0 24px 60px rgba(40,75,105,.075),inset 0 1px 0 rgba(255,255,255,.92)!important;
-}
-html:not([data-theme="light"]) .sports-body .sw-shell{
-  background:linear-gradient(180deg,#08131e,#07111b)!important;
-  box-shadow:0 28px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.035)!important;
-}
-.sports-body .sw-shell::before{opacity:.18!important;background-size:42px 42px!important}
-.sports-body .sw-section-head{margin:1.15rem .1rem .78rem!important}
-.sports-body .sw-section-kicker{display:block;margin-bottom:.24rem;color:#27aee1;font:800 .49rem/1 'Manrope',sans-serif;letter-spacing:.15em}
+/* Keep content fully below the fixed site nav. */
+.sports-body .sports-world-page{padding-top:8.8rem!important}
+.sports-body .sw-hero{align-items:end!important;gap:1.25rem!important;margin-bottom:.85rem!important}
+.sports-body .sw-kicker{margin-bottom:.35rem!important;font-size:.54rem!important;letter-spacing:.14em!important}
+.sports-body .sw-hero h1{font-family:'Sora',sans-serif!important;font-size:clamp(3rem,5.5vw,5.25rem)!important;line-height:.9!important;letter-spacing:-.065em!important}
+.sports-body .sw-meta-pill{font-family:'Manrope',sans-serif!important}
+.sports-body .sw-tabs{gap:.36rem!important;padding:.12rem 0 .86rem!important}
+.sports-body .sw-tab{padding:.54rem .72rem!important;border-color:var(--sports-line)!important;background:var(--sports-card)!important;color:var(--sports-muted)!important;box-shadow:none!important;font:700 .59rem/1 'Manrope',sans-serif!important}
+.sports-body .sw-tab:hover{transform:translateY(-1px)!important;border-color:rgba(38,157,217,.22)!important;color:var(--sports-ink)!important}
+.sports-body .sw-tab.active{color:#fff!important;background:linear-gradient(135deg,#31bce8,#4c8df2)!important;border-color:transparent!important;box-shadow:0 8px 18px rgba(52,147,224,.16)!important}
+
+.sports-body .sw-shell{padding:1rem!important;border:1px solid var(--sports-line)!important;border-radius:26px!important;background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(247,251,255,.86))!important;box-shadow:0 24px 60px rgba(40,75,105,.075),inset 0 1px 0 rgba(255,255,255,.92)!important}
+html:not([data-theme="light"]) .sports-body .sw-shell{background:linear-gradient(180deg,#08131e,#07111b)!important;box-shadow:0 28px 70px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.035)!important}
+.sports-body .sw-shell::before{opacity:.12!important;background-size:44px 44px!important}
+.sports-body .sw-section-head{margin:.95rem .08rem .72rem!important}
+.sports-body .sw-section-kicker{display:block;margin-bottom:.22rem;color:#27aee1;font:800 .48rem/1 'Manrope',sans-serif;letter-spacing:.15em}
 .sports-body .sw-section-head h2{color:var(--sports-ink)!important;font:800 1.18rem/1.1 'Sora',sans-serif!important;letter-spacing:-.035em}
 .sports-body .sw-local-time-note,.sports-body .sw-section-head>span{color:var(--sports-muted)!important}
-.sports-body .sw-grid{gap:.82rem!important}
+.sports-body .sw-grid{gap:.76rem!important}
 
 .sw-card,.sw-feature{--lrgb:46,145,222;--lrgb2:85,103,221;--laccent:#2e9de5}
 
+/* FEATURED MATCH — explicit grid fixes the wrap bug visible in the screenshot. */
+.sports-body .sw-feature{
+  position:relative!important;
+  isolation:isolate;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(130px,190px) minmax(0,1fr)!important;
+  grid-template-rows:1fr!important;
+  align-items:center!important;
+  gap:1.35rem!important;
+  min-height:265px!important;
+  margin-bottom:1rem!important;
+  padding:4.6rem 2rem 1.75rem!important;
+  overflow:hidden!important;
+  border:1px solid var(--sports-line)!important;
+  border-radius:23px!important;
+  background:radial-gradient(circle at 50% -25%,rgba(var(--lrgb),.075),transparent 38%),linear-gradient(180deg,var(--sports-card),var(--sports-card-2))!important;
+  box-shadow:0 19px 45px rgba(39,70,99,.08)!important;
+}
+html:not([data-theme="light"]) .sports-body .sw-feature{box-shadow:0 22px 52px rgba(0,0,0,.25)!important}
+.sports-body .sw-feature::before{content:'';position:absolute!important;z-index:0!important;left:0!important;right:0!important;top:0!important;width:auto!important;height:3px!important;transform:none!important;background:linear-gradient(90deg,rgba(var(--lrgb),.92),rgba(var(--lrgb2),.7))!important;opacity:.82!important;filter:none!important;pointer-events:none}
+.sports-body .sw-feature::after{content:''!important;position:absolute!important;z-index:0!important;left:50%!important;bottom:-150px!important;width:420px!important;height:230px!important;transform:translateX(-50%)!important;border-radius:50%!important;background:radial-gradient(ellipse,rgba(var(--lrgb),.055),transparent 66%)!important;pointer-events:none}
+.sports-body .sw-feature-head{position:absolute!important;z-index:4!important;left:1.35rem!important;right:1.35rem!important;top:1.05rem!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:1rem!important}
+.sports-body .sw-feature-team{position:relative!important;z-index:2!important;display:grid!important;justify-items:center!important;align-content:center!important;gap:.62rem!important;padding:0!important;text-align:center!important}
+.sports-body .sw-feature-team:first-of-type{grid-column:1!important;grid-row:1!important}
+.sports-body .sw-feature-score{position:relative!important;z-index:2!important;grid-column:2!important;grid-row:1!important;display:grid!important;justify-items:center!important;align-content:center!important;gap:.46rem!important;min-width:0!important;padding:0!important}
+.sports-body .sw-feature-team:last-child{grid-column:3!important;grid-row:1!important}
+.sports-body .sw-feature-league{display:flex!important;align-items:center!important;gap:.55rem!important;min-width:0!important}
+.sports-body .sw-feature-league b{max-width:440px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;color:var(--sports-ink)!important;font:800 .7rem/1.15 'Sora',sans-serif!important}
+.sports-body .sw-feature-status{font-family:'Manrope',sans-serif!important}
+.sports-body .sw-feature-logo{display:grid!important;place-items:center!important;width:96px!important;height:96px!important;border:1px solid rgba(40,80,112,.09)!important;border-radius:25px!important;background:#fff!important;box-shadow:0 11px 25px rgba(35,64,89,.095)!important;transform:none!important;transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s ease!important}
+.sports-body .sw-feature-logo img{width:78%!important;height:78%!important;object-fit:contain!important;filter:none!important}
+.sports-body .sw-feature-team:hover .sw-feature-logo{transform:translateY(-2px) scale(1.02)!important;box-shadow:0 15px 29px rgba(35,64,89,.13)!important}
+.sports-body .sw-feature-team h3{max-width:260px!important;margin:0!important;color:var(--sports-ink)!important;font:800 1.02rem/1.15 'Sora',sans-serif!important;letter-spacing:-.025em!important}
+.sports-body .sw-feature-team small{color:var(--sports-muted)!important;font:500 .53rem/1.1 'Manrope',sans-serif!important}
+.sports-body .sw-scoreline{display:flex!important;align-items:center!important;justify-content:center!important;gap:.55rem!important;color:var(--sports-ink)!important;font:800 clamp(2.2rem,4.3vw,4.5rem)/1 'Sora',sans-serif!important;letter-spacing:-.055em!important}
+.sports-body .sw-scoreline span{white-space:nowrap!important}
+.sports-body .sw-clock{padding:.4rem .66rem!important;border:1px solid rgba(var(--lrgb),.14)!important;border-radius:999px!important;background:rgba(var(--lrgb),.055)!important;color:var(--laccent)!important;font:800 .62rem/1 'Manrope',sans-serif!important}
+.sports-body .sw-feature-note{max-width:190px!important;color:var(--sports-muted)!important;font:500 .5rem/1.25 'Manrope',sans-serif!important;text-align:center!important}
+.sports-body .sw-league-logo{display:grid!important;place-items:center!important;width:30px!important;height:30px!important;padding:5px!important;border:1px solid rgba(var(--lrgb),.12)!important;border-radius:9px!important;background:#fff!important;box-shadow:0 4px 12px rgba(35,64,89,.07)!important}
+.sports-body .sw-league-logo img{max-width:100%!important;max-height:100%!important;object-fit:contain!important}
+
+/* MATCH CARDS */
 .sports-body .sw-card{
   position:relative;
   isolation:isolate;
-  min-height:190px!important;
-  padding:.88rem .92rem!important;
+  min-height:184px!important;
+  padding:.84rem .9rem!important;
   overflow:hidden;
   border:1px solid var(--sports-line)!important;
-  border-radius:20px!important;
-  background:radial-gradient(circle at 100% 0,rgba(var(--lrgb),.065),transparent 31%),linear-gradient(180deg,var(--sports-card),var(--sports-card-2))!important;
+  border-radius:19px!important;
+  background:radial-gradient(circle at 100% 0,rgba(var(--lrgb),.045),transparent 29%),linear-gradient(180deg,var(--sports-card),var(--sports-card-2))!important;
   color:var(--sports-ink)!important;
   box-shadow:var(--sports-shadow)!important;
   transform:none!important;
-  transition:transform .26s cubic-bezier(.16,1,.3,1),box-shadow .28s ease,border-color .28s ease!important;
-  animation:swCleanEnter .46s cubic-bezier(.16,1,.3,1) both;
-  animation-delay:calc(var(--card-i,0) * 24ms);
+  transition:transform .24s cubic-bezier(.16,1,.3,1),box-shadow .26s ease,border-color .26s ease!important;
+  animation:swCleanEnter .4s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:calc(var(--card-i,0) * 20ms);
 }
-@keyframes swCleanEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.sports-body .sw-card::before{content:'';position:absolute;z-index:0;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,rgba(var(--lrgb),.95),rgba(var(--lrgb2),.68));opacity:.78;pointer-events:none}
-.sports-body .sw-card::after{content:''!important;position:absolute!important;z-index:0!important;width:120px!important;height:120px!important;right:-52px!important;bottom:-58px!important;left:auto!important;top:auto!important;border-radius:50%!important;background:rgba(var(--lrgb),.045)!important;opacity:1!important;transform:none!important;pointer-events:none}
-.sports-body .sw-card:hover{transform:translateY(-3px)!important;border-color:rgba(var(--lrgb),.24)!important;box-shadow:0 20px 42px rgba(39,70,99,.11)!important}
-html:not([data-theme="light"]) .sports-body .sw-card:hover{box-shadow:0 22px 48px rgba(0,0,0,.30)!important}
+@keyframes swCleanEnter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.sports-body .sw-card::before{content:'';position:absolute;z-index:0;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,rgba(var(--lrgb),.9),rgba(var(--lrgb2),.62));opacity:.76;pointer-events:none}
+.sports-body .sw-card::after{content:''!important;position:absolute!important;z-index:0!important;width:100px!important;height:100px!important;right:-50px!important;bottom:-52px!important;left:auto!important;top:auto!important;border-radius:50%!important;background:rgba(var(--lrgb),.035)!important;opacity:1!important;transform:none!important;pointer-events:none}
+.sports-body .sw-card:hover{transform:translateY(-2px)!important;border-color:rgba(var(--lrgb),.21)!important;box-shadow:0 18px 38px rgba(39,70,99,.10)!important}
+html:not([data-theme="light"]) .sports-body .sw-card:hover{box-shadow:0 20px 42px rgba(0,0,0,.28)!important}
 .sports-body .sw-theme-art{display:none!important}
 
-.sports-body .sw-card-top{position:relative;z-index:2;margin-bottom:.38rem!important;color:var(--sports-muted)!important;font:750 .51rem/1 'Manrope',sans-serif!important;letter-spacing:.07em}
-.sports-body .sw-card-sport{color:var(--sports-muted)!important;font-weight:800!important;text-shadow:none!important}
+/* The league already identifies the competition. Repeating FOOTBALL / RUGBY on every card was visual noise. */
+.sports-body .sw-card-sport{display:none!important}
+.sports-body .sw-card-top{position:relative!important;z-index:2!important;display:flex!important;justify-content:flex-end!important;min-height:16px!important;margin-bottom:.18rem!important;color:var(--sports-muted)!important;font:750 .51rem/1 'Manrope',sans-serif!important;letter-spacing:.05em!important}
 .sports-body .sw-card-state{color:#667d91!important;font-weight:800!important}
 html:not([data-theme="light"]) .sports-body .sw-card-state{color:#9badbd!important}
 .sports-body .sw-card.live .sw-card-state{color:#ef4768!important}
-.sports-body .sw-league-line{position:relative;z-index:2;display:flex;align-items:center;gap:.48rem;margin:.15rem 0 .68rem!important;min-height:27px}
-.sports-body .sw-league{margin:0!important;color:var(--sports-muted)!important;font:650 .57rem/1.25 'Manrope',sans-serif!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sports-body .sw-mini-league-logo{display:grid!important;place-items:center;width:27px!important;height:27px!important;flex:0 0 27px;padding:4px;border:1px solid rgba(var(--lrgb),.12);border-radius:8px;background:#fff;box-shadow:0 4px 11px rgba(32,59,82,.07)}
-.sports-body .sw-mini-league-logo img{max-width:100%;max-height:100%;object-fit:contain}
-.sports-body .sw-mini-league-logo .sw-logo-fallback{font-size:.47rem!important;color:#617386!important}
-.sports-body .sw-teams{position:relative;z-index:2;gap:.52rem!important}
-.sports-body .sw-team-row{grid-template-columns:42px minmax(0,1fr) auto!important;gap:.62rem!important}
-.sports-body .sw-team-logo{width:42px!important;height:42px!important;border:1px solid rgba(40,80,112,.09)!important;border-radius:13px!important;background:#fff!important;box-shadow:0 5px 13px rgba(34,62,88,.07)!important;transform:none!important;transition:transform .23s cubic-bezier(.16,1,.3,1),box-shadow .23s ease!important}
-.sports-body .sw-team-row:hover .sw-team-logo{transform:scale(1.045)!important;box-shadow:0 8px 18px rgba(34,62,88,.11)!important}
-.sports-body .sw-team-logo img{filter:none!important}
-.sports-body .sw-team-name b{color:var(--sports-ink)!important;font:750 .75rem/1.18 'Manrope',sans-serif!important}
-.sports-body .sw-team-name small{margin-top:.15rem!important;color:var(--sports-muted)!important;font:500 .48rem/1.15 'Manrope',sans-serif!important}
-.sports-body .sw-team-score{color:var(--sports-ink)!important;font:800 1.04rem/1 'Sora',sans-serif!important}
+.sports-body .sw-league-line{position:relative!important;z-index:2!important;display:flex!important;align-items:center!important;gap:.5rem!important;margin:.1rem 0 .68rem!important;min-height:29px!important}
+.sports-body .sw-league{margin:0!important;color:var(--sports-muted)!important;font:650 .58rem/1.25 'Manrope',sans-serif!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.sports-body .sw-mini-league-logo{display:grid!important;place-items:center!important;width:29px!important;height:29px!important;flex:0 0 29px!important;padding:4px!important;border:1px solid rgba(var(--lrgb),.11)!important;border-radius:9px!important;background:#fff!important;box-shadow:0 4px 10px rgba(32,59,82,.06)!important}
+.sports-body .sw-mini-league-logo img{max-width:100%!important;max-height:100%!important;object-fit:contain!important}
+.sports-body .sw-mini-league-logo .sw-logo-fallback{font-size:.46rem!important;color:#617386!important}
+.sports-body .sw-teams{position:relative!important;z-index:2!important;display:grid!important;gap:.5rem!important}
+.sports-body .sw-team-row{display:grid!important;grid-template-columns:40px minmax(0,1fr) auto!important;gap:.62rem!important;align-items:center!important}
+.sports-body .sw-team-logo{display:grid!important;place-items:center!important;width:40px!important;height:40px!important;border:1px solid rgba(40,80,112,.085)!important;border-radius:12px!important;background:#fff!important;box-shadow:0 4px 11px rgba(34,62,88,.065)!important;transform:none!important;transition:transform .2s cubic-bezier(.16,1,.3,1)!important}
+.sports-body .sw-team-row:hover .sw-team-logo{transform:scale(1.035)!important}
+.sports-body .sw-team-logo img{width:78%!important;height:78%!important;object-fit:contain!important;filter:none!important}
+.sports-body .sw-team-name b{color:var(--sports-ink)!important;font:750 .74rem/1.16 'Manrope',sans-serif!important}
+.sports-body .sw-team-name small{margin-top:.13rem!important;color:var(--sports-muted)!important;font:500 .47rem/1.1 'Manrope',sans-serif!important}
+.sports-body .sw-team-score{color:var(--sports-ink)!important;font:800 1rem/1 'Sora',sans-serif!important}
 .sports-body .sw-team-score.pending{color:#8ca0b1!important;font-weight:600!important}
-.sports-body .sw-card-foot{position:relative;z-index:2;margin-top:.62rem!important;padding-top:.56rem!important;border-top:1px solid var(--sports-line)!important;color:var(--sports-muted)!important}
-.sports-body .sw-card-clock{color:#5d7489!important;font-weight:750!important}
+.sports-body .sw-card-foot{position:relative!important;z-index:2!important;display:grid!important;grid-template-columns:auto minmax(0,1fr) auto!important;align-items:center!important;gap:.55rem!important;margin-top:.6rem!important;padding-top:.52rem!important;border-top:1px solid var(--sports-line)!important;color:var(--sports-muted)!important}
+.sports-body .sw-card-clock{color:#5d7489!important;font-weight:750!important;white-space:nowrap!important}
 html:not([data-theme="light"]) .sports-body .sw-card-clock{color:#9eb0c0!important}
-.sports-body .sw-country{color:var(--sports-muted)!important}
-.sports-body .sw-open-hint{color:var(--laccent)!important;font-weight:800!important;text-shadow:none!important}
+.sports-body .sw-country{text-align:center!important;color:var(--sports-muted)!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+.sports-body .sw-open-hint{color:var(--laccent)!important;font-weight:800!important;white-space:nowrap!important;text-shadow:none!important}
+.sports-body .sw-card.live{border-color:rgba(239,71,104,.21)!important;box-shadow:0 14px 34px rgba(239,71,104,.055)!important}
+.sports-body .sw-card.live::before{background:linear-gradient(90deg,#ff4669,#ff6b86)!important;opacity:1!important}
 
-.sports-body .sw-card.live{border-color:rgba(239,71,104,.23)!important;box-shadow:0 15px 36px rgba(239,71,104,.065)!important}
-.sports-body .sw-card.live::before{background:linear-gradient(90deg,#ff4669,#ff6b86);opacity:1}
-.sports-body .sw-card.live::after{background:rgba(239,71,104,.045)!important}
-
-.sports-body .sw-feature{position:relative;isolation:isolate;border:1px solid var(--sports-line)!important;border-radius:24px!important;background:radial-gradient(circle at 50% -18%,rgba(var(--lrgb),.075),transparent 34%),linear-gradient(180deg,var(--sports-card),var(--sports-card-2))!important;box-shadow:0 20px 46px rgba(39,70,99,.08)!important;overflow:hidden}
-html:not([data-theme="light"]) .sports-body .sw-feature{box-shadow:0 24px 54px rgba(0,0,0,.25)!important}
-.sports-body .sw-feature::before{content:'';position:absolute;z-index:0;left:0;right:0;top:0;width:auto;height:4px;transform:none;background:linear-gradient(90deg,rgba(var(--lrgb),.96),rgba(var(--lrgb2),.72));opacity:.8;filter:none;pointer-events:none}
-.sports-body .sw-feature::after{background:radial-gradient(ellipse,rgba(var(--lrgb),.045),transparent 64%)!important}
-.sports-body .sw-feature-head,.sports-body .sw-feature-team,.sports-body .sw-feature-score{position:relative;z-index:2}
-.sports-body .sw-feature-league b,.sports-body .sw-feature-team h3{color:var(--sports-ink)!important;font-family:'Sora',sans-serif!important}
-.sports-body .sw-feature-team small,.sports-body .sw-feature-note{color:var(--sports-muted)!important}
-.sports-body .sw-feature-logo{border:1px solid rgba(40,80,112,.09)!important;border-radius:26px!important;background:#fff!important;box-shadow:0 12px 28px rgba(35,64,89,.10)!important;transform:none!important}
-.sports-body .sw-feature-team:hover .sw-feature-logo{transform:translateY(-2px) scale(1.02)!important}
-.sports-body .sw-scoreline{color:var(--sports-ink)!important;font-family:'Sora',sans-serif!important}
-.sports-body .sw-clock{border-color:rgba(var(--lrgb),.14)!important;background:rgba(var(--lrgb),.055)!important;color:var(--laccent)!important}
-.sports-body .sw-league-logo{background:#fff!important;border-color:rgba(var(--lrgb),.12)!important;box-shadow:0 4px 12px rgba(35,64,89,.07)!important}
-
-.sw-card[data-league-theme="premier"],.sw-feature[data-league-theme="premier"]{--lrgb:95,42,154;--lrgb2:0,255,135;--laccent:#6b2ea5}
+/* League / sport palette: used only for the top accent, tiny corner wash and detail accents. */
+.sw-card[data-league-theme="premier"],.sw-feature[data-league-theme="premier"]{--lrgb:95,42,154;--lrgb2:0,205,112;--laccent:#6b2ea5}
 .sw-card[data-league-theme="ucl"],.sw-feature[data-league-theme="ucl"]{--lrgb:39,90,210;--lrgb2:91,85,236;--laccent:#315fe0}
 .sw-card[data-league-theme="europa"],.sw-feature[data-league-theme="europa"]{--lrgb:240,108,31;--lrgb2:255,165,45;--laccent:#dc6a21}
 .sw-card[data-league-theme="laliga"],.sw-feature[data-league-theme="laliga"]{--lrgb:233,58,74;--lrgb2:124,55,202;--laccent:#dc4052}
@@ -127,13 +159,37 @@ html:not([data-theme="light"]) .sports-body .sw-feature{box-shadow:0 24px 54px r
 .sw-card[data-league-theme="golf"],.sw-feature[data-league-theme="golf"]{--lrgb:54,145,90;--lrgb2:103,177,92;--laccent:#378d5a}
 .sw-card[data-league-theme="handball"],.sw-feature[data-league-theme="handball"]{--lrgb:175,87,180;--lrgb2:204,112,181;--laccent:#a356a9}
 
-.sports-body .sw-tabs{gap:.36rem!important;padding:.15rem 0 .82rem!important}
-.sports-body .sw-tab{padding:.55rem .72rem!important;border-color:var(--sports-line)!important;background:var(--sports-card)!important;color:var(--sports-muted)!important;box-shadow:none!important;font:700 .59rem/1 'Manrope',sans-serif!important}
-.sports-body .sw-tab:hover{transform:translateY(-1px)!important;border-color:rgba(38,157,217,.22)!important;color:var(--sports-ink)!important}
-.sports-body .sw-tab.active{color:#fff!important;background:linear-gradient(135deg,#31bce8,#4c8df2)!important;border-color:transparent!important;box-shadow:0 8px 18px rgba(52,147,224,.16)!important}
-
+/* Drawer stays calm and readable. */
 .sports-body .match-drawer-panel{border-color:var(--sports-line)!important;background:var(--sports-card)!important;box-shadow:-18px 0 54px rgba(26,53,78,.16)!important}
 html:not([data-theme="light"]) .sports-body .match-drawer-panel{box-shadow:-20px 0 60px rgba(0,0,0,.36)!important}
 
-@media(max-width:760px){.sports-body .sw-card{min-height:178px!important;padding:.78rem!important}.sports-body .sw-team-row{grid-template-columns:38px minmax(0,1fr) auto!important}.sports-body .sw-team-logo{width:38px!important;height:38px!important}.sports-body .sw-grid{gap:.62rem!important}}
-@media(prefers-reduced-motion:reduce){.sports-body .sw-card{animation:none!important;transition:none!important}.sports-body .sw-team-logo,.sports-body .sw-tab{transition:none!important}}
+@media(max-width:900px){
+  .sports-body .sw-feature{grid-template-columns:minmax(0,1fr) 110px minmax(0,1fr)!important;min-height:235px!important;padding:4.5rem 1rem 1.35rem!important;gap:.65rem!important}
+  .sports-body .sw-feature-logo{width:76px!important;height:76px!important;border-radius:20px!important}
+  .sports-body .sw-feature-team h3{font-size:.82rem!important}
+  .sports-body .sw-feature-score{min-width:0!important}
+}
+@media(max-width:760px){
+  .sports-body .sports-world-page{padding-top:7.5rem!important}
+  .sports-body .sw-hero{grid-template-columns:1fr!important;align-items:start!important}
+  .sports-body .sw-meta{justify-content:flex-start!important}
+  .sports-body .sw-feature{grid-template-columns:minmax(0,1fr) 78px minmax(0,1fr)!important;min-height:210px!important;padding:4.4rem .65rem 1rem!important}
+  .sports-body .sw-feature-logo{width:63px!important;height:63px!important;border-radius:17px!important}
+  .sports-body .sw-feature-team h3{font-size:.68rem!important;max-width:110px!important}
+  .sports-body .sw-feature-team small{display:none!important}
+  .sports-body .sw-scoreline{font-size:1.7rem!important}
+  .sports-body .sw-feature-note{font-size:.43rem!important;max-width:95px!important}
+  .sports-body .sw-card{min-height:174px!important;padding:.76rem!important}
+  .sports-body .sw-team-row{grid-template-columns:37px minmax(0,1fr) auto!important}
+  .sports-body .sw-team-logo{width:37px!important;height:37px!important}
+  .sports-body .sw-grid{gap:.6rem!important}
+}
+@media(max-width:560px){
+  .sports-body .sw-grid{grid-template-columns:1fr!important}
+  .sports-body .sw-feature-head{left:.75rem!important;right:.75rem!important;top:.78rem!important}
+  .sports-body .sw-feature-league b{max-width:190px!important;font-size:.58rem!important}
+  .sports-body .sw-feature-status{font-size:.5rem!important}
+  .sports-body .sw-card-foot{grid-template-columns:auto minmax(0,1fr)!important}
+  .sports-body .sw-open-hint{display:none!important}
+}
+@media(prefers-reduced-motion:reduce){.sports-body .sw-card{animation:none!important;transition:none!important}.sports-body .sw-team-logo,.sports-body .sw-tab,.sports-body .sw-feature-logo{transition:none!important}}
