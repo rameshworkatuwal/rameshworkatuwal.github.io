@@ -1,0 +1,88 @@
+/* Sports typography v2 — athletic display face + clean UI body */
+.sports-body{
+  --sport-ui:'Montserrat',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --sport-display:'Barlow Condensed','Arial Narrow',sans-serif;
+  font-family:var(--sport-ui)!important;
+  font-kerning:normal;
+  text-rendering:optimizeLegibility;
+}
+.sports-body button,.sports-body input,.sports-body select,.sports-body textarea{font-family:var(--sport-ui)!important}
+.sports-body .sports-modebar,.sports-body .sw-tabs,.sports-body .sw-meta,.sports-body .fixture-league-head,.sports-body .fixture-row,.sports-body .sports-footer{font-family:var(--sport-ui)!important}
+
+/* Main match-center title: less squeezed, stronger sports editorial feel. */
+.sports-body .sw-hero h1{
+  font-family:var(--sport-display)!important;
+  font-weight:800!important;
+  font-size:clamp(3.4rem,6vw,6.1rem)!important;
+  line-height:.84!important;
+  letter-spacing:-.018em!important;
+  word-spacing:.045em!important;
+}
+.sports-body .sw-section-head h2{
+  font-family:var(--sport-display)!important;
+  font-size:clamp(1.9rem,2.8vw,2.55rem)!important;
+  font-weight:800!important;
+  line-height:.95!important;
+  letter-spacing:-.012em!important;
+  word-spacing:.035em!important;
+}
+.sports-body .sw-section-kicker{
+  font-family:var(--sport-ui)!important;
+  font-weight:800!important;
+  letter-spacing:.11em!important;
+}
+
+.sports-body .sw-tab{
+  font-family:var(--sport-ui)!important;
+  font-size:.61rem!important;
+  font-weight:700!important;
+  letter-spacing:-.005em!important;
+}
+.sports-body .sw-meta-pill{font-family:var(--sport-ui)!important;font-weight:650!important}
+
+.sports-body .fixture-league-copy strong{
+  font-family:var(--sport-ui)!important;
+  font-size:.82rem!important;
+  font-weight:800!important;
+  line-height:1.15!important;
+  letter-spacing:-.018em!important;
+}
+.sports-body .fixture-league-copy small,
+.sports-body .fixture-league-count{font-family:var(--sport-ui)!important}
+.sports-body .fixture-team-name{
+  font-family:var(--sport-ui)!important;
+  font-size:.78rem!important;
+  font-weight:750!important;
+  line-height:1.18!important;
+  letter-spacing:-.018em!important;
+}
+.sports-body .fixture-time,
+.sports-body .fixture-score{
+  font-family:var(--sport-display)!important;
+  font-weight:700!important;
+  font-variant-numeric:tabular-nums!important;
+  letter-spacing:.015em!important;
+}
+.sports-body .fixture-time{font-size:1.22rem!important}
+.sports-body .fixture-score{font-size:1.7rem!important}
+.sports-body .fixture-date,.sports-body .fixture-meta,.sports-body .fixture-live{font-family:var(--sport-ui)!important}
+
+/* Cleaner rhythm in fixture rows. */
+.sports-body .fixture-row{padding:.92rem 1.1rem!important}
+.sports-body .fixture-match{min-height:76px!important;grid-template-columns:minmax(0,1fr) 150px minmax(0,1fr) 30px!important}
+.sports-body .fixture-crest{width:54px!important;height:54px!important;flex-basis:54px!important;border-radius:15px!important}
+.sports-body .fixture-meta{margin-top:.34rem!important}
+
+@media(max-width:860px){
+  .sports-body .fixture-match{grid-template-columns:minmax(0,1fr) 108px minmax(0,1fr) 26px!important}
+  .sports-body .fixture-team-name{font-size:.69rem!important}
+  .sports-body .fixture-crest{width:45px!important;height:45px!important;flex-basis:45px!important}
+  .sports-body .fixture-time{font-size:1.05rem!important}
+}
+@media(max-width:620px){
+  .sports-body .sw-hero h1{font-size:3.15rem!important}
+  .sports-body .fixture-match{grid-template-columns:1fr 76px 1fr 0!important}
+  .sports-body .fixture-team-name{font-size:.62rem!important}
+  .sports-body .fixture-time{font-size:.92rem!important}
+  .sports-body .fixture-score{font-size:1.3rem!important}
+}
