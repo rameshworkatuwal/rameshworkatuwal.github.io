@@ -105,27 +105,30 @@ function footballSport(key){return /football|soccer|premier|liga|bundesliga|seri
 function seedFixtureClock(row){
   if(!row.classList.contains('is-live'))return;
   var el=row.querySelector('.fixture-live')||row.querySelector('.fixture-time');if(!el)return;
-  var key=rowSport(row),raw=clean(el.textContent),total=null,mode='elapsed';
+  var old=clockState.get(el);
+  /* Once this exact DOM node is ours, do not re-seed from our own rendered seconds.
+     Provider refresh replaces the node, so a fresh node gets a fresh authoritative seed. */
+  if(old){el.setAttribute('data-rk-live-clock','1');return}
+  var key=rowSport(row),raw=clean(el.textContent),total=null,mode='up';
   if(countdownSport(key)){total=parseMMSS(raw);mode='down'}
   else if(footballSport(key)){total=parseFootballClock(raw);mode='up'}
   else {total=parseMMSS(raw);mode='up'}
   if(total==null)return;
-  var old=clockState.get(el);
-  if(!old||old.raw!==raw.replace(/\s+/g,' ')||Math.abs(old.total-total)>8){clockState.set(el,{raw:raw.replace(/\s+/g,' '),total:total,mode:mode,last:Date.now()})}
+  clockState.set(el,{total:total,mode:mode,last:Date.now()});
   el.setAttribute('data-rk-live-clock','1');
 }
 
 function seedDetailClock(root){
   var status=(root||document).querySelector('.mc3-status.live');if(!status)return;
-  var raw=clean(status.textContent),total=parseFootballClock(raw)||parseMMSS(raw);if(total==null)return;
-  var old=clockState.get(status);if(!old||Math.abs(old.total-total)>8)clockState.set(status,{raw:raw,total:total,mode:'up',last:Date.now()});
+  var old=clockState.get(status);if(old){status.setAttribute('data-rk-live-clock','1');return}
+  var raw=clean(status.textContent),total=parseFootballClock(raw);if(total==null)total=parseMMSS(raw);if(total==null)return;
+  clockState.set(status,{total:total,mode:'up',last:Date.now()});
   status.setAttribute('data-rk-live-clock','1');
 }
 
 function tickClocks(){
   document.querySelectorAll('.fixture-row.is-live').forEach(seedFixtureClock);
   seedDetailClock(document);
-  clockState.forEach&&clockState.forEach(function(){});
   document.querySelectorAll('[data-rk-live-clock="1"]').forEach(function(el){
     var st=clockState.get(el);if(!st)return;
     var now=Date.now(),steps=Math.floor((now-st.last)/1000);if(steps<=0)return;
@@ -138,7 +141,6 @@ function tickClocks(){
   });
 }
 
-/* WeakMap cannot be iterated; all ticking is driven from live DOM nodes. */
 function enhance(root){removeUnwantedCards(root);upgradeOfficials(root);document.querySelectorAll('.fixture-row.is-live').forEach(seedFixtureClock);seedDetailClock(root)}
 
 var observer=new MutationObserver(function(muts){
