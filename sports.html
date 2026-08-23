@@ -7,16 +7,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#06101b">
 <title>Live Sports & Results — Ritesh Katuwal</title>
-<meta name="description" content="Live and scheduled sports with premium match cards, team and league badges, venue weather, win probability and lineups when data is available.">
+<meta name="description" content="Live and scheduled sports with premium match cards, team and league badges, venue weather, win probability, lineups, timelines and statistics when providers publish them.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Roboto+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="widgets.css">
 <link rel="stylesheet" href="sports-world.css?v=20260823-3">
 <link rel="stylesheet" href="sports-league-themes.css?v=20260823-3">
 <link rel="stylesheet" href="sports-fixtures.css?v=20260823-1">
-<link rel="stylesheet" href="sports-matchcenter.css?v=20260823-1">
+<link rel="stylesheet" href="sports-type-v2.css?v=20260823-1">
+<link rel="stylesheet" href="sports-matchcenter-v2.css?v=20260823-1">
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
 <body class="sports-body">
@@ -43,7 +44,6 @@
 
   <header class="sw-hero">
     <div class="sw-title-wrap">
-      <div class="sw-kicker"><i></i>WORLDWIDE · LIVE DATA</div>
       <h1>Match <span>Center</span></h1>
     </div>
     <div class="sw-meta">
@@ -82,7 +82,7 @@
       <div class="match-drawer-brand"><span class="match-drawer-league-logo" id="drawerLeagueLogo"></span><div><small id="drawerSport">MATCH CENTER</small><strong id="drawerLeague">Match details</strong></div></div>
       <button class="match-drawer-close" type="button" data-close-match aria-label="Close">×</button>
     </div>
-    <div class="match-drawer-scroll" id="matchDrawerContent"><div class="match-loading"><i></i><span>Loading match intelligence…</span></div></div>
+    <div class="match-drawer-scroll" id="matchDrawerContent"><div class="match-loading"><i></i><span>Loading match data…</span></div></div>
   </section>
 </div>
 
@@ -97,6 +97,6 @@
 <script src="sports-live.js?v=20260823-3"></script>
 <script src="sports-league-themes.js?v=20260823-3"></script>
 <script src="sports-fixtures.js?v=20260823-1"></script>
-<script src="sports-matchcenter.js?v=20260823-1"></script>
+<script src="sports-matchcenter-v2.js?v=20260823-1"></script>
 </body>
 </html>
