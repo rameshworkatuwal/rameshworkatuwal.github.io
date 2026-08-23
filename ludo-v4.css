@@ -1,0 +1,227 @@
+/* Ludo v4 — corrected 15x15 board + reliable premium dice */
+#ludoGame .ludo-board{
+  width:min(760px,100%)!important;
+  aspect-ratio:1!important;
+  border-radius:26px!important;
+  overflow:hidden!important;
+  background:#f8fbfe!important;
+  box-shadow:0 34px 78px rgba(0,0,0,.36),0 0 0 1px rgba(132,176,210,.16),inset 0 0 0 5px rgba(255,255,255,.75)!important;
+}
+#ludoGame .board-cells{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  display:grid!important;
+  grid-template-columns:repeat(15,1fr)!important;
+  grid-template-rows:repeat(15,1fr)!important;
+  pointer-events:none!important;
+}
+#ludoGame .path-cell,#ludoGame .lane-cell{
+  position:relative!important;
+  min-width:0!important;
+  min-height:0!important;
+  border:1px solid rgba(31,64,93,.13)!important;
+  background:linear-gradient(145deg,#fff,#f1f6fa)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+#ludoGame .path-cell.safe::after{
+  content:'★'!important;
+  position:absolute!important;
+  inset:0!important;
+  display:grid!important;
+  place-items:center!important;
+  color:rgba(40,77,108,.30)!important;
+  font-size:clamp(.45rem,1vw,.72rem)!important;
+}
+#ludoGame .path-cell.start-red{background:linear-gradient(145deg,#ff9aac,#ff637d)!important}
+#ludoGame .path-cell.start-green{background:linear-gradient(145deg,#8ae8c7,#42d8a5)!important}
+#ludoGame .path-cell.start-yellow{background:linear-gradient(145deg,#ffe28a,#ffc54f)!important}
+#ludoGame .path-cell.start-blue{background:linear-gradient(145deg,#9dceff,#5ba7f7)!important}
+#ludoGame .lane-cell.red{background:linear-gradient(145deg,#ffacb9,#ff738a)!important}
+#ludoGame .lane-cell.green{background:linear-gradient(145deg,#9cebd0,#58dbae)!important}
+#ludoGame .lane-cell.yellow{background:linear-gradient(145deg,#ffe69a,#ffca5b)!important}
+#ludoGame .lane-cell.blue{background:linear-gradient(145deg,#afd8ff,#70b3fa)!important}
+
+/* Standard Ludo corner homes. */
+#ludoGame .home-zone{
+  z-index:2!important;
+  width:40%!important;
+  height:40%!important;
+  border:0!important;
+  box-shadow:inset 0 0 0 1px rgba(20,49,72,.10)!important;
+}
+#ludoGame .red-home{left:0!important;top:0!important;background:linear-gradient(145deg,#ff899c,#ff4f6b)!important}
+#ludoGame .green-home{right:0!important;top:0!important;background:linear-gradient(145deg,#7be5bf,#27ce94)!important}
+#ludoGame .yellow-home{right:0!important;bottom:0!important;background:linear-gradient(145deg,#ffe183,#ffbd36)!important}
+#ludoGame .blue-home{left:0!important;bottom:0!important;background:linear-gradient(145deg,#8cc8ff,#438ff2)!important}
+#ludoGame .home-zone::before{
+  inset:17%!important;
+  border-radius:24%!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(247,250,252,.90))!important;
+  box-shadow:inset 0 0 0 1px rgba(12,38,58,.08),0 14px 30px rgba(18,42,62,.13)!important;
+}
+#ludoGame .home-zone>span{top:8%!important;font-size:clamp(.5rem,1vw,.75rem)!important}
+#ludoGame .home-dots{inset:25%!important;gap:14%!important}
+#ludoGame .home-dots i{
+  border:2px solid rgba(255,255,255,.82)!important;
+  background:rgba(17,43,64,.08)!important;
+  box-shadow:inset 0 2px 5px rgba(13,37,55,.10),0 4px 10px rgba(15,36,52,.08)!important;
+}
+#ludoGame .finish-core{
+  left:40%!important;
+  top:40%!important;
+  width:20%!important;
+  height:20%!important;
+  z-index:4!important;
+}
+#ludoGame .finish-diamond{
+  inset:8%!important;
+  transform:rotate(45deg) scale(.74)!important;
+  border-radius:12%!important;
+  box-shadow:0 10px 24px rgba(14,38,58,.20)!important;
+}
+
+#ludoGame .tokens-layer{z-index:12!important}
+#ludoGame .ludo-token{
+  width:clamp(23px,3.8vw,36px)!important;
+  height:clamp(23px,3.8vw,36px)!important;
+  border:3px solid rgba(255,255,255,.96)!important;
+  box-shadow:0 9px 16px rgba(16,39,58,.30),inset 0 5px 7px rgba(255,255,255,.38)!important;
+  transition:left .145s cubic-bezier(.2,.8,.2,1),top .145s cubic-bezier(.2,.8,.2,1),transform .18s ease,filter .18s ease!important;
+  will-change:left,top,transform!important;
+}
+#ludoGame .ludo-token.movable{
+  animation:ludoReady .7s ease-in-out infinite alternate!important;
+  filter:drop-shadow(0 0 8px var(--token)) drop-shadow(0 0 15px var(--token))!important;
+}
+@keyframes ludoReady{to{transform:translate(-50%,-69%) scale(1.10)}}
+#ludoGame .ludo-token.step-moving{z-index:40!important;transform:translate(-50%,-72%) scale(1.12)!important}
+#ludoGame .ludo-token.captured{animation:ludoCapture .34s ease both!important}
+@keyframes ludoCapture{40%{transform:translate(-50%,-80%) scale(1.18)}100%{transform:translate(-50%,-58%) scale(.65);opacity:.2}}
+
+/* Dice — one physically convincing front face so the shown result can never disagree with game logic. */
+#ludoGame .dice-zone{
+  min-height:205px!important;
+  isolation:isolate!important;
+  perspective:900px!important;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(93,207,255,.16),transparent 34%),
+    linear-gradient(150deg,#102132,#07131f)!important;
+  border-color:rgba(98,205,255,.22)!important;
+  overflow:hidden!important;
+}
+#ludoGame .dice-zone::before{
+  content:''!important;
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  width:118px!important;
+  height:25px!important;
+  border-radius:50%!important;
+  background:radial-gradient(ellipse,rgba(0,0,0,.48),rgba(0,0,0,.12) 55%,transparent 74%)!important;
+  filter:blur(7px)!important;
+  transform:translate(-50%,48px)!important;
+  pointer-events:none!important;
+}
+#ludoGame .dice-zone::after{
+  content:'';
+  position:absolute;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(73,196,255,.16),transparent 67%);
+  filter:blur(10px);
+  pointer-events:none;
+}
+#ludoGame .dice-cube{
+  --die:82px;
+  position:relative!important;
+  z-index:3!important;
+  display:block!important;
+  width:var(--die)!important;
+  height:var(--die)!important;
+  border:0!important;
+  border-radius:22px!important;
+  background:none!important;
+  box-shadow:none!important;
+  transform-style:preserve-3d!important;
+  transform:translateZ(0) rotateX(-7deg) rotateY(8deg)!important;
+  filter:drop-shadow(0 16px 14px rgba(0,0,0,.30))!important;
+  will-change:transform!important;
+}
+#ludoGame #diceFace{
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  overflow:hidden!important;
+  clip-path:inset(50%)!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+#ludoGame .v3-die-face{display:none!important}
+#ludoGame .dice-face-visual{
+  position:absolute;
+  inset:0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:repeat(3,1fr);
+  padding:14%;
+  border:1px solid rgba(183,190,196,.72);
+  border-radius:22%;
+  background:
+    radial-gradient(circle at 22% 15%,rgba(255,255,255,.98) 0 16%,transparent 43%),
+    linear-gradient(145deg,#ffffff 0%,#fafaf7 45%,#e8e8e4 78%,#d2d7dc 100%);
+  box-shadow:
+    inset 9px 9px 14px rgba(255,255,255,.98),
+    inset -9px -10px 15px rgba(67,80,90,.18),
+    0 7px 14px rgba(0,0,0,.16);
+  transform:translateZ(4px);
+  backface-visibility:hidden;
+}
+#ludoGame .dice-face-visual::after{
+  content:'';
+  position:absolute;
+  inset:5%;
+  border-radius:18%;
+  border-top:1px solid rgba(255,255,255,.86);
+  pointer-events:none;
+}
+#ludoGame .dice-face-visual .pip{
+  width:48%;
+  aspect-ratio:1;
+  align-self:center;
+  justify-self:center;
+  border-radius:50%;
+  background:radial-gradient(circle at 34% 27%,#ff8589 0 8%,#f51e2d 28%,#d40016 63%,#8f000d 100%);
+  box-shadow:inset 1px 2px 2px rgba(255,255,255,.50),inset -2px -3px 5px rgba(74,0,5,.42),0 1px 0 rgba(255,255,255,.55),0 2px 4px rgba(90,0,8,.20);
+}
+#ludoGame .dice-zone.rolling .dice-cube{animation:ludoDiceTumble .72s cubic-bezier(.18,.74,.18,1)!important}
+@keyframes ludoDiceTumble{
+  0%{transform:translateY(0) rotateX(-7deg) rotateY(8deg) rotateZ(0) scale(1)!important}
+  20%{transform:translateY(-24px) rotateX(150deg) rotateY(210deg) rotateZ(52deg) scale(1.05)!important}
+  46%{transform:translateY(-15px) rotateX(330deg) rotateY(430deg) rotateZ(156deg) scale(.98)!important}
+  72%{transform:translateY(-7px) rotateX(565deg) rotateY(670deg) rotateZ(282deg) scale(1.02)!important}
+  100%{transform:translateY(0) rotateX(713deg) rotateY(728deg) rotateZ(360deg) scale(1)!important}
+}
+#ludoGame .dice-zone.roll-landed .dice-cube{animation:ludoDiceLand .22s cubic-bezier(.2,.9,.25,1)!important}
+@keyframes ludoDiceLand{0%{transform:translateY(-4px) rotateX(-7deg) rotateY(8deg) scale(.96)!important}65%{transform:translateY(2px) rotateX(-7deg) rotateY(8deg) scale(1.04)!important}100%{transform:translateY(0) rotateX(-7deg) rotateY(8deg) scale(1)!important}}
+#ludoGame .dice-zone:disabled{cursor:default!important;opacity:.94!important}
+#ludoGame .dice-zone:not(:disabled):hover .dice-cube{filter:drop-shadow(0 18px 17px rgba(0,0,0,.34)) drop-shadow(0 0 14px rgba(75,202,255,.16))!important}
+#ludoGame #diceHint{font-weight:650!important;letter-spacing:.01em!important}
+
+#ludoGame .turn-message{min-height:1.2em!important}
+#ludoGame .rules-note span{line-height:1.48!important}
+
+@media(max-width:760px){
+  #ludoGame .ludo-board{border-radius:20px!important}
+  #ludoGame .dice-cube{--die:72px}
+}
+@media(max-width:520px){
+  #ludoGame .ludo-token{width:clamp(18px,5.5vw,28px)!important;height:clamp(18px,5.5vw,28px)!important;border-width:2px!important}
+  #ludoGame .dice-cube{--die:66px}
+  #ludoGame .dice-zone{min-height:178px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #ludoGame .dice-zone.rolling .dice-cube,#ludoGame .dice-zone.roll-landed .dice-cube,#ludoGame .ludo-token.movable{animation:none!important}
+  #ludoGame .ludo-token{transition:none!important}
+}
