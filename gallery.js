@@ -46,10 +46,11 @@
 
   addSet({
     folder: 'photography-2015',
-    title: '2015',
+    title: 'Dhangadi 2015',
     year: 2015,
     sub: 'Canon PowerShot SX740 HS Lite Edition',
     cameraLogo: true,
+    note: 'Dhangadi, Nepal',
     dynamicFolder: true
   });
 
