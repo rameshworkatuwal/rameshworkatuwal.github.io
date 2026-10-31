@@ -18,3 +18,36 @@ html[data-theme="light"] .countdown-tile:not(:first-child) span{color:#526e83}
 @keyframes countdown-orbit{from{transform:translate(0,0) rotateX(30deg)}to{transform:translate(-70px,55px) rotateX(55deg)}}
 @media(max-width:520px){.about-countdown{margin-bottom:2.5rem}.countdown-scene{border-radius:20px}.countdown-face time{font-size:.72rem;letter-spacing:.1em;margin-bottom:1.3rem}.countdown-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem .8rem}.countdown-tile strong{font-size:2.8rem}.countdown-tile{border-radius:14px;padding:1rem .4rem}}
 @media(prefers-reduced-motion:reduce){.countdown-scene{transform:none;transition:none}.countdown-tile,.countdown-orbit{animation:none}}
+
+/* Liquid levels: year, day, hour and minute elapsed. */
+.countdown-scene{--cd-progress:0%;--cd-glow-x:50%;--cd-glow-y:50%}
+.countdown-scene::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--cd-glow-x) var(--cd-glow-y),#58cfff20,transparent 55%);transition:opacity .4s}
+.countdown-tile{overflow:hidden;isolation:isolate;transition:box-shadow .35s,translate .35s}
+.countdown-tile::after{content:'';position:absolute;inset:-70% -100%;z-index:1;pointer-events:none;background:linear-gradient(110deg,transparent 42%,#ffffff16 48%,#ffffff30 50%,transparent 58%);animation:cd-sheen 8s ease-in-out infinite;animation-delay:calc(var(--i) * .7s)}
+.countdown-tile strong,.countdown-tile>span{position:relative;z-index:2}
+.countdown-tile strong{text-shadow:0 2px 12px #06142655}
+.countdown-liquid{position:absolute;z-index:0;bottom:0;left:0;right:0;height:var(--cd-fill,0%);background:linear-gradient(180deg,#2ac9e938,#3379ef50);transition:height .9s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.countdown-liquid>i{position:absolute;left:-50%;width:200%;height:28px;top:-14px;border-radius:45%;background:#53ddff30;animation:cd-wave 5s ease-in-out infinite alternate}
+.countdown-liquid>i:nth-child(2){top:-9px;background:#a594ff25;animation-duration:3.7s;animation-direction:alternate-reverse}
+.countdown-liquid>em{position:absolute;bottom:-12px;left:22%;width:5px;height:5px;border:1px solid #c9f7ff70;border-radius:50%;animation:cd-bubble 4.5s linear infinite}
+.countdown-liquid>em:nth-of-type(2){left:68%;width:8px;height:8px;animation-delay:-1.5s;animation-duration:5.5s}
+.countdown-liquid>em:nth-of-type(3){left:45%;width:3px;height:3px;animation-delay:-3s}
+.countdown-progress{height:5px;margin-top:2rem;background:#7ea6c020;border-radius:8px;overflow:hidden}
+.countdown-progress>span{position:relative;display:block;width:var(--cd-progress);height:100%;background:linear-gradient(90deg,#38cfea,#8980ff);border-radius:inherit;transition:width 1s ease;overflow:hidden}
+.countdown-progress>span::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,#ffffffb0,transparent);animation:cd-progress-shine 3s ease-in-out infinite}
+.countdown-sparkles{position:absolute;inset:0;pointer-events:none}
+.countdown-sparkles i{position:absolute;top:15%;left:80%;width:4px;height:4px;border-radius:50%;background:#80ceee;box-shadow:0 0 12px #66d8ff80;animation:cd-spark 6s ease-in-out infinite}
+.countdown-sparkles i:nth-child(2){top:35%;left:92%;animation-delay:-2s;width:3px;height:3px}
+.countdown-sparkles i:nth-child(3){top:80%;left:5%;animation-delay:-4s}
+.countdown-sparkles i:nth-child(4){top:65%;left:60%;animation-delay:-3s;width:2px;height:2px}
+@media(hover:hover) and (pointer:fine){.countdown-tile:hover{translate:0 -5px;box-shadow:0 10px 0 #081722,0 25px 35px #0005,inset 0 1px 0 #ffffff40}}
+html[data-theme="light"] .countdown-liquid{background:linear-gradient(180deg,#4fc7e51c,#448ce332)}
+html[data-theme="light"] .countdown-liquid>i{background:#53bbdf28}
+html[data-theme="light"] .countdown-tile:first-child strong{text-shadow:0 2px 12px #06142655}
+@keyframes cd-wave{from{transform:translateX(-10%) rotate(-4deg)}to{transform:translateX(10%) rotate(4deg)}}
+@keyframes cd-bubble{0%{transform:translateY(0);opacity:0}20%{opacity:.65}100%{transform:translateY(-130px);opacity:0}}
+@keyframes cd-sheen{0%,65%{transform:translateX(-50%)}90%,100%{transform:translateX(50%)}}
+@keyframes cd-progress-shine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+@keyframes cd-spark{0%,100%{transform:translateY(0);opacity:.2}50%{transform:translateY(-15px);opacity:.8}}
+.about-countdown.motion-paused *,.about-countdown.motion-paused *::after{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){.about-countdown *,.about-countdown *::after{animation:none!important;transition:none!important}.countdown-tile:hover{translate:none}.countdown-sparkles,.countdown-liquid>em{display:none}}
