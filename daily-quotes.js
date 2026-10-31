@@ -56,9 +56,9 @@
       link.href = 'https://dummyjson.com/docs/quotes';
       link.textContent = 'DummyJSON';
       source.appendChild(link);
-      source.appendChild(document.createTextNode(stale ? ' · Last saved selection' : ' · New selection daily, Dubai time'));
+      if (stale) source.appendChild(document.createTextNode(' · Last saved selection'));
     } else {
-      source.textContent = 'Daily reminders · New selection daily, Dubai time';
+      source.textContent = 'Daily reminders';
     }
     shownDay = dayKey(new Date());
   }
