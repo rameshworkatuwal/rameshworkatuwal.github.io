@@ -63,6 +63,8 @@ html[data-theme="light"] .profile-photo{ border-color:#fff; box-shadow:0 14px 34
   .profile-photo{ transition:none; }
 }
 </style>
+<link rel="stylesheet" href="countdown.css">
+<script src="countdown.js" defer></script>
 </head>
 <body>
 
@@ -80,6 +82,20 @@ html[data-theme="light"] .profile-photo{ border-color:#fff; box-shadow:0 14px 34
 </nav>
 
 <div class="page about-page reveal">
+<section class="about-countdown" id="countdown" aria-label="Countdown to October 1, 2027">
+  <div class="countdown-scene">
+    <div class="countdown-orbit" aria-hidden="true"></div>
+    <div class="countdown-face">
+      <time datetime="2027-10-01T00:00:00+04:00">01 October 2027</time>
+      <div class="countdown-tiles" role="timer" aria-live="off">
+        <div class="countdown-tile" style="--i:0"><strong data-countdown-unit="0">—</strong><span>Days left</span></div>
+        <div class="countdown-tile" style="--i:1"><strong data-countdown-unit="1">—</strong><span>Hours</span></div>
+        <div class="countdown-tile" style="--i:2"><strong data-countdown-unit="2">—</strong><span>Minutes</span></div>
+        <div class="countdown-tile" style="--i:3"><strong data-countdown-unit="3">—</strong><span>Seconds</span></div>
+      </div>
+    </div>
+  </div>
+</section>
   <h2 class="page-title" data-anim="blur" data-anim-now>About Me</h2>
   <div class="divider-line" data-anim="clip" data-anim-now style="--d:1"></div>
 

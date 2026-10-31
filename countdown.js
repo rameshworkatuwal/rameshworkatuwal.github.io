@@ -1,0 +1,44 @@
+(function () {
+  'use strict';
+  var section = document.getElementById('countdown');
+  if (!section) return;
+  var nodes = section.querySelectorAll('[data-countdown-unit]');
+  var scene = section.querySelector('.countdown-scene');
+  var target = Date.parse('2027-10-01T00:00:00+04:00');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var timer;
+  function tick() {
+    var seconds = Math.max(0, Math.floor((target - Date.now()) / 1000));
+    var values = [Math.floor(seconds / 86400), Math.floor(seconds % 86400 / 3600), Math.floor(seconds % 3600 / 60), seconds % 60];
+    nodes.forEach(function (node, i) {
+      var value = i ? String(values[i]).padStart(2, '0') : String(values[i]);
+      if (node.textContent === value) return;
+      var first = node.textContent === '—';
+      node.textContent = value;
+      if (!first && !reduced.matches && node.animate) {
+        node.getAnimations().forEach(function (animation) { animation.cancel(); });
+        node.animate([{transform:'translateZ(18px) rotateX(-65deg)',opacity:.35},{transform:'translateZ(18px) rotateX(0deg)',opacity:1}],{duration:450,easing:'cubic-bezier(.2,.8,.2,1)'});
+      }
+    });
+    if (!seconds && timer) { clearInterval(timer); timer = null; }
+  }
+  function resume() {
+    if (timer) clearInterval(timer);
+    timer = null;
+    if (document.hidden) return;
+    tick();
+    if (Date.now() < target) timer = setInterval(tick, 1000);
+  }
+  resume();
+  document.addEventListener('visibilitychange', resume);
+  scene.addEventListener('pointermove', function (event) {
+    if (reduced.matches || event.pointerType !== 'mouse') return;
+    var rect = scene.getBoundingClientRect();
+    scene.style.setProperty('--cd-rx', ((.5 - (event.clientY - rect.top) / rect.height) * 5) + 'deg');
+    scene.style.setProperty('--cd-ry', (((event.clientX - rect.left) / rect.width - .5) * 6) + 'deg');
+  });
+  scene.addEventListener('pointerleave', function () {
+    scene.style.setProperty('--cd-rx', '0deg');
+    scene.style.setProperty('--cd-ry', '0deg');
+  });
+})();
