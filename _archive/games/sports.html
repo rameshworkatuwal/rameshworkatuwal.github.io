@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06101b">
+<title>Live Sports & Results — Ritesh Katuwal</title>
+<meta name="description" content="Live and scheduled sports with premium match cards, team and league badges, venue weather, trusted sources, lineups, timelines and statistics when providers publish them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Barlow+Condensed:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="widgets.css">
+<link rel="stylesheet" href="sports-world.css?v=20260823-3">
+<link rel="stylesheet" href="sports-league-themes.css?v=20260823-3">
+<link rel="stylesheet" href="sports-fixtures.css?v=20260823-1">
+<link rel="stylesheet" href="sports-premium-v3.css?v=20260823-1">
+<link rel="stylesheet" href="sports-type-v2.css?v=20260823-4">
+<link rel="stylesheet" href="sports-runtime-enhancements.css?v=20260823-4">
+<link rel="stylesheet" href="sports-league-backgrounds.css?v=20260823-2">
+<link rel="stylesheet" href="sports-detail-premium.css?v=20260823-1">
+<style>
+.mc3-sourcebar{display:none!important}
+</style>
+<script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+</head>
+<body class="sports-body">
+<nav>
+  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-.15em;margin-right:.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Katuwal</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="youtube.html">YouTube</a></li>
+    <li><a href="games.html" class="active">Games</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+</nav>
+
+<main class="page sports-world-page" id="rkSportsPage">
+  <div class="sports-modebar" aria-label="Games hub mode">
+    <a href="games.html">Play Games</a>
+    <a href="online-ludo.html">Play Online</a>
+    <a href="sports.html" class="is-active"><i></i>Live Sports</a>
+  </div>
+
+  <header class="sw-hero">
+    <div class="sw-title-wrap"><h1>Match <span>Center</span></h1></div>
+    <div class="sw-meta" style="display:none!important" aria-hidden="true">
+      <span class="sw-meta-pill sw-live-count"><b class="sw-live-dot"></b><strong>0</strong> live</span>
+      <span class="sw-meta-pill sw-count"><strong>0</strong> events</span>
+      <span class="sw-meta-pill sw-updated">Connecting…</span>
+      <button class="sw-refresh" type="button" aria-label="Refresh sports feed" tabindex="-1">↻</button>
+    </div>
+  </header>
+
+  <div class="sw-tabs" aria-label="Sports filters"></div>
+
+  <section class="sw-shell" aria-label="Worldwide sports matches">
+    <article class="sw-feature" hidden aria-label="Featured match"></article>
+    <div class="sw-section-head"><div><span class="sw-section-kicker">LIVE & TODAY</span><h2>Matches around the world</h2></div><span class="sw-local-time-note">Times shown in your local timezone</span></div>
+    <div class="sw-grid" aria-live="polite"></div>
+    <div class="sw-empty" hidden><strong>No events found.</strong><small>Try another sport or refresh the feed.</small></div>
+    <div class="sw-more" hidden><button type="button">Load more matches</button></div>
+  </section>
+</main>
+
+<div class="match-drawer" id="matchDrawer" hidden aria-hidden="true">
+  <button class="match-drawer-backdrop" type="button" data-close-match aria-label="Close match details"></button>
+  <section class="match-drawer-panel" role="dialog" aria-modal="true" aria-label="Match details">
+    <div class="match-drawer-top">
+      <div class="match-drawer-brand"><span class="match-drawer-league-logo" id="drawerLeagueLogo"></span><div><small id="drawerSport">MATCH CENTER</small><strong id="drawerLeague">Match details</strong></div></div>
+      <button class="match-drawer-close" type="button" data-close-match aria-label="Close">×</button>
+    </div>
+    <div class="match-drawer-scroll" id="matchDrawerContent"><div class="match-loading"><i></i><span>Loading match data…</span></div></div>
+  </section>
+</div>
+
+<div class="sw-goal" aria-hidden="true"><div class="sw-goal-inner"><small>LIVE UPDATE</small><strong>GOAL!</strong><b>Team</b><span>1–0</span></div></div>
+<footer class="sports-footer">© 2026 Ritesh Katuwal</footer>
+
+<script src="site.js"></script>
+<script src="theme.js"></script>
+<script src="sports-live.js?v=20260823-3"></script>
+<script src="sports-league-themes.js?v=20260823-3"></script>
+<script src="sports-fixtures.js?v=20260823-1"></script>
+<script src="sports-matchcenter-v3.js?v=20260823-1"></script>
+<script src="sports-runtime-enhancements.js?v=20260823-4"></script>
+<script src="sports-league-backgrounds.js?v=20260823-2"></script>
+<script src="sports-detail-premium.js?v=20260823-1"></script>
+<script>
+(function(){
+'use strict';
+var content=document.getElementById('matchDrawerContent');
+if(!content)return;
+var activeTab='overview';
+var savedScroll=0;
+var lastStable=null;
+var internalSwap=false;
+function directMatchRoot(node){if(!node||node.nodeType!==1)return null;if(node.classList&&node.classList.contains('match-center-v3'))return node;return node.querySelector&&node.querySelector('.match-center-v3')}
+function restoreView(node){if(!node)return;var target=node.querySelector('.mc3-tab[data-tab="'+activeTab+'"]');if(!target){target=node.querySelector('.mc3-tab[data-tab="overview"]')||node.querySelector('.mc3-tab');if(target)activeTab=target.dataset.tab||'overview'}if(target){node.querySelectorAll('.mc3-tab').forEach(function(b){b.classList.toggle('active',b===target)});node.querySelectorAll('.mc3-panel').forEach(function(p){p.hidden=p.dataset.panel!==activeTab})}var sourcebar=node.querySelector('.mc3-sourcebar');if(sourcebar)sourcebar.remove();requestAnimationFrame(function(){content.scrollTop=savedScroll})}
+var initial=content.querySelector('.match-center-v3');if(initial){lastStable=initial;restoreView(initial)}
+content.addEventListener('click',function(e){var b=e.target.closest('.mc3-tab');if(b&&b.dataset.tab){activeTab=b.dataset.tab;savedScroll=content.scrollTop}},true);
+content.addEventListener('scroll',function(){if(content.querySelector('.match-center-v3'))savedScroll=content.scrollTop},{passive:true});
+var observer=new MutationObserver(function(records){if(internalSwap)return;var removedStable=null;records.forEach(function(record){record.removedNodes.forEach(function(node){var root=directMatchRoot(node);if(root){var active=root.querySelector('.mc3-tab.active');if(active&&active.dataset.tab)activeTab=active.dataset.tab;removedStable=root}})});var loader=content.querySelector(':scope > .match-loading');var fresh=content.querySelector(':scope > .match-center-v3');if(loader&&(removedStable||lastStable)){var keep=removedStable||lastStable;internalSwap=true;content.replaceChildren(keep);internalSwap=false;lastStable=keep;restoreView(keep);return}if(fresh){lastStable=fresh;restoreView(fresh)}});
+observer.observe(content,{childList:true});
+})();
+</script>
+</body>
+</html>
