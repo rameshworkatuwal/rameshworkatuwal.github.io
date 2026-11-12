@@ -41,6 +41,13 @@
     }
   }
   ensureSportsNav();
+    if (!document.getElementById('wx-nepal-nav-style')) {
+      var wxStyle = document.createElement('style');
+      wxStyle.id = 'wx-nepal-nav-style';
+      wxStyle.textContent = '.wx[data-in-nepal="1"] .wx-nepal-dot, .wx[data-in-nepal="1"] .wx-nepal-label, .wx[data-in-nepal="1"] .wx-nepal-time, .wx[data-in-nepal="1"] .wx-nepal-row { display: none !important; }';
+      document.head.appendChild(wxStyle);
+    }
+
 
   var logo = nav.querySelector('.nav-logo');
   var anchor = logo ? logo.nextSibling : links;
@@ -58,6 +65,18 @@
     'Asia/Rangoon':'Asia/Yangon','Asia/Dacca':'Asia/Dhaka','Asia/Thimbu':'Asia/Thimphu',
     'Europe/Kiev':'Europe/Kyiv','Africa/Asmera':'Africa/Asmara','Pacific/Ponape':'Pacific/Pohnpei'
   };
+
+    function isVisitorInNepal(place, timezone) {
+    var z = (timezone || (place && place.timezone) || zoneNow() || '').toLowerCase();
+    if (z === 'asia/kathmandu' || z === 'asia/katmandu') return true;
+    if (place) {
+      if (place.country && /nepal/i.test(place.country)) return true;
+      if (isFinite(place.lat) && isFinite(place.lon)) {
+        if (place.lat >= 26.3 && place.lat <= 30.5 && place.lon >= 80.0 && place.lon <= 88.3) return true;
+      }
+    }
+    return false;
+  }
 
   function read(key) { try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) { return null; } }
   function write(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
@@ -107,7 +126,7 @@
       '<span class="wx-temp"></span><span class="wx-dot" aria-hidden="true"></span>' +
       '<span class="wx-city"></span>' +
       '<span class="wx-time"><span class="wx-hh"></span><span class="wx-colon">:</span><span class="wx-mm"></span><span class="wx-colon">:</span><span class="wx-ss"></span></span>' +
-      '<span class="wx-dot" aria-hidden="true"></span>' +
+      '<span class="wx-dot wx-nepal-dot" aria-hidden="true"></span>' +
       '<span class="wx-city wx-nepal-label">Nepal</span>' +
       '<span class="wx-time wx-nepal-time"><span class="wx-nepal-hh"></span><span class="wx-colon">:</span><span class="wx-nepal-mm"></span><span class="wx-colon">:</span><span class="wx-nepal-ss"></span></span>' +
     '</button>' +
@@ -117,7 +136,7 @@
         '<p class="wx-panel-kicker"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 3 3 10.5l7.6 2.9L13.5 21z"/></svg><span class="wx-panel-where">My Location</span></p>' +
         '<h3 class="wx-panel-city"></h3><p class="wx-panel-temp"></p><p class="wx-panel-desc"></p>' +
         '<p class="wx-panel-hl"><span class="wx-hi">—</span><span class="wx-lo">—</span></p>' +
-        '<div class="wx-panel-grid"><div><span>Feels</span><b class="wx-feels">—</b></div><div><span>Humidity</span><b class="wx-hum">—</b></div><div><span>Wind</span><b class="wx-wind">—</b></div><div><span>Local time</span><b class="wx-full">—</b></div><div><span>Nepal time</span><b class="wx-nepal-full">—</b></div></div>' +
+        '<div class="wx-panel-grid"><div><span>Feels</span><b class="wx-feels">—</b></div><div><span>Humidity</span><b class="wx-hum">—</b></div><div><span>Wind</span><b class="wx-wind">—</b></div><div><span>Local time</span><b class="wx-full">—</b></div><div class="wx-nepal-row"><span>Nepal time</span><b class="wx-nepal-full">—</b></div></div>' +
         '<button type="button" class="wx-locate">Use my exact location</button><p class="wx-note"></p>' +
       '</div>' +
     '</div>';
@@ -202,6 +221,16 @@
     q('.wx-locate').hidden = !!place.precise;
 
     tz = place.timezone || wx.timezone || zoneNow();
+    var inNepal = isVisitorInNepal(place, tz);
+    el.setAttribute('data-in-nepal', inNepal ? '1' : '0');
+    var nepalDot = q('.wx-nepal-dot');
+    var nepalLabel = q('.wx-nepal-label');
+    var nepalTime = q('.wx-nepal-time');
+    var nepalRow = q('.wx-nepal-row');
+    if (nepalDot) nepalDot.hidden = inNepal;
+    if (nepalLabel) nepalLabel.hidden = inNepal;
+    if (nepalTime) nepalTime.hidden = inNepal;
+    if (nepalRow) nepalRow.hidden = inNepal;
     lastHH = lastMM = lastSS = ''; lastNepalHH = lastNepalMM = lastNepalSS = '';
     tickClock();
     el.hidden = false;
