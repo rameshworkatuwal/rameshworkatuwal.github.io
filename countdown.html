@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown — Ritesh Katuwal</title>
+<meta name="description" content="Precision live chronometer counting down to October 1, 2027 with real-time days, hours, minutes, seconds and milliseconds.">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="widgets.css">
+<link rel="stylesheet" href="countdown.css?v=20261112-pro">
+<script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Katuwal</a>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="youtube.html">YouTube</a></li>
+    <li><a href="sports.html">Live Sports</a></li>
+    <li><a href="countdown.html" class="active" aria-current="page">Countdown</a></li>
+    <li><a href="blog.html">Blog</a></li>
+  </ul>
+</nav>
+
+<main class="page countdown-page reveal">
+  <div class="countdown-page-wrap" id="countdown-app">
+    <div class="countdown-aura" aria-hidden="true"></div>
+
+    <header class="countdown-header">
+      <div class="countdown-badge">
+        <span class="countdown-badge-dot"></span>
+        Target Milestone • 01 Oct 2027
+      </div>
+      <h1 class="countdown-title">The Big <span>Countdown</span></h1>
+      <p class="countdown-subtitle">
+        Precision live chronometer tracking every day, hour, minute, second, and millisecond. Momentum in real time.
+      </p>
+    </header>
+
+    <div class="countdown-scene">
+      <div class="countdown-orbit" aria-hidden="true"></div>
+
+      <div class="countdown-meta-bar">
+        <div class="countdown-target-info">
+          <span class="countdown-target-label">Target Date</span>
+          <span class="countdown-target-time">01 October 2027 • 00:00 GST</span>
+        </div>
+        <div class="countdown-live-status">
+          <span class="countdown-live-ping"></span>
+          Live Precision Telemetry
+        </div>
+      </div>
+
+      <div class="countdown-tiles" role="timer" aria-live="off">
+        <div class="countdown-tile hero-tile" style="--i:0">
+          <div class="countdown-liquid" aria-hidden="true"><i></i><i></i></div>
+          <strong data-unit="days">—</strong>
+          <span>Days left</span>
+        </div>
+
+        <div class="countdown-tile" style="--i:1">
+          <div class="countdown-liquid" aria-hidden="true"><i></i><i></i></div>
+          <strong data-unit="hours">—</strong>
+          <span>Hours</span>
+        </div>
+
+        <div class="countdown-tile" style="--i:2">
+          <div class="countdown-liquid" aria-hidden="true"><i></i><i></i></div>
+          <strong data-unit="mins">—</strong>
+          <span>Minutes</span>
+        </div>
+
+        <div class="countdown-tile" style="--i:3">
+          <div class="countdown-liquid" aria-hidden="true"><i></i><i></i></div>
+          <strong data-unit="secs">—</strong>
+          <span>Seconds</span>
+        </div>
+
+        <div class="countdown-tile ms-tile" style="--i:4">
+          <strong data-unit="ms">—</strong>
+          <span><span class="ms-radar-dot"></span> Millisec</span>
+        </div>
+      </div>
+
+      <div class="countdown-progress-section">
+        <div class="countdown-progress-header">
+          <div class="countdown-progress-dates">
+            <span>01 Oct 2026 (Launch)</span>
+            <span>→</span>
+            <span>01 Oct 2027 (Milestone)</span>
+          </div>
+          <div class="countdown-progress-val">0.0000%</div>
+        </div>
+        <div class="countdown-progress-track">
+          <span class="countdown-progress-bar"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Telemetry Cards Row -->
+    <div class="countdown-telemetry">
+      <div class="telemetry-card">
+        <div class="telemetry-icon">⏳</div>
+        <div class="telemetry-content">
+          <span class="telemetry-label">Weeks Remaining</span>
+          <span class="telemetry-val" data-tel="weeks">— wks</span>
+        </div>
+      </div>
+
+      <div class="telemetry-card">
+        <div class="telemetry-icon">⏱️</div>
+        <div class="telemetry-content">
+          <span class="telemetry-label">Total Hours</span>
+          <span class="telemetry-val" data-tel="hours">— hrs</span>
+        </div>
+      </div>
+
+      <div class="telemetry-card">
+        <div class="telemetry-icon">⚡</div>
+        <div class="telemetry-content">
+          <span class="telemetry-label">Total Seconds</span>
+          <span class="telemetry-val" data-tel="secs">— s</span>
+        </div>
+      </div>
+
+      <div class="telemetry-card">
+        <div class="telemetry-icon">🌐</div>
+        <div class="telemetry-content">
+          <span class="telemetry-label">Your Local Clock</span>
+          <span class="telemetry-val" data-tel="local">Live Synced</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Motivational / Action Bar -->
+    <div class="countdown-action-card">
+      <p class="countdown-quote-text">
+        “<strong>Every millisecond is momentum.</strong> The goal isn't just watching time pass — it's investing every single tick into what matters.”
+      </p>
+      <button type="button" class="countdown-share-btn" id="countdown-share-btn" aria-label="Copy milestone link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        Share Milestone
+      </button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="social-row" style="justify-content:center;margin-bottom:1rem">
+    <a href="https://www.youtube.com/@RiteshKatwal" target="_blank" class="soc" title="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg></a>
+    <a href="https://www.instagram.com/riteshhrk/" target="_blank" class="soc" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.2.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2Zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9Z"/></svg></a>
+    <a href="https://www.linkedin.com/in/riteshkatwal/" target="_blank" class="soc" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 20.5h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3ZM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1Zm1.8 13.1H3.5V9h3.6v11.5ZM22.2 0H1.8C.8 0 0 .8 0 1.7v20.5C0 23.2.8 24 1.8 24h20.4c1 0 1.8-.8 1.8-1.8V1.7C24 .8 23.2 0 22.2 0Z"/></svg></a>
+    <a href="https://www.facebook.com/profile.php?id=100063894348763" target="_blank" class="soc" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1c0 6 4.4 11 10.1 11.9v-8.4H7.1v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3H15.8c-1.5 0-2 .9-2 1.9v2.3h3.3l-.5 3.5h-2.8V24C19.6 23 24 18.1 24 12.1Z"/></svg></a>
+  </div>
+  © 2026 Ritesh Katuwal
+</footer>
+
+<script>
+// Scroll reveal observer
+const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+</script>
+
+<script src="countdown.js?v=20261112-pro"></script>
+<script src="site.js"></script>
+<script src="theme.js"></script>
+<script src="availability.js"></script>
+<script src="weather.js"></script>
+<script src="motion.js"></script>
+</body>
+</html>
