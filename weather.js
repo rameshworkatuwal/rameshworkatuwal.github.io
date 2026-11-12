@@ -51,6 +51,7 @@
   var WEATHER_TTL = 10 * 60 * 1000;
   var tz = '';
   var lastHH = '', lastMM = '', lastSS = '';
+  var lastNepalHH = '', lastNepalMM = '', lastNepalSS = '';
 
   var TZ_ALIASES = {
     'Asia/Katmandu':'Asia/Kathmandu','Asia/Calcutta':'Asia/Kolkata','Asia/Saigon':'Asia/Ho_Chi_Minh',
@@ -106,6 +107,9 @@
       '<span class="wx-temp"></span><span class="wx-dot" aria-hidden="true"></span>' +
       '<span class="wx-city"></span>' +
       '<span class="wx-time"><span class="wx-hh"></span><span class="wx-colon">:</span><span class="wx-mm"></span><span class="wx-colon">:</span><span class="wx-ss"></span></span>' +
+      '<span class="wx-dot" aria-hidden="true"></span>' +
+      '<span class="wx-city wx-nepal-label">Nepal</span>' +
+      '<span class="wx-time wx-nepal-time"><span class="wx-nepal-hh"></span><span class="wx-colon">:</span><span class="wx-nepal-mm"></span><span class="wx-colon">:</span><span class="wx-nepal-ss"></span></span>' +
     '</button>' +
     '<div class="wx-panel" hidden>' +
       '<div class="wx-panel-anim" aria-hidden="true"></div><div class="wx-panel-scrim" aria-hidden="true"></div>' +
@@ -113,7 +117,7 @@
         '<p class="wx-panel-kicker"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 3 3 10.5l7.6 2.9L13.5 21z"/></svg><span class="wx-panel-where">My Location</span></p>' +
         '<h3 class="wx-panel-city"></h3><p class="wx-panel-temp"></p><p class="wx-panel-desc"></p>' +
         '<p class="wx-panel-hl"><span class="wx-hi">—</span><span class="wx-lo">—</span></p>' +
-        '<div class="wx-panel-grid"><div><span>Feels</span><b class="wx-feels">—</b></div><div><span>Humidity</span><b class="wx-hum">—</b></div><div><span>Wind</span><b class="wx-wind">—</b></div><div><span>Local time</span><b class="wx-full">—</b></div></div>' +
+        '<div class="wx-panel-grid"><div><span>Feels</span><b class="wx-feels">—</b></div><div><span>Humidity</span><b class="wx-hum">—</b></div><div><span>Wind</span><b class="wx-wind">—</b></div><div><span>Local time</span><b class="wx-full">—</b></div><div><span>Nepal time</span><b class="wx-nepal-full">—</b></div></div>' +
         '<button type="button" class="wx-locate">Use my exact location</button><p class="wx-note"></p>' +
       '</div>' +
     '</div>';
@@ -124,27 +128,50 @@
   var panel = q('.wx-panel');
 
   function tickClock() {
-    if (!tz) return;
     var now = new Date();
-    var parts;
-    try {
-      parts = new Intl.DateTimeFormat('en-GB', {
-        timeZone:tz,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
-      }).formatToParts(now);
-    } catch (e) { return; }
-    var map = {};
-    parts.forEach(function (p) { map[p.type] = p.value; });
-    var hh = map.hour || '00', mm = map.minute || '00', ss = map.second || '00';
-    if (hh !== lastHH) { q('.wx-hh').textContent = hh; lastHH = hh; }
-    if (mm !== lastMM) { q('.wx-mm').textContent = mm; lastMM = mm; }
-    if (ss !== lastSS) { q('.wx-ss').textContent = ss; lastSS = ss; }
-    if (!panel.hidden) {
+    if (tz) {
+      var parts;
       try {
-        q('.wx-full').textContent = new Intl.DateTimeFormat('en-GB', {
-          timeZone:tz,weekday:'short',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
-        }).format(now);
-      } catch (e) {}
+        parts = new Intl.DateTimeFormat('en-GB', {
+          timeZone:tz,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
+        }).formatToParts(now);
+      } catch (e) { parts = null; }
+      if (parts) {
+        var map = {};
+        parts.forEach(function (p) { map[p.type] = p.value; });
+        var hh = map.hour || '00', mm = map.minute || '00', ss = map.second || '00';
+        if (hh !== lastHH) { q('.wx-hh').textContent = hh; lastHH = hh; }
+        if (mm !== lastMM) { q('.wx-mm').textContent = mm; lastMM = mm; }
+        if (ss !== lastSS) { q('.wx-ss').textContent = ss; lastSS = ss; }
+        if (!panel.hidden && q('.wx-full')) {
+          try {
+            q('.wx-full').textContent = new Intl.DateTimeFormat('en-GB', {
+              timeZone:tz,weekday:'short',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
+            }).format(now);
+          } catch (e) {}
+        }
+      }
     }
+
+    try {
+      var nParts = new Intl.DateTimeFormat('en-GB', {
+        timeZone:'Asia/Kathmandu',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
+      }).formatToParts(now);
+      var nMap = {};
+      nParts.forEach(function (p) { nMap[p.type] = p.value; });
+      var nhh = nMap.hour || '00', nmm = nMap.minute || '00', nss = nMap.second || '00';
+      var nepalHHEl = q('.wx-nepal-hh');
+      var nepalMMEl = q('.wx-nepal-mm');
+      var nepalSSEl = q('.wx-nepal-ss');
+      if (nepalHHEl && nhh !== lastNepalHH) { nepalHHEl.textContent = nhh; lastNepalHH = nhh; }
+      if (nepalMMEl && nmm !== lastNepalMM) { nepalMMEl.textContent = nmm; lastNepalMM = nmm; }
+      if (nepalSSEl && nss !== lastNepalSS) { nepalSSEl.textContent = nss; lastNepalSS = nss; }
+      if (!panel.hidden && q('.wx-nepal-full')) {
+        q('.wx-nepal-full').textContent = new Intl.DateTimeFormat('en-GB', {
+          timeZone:'Asia/Kathmandu',weekday:'short',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
+        }).format(now);
+      }
+    } catch (e) {}
   }
 
   function render(place, wx) {
@@ -175,7 +202,7 @@
     q('.wx-locate').hidden = !!place.precise;
 
     tz = place.timezone || wx.timezone || zoneNow();
-    lastHH = lastMM = lastSS = '';
+    lastHH = lastMM = lastSS = ''; lastNepalHH = lastNepalMM = lastNepalSS = '';
     tickClock();
     el.hidden = false;
     el.classList.add('is-in');
