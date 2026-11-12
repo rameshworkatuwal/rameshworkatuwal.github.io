@@ -710,3 +710,12 @@ html[data-theme="light"] .lb-like-btn.is-liked{
   .lb-like-btn.pop svg{ animation:none; }
   .lb-like-btn:hover{ transform:none; }
 }
+
+
+/* Hide extra Nepal time pill if visitor is already in Nepal */
+.wx[data-in-nepal="1"] .wx-nepal-dot,
+.wx[data-in-nepal="1"] .wx-nepal-label,
+.wx[data-in-nepal="1"] .wx-nepal-time,
+.wx[data-in-nepal="1"] .wx-nepal-row {
+  display: none !important;
+}
