@@ -1,28 +1,259 @@
-.daily-quotes{margin:-1rem 0 2.5rem;scroll-margin-top:7rem}
-.daily-quotes-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;margin-bottom:.9rem}
-.daily-quotes-eyebrow{font:600 .67rem/1.6 'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:.16em;color:var(--blue)}
-.daily-quotes-head h2{font:700 clamp(1.3rem,2.5vw,1.8rem)/1.15 'Bricolage Grotesque',sans-serif;letter-spacing:-.035em;color:var(--text);margin-top:.4rem}
-.daily-quotes-date{font:500 .72rem/1.5 'Space Grotesk',sans-serif;color:var(--muted);white-space:nowrap}
-.daily-quotes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;perspective:1200px}
-.daily-quote{position:relative;isolation:isolate;overflow:hidden;margin:0;padding:1rem 1.15rem;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:0 14px 35px -22px #0008;transition:transform .4s ease,border-color .4s ease;display:flex;flex-direction:column}
-.daily-quote:first-child{grid-column:1/-1;background:linear-gradient(120deg,#103047,#202139);padding:1.2rem 1.4rem}
-.daily-quote::before{content:'“';position:absolute;z-index:-1;right:1rem;top:-1.7rem;font:110px/1.4 Georgia,serif;color:#68bfe512;pointer-events:none}
-.daily-quote::after{content:'';position:absolute;inset:-100%;pointer-events:none;background:linear-gradient(110deg,transparent 44%,#ffffff0c 50%,transparent 56%);transform:translateX(-50%)}
-.daily-quote-number{font:500 .65rem/1.2 'Space Grotesk',sans-serif;letter-spacing:.1em;color:var(--muted);margin-bottom:.65rem}
-.daily-quote blockquote{margin:0 0 .8rem;font:500 clamp(.95rem,1.5vw,1.1rem)/1.5 'Bricolage Grotesque',sans-serif;letter-spacing:-.015em;color:var(--text);max-width:45ch;text-wrap:pretty}
-.daily-quote:first-child blockquote{font-size:clamp(1.1rem,2vw,1.45rem);line-height:1.35;color:#edf8ff;max-width:56ch}
-.daily-quote figcaption{margin-top:auto;font:500 .68rem/1.5 'Plus Jakarta Sans',sans-serif;color:var(--muted);display:flex;align-items:center;gap:.6rem}
-.daily-quote figcaption::before{content:'';height:1px;width:20px;background:var(--blue)}
-.daily-quote:first-child figcaption,.daily-quote:first-child .daily-quote-number{color:#a9c5d7}
-.daily-quotes-source{font-size:.65rem;color:var(--muted);margin:.65rem 0 0}
-.daily-quotes-source a{color:inherit;text-decoration:underline;text-underline-offset:3px}
-.daily-quotes.is-visible .daily-quote{animation:quote-arrive .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--quote-order) * 95ms)}
-@keyframes quote-arrive{from{opacity:0;transform:perspective(900px) translateY(26px) rotateX(10deg)}to{opacity:1;transform:none}}
-@keyframes quote-sheen{to{transform:translateX(50%)}}
-@media(hover:hover) and (pointer:fine){.daily-quotes.is-visible .daily-quote:hover{transform:perspective(900px) translateY(-5px) rotateX(2deg);border-color:#4db7e680;animation-fill-mode:backwards}.daily-quote:hover::after{animation:quote-sheen 1.2s ease both}}
-html[data-theme="light"] .daily-quote{background:#fff;box-shadow:0 14px 35px -22px #345d8740}
-html[data-theme="light"] .daily-quote:first-child{background:linear-gradient(120deg,#edf8ff,#f1eefc)}
-html[data-theme="light"] .daily-quote:first-child blockquote{color:#17374e}
-html[data-theme="light"] .daily-quote:first-child figcaption,html[data-theme="light"] .daily-quote:first-child .daily-quote-number{color:#526e83}
-@media(max-width:600px){.daily-quotes-grid{grid-template-columns:1fr}.daily-quotes-head{align-items:flex-start;flex-direction:column;gap:.6rem}.daily-quote{border-radius:16px}}
-@media(prefers-reduced-motion:reduce){.daily-quotes .daily-quote,.daily-quotes .daily-quote::after{animation:none!important;transition:none!important;transform:none!important}}
+/* ============================================================
+   SINGLE ANIMATED HERO DAILY QUOTE CARD
+   ============================================================ */
+.daily-quotes {
+  margin: -0.5rem 0 2.4rem;
+  scroll-margin-top: 7rem;
+}
+
+.daily-quotes-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.daily-quotes-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font: 600 0.68rem/1.6 'Space Grotesk', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--blue, #38bdf8);
+}
+
+.daily-quotes-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue, #38bdf8);
+  box-shadow: 0 0 10px var(--blue, #38bdf8);
+  animation: quotePulse 2s infinite ease-in-out;
+}
+
+@keyframes quotePulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.daily-quotes-head h2 {
+  font: 700 clamp(1.25rem, 2.4vw, 1.65rem)/1.2 'Bricolage Grotesque', sans-serif;
+  letter-spacing: -0.03em;
+  color: var(--text, #fff);
+  margin-top: 0.3rem;
+}
+
+.daily-quotes-date {
+  font: 500 0.72rem/1.5 'Space Grotesk', sans-serif;
+  color: var(--muted, #94a3b8);
+  white-space: nowrap;
+}
+
+/* Featured Hero Quote Card */
+.daily-quote-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 0;
+  padding: 1.5rem 1.75rem;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(16, 48, 71, 0.8) 0%, rgba(32, 33, 57, 0.88) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  box-shadow: 0 20px 45px -20px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.daily-quote-hero:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 24px 50px -18px rgba(14, 165, 233, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Animated gradient beam around card border */
+.daily-quote-hero::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(115deg, transparent 20%, rgba(56, 189, 248, 0.45) 40%, rgba(168, 85, 247, 0.45) 60%, transparent 80%);
+  background-size: 250% 250%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: borderBeam 7s linear infinite;
+}
+
+@keyframes borderBeam {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Background watermark quotation mark */
+.quote-watermark {
+  position: absolute;
+  right: 1.2rem;
+  bottom: -1rem;
+  font: 700 130px/1 Georgia, serif;
+  color: rgba(56, 189, 248, 0.05);
+  pointer-events: none;
+  user-select: none;
+  z-index: -1;
+  transition: transform 0.4s ease, color 0.4s ease;
+}
+
+.daily-quote-hero:hover .quote-watermark {
+  transform: translateY(-3px) scale(1.03);
+  color: rgba(56, 189, 248, 0.09);
+}
+
+.quote-content {
+  position: relative;
+  z-index: 1;
+}
+
+.quote-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+}
+
+.quote-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font: 500 0.65rem/1.2 'Space Grotesk', sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #a5f3fc;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 0.24rem 0.65rem;
+  border-radius: 999px;
+}
+
+.quote-shuffle-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--muted, #cbd5e1);
+  padding: 0.28rem 0.65rem;
+  border-radius: 8px;
+  font: 500 0.68rem/1 'Space Grotesk', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.quote-shuffle-btn:hover {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #fff;
+  transform: scale(1.03);
+}
+
+.quote-shuffle-btn svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.4s ease;
+}
+
+.quote-shuffle-btn:active svg {
+  transform: rotate(180deg);
+}
+
+.quote-body {
+  margin: 0 0 1rem;
+  font: 500 clamp(1.1rem, 2vw, 1.35rem)/1.45 'Bricolage Grotesque', sans-serif;
+  letter-spacing: -0.015em;
+  color: #f1f5f9;
+  text-wrap: pretty;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.quote-body.is-animating {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.quote-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.quote-author-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font: 600 0.78rem/1.4 'Plus Jakarta Sans', sans-serif;
+  color: #38bdf8;
+  letter-spacing: 0.01em;
+}
+
+.quote-author-wrap::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.daily-quotes-source {
+  font: 400 0.65rem/1.4 'Space Grotesk', sans-serif;
+  color: var(--muted, #94a3b8);
+  margin: 0;
+}
+
+.daily-quotes-source a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Motion arrival */
+.daily-quotes.is-visible .daily-quote-hero {
+  animation: heroQuoteEntry 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes heroQuoteEntry {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .daily-quote-hero {
+    padding: 1.25rem 1.3rem;
+  }
+  .quote-body {
+    font-size: 1.05rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .daily-quote-hero::before,
+  .daily-quotes-eyebrow::before,
+  .daily-quotes.is-visible .daily-quote-hero {
+    animation: none;
+  }
+}
