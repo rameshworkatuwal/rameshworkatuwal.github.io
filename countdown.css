@@ -1,215 +1,182 @@
 /* ==========================================================================
-   PREMIUM CHRONOMETER COUNTDOWN STYLES
+   APPLE KEYNOTE SLEEK CINEMATIC LUXURY CHRONOMETER
+   Spatial Glassmorphism, Titanium Chamfers, Luminous Prisms & Aurora
    ========================================================================== */
+
+:root {
+  --cd-rx: 0deg;
+  --cd-ry: 0deg;
+  --cd-glow-x: 50%;
+  --cd-glow-y: 50%;
+  --cd-progress: 0%;
+  --cd-accent-cyan: #38e1ff;
+  --cd-accent-blue: #2997ff;
+  --cd-accent-purple: #a855f7;
+}
 
 .countdown-page-wrap {
   position: relative;
-  max-width: 1180px;
+  max-width: 1140px;
   margin: 0 auto 4rem;
-  padding: 1.5rem 1.25rem 3rem;
-  perspective: 1400px;
+  padding: 1.5rem 1.25rem 3.5rem;
+  perspective: 1600px;
 }
 
-/* Atmospheric Ambient Aurora & Mesh */
+/* ==========================================================================
+   Cinematic Ambient Auroras (Apple Keynote Light Pool)
+   ========================================================================== */
+
 .countdown-aura {
   position: absolute;
-  top: 10%;
+  top: 6%;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
-  max-width: 960px;
-  height: 520px;
-  background: radial-gradient(ellipse at center, rgba(56, 225, 255, 0.16) 0%, rgba(139, 108, 255, 0.12) 38%, transparent 72%);
-  filter: blur(80px);
+  width: 92%;
+  max-width: 1040px;
+  height: 560px;
+  background: 
+    radial-gradient(ellipse 60% 45% at 30% 30%, rgba(41, 151, 255, 0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 50% at 70% 40%, rgba(168, 85, 247, 0.14) 0%, transparent 75%),
+    radial-gradient(circle 380px at 50% 60%, rgba(56, 225, 255, 0.12) 0%, transparent 68%);
+  filter: blur(85px);
   pointer-events: none;
   z-index: 0;
-  animation: auraPulse 9s ease-in-out infinite alternate;
+  animation: keynoteAuraBreathing 12s ease-in-out infinite alternate;
+  will-change: transform, opacity;
 }
 
-@keyframes auraPulse {
-  0% { transform: translateX(-50%) scale(0.94); opacity: 0.65; }
-  100% { transform: translateX(-50%) scale(1.08); opacity: 0.95; }
+@keyframes keynoteAuraBreathing {
+  0% {
+    transform: translateX(-50%) scale(0.92) rotate(-1deg);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateX(-49%) scale(1.04) rotate(1deg);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateX(-51%) scale(1) rotate(-0.5deg);
+    opacity: 0.85;
+  }
 }
 
-/* Hero Header */
-.countdown-header {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  margin-bottom: 2.8rem;
+/* Secondary ambient floor glow */
+.countdown-aura::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 20%;
+  right: 20%;
+  height: 180px;
+  background: radial-gradient(ellipse at center, rgba(56, 225, 255, 0.12), transparent 70%);
+  filter: blur(60px);
 }
 
-.countdown-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.45rem 1rem;
-  border-radius: 9999px;
-  background: rgba(56, 225, 255, 0.08);
-  border: 1px solid rgba(56, 225, 255, 0.28);
-  color: #58d8ff;
-  font: 600 0.78rem/1 'Space Grotesk', sans-serif;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  box-shadow: 0 4px 18px -4px rgba(56, 225, 255, 0.25);
-  margin-bottom: 1.2rem;
-  backdrop-filter: blur(8px);
-}
+/* ==========================================================================
+   Main Chronograph Spatial Stage
+   ========================================================================== */
 
-.countdown-badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #38e1ff;
-  box-shadow: 0 0 10px #38e1ff;
-  animation: badgeBlink 1.8s ease-in-out infinite;
-}
-
-@keyframes badgeBlink {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.75); }
-}
-
-.countdown-title {
-  font: 800 clamp(2.4rem, 5.2vw, 4.2rem)/1.08 'Bricolage Grotesque', sans-serif;
-  letter-spacing: -0.035em;
-  color: #fff;
-  margin: 0 0 0.8rem;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
-}
-
-.countdown-title span {
-  background: linear-gradient(135deg, #ffffff 25%, #76d7ff 65%, #a594ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.countdown-subtitle {
-  max-width: 680px;
-  margin: 0 auto;
-  font: 400 clamp(0.95rem, 1.8vw, 1.12rem)/1.6 'Plus Jakarta Sans', sans-serif;
-  color: #9cb3c9;
-}
-
-/* Main Chronograph Stage */
 .countdown-scene {
   position: relative;
   isolation: isolate;
-  border-radius: 32px;
-  padding: clamp(1.8rem, 4vw, 3.4rem);
-  background: linear-gradient(145deg, rgba(16, 32, 52, 0.82), rgba(9, 18, 32, 0.94));
-  border: 1px solid rgba(124, 188, 235, 0.18);
+  border-radius: 36px;
+  padding: clamp(2rem, 4.5vw, 3.8rem);
+  background: linear-gradient(
+    145deg, 
+    rgba(18, 24, 38, 0.82) 0%, 
+    rgba(11, 16, 28, 0.92) 50%,
+    rgba(7, 10, 20, 0.96) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 
-    0 35px 80px -25px rgba(0, 0, 0, 0.75),
-    0 0 0 1px rgba(255, 255, 255, 0.05),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+    0 40px 100px -25px rgba(0, 0, 0, 0.85),
+    0 20px 40px -15px rgba(10, 25, 50, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.22),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
   transform: rotateX(var(--cd-rx, 0deg)) rotateY(var(--cd-ry, 0deg));
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   overflow: hidden;
   z-index: 1;
 }
 
-/* Specular cursor glow */
+/* Specular cursor sheen tracking */
 .countdown-scene::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -1px;
+  border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(circle 500px at var(--cd-glow-x, 50%) var(--cd-glow-y, 50%), rgba(56, 225, 255, 0.12), transparent 70%);
-  opacity: 0.9;
-  transition: opacity 0.3s;
+  background: radial-gradient(
+    650px circle at var(--cd-glow-x, 50%) var(--cd-glow-y, 50%),
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(56, 225, 255, 0.08) 25%,
+    rgba(168, 85, 247, 0.04) 45%,
+    transparent 70%
+  );
+  z-index: 1;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
 }
 
-/* Sleek Orbit Ring */
+/* Apple Keynote top rim-light flare */
+.countdown-scene::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.15) 20%, 
+    rgba(255, 255, 255, 0.8) 50%, 
+    rgba(56, 225, 255, 0.6) 75%, 
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+}
+
+/* Sleek Gyro Orbit Rings */
 .countdown-orbit {
   position: absolute;
-  width: 550px;
-  height: 550px;
-  border: 1px dashed rgba(56, 225, 255, 0.18);
+  width: 620px;
+  height: 620px;
+  border: 1px dashed rgba(56, 225, 255, 0.14);
   border-radius: 50%;
-  right: -120px;
-  top: -240px;
-  box-shadow: 0 0 0 45px rgba(56, 225, 255, 0.03), 0 0 0 100px rgba(139, 108, 255, 0.02);
-  animation: countdownOrbit 22s linear infinite;
+  right: -140px;
+  top: -260px;
+  box-shadow: 
+    0 0 0 50px rgba(56, 225, 255, 0.02),
+    0 0 0 110px rgba(168, 85, 247, 0.015),
+    inset 0 0 40px rgba(56, 225, 255, 0.03);
+  animation: keynoteOrbitRotate 32s linear infinite;
   pointer-events: none;
+  z-index: 0;
 }
 
-@keyframes countdownOrbit {
+@keyframes keynoteOrbitRotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-/* Target Meta Bar */
-.countdown-meta-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  padding-bottom: 1.2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
+/* ==========================================================================
+   5-TILE PRECISION CHRONOMETER MATRIX
+   ========================================================================== */
 
-.countdown-target-info {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.countdown-target-label {
-  font: 600 0.8rem/1 'Space Grotesk', sans-serif;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #7ba3c2;
-}
-
-.countdown-target-time {
-  font: 700 0.95rem/1 'Space Grotesk', sans-serif;
-  color: #e2f4ff;
-  letter-spacing: 0.06em;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 0.35rem 0.75rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.countdown-live-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font: 600 0.75rem/1 'Space Grotesk', sans-serif;
-  color: #38e1ff;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.35rem 0.75rem;
-  border-radius: 9999px;
-  background: rgba(56, 225, 255, 0.1);
-  border: 1px solid rgba(56, 225, 255, 0.25);
-}
-
-.countdown-live-ping {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #38e1ff;
-  box-shadow: 0 0 8px #38e1ff;
-  animation: ping 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-@keyframes ping {
-  0% { transform: scale(1); opacity: 1; }
-  75%, 100% { transform: scale(2.2); opacity: 0; }
-}
-
-/* 5-TILE CHRONOMETER MATRIX */
 .countdown-tiles {
   display: grid;
-  grid-template-columns: 1.35fr repeat(3, 1fr) 1.15fr;
-  gap: clamp(0.7rem, 2vw, 1.4rem);
-  perspective: 1000px;
+  grid-template-columns: 1.35fr repeat(3, 1fr) 1.2fr;
+  gap: clamp(0.75rem, 2vw, 1.45rem);
+  perspective: 1200px;
+  position: relative;
+  z-index: 2;
 }
 
 .countdown-tile {
@@ -220,85 +187,149 @@
   justify-content: center;
   gap: 0.75rem;
   min-width: 0;
-  padding: clamp(1.4rem, 3.2vw, 2.4rem) 0.6rem;
-  border-radius: 22px;
-  background: linear-gradient(160deg, rgba(29, 50, 74, 0.7), rgba(15, 28, 44, 0.88));
-  border: 1px solid rgba(138, 192, 235, 0.18);
+  padding: clamp(1.5rem, 3.4vw, 2.6rem) 0.65rem;
+  border-radius: 26px;
+  background: linear-gradient(
+    165deg, 
+    rgba(28, 38, 58, 0.65) 0%, 
+    rgba(14, 20, 34, 0.88) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 
-    0 10px 24px -6px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    0 16px 32px -8px rgba(0, 0, 0, 0.55),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.4);
   transform-style: preserve-3d;
-  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: 
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+    box-shadow 0.35s ease, 
+    border-color 0.35s ease,
+    background 0.35s ease;
   overflow: hidden;
   isolation: isolate;
+  backdrop-filter: blur(16px);
 }
 
-/* Sheen reflection sweep */
+/* Apple Pro Prismatic Edge Sheen Sweep */
 .countdown-tile::after {
   content: '';
   position: absolute;
-  inset: -100% -100%;
+  inset: -150%;
   pointer-events: none;
-  background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.08) 48%, rgba(255, 255, 255, 0.18) 50%, transparent 58%);
-  animation: tileSheen 9s ease-in-out infinite;
-  animation-delay: calc(var(--i, 0) * 0.9s);
+  background: linear-gradient(
+    115deg, 
+    transparent 38%, 
+    rgba(255, 255, 255, 0.05) 46%, 
+    rgba(255, 255, 255, 0.22) 50%, 
+    rgba(56, 225, 255, 0.28) 52%,
+    transparent 60%
+  );
+  animation: keynoteTileSheen 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: calc(var(--i, 0) * 0.85s);
+  z-index: 3;
 }
 
-@keyframes tileSheen {
-  0%, 70% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+@keyframes keynoteTileSheen {
+  0%, 72% { transform: translateX(-100%) rotate(25deg); opacity: 0; }
+  75% { opacity: 1; }
+  100% { transform: translateX(100%) rotate(25deg); opacity: 0; }
 }
 
-/* HERO TILE: DAYS LEFT */
+/* Top internal specular glass bevel */
+.countdown-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* ==========================================================================
+   HERO TILE: DAYS LEFT (Apple Deep Titanium)
+   ========================================================================== */
+
 .countdown-tile.hero-tile {
-  background: linear-gradient(145deg, #10668b, #0d3b5b);
-  border-color: rgba(94, 219, 255, 0.45);
+  background: linear-gradient(
+    155deg, 
+    rgba(14, 82, 126, 0.75) 0%, 
+    rgba(10, 48, 78, 0.92) 55%,
+    rgba(6, 28, 48, 0.98) 100%
+  );
+  border-color: rgba(94, 219, 255, 0.38);
   box-shadow: 
-    0 16px 36px -8px rgba(10, 85, 122, 0.55),
-    0 0 24px -4px rgba(56, 225, 255, 0.25),
-    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    0 22px 48px -10px rgba(7, 65, 102, 0.6),
+    0 0 35px -6px rgba(56, 225, 255, 0.25),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.35);
 }
 
 .countdown-tile.hero-tile::before {
-  content: 'MILESTONE';
+  content: 'KEYNOTE MILESTONE';
   position: absolute;
   top: 10px;
   right: 12px;
-  font: 700 0.58rem/1 'Space Grotesk', sans-serif;
-  letter-spacing: 0.14em;
-  color: #bbf2ff;
-  background: rgba(0, 0, 0, 0.28);
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  font: 700 0.58rem/1 -apple-system, BlinkMacSystemFont, 'Space Grotesk', sans-serif;
+  letter-spacing: 0.16em;
+  color: #c4f3ff;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.26rem 0.55rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
   pointer-events: none;
+  height: auto;
+  left: auto;
+  width: auto;
 }
 
-/* MILLISECOND CHRONO TILE */
+/* ==========================================================================
+   MILLISECOND CHRONO TILE (Precision Micro-Telemetry)
+   ========================================================================== */
+
 .countdown-tile.ms-tile {
-  background: linear-gradient(160deg, rgba(20, 42, 66, 0.85), rgba(12, 22, 38, 0.95));
-  border-color: rgba(56, 225, 255, 0.25);
+  background: linear-gradient(
+    165deg, 
+    rgba(22, 38, 64, 0.8) 0%, 
+    rgba(12, 22, 40, 0.94) 100%
+  );
+  border-color: rgba(56, 225, 255, 0.3);
+  box-shadow: 
+    0 16px 36px -8px rgba(0, 0, 0, 0.6),
+    0 0 25px -8px rgba(56, 225, 255, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 
 .countdown-tile.ms-tile strong {
-  font-family: 'Space Grotesk', ui-monospace, SFMono-Regular, monospace;
-  color: #4ce7ff;
-  text-shadow: 0 0 16px rgba(56, 225, 255, 0.4);
-  letter-spacing: -0.01em;
+  font-family: -apple-system, BlinkMacSystemFont, 'Space Grotesk', ui-monospace, SFMono-Regular, monospace;
+  background: linear-gradient(180deg, #ffffff 0%, #b8f0ff 40%, #38e1ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 14px rgba(56, 225, 255, 0.45));
+  letter-spacing: -0.02em;
 }
 
-/* Card inner numbers & text */
+/* ==========================================================================
+   Numbers and Subtitle Typography
+   ========================================================================== */
+
 .countdown-tile strong {
   position: relative;
   z-index: 2;
   display: block;
-  font: 700 clamp(2.2rem, 5.2vw, 4.4rem)/1 'Space Grotesk', sans-serif;
+  font: 700 clamp(2.3rem, 5.4vw, 4.6rem)/1 -apple-system, BlinkMacSystemFont, 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
   color: #ffffff;
+  background: linear-gradient(180deg, #ffffff 15%, #e8f3ff 60%, #b2d7fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
-  letter-spacing: -0.035em;
-  transform: translateZ(14px);
-  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  letter-spacing: -0.04em;
+  transform: translateZ(18px);
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.5));
   transition: transform 0.25s ease;
 }
 
@@ -306,45 +337,58 @@
   position: relative;
   z-index: 2;
   display: block;
-  font: 600 clamp(0.7rem, 1.2vw, 0.85rem)/1 'Space Grotesk', sans-serif;
-  letter-spacing: 0.14em;
+  font: 600 clamp(0.72rem, 1.25vw, 0.88rem)/1 -apple-system, BlinkMacSystemFont, 'Space Grotesk', sans-serif;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #9ebdd6;
+  color: #a4c2dc;
+  transform: translateZ(10px);
 }
 
 .countdown-tile.hero-tile span {
-  color: #d8f5ff;
+  color: #e2f7ff;
 }
 
 .countdown-tile.ms-tile span {
-  color: #8be4f7;
+  color: #7ce2f8;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.45rem;
 }
 
 .ms-radar-dot {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #38e1ff;
   display: inline-block;
-  box-shadow: 0 0 6px #38e1ff;
+  box-shadow: 0 0 10px #38e1ff, 0 0 20px #38e1ff;
+  animation: keynoteRadarBlink 1.4s ease-in-out infinite;
 }
 
-/* Hover elevation */
+@keyframes keynoteRadarBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.75); }
+}
+
+/* Tile Hover Float */
 @media (hover: hover) and (pointer: fine) {
   .countdown-tile:hover {
-    transform: translateY(-5px) scale(1.015);
+    transform: translateY(-6px) scale(1.02);
     box-shadow: 
-      0 20px 40px -10px rgba(0, 0, 0, 0.6),
-      0 0 25px rgba(56, 225, 255, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.28);
-    border-color: rgba(56, 225, 255, 0.4);
+      0 26px 50px -12px rgba(0, 0, 0, 0.7),
+      0 0 35px rgba(56, 225, 255, 0.25),
+      inset 0 1.5px 1px rgba(255, 255, 255, 0.35);
+    border-color: rgba(56, 225, 255, 0.45);
+  }
+  .countdown-tile:hover strong {
+    transform: translateZ(26px);
   }
 }
 
-/* Liquid / Energy Reservoir */
+/* ==========================================================================
+   Liquid / Energy Fill Wave Reservoir
+   ========================================================================== */
+
 .countdown-liquid {
   position: absolute;
   z-index: 0;
@@ -352,7 +396,7 @@
   left: 0;
   right: 0;
   height: var(--cd-fill, 0%);
-  background: linear-gradient(180deg, rgba(56, 225, 255, 0.16), rgba(65, 120, 240, 0.32));
+  background: linear-gradient(180deg, rgba(56, 225, 255, 0.18), rgba(41, 151, 255, 0.34));
   transition: height 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
   pointer-events: none;
 }
@@ -364,57 +408,61 @@
   height: 24px;
   top: -12px;
   border-radius: 46%;
-  background: rgba(83, 221, 255, 0.22);
-  animation: cdWave 5s ease-in-out infinite alternate;
+  background: rgba(83, 221, 255, 0.25);
+  animation: keynoteCdWave 5s ease-in-out infinite alternate;
 }
 
 .countdown-liquid > i:nth-child(2) {
   top: -7px;
-  background: rgba(165, 148, 255, 0.18);
+  background: rgba(168, 85, 247, 0.18);
   animation-duration: 3.8s;
   animation-direction: alternate-reverse;
 }
 
-@keyframes cdWave {
+@keyframes keynoteCdWave {
   from { transform: translateX(-12%) rotate(-3deg); }
   to { transform: translateX(12%) rotate(3deg); }
 }
 
-/* PROGRESS METRICS SECTION */
+/* ==========================================================================
+   PROGRESS METRICS SECTION (Apple Keynote Track & Glint)
+   ========================================================================== */
+
 .countdown-progress-section {
   position: relative;
   z-index: 2;
-  margin-top: 2.4rem;
+  margin-top: 2.6rem;
 }
 
 .countdown-progress-header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-bottom: 0.65rem;
-  font: 600 0.8rem/1 'Space Grotesk', sans-serif;
+  margin-bottom: 0.75rem;
+  font: 600 0.85rem/1 -apple-system, BlinkMacSystemFont, 'Space Grotesk', sans-serif;
   color: #8dafc9;
 }
 
-.countdown-progress-dates {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .countdown-progress-val {
-  font: 700 0.95rem/1 'Space Grotesk', monospace;
+  font: 700 1rem/1 -apple-system, BlinkMacSystemFont, 'Space Grotesk', ui-monospace, monospace;
   color: #38e1ff;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  background: linear-gradient(180deg, #ffffff 0%, #38e1ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(56, 225, 255, 0.4));
 }
 
 .countdown-progress-track {
   position: relative;
-  height: 8px;
+  height: 10px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 9999px;
   overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 
+    inset 0 1px 3px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .countdown-progress-bar {
@@ -422,211 +470,167 @@
   display: block;
   width: var(--cd-progress, 0%);
   height: 100%;
-  background: linear-gradient(90deg, #1aa4d8, #38e1ff 60%, #998aff 100%);
+  background: linear-gradient(
+    90deg, 
+    #1888e6 0%, 
+    #38e1ff 50%, 
+    #9d6eff 85%,
+    #e072ff 100%
+  );
   border-radius: inherit;
   transition: width 0.3s ease;
   overflow: hidden;
+  box-shadow: 0 0 16px rgba(56, 225, 255, 0.5);
 }
 
+/* Apple Laser Glint Sweep across progress bar */
 .countdown-progress-bar::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-  animation: progressGlint 2.8s ease-in-out infinite;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.95) 50%, 
+    transparent 100%
+  );
+  animation: keynoteProgressGlint 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  filter: drop-shadow(0 0 8px #ffffff);
 }
 
-@keyframes progressGlint {
+@keyframes keynoteProgressGlint {
   from { transform: translateX(-100%); }
   to { transform: translateX(100%); }
 }
 
-/* TELEMETRY CARDS ROW */
-.countdown-telemetry {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
-  position: relative;
-  z-index: 1;
-}
+/* ==========================================================================
+   INSPIRATION & SHARE CARD (Apple Spatial Glass Card)
+   ========================================================================== */
 
-.telemetry-card {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.1rem 1.25rem;
-  border-radius: 18px;
-  background: linear-gradient(150deg, rgba(22, 40, 62, 0.65), rgba(13, 24, 38, 0.75));
-  border: 1px solid rgba(124, 188, 235, 0.12);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.35);
-  transition: transform 0.25s ease, border-color 0.25s ease;
-}
-
-.telemetry-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(56, 225, 255, 0.3);
-}
-
-.telemetry-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(56, 225, 255, 0.1);
-  border: 1px solid rgba(56, 225, 255, 0.22);
-  color: #38e1ff;
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
-.telemetry-content {
-  min-width: 0;
-}
-
-.telemetry-label {
-  display: block;
-  font: 500 0.72rem/1.2 'Space Grotesk', sans-serif;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #8aa9c2;
-  margin-bottom: 0.25rem;
-}
-
-.telemetry-val {
-  display: block;
-  font: 700 1.15rem/1.1 'Space Grotesk', monospace;
-  color: #eaf5fc;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* INSPIRATION & SHARE CARD */
 .countdown-action-card {
   position: relative;
   z-index: 1;
   margin-top: 2rem;
-  padding: 1.6rem 2rem;
-  border-radius: 20px;
-  background: linear-gradient(135deg, rgba(20, 36, 56, 0.6), rgba(12, 22, 36, 0.8));
-  border: 1px solid rgba(124, 188, 235, 0.15);
+  padding: 1.6rem 2.2rem;
+  border-radius: 24px;
+  background: linear-gradient(
+    145deg, 
+    rgba(22, 32, 52, 0.65) 0%, 
+    rgba(12, 18, 32, 0.85) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
   flex-wrap: wrap;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.16);
 }
 
 .countdown-quote-text {
-  font: 500 1.02rem/1.5 'Plus Jakarta Sans', sans-serif;
-  color: #cde4f5;
+  font: 400 1.02rem/1.6 -apple-system, BlinkMacSystemFont, 'Plus Jakarta Sans', sans-serif;
+  color: #cfe3f5;
   margin: 0;
-  max-width: 640px;
+  max-width: 660px;
+  letter-spacing: -0.01em;
 }
 
 .countdown-quote-text strong {
-  color: #5edbff;
+  color: #ffffff;
+  font-weight: 600;
+  background: linear-gradient(90deg, #ffffff 0%, #8ae9ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .countdown-share-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.7rem 1.4rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #1aa4d8, #0e69a0);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  gap: 0.6rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #1f94ea 0%, #0c6ab4 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   color: #ffffff;
-  font: 600 0.85rem/1 'Space Grotesk', sans-serif;
-  letter-spacing: 0.05em;
+  font: 600 0.88rem/1 -apple-system, BlinkMacSystemFont, 'Space Grotesk', sans-serif;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 6px 18px -4px rgba(16, 115, 168, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    0 8px 24px -4px rgba(18, 120, 190, 0.55),
+    0 0 12px rgba(56, 225, 255, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
 }
 
 .countdown-share-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px -4px rgba(56, 225, 255, 0.4);
-  background: linear-gradient(135deg, #25b7ee, #107bbd);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 12px 30px -4px rgba(56, 225, 255, 0.45),
+    0 0 20px rgba(56, 225, 255, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  background: linear-gradient(135deg, #2db0f8 0%, #1181d5 100%);
 }
 
 .countdown-share-btn svg {
   width: 16px;
   height: 16px;
+  transition: transform 0.2s ease;
+}
+
+.countdown-share-btn:hover svg {
+  transform: rotate(-8deg) scale(1.1);
 }
 
 /* ==========================================================================
-   LIGHT MODE OVERRIDES
+   LIGHT MODE (Apple Keynote Ceramic Silver & Platinum)
    ========================================================================== */
 
 html[data-theme="light"] .countdown-aura {
-  background: radial-gradient(ellipse at center, rgba(2, 136, 209, 0.14) 0%, rgba(100, 140, 255, 0.08) 38%, transparent 72%);
-}
-
-html[data-theme="light"] .countdown-title {
-  color: #0b1f33;
-}
-
-html[data-theme="light"] .countdown-title span {
-  background: linear-gradient(135deg, #0b1f33 20%, #0288d1 70%, #6366f1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-html[data-theme="light"] .countdown-subtitle {
-  color: #4a637a;
-}
-
-html[data-theme="light"] .countdown-badge {
-  background: rgba(2, 136, 209, 0.08);
-  border-color: rgba(2, 136, 209, 0.25);
-  color: #0277bd;
-  box-shadow: 0 4px 16px -4px rgba(2, 136, 209, 0.15);
+  background: 
+    radial-gradient(ellipse 60% 45% at 30% 30%, rgba(2, 136, 209, 0.14) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 50% at 70% 40%, rgba(99, 102, 241, 0.1) 0%, transparent 75%),
+    radial-gradient(circle 380px at 50% 60%, rgba(2, 178, 224, 0.1) 0%, transparent 68%);
 }
 
 html[data-theme="light"] .countdown-scene {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(240, 246, 253, 0.95));
-  border-color: rgba(180, 206, 228, 0.7);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(244, 248, 253, 0.96) 100%);
+  border-color: rgba(180, 206, 230, 0.8);
   box-shadow: 
-    0 30px 70px -25px rgba(26, 68, 107, 0.18),
-    0 0 0 1px rgba(255, 255, 255, 0.8),
-    inset 0 1px 1px #ffffff;
+    0 35px 80px -25px rgba(20, 60, 100, 0.16),
+    0 0 0 1px rgba(255, 255, 255, 0.9),
+    inset 0 1.5px 2px #ffffff;
 }
 
 html[data-theme="light"] .countdown-scene::before {
-  background: radial-gradient(circle 500px at var(--cd-glow-x, 50%) var(--cd-glow-y, 50%), rgba(2, 136, 209, 0.08), transparent 70%);
+  background: radial-gradient(
+    650px circle at var(--cd-glow-x, 50%) var(--cd-glow-y, 50%),
+    rgba(2, 136, 209, 0.08) 0%,
+    rgba(99, 102, 241, 0.04) 35%,
+    transparent 70%
+  );
 }
 
-html[data-theme="light"] .countdown-meta-bar {
-  border-bottom-color: rgba(0, 0, 0, 0.08);
-}
-
-html[data-theme="light"] .countdown-target-label {
-  color: #55728a;
-}
-
-html[data-theme="light"] .countdown-target-time {
-  color: #0d263e;
-  background: rgba(230, 241, 250, 0.8);
-  border-color: rgba(180, 206, 228, 0.6);
+html[data-theme="light"] .countdown-scene::after {
+  background: linear-gradient(90deg, transparent, rgba(2, 136, 209, 0.4), transparent);
 }
 
 html[data-theme="light"] .countdown-tile:not(.hero-tile) {
-  background: linear-gradient(160deg, #ffffff, #f0f6fc);
-  border-color: rgba(190, 214, 235, 0.8);
+  background: linear-gradient(165deg, #ffffff 0%, #f4f8fd 100%);
+  border-color: rgba(190, 214, 235, 0.85);
   box-shadow: 
-    0 8px 20px -5px rgba(32, 68, 102, 0.1),
-    inset 0 1px 0 #ffffff;
+    0 10px 24px -6px rgba(32, 68, 102, 0.1),
+    inset 0 1px 1px #ffffff;
 }
 
 html[data-theme="light"] .countdown-tile:not(.hero-tile) strong {
-  color: #0e2a44;
-  text-shadow: none;
+  background: linear-gradient(180deg, #0a1f33 10%, #1e3a58 60%, #0369a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: none;
 }
 
 html[data-theme="light"] .countdown-tile:not(.hero-tile) span {
@@ -634,16 +638,19 @@ html[data-theme="light"] .countdown-tile:not(.hero-tile) span {
 }
 
 html[data-theme="light"] .countdown-tile.ms-tile strong {
-  color: #0277bd;
-  text-shadow: none;
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(2, 132, 199, 0.25));
 }
 
 html[data-theme="light"] .countdown-tile.ms-tile span {
-  color: #0277bd;
+  color: #0284c7;
 }
 
 html[data-theme="light"] .countdown-progress-track {
   background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
 html[data-theme="light"] .countdown-progress-header {
@@ -651,32 +658,16 @@ html[data-theme="light"] .countdown-progress-header {
 }
 
 html[data-theme="light"] .countdown-progress-val {
-  color: #0277bd;
-}
-
-html[data-theme="light"] .telemetry-card {
-  background: linear-gradient(150deg, #ffffff, #f2f7fc);
-  border-color: rgba(190, 214, 235, 0.7);
-  box-shadow: 0 6px 18px -4px rgba(32, 68, 102, 0.08);
-}
-
-html[data-theme="light"] .telemetry-label {
-  color: #607d94;
-}
-
-html[data-theme="light"] .telemetry-val {
-  color: #0d263e;
-}
-
-html[data-theme="light"] .telemetry-icon {
-  background: rgba(2, 136, 209, 0.08);
-  border-color: rgba(2, 136, 209, 0.2);
-  color: #0288d1;
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: none;
 }
 
 html[data-theme="light"] .countdown-action-card {
-  background: linear-gradient(135deg, #ffffff, #f2f7fc);
-  border-color: rgba(190, 214, 235, 0.8);
+  background: linear-gradient(145deg, #ffffff 0%, #f2f7fc 100%);
+  border-color: rgba(190, 214, 235, 0.85);
+  box-shadow: 0 12px 28px -8px rgba(32, 68, 102, 0.08);
 }
 
 html[data-theme="light"] .countdown-quote-text {
@@ -684,17 +675,19 @@ html[data-theme="light"] .countdown-quote-text {
 }
 
 html[data-theme="light"] .countdown-quote-text strong {
-  color: #0277bd;
+  background: linear-gradient(90deg, #0284c7 0%, #4338ca 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (Adaptive Apple Keynote Layouts)
    ========================================================================== */
 
 @media (max-width: 960px) {
   .countdown-tiles {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.75rem;
+    gap: 0.8rem;
   }
   .countdown-tile strong {
     font-size: clamp(1.8rem, 4vw, 3rem);
@@ -704,25 +697,26 @@ html[data-theme="light"] .countdown-quote-text strong {
 @media (max-width: 720px) {
   .countdown-tiles {
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.85rem;
+    gap: 0.9rem;
   }
   .countdown-tile.hero-tile {
     grid-column: span 3;
-    padding: 1.6rem 0.6rem;
+    padding: 1.8rem 0.65rem;
   }
   .countdown-tile.hero-tile strong {
-    font-size: 3.5rem;
+    font-size: 3.6rem;
   }
   .countdown-action-card {
     flex-direction: column;
     text-align: center;
+    padding: 1.4rem 1.2rem;
   }
 }
 
-@media (max-width: 460px) {
+@media (max-width: 480px) {
   .countdown-tiles {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.65rem;
+    gap: 0.7rem;
   }
   .countdown-tile.hero-tile {
     grid-column: span 2;
@@ -734,8 +728,8 @@ html[data-theme="light"] .countdown-quote-text strong {
     font-size: 2.2rem;
   }
   .countdown-scene {
-    padding: 1.4rem 1rem;
-    border-radius: 20px;
+    padding: 1.5rem 1rem;
+    border-radius: 24px;
   }
 }
 
@@ -745,7 +739,7 @@ html[data-theme="light"] .countdown-quote-text strong {
   .countdown-tile::after,
   .countdown-liquid > i,
   .countdown-progress-bar::after,
-  .countdown-live-ping {
+  .ms-radar-dot {
     animation: none !important;
   }
   .countdown-scene {
