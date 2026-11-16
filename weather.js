@@ -121,13 +121,6 @@
   el.hidden = true;
   el.innerHTML =
     '<button class="wx-pill" type="button" aria-expanded="false" aria-label="Local weather and time">' +
-      '<span class="wx-flag-bg" aria-hidden="true">' +
-        '<span class="wx-flag-canvas">' +
-          '<img class="wx-flag-img" src="" alt="" loading="eager" />' +
-        '</span>' +
-        '<span class="wx-flag-wave" aria-hidden="true"></span>' +
-        '<span class="wx-flag-scrim" aria-hidden="true"></span>' +
-      '</span>' +
       '<span class="wx-anim" aria-hidden="true"></span>' +
       '<span class="wx-icon" aria-hidden="true"></span>' +
       '<span class="wx-temp"></span><span class="wx-dot" aria-hidden="true"></span>' +
@@ -150,7 +143,6 @@
   nav.insertBefore(el, anchor);
 
   var q = function (s) { return el.querySelector(s); };
-  updateFlag(read(PLACE_KEY) || null);
   var pill = q('.wx-pill');
   var panel = q('.wx-panel');
 
@@ -201,98 +193,7 @@
     } catch (e) {}
   }
 
-  
-  function resolveCountryCode(place) {
-    if (place) {
-      var cc = place.country_code || place.countryCode;
-      if (cc && typeof cc === 'string' && cc.length === 2) return cc.toLowerCase();
-      var c = (place.country || '').toLowerCase();
-      if (/nepal/i.test(c)) return 'np';
-      if (/emirates|uae|dubai|abu dhabi|sharjah/i.test(c)) return 'ae';
-      if (/united states|usa\b|america/i.test(c)) return 'us';
-      if (/kingdom|britain|england|scotland|wales/i.test(c)) return 'gb';
-      if (/india/i.test(c)) return 'in';
-      if (/qatar/i.test(c)) return 'qa';
-      if (/saudi/i.test(c)) return 'sa';
-      if (/australia/i.test(c)) return 'au';
-      if (/canada/i.test(c)) return 'ca';
-      if (/germany/i.test(c)) return 'de';
-      if (/japan/i.test(c)) return 'jp';
-      if (/singapore/i.test(c)) return 'sg';
-      if (/malaysia/i.test(c)) return 'my';
-      if (/thailand/i.test(c)) return 'th';
-      if (/kuwait/i.test(c)) return 'kw';
-      if (/oman/i.test(c)) return 'om';
-      if (/bahrain/i.test(c)) return 'bh';
-      if (/bangladesh/i.test(c)) return 'bd';
-      if (/pakistan/i.test(c)) return 'pk';
-    }
-    var z = (zoneNow() || '').toLowerCase();
-    var tzMap = {
-      'asia/dubai': 'ae',
-      'asia/kathmandu': 'np',
-      'asia/katmandu': 'np',
-      'asia/kolkata': 'in',
-      'asia/calcutta': 'in',
-      'asia/doha': 'qa',
-      'asia/riyadh': 'sa',
-      'asia/muscat': 'om',
-      'asia/kuwait': 'kw',
-      'asia/bahrain': 'bh',
-      'asia/singapore': 'sg',
-      'asia/bangkok': 'th',
-      'asia/kuala_lumpur': 'my',
-      'asia/tokyo': 'jp',
-      'asia/seoul': 'kr',
-      'asia/dhaka': 'bd',
-      'asia/colombo': 'lk',
-      'asia/karachi': 'pk',
-      'europe/london': 'gb',
-      'europe/paris': 'fr',
-      'europe/berlin': 'de',
-      'europe/amsterdam': 'nl',
-      'europe/rome': 'it',
-      'europe/madrid': 'es',
-      'europe/zurich': 'ch',
-      'america/new_york': 'us',
-      'america/chicago': 'us',
-      'america/los_angeles': 'us',
-      'america/denver': 'us',
-      'america/toronto': 'ca',
-      'america/vancouver': 'ca',
-      'australia/sydney': 'au',
-      'australia/melbourne': 'au',
-      'pacific/auckland': 'nz'
-    };
-    if (tzMap[z]) return tzMap[z];
-    try {
-      var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-      var parts = lang.split('-');
-      if (parts.length > 1 && parts[1].length === 2) return parts[1];
-    } catch (e) {}
-    return 'ae';
-  }
-
-  var currentFlagCode = '';
-  function updateFlag(place) {
-    var code = resolveCountryCode(place);
-    if (!code) return;
-    if (code === currentFlagCode) return;
-    currentFlagCode = code;
-
-    var flagBg = q('.wx-flag-bg');
-    var flagImg = q('.wx-flag-img');
-    if (!flagBg || !flagImg) return;
-
-    flagImg.src = 'https://flagcdn.com/w160/' + encodeURIComponent(code) + '.png';
-    flagImg.onload = function () {
-      flagBg.classList.add('is-ready');
-    };
-    el.setAttribute('data-country-code', code);
-  }
-
   function render(place, wx) {
-    updateFlag(place);
     var cur = wx.current || {};
     var code = typeof cur.weather_code === 'number' ? cur.weather_code : 3;
     var info = decode(code);
@@ -367,13 +268,13 @@
       for (var i = 0; i < list.length; i++) {
         if (list[i].timezone === zone) { best = list[i]; break; }
       }
-      return { city:best.name || city,country:best.country || '',country_code:best.country_code || '',lat:best.latitude,lon:best.longitude,timezone:zone || best.timezone,precise:false };
+      return { city:best.name || city,country:best.country || '',lat:best.latitude,lon:best.longitude,timezone:zone || best.timezone,precise:false };
     });
   }
 
   function placeFromCoords(lat, lon) {
     return json('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' + encodeURIComponent(lat) + '&longitude=' + encodeURIComponent(lon) + '&localityLanguage=en').then(function (r) {
-      return { city:r.city || r.locality || r.principalSubdivision || cityFromZone(zoneNow()) || 'Local',country:r.countryName || '',country_code:r.countryCode || '',lat:lat,lon:lon,timezone:zoneNow(),precise:true };
+      return { city:r.city || r.locality || r.principalSubdivision || cityFromZone(zoneNow()) || 'Local',country:r.countryName || '',lat:lat,lon:lon,timezone:zoneNow(),precise:true };
     }).catch(function () {
       return { city:cityFromZone(zoneNow()) || 'Local',country:'',lat:lat,lon:lon,timezone:zoneNow(),precise:true };
     });
