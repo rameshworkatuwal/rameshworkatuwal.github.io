@@ -390,7 +390,7 @@
 .countdown-progress-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-bottom: 0.65rem;
   font: 600 0.8rem/1 'Space Grotesk', sans-serif;
   color: #8dafc9;
