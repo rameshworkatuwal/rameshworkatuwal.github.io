@@ -2104,197 +2104,164 @@ html[data-theme="light"] .ims-glow{ opacity:0.35; }
 }
 
 /* ============================================================
-   PORTFOLIO CATEGORY SWITCHER
-
-   Layered rather than flat: a translucent glass track with ambient
-   colour drifting behind it, and a gradient pill that slides to the
-   active tab and takes on that category's own two-tone colour.
-   Each tab carries its own --g1/--g2 so one rule drives everything.
+   PORTFOLIO CATEGORY SWITCHER — Apple Keynote / Spatial Glass
    ============================================================ */
 .portfolio-switch{
   position:relative;
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  max-width:1240px;
-  margin:0 auto;          /* centred — it reads far better than pinned left */
-  padding:12px;
-  overflow:hidden;
-  border:1px solid var(--line);
-  border-radius:32px;
+  max-width:680px;
+  margin:0 auto 3.2rem auto;
+  padding:5px;
+  border-radius:999px;
   background:
-    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015)),
-    rgba(127,140,160,.07);
-  backdrop-filter:blur(18px) saturate(1.3);
-  -webkit-backdrop-filter:blur(18px) saturate(1.3);
-  box-shadow:0 18px 44px rgba(10,20,40,.13), inset 0 1px 0 rgba(255,255,255,.14);
+    linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02)),
+    rgba(13,18,30,.72);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(24px) saturate(1.6);
+  -webkit-backdrop-filter:blur(24px) saturate(1.6);
+  box-shadow:0 18px 45px -8px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.14);
   isolation:isolate;
-  transition:padding .45s cubic-bezier(.2,.8,.2,1), border-radius .45s cubic-bezier(.2,.8,.2,1),
-             max-width .45s cubic-bezier(.2,.8,.2,1), margin .45s cubic-bezier(.2,.8,.2,1),
-             box-shadow .45s ease;
-
-  /* the live category colours, updated by [data-active] below */
-  --g1:#38e1ff;
-  --g2:#2563eb;
+  z-index:10;
+  transition:box-shadow .35s ease, border-color .35s ease;
 }
 
-/* ambient colour drifting behind the glass */
+html[data-theme="light"] .portfolio-switch{
+  background:linear-gradient(180deg, rgba(255,255,255,.94), rgba(240,244,250,.88));
+  border-color:rgba(15,35,65,.12);
+  box-shadow:0 16px 36px rgba(15,35,65,.08), inset 0 1px 0 #fff;
+}
+
 .portfolio-switch::before{
   content:'';
   position:absolute;
-  inset:-40%;
+  inset:-30% -10%;
   z-index:-2;
   pointer-events:none;
   background:
-    radial-gradient(closest-side circle at 18% 45%, rgba(56,225,255,.30), transparent),
-    radial-gradient(closest-side circle at 52% 55%, rgba(255,107,157,.24), transparent),
-    radial-gradient(closest-side circle at 84% 45%, rgba(52,211,153,.24), transparent);
-  filter:blur(34px);
-  opacity:.55;
-  animation:switchAurora 16s ease-in-out infinite;
-}
-@keyframes switchAurora{
-  0%,100%{ transform:translate3d(0,0,0) scale(1); }
-  50%    { transform:translate3d(3%,-4%,0) scale(1.12); }
+    radial-gradient(closest-side circle at 20% 50%, rgba(16,185,129,.25), transparent),
+    radial-gradient(closest-side circle at 50% 50%, rgba(56,189,248,.22), transparent),
+    radial-gradient(closest-side circle at 80% 50%, rgba(244,63,94,.22), transparent);
+  filter:blur(32px);
+  opacity:.45;
+  transition:opacity .4s ease;
 }
 
-/* the sliding pill */
 .portfolio-switch-glider{
   position:absolute;
   z-index:-1;
-  top:12px;
-  bottom:12px;
-  left:12px;
-  width:calc(25% - 9px);
-  border-radius:24px;
-  background:linear-gradient(135deg, var(--g1), var(--g2));
-  /* plain fallback first — a browser without color-mix() would drop the
-     whole declaration and render no shadow at all */
-  box-shadow:0 12px 30px -6px rgba(20,50,110,.45), inset 0 1px 0 rgba(255,255,255,.35);
-  box-shadow:
-    0 12px 30px -6px color-mix(in srgb, var(--g2) 55%, transparent),
-    inset 0 1px 0 rgba(255,255,255,.35);
-  opacity:0;
-  transition:
-    transform .55s cubic-bezier(.34,1.28,.44,1),
-    opacity .3s,
-    background .45s ease,
-    box-shadow .45s ease;
-}
-/* a soft sheen riding on top of the pill */
-.portfolio-switch-glider::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  background:linear-gradient(180deg, rgba(255,255,255,.22), transparent 62%);
-  pointer-events:none;
+  top:5px;
+  bottom:5px;
+  left:5px;
+  width:calc(25% - 3.75px);
+  border-radius:999px;
+  background:linear-gradient(135deg, #10b981, #0d9488);
+  box-shadow:0 6px 20px -3px rgba(16,185,129,.5), inset 0 1px 0 rgba(255,255,255,.4);
+  opacity:1;
+  transition:transform .4s cubic-bezier(.16,1,.3,1), background .35s ease, box-shadow .35s ease;
 }
 
-/* tab order: Video Editing · Photography · Videography · Gear */
-.portfolio-switch[data-active] .portfolio-switch-glider{ opacity:1; }
-.portfolio-switch[data-active="photography"] .portfolio-switch-glider{ transform:translateX(100%); }
-.portfolio-switch[data-active="videography"] .portfolio-switch-glider{ transform:translateX(200%); }
-.portfolio-switch[data-active="gear"] .portfolio-switch-glider{ transform:translateX(300%); }
-
-/* the pill picks up the active category's colours */
-.portfolio-switch[data-active="video-editing"]{ --g1:#5ee7b8; --g2:#0d9488; }
-.portfolio-switch[data-active="photography"]  { --g1:#5dd3ff; --g2:#2563eb; }
-.portfolio-switch[data-active="videography"]  { --g1:#ff8fb1; --g2:#e11d48; }
-.portfolio-switch[data-active="gear"]          { --g1:#ffb347; --g2:#7c3aed; }
+.portfolio-switch[data-active="video-editing"] .portfolio-switch-glider{
+  transform:translateX(0);
+  background:linear-gradient(135deg, #10b981, #0d9488);
+  box-shadow:0 6px 22px -3px rgba(16,185,129,.55), inset 0 1px 0 rgba(255,255,255,.4);
+}
+.portfolio-switch[data-active="photography"] .portfolio-switch-glider{
+  transform:translateX(100%);
+  background:linear-gradient(135deg, #38bdf8, #2563eb);
+  box-shadow:0 6px 22px -3px rgba(56,189,248,.55), inset 0 1px 0 rgba(255,255,255,.4);
+}
+.portfolio-switch[data-active="videography"] .portfolio-switch-glider{
+  transform:translateX(200%);
+  background:linear-gradient(135deg, #fb7185, #e11d48);
+  box-shadow:0 6px 22px -3px rgba(251,113,133,.55), inset 0 1px 0 rgba(255,255,255,.4);
+}
+.portfolio-switch[data-active="gear"] .portfolio-switch-glider{
+  transform:translateX(300%);
+  background:linear-gradient(135deg, #f59e0b, #7c3aed);
+  box-shadow:0 6px 22px -3px rgba(245,158,11,.55), inset 0 1px 0 rgba(255,255,255,.4);
+}
 
 .portfolio-tab{
   position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:1.5rem;
-  min-width:0;
-  padding:2.7rem 1.5rem;
+  gap:.5rem;
+  padding:.68rem .8rem;
   border:0;
-  border-radius:24px;
+  border-radius:999px;
   background:transparent;
-  color:var(--muted);
-  text-align:left;
+  color:var(--muted, #94a3b8);
   cursor:pointer;
-  transition:color .35s, transform .45s cubic-bezier(.2,.8,.2,1),
-             padding .45s cubic-bezier(.2,.8,.2,1), gap .45s cubic-bezier(.2,.8,.2,1),
-             border-radius .45s cubic-bezier(.2,.8,.2,1);
+  transition:color .25s ease, transform .25s ease;
+  min-width:0;
+  text-decoration:none;
 }
-
-.portfolio-tab:hover{ color:var(--text); transform:translateY(-2px); }
-.portfolio-tab.is-active{ color:#fff; transform:none; }
-.portfolio-tab:focus-visible{ outline:2px solid var(--blue); outline-offset:-4px; border-radius:24px; }
-
+.portfolio-tab:hover{
+  color:var(--text, #fff);
+  transform:translateY(-1px);
+}
+.portfolio-tab.is-active{
+  color:#ffffff !important;
+  font-weight:700;
+  text-shadow:0 1px 3px rgba(0,0,0,.35);
+  transform:none;
+}
+.portfolio-tab:focus-visible{
+  outline:2px solid var(--blue, #38e1ff);
+  outline-offset:2px;
+}
 .portfolio-tab strong{
-  display:block;
-  font-family:'Bricolage Grotesque', sans-serif;
-  font-size:2rem;
-  font-weight:800;
-  letter-spacing:-.025em;
+  font-family:'Plus Jakarta Sans', system-ui, sans-serif !important;
+  font-size:.92rem !important;
+  font-weight:600 !important;
+  letter-spacing:-.01em !important;
   white-space:nowrap;
-  transition:color .35s, font-size .45s cubic-bezier(.2,.8,.2,1);
 }
-
-/* ── icon tiles ── */
 .portfolio-tab-icon{
   position:relative;
-  display:grid;
-  flex:0 0 84px;
-  width:84px;
-  height:84px;
-  place-items:center;
-  border-radius:25px;
-  color:#fff;
-  background:linear-gradient(140deg, var(--i1), var(--i2));
-  box-shadow:0 10px 24px -8px rgba(20,50,110,.5), inset 0 1px 0 rgba(255,255,255,.4);
-  box-shadow:
-    0 10px 24px -8px color-mix(in srgb, var(--i2) 65%, transparent),
-    inset 0 1px 0 rgba(255,255,255,.4);
-  transition:transform .45s cubic-bezier(.34,1.4,.44,1), box-shadow .4s,
-             width .45s cubic-bezier(.2,.8,.2,1), height .45s cubic-bezier(.2,.8,.2,1),
-             flex-basis .45s cubic-bezier(.2,.8,.2,1), border-radius .45s cubic-bezier(.2,.8,.2,1);
-  --i1:#5dd3ff; --i2:#2563eb;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  width:20px;
+  height:20px;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:currentColor;
+  transition:transform .3s cubic-bezier(.16,1,.3,1);
 }
-.portfolio-tab-icon::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  background:linear-gradient(180deg, rgba(255,255,255,.3), transparent 58%);
-  pointer-events:none;
+.portfolio-tab-icon::after{ display:none !important; }
+.portfolio-tab-icon svg{
+  width:18px !important;
+  height:18px !important;
+  display:block;
 }
-.portfolio-play-icon{ --i1:#ff8fb1; --i2:#e11d48; }
-.portfolio-edit-icon{ --i1:#5ee7b8; --i2:#0d9488; }
-
-.portfolio-tab:hover .portfolio-tab-icon{ transform:translateY(-3px) scale(1.07) rotate(-3deg); }
+.portfolio-play-icon svg{
+  width:16px !important;
+  height:16px !important;
+}
 .portfolio-tab.is-active .portfolio-tab-icon{
-  transform:scale(1.04);
-  background:rgba(255,255,255,.22);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45), 0 8px 20px -8px rgba(0,0,0,.4);
+  transform:scale(1.1);
+  color:#fff !important;
 }
 
-.portfolio-tab-icon svg{ position:relative; z-index:1; width:37px; height:37px;
-  transition:width .45s cubic-bezier(.2,.8,.2,1), height .45s cubic-bezier(.2,.8,.2,1); }
-.portfolio-play-icon svg{ width:30px; height:30px; }
-
-@media (max-width:1240px){
-  .portfolio-tab{ gap:1.1rem; padding:2.1rem 1.1rem; }
-  .portfolio-tab strong{ font-size:1.5rem; }
-  .portfolio-tab-icon{ flex-basis:68px; width:68px; height:68px; border-radius:20px; }
-  .portfolio-tab-icon svg{ width:30px; height:30px; }
-  .portfolio-play-icon svg{ width:24px; height:24px; }
+@media (max-width:720px){
+  .portfolio-switch{ max-width:100%; margin-left:.5rem; margin-right:.5rem; }
+  .portfolio-tab{ padding:.55rem .3rem; gap:.3rem; }
+  .portfolio-tab strong{ font-size:.75rem !important; }
+  .portfolio-tab-icon svg{ width:15px !important; height:15px !important; }
 }
-@media (max-width:1000px){
-  .portfolio-tab{ gap:.85rem; padding:1.6rem .9rem; }
-  .portfolio-tab strong{ font-size:1.2rem; }
-  .portfolio-tab-icon{ flex-basis:54px; width:54px; height:54px; border-radius:16px; }
-  .portfolio-tab-icon svg{ width:24px; height:24px; }
-  .portfolio-play-icon svg{ width:19px; height:19px; }
+@media (max-width:440px){
+  .portfolio-tab{ flex-direction:column; gap:.2rem; padding:.48rem .2rem; }
+  .portfolio-tab strong{ font-size:.68rem !important; }
 }
 
 @media (prefers-reduced-motion:reduce){
   .portfolio-switch::before{ animation:none; }
-  .portfolio-switch-glider, .portfolio-tab, .portfolio-tab-icon{ transition:none; }
+  .portfolio-switch-glider, .portfolio-tab, .portfolio-tab-icon{ transition:none !important; }
 }
 
 .portfolio-panels{
@@ -3361,61 +3328,3 @@ html[data-theme="light"] .reach-card{
    gallery sliding along behind its glass. It scrolls away like normal
    content instead.
    ============================================================ */
-.portfolio-switch[data-active]{
-  max-width:760px;
-  padding:6px;
-  border-radius:18px;
-  box-shadow:0 10px 30px rgba(10,20,40,.16), inset 0 1px 0 rgba(255,255,255,.14);
-}
-.portfolio-switch[data-active] .portfolio-switch-glider{
-  top:6px; bottom:6px; left:6px;
-  width:calc(25% - 4.5px);
-  border-radius:13px;
-}
-.portfolio-switch[data-active] .portfolio-tab{
-  gap:.6rem;
-  padding:.68rem .7rem;
-  border-radius:13px;
-}
-.portfolio-switch[data-active] .portfolio-tab strong{
-  font-size:.98rem;
-  letter-spacing:-.01em;
-}
-.portfolio-switch[data-active] .portfolio-tab-icon{
-  flex-basis:36px;
-  width:36px;
-  height:36px;
-  border-radius:11px;
-}
-.portfolio-switch[data-active] .portfolio-tab-icon svg{ width:18px; height:18px; }
-.portfolio-switch[data-active] .portfolio-play-icon svg{ width:15px; height:15px; }
-/* the idle "come and click me" breathing isn't needed once one is picked */
-.portfolio-switch[data-active] .portfolio-tab:hover{ transform:none; }
-.portfolio-switch[data-active] .portfolio-tab:hover .portfolio-tab-icon{ transform:scale(1.08); }
-/* calmer aurora in toolbar mode so it doesn't fight the gallery below */
-.portfolio-switch[data-active]::before{ opacity:.3; }
-
-/* the heading can shrink away too — it has done its job by then */
-.portfolio-hero{ transition:margin .45s cubic-bezier(.2,.8,.2,1); }
-
-@media (max-width:1240px){
-  .portfolio-switch[data-active] .portfolio-tab strong{ font-size:.94rem; }
-  .portfolio-switch[data-active] .portfolio-tab-icon{ flex-basis:34px; width:34px; height:34px; }
-  .portfolio-switch[data-active] .portfolio-tab-icon svg{ width:17px; height:17px; }
-}
-@media (max-width:680px){
-  .portfolio-switch[data-active]{ padding:5px; border-radius:15px; }
-  .portfolio-switch[data-active] .portfolio-switch-glider{
-    top:5px; bottom:5px; left:5px; width:calc(25% - 3.75px); border-radius:11px;
-  }
-  .portfolio-switch[data-active] .portfolio-tab{ flex-direction:column; gap:.35rem; padding:.55rem .3rem; }
-  .portfolio-switch[data-active] .portfolio-tab strong{ font-size:.72rem; white-space:normal; }
-  .portfolio-switch[data-active] .portfolio-tab-icon{ flex-basis:30px; width:30px; height:30px; border-radius:10px; }
-  .portfolio-switch[data-active] .portfolio-tab-icon svg{ width:15px; height:15px; }
-}
-
-@media (prefers-reduced-motion:reduce){
-  .portfolio-switch, .portfolio-switch .portfolio-tab,
-  .portfolio-switch .portfolio-tab strong, .portfolio-switch .portfolio-tab-icon,
-  .portfolio-switch .portfolio-tab-icon svg, .portfolio-hero{ transition:none; }
-}
