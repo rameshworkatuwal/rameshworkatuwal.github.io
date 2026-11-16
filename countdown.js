@@ -9,7 +9,7 @@
   if (!root) return;
 
   var target = Date.parse('2027-10-01T00:00:00+04:00');
-  var start = Date.parse('2026-10-01T00:00:00+04:00'); // Baseline 1-year journey tracker
+  var start = Date.parse('2026-08-02T00:00:00+04:00'); // Journey tracker starting August 2, 2026
   var totalSpan = target - start;
 
   var scene = root.querySelector('.countdown-scene');
