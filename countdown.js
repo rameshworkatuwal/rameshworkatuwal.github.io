@@ -1,6 +1,7 @@
 /**
- * Precision Chronometer & Countdown Engine
+ * Apple Keynote Sleek Cinematic Chronometer Engine
  * Target: October 1, 2027 00:00:00 GST (Dubai, UTC+4)
+ * Journey Start: August 2, 2026
  */
 (function () {
   'use strict';
@@ -9,7 +10,7 @@
   if (!root) return;
 
   var target = Date.parse('2027-10-01T00:00:00+04:00');
-  var start = Date.parse('2026-08-02T00:00:00+04:00'); // Journey tracker starting August 2, 2026
+  var start = Date.parse('2026-08-02T00:00:00+04:00');
   var totalSpan = target - start;
 
   var scene = root.querySelector('.countdown-scene');
@@ -22,11 +23,6 @@
   var progressBar = root.querySelector('.countdown-progress-bar');
   var progressVal = root.querySelector('.countdown-progress-val');
 
-  var telWeeks = root.querySelector('[data-tel="weeks"]');
-  var telHours = root.querySelector('[data-tel="hours"]');
-  var telSecs = root.querySelector('[data-tel="secs"]');
-  var telLocal = root.querySelector('[data-tel="local"]');
-
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   var lastSec = -1;
@@ -35,7 +31,7 @@
   var lastDay = -1;
   var rafId = null;
 
-  // Animate a number changing smoothly with a micro spring effect
+  // Spring tick animation for unit changes
   function animateTick(el) {
     if (reduced.matches || !el || !el.animate) return;
     try {
@@ -43,17 +39,13 @@
         el.getAnimations().forEach(function (anim) { anim.cancel(); });
       }
       el.animate([
-        { transform: 'translateY(-10px) scale(0.96)', opacity: 0.45, filter: 'blur(2px)' },
-        { transform: 'translateY(0) scale(1)', opacity: 1, filter: 'blur(0)' }
+        { transform: 'translateZ(18px) translateY(-8px) scale(0.96)', opacity: 0.5, filter: 'blur(2px)' },
+        { transform: 'translateZ(18px) translateY(0) scale(1)', opacity: 1, filter: 'blur(0)' }
       ], {
-        duration: 340,
+        duration: 360,
         easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
       });
     } catch (e) {}
-  }
-
-  function formatCommas(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 
   function update() {
@@ -71,7 +63,6 @@
       return;
     }
 
-    // Mathematical breakdowns
     var totalSecs = Math.floor(diff / 1000);
     var days = Math.floor(totalSecs / 86400);
     var hours = Math.floor((totalSecs % 86400) / 3600);
@@ -79,7 +70,7 @@
     var secs = totalSecs % 60;
     var ms = diff % 1000;
 
-    // Milliseconds: high-precision 3-digit update
+    // Milliseconds (ultra-fast, non-jitter tabular digits)
     if (msEl) {
       msEl.textContent = String(ms).padStart(3, '0');
     }
@@ -91,13 +82,10 @@
         secsEl.textContent = String(secs).padStart(2, '0');
         animateTick(secsEl);
       }
-      // Fill levels for liquid visualization
       if (secsEl && secsEl.parentElement) {
         var secFill = ((60 - secs) / 60) * 100;
         secsEl.parentElement.style.setProperty('--cd-fill', secFill.toFixed(1) + '%');
       }
-      // Telemetry updates
-      if (telSecs) telSecs.textContent = formatCommas(totalSecs) + ' s';
     }
 
     // Minutes
@@ -124,14 +112,6 @@
         var hourFill = ((24 - hours) / 24) * 100;
         hoursEl.parentElement.style.setProperty('--cd-fill', hourFill.toFixed(1) + '%');
       }
-      if (telHours) {
-        var totalHours = Math.floor(diff / (1000 * 60 * 60));
-        telHours.textContent = formatCommas(totalHours) + ' hrs';
-      }
-      if (telWeeks) {
-        var weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
-        telWeeks.textContent = weeks + ' wks';
-      }
     }
 
     // Days
@@ -147,7 +127,7 @@
       }
     }
 
-    // Continuous Progress tracking with fractional precision
+    // Progress percentage
     var elapsed = Math.max(0, Math.min(1, (now - start) / totalSpan));
     var percent = (elapsed * 100).toFixed(4);
     if (progressVal) {
@@ -181,43 +161,66 @@
     }
   });
 
-  // Local visitor time display in telemetry
-  function updateLocalTime() {
-    if (!telLocal) return;
-    try {
-      var d = new Date();
-      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local';
-      var timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      telLocal.textContent = timeStr + ' (' + tz.split('/').pop().replace('_', ' ') + ')';
-    } catch (e) {
-      telLocal.textContent = 'Live Synced';
-    }
-  }
-  updateLocalTime();
-  setInterval(updateLocalTime, 1000);
-
-  // Interactive 3D Cursor Parallax on Scene
+  // Apple-grade Smooth Inertial Parallax on Scene
   if (scene) {
+    var targetRx = 0;
+    var targetRy = 0;
+    var currentRx = 0;
+    var currentRy = 0;
+    var targetGlowX = 50;
+    var targetGlowY = 50;
+    var currentGlowX = 50;
+    var currentGlowY = 50;
+    var isHovering = false;
+    var tiltRaf = null;
+
+    function renderTilt() {
+      // Smooth linear interpolation (lerp)
+      currentRx += (targetRx - currentRx) * 0.12;
+      currentRy += (targetRy - currentRy) * 0.12;
+      currentGlowX += (targetGlowX - currentGlowX) * 0.15;
+      currentGlowY += (targetGlowY - currentGlowY) * 0.15;
+
+      scene.style.setProperty('--cd-rx', currentRx.toFixed(2) + 'deg');
+      scene.style.setProperty('--cd-ry', currentRy.toFixed(2) + 'deg');
+      scene.style.setProperty('--cd-glow-x', currentGlowX.toFixed(1) + '%');
+      scene.style.setProperty('--cd-glow-y', currentGlowY.toFixed(1) + '%');
+
+      if (isHovering || Math.abs(currentRx) > 0.05 || Math.abs(currentRy) > 0.05) {
+        tiltRaf = requestAnimationFrame(renderTilt);
+      } else {
+        scene.style.setProperty('--cd-rx', '0deg');
+        scene.style.setProperty('--cd-ry', '0deg');
+        tiltRaf = null;
+      }
+    }
+
     scene.addEventListener('pointermove', function (e) {
       if (reduced.matches || e.pointerType !== 'mouse') return;
       var rect = scene.getBoundingClientRect();
       var x = (e.clientX - rect.left) / rect.width;
       var y = (e.clientY - rect.top) / rect.height;
-      scene.style.setProperty('--cd-glow-x', (x * 100).toFixed(1) + '%');
-      scene.style.setProperty('--cd-glow-y', (y * 100).toFixed(1) + '%');
-      scene.style.setProperty('--cd-rx', ((0.5 - y) * 7).toFixed(2) + 'deg');
-      scene.style.setProperty('--cd-ry', ((x - 0.5) * 8).toFixed(2) + 'deg');
+
+      targetGlowX = x * 100;
+      targetGlowY = y * 100;
+      targetRx = (0.5 - y) * 8.5; // Max 4.25deg tilt
+      targetRy = (x - 0.5) * 9.5; // Max 4.75deg tilt
+
+      isHovering = true;
+      if (!tiltRaf) tiltRaf = requestAnimationFrame(renderTilt);
     });
 
     scene.addEventListener('pointerleave', function () {
-      scene.style.setProperty('--cd-rx', '0deg');
-      scene.style.setProperty('--cd-ry', '0deg');
-      scene.style.setProperty('--cd-glow-x', '50%');
-      scene.style.setProperty('--cd-glow-y', '50%');
+      targetRx = 0;
+      targetRy = 0;
+      targetGlowX = 50;
+      targetGlowY = 50;
+      isHovering = false;
+      if (!tiltRaf) tiltRaf = requestAnimationFrame(renderTilt);
     });
   }
 
-  // Share button click
+  // Share button click with copy feedback
   var shareBtn = root.querySelector('#countdown-share-btn');
   if (shareBtn) {
     shareBtn.addEventListener('click', function () {
@@ -226,14 +229,18 @@
         navigator.clipboard.writeText(url).then(function () {
           var orig = shareBtn.innerHTML;
           shareBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Link Copied!';
-          setTimeout(function () { shareBtn.innerHTML = orig; }, 2200);
+          shareBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+          setTimeout(function () {
+            shareBtn.innerHTML = orig;
+            shareBtn.style.background = '';
+          }, 2200);
         });
       } else {
-        alert('URL: ' + url);
+        alert('Milestone URL: ' + url);
       }
     });
   }
 
-  // Kick off the loop
+  // Kick off the chronometer
   startLoop();
 })();
