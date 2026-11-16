@@ -1151,10 +1151,13 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
   });
 
-    // Nothing is shown until the user picks a portfolio category —
-    // unless the page was opened with a matching category hash.
+    // Open Video Editing by default, while respecting a category link.
   var fromHash = (window.location.hash || '').slice(1);
-  if (fromHash && document.getElementById(fromHash + '-panel')) activate(fromHash, false);
+  if (fromHash && document.getElementById(fromHash + '-panel')) {
+    activate(fromHash, false);
+  } else {
+    activate('video-editing', false);
+  }
 })();
 </script>
 <script>
