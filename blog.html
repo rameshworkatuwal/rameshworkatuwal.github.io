@@ -33,10 +33,36 @@
   <div class="divider-line" data-anim="clip" data-anim-now style="--d:1"></div>
 
   <div class="blog-grid">
-    <!-- New blog posts will be added here. -->
+    <div class="blog-card" onclick="openModal('dubai')">
+      <div class="blog-header-band"></div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Life in Dubai</span>
+          <span class="blog-date">Nov 2026</span>
+        </div>
+        <div class="blog-title">3 Months in Dubai</div>
+        <div class="blog-excerpt">From Kathmandu to the Gulf — the first three months of settling in, finding work, and building a new life in Dubai.</div>
+        <div class="blog-read-more">Read more</div>
+      </div>
+    </div>
   </div>
 </div>
 
+<!-- ====== POST: 3 Months in Dubai ======
+     Ritesh — write your story below. Put your paragraphs inside the
+     modal-content div, each as <p>your text</p>. That's the only place to edit. -->
+<div class="modal-overlay" id="modal-dubai" onclick="closeModal(event, 'dubai')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModalDirect('dubai')">✕</button>
+    <span class="modal-cat">Life in Dubai</span>
+    <div class="modal-title">3 Months in Dubai</div>
+    <span class="modal-date">Nov 2026</span>
+    <div class="modal-divider"></div>
+    <div class="modal-content">
+      <!-- Write here. Example: <p>My first week in Dubai...</p> -->
+    </div>
+  </div>
+</div>
 <!-- New blog modals will be added here. -->
 
 <footer>
