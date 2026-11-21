@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="widgets.css">
-<link rel="stylesheet" href="countdown.css?v=20261121c">
+<link rel="stylesheet" href="countdown.css?v=20261121g">
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 </head>
 <body>
@@ -95,6 +95,15 @@
       <div class="cd-daily-time" id="cd-daily-time" role="timer" aria-live="off">--:--:--</div>
       <div class="cd-daily-state" id="cd-daily-state">&nbsp;</div>
       <div class="cd-daily-track"><span class="cd-daily-bar" id="cd-daily-bar"></span></div>
+      <div class="cd-week" id="cd-week" aria-label="Working days">
+        <span data-day="6">Sa</span>
+        <span data-day="0">Su</span>
+        <span data-day="1">Mo</span>
+        <span data-day="2">Tu</span>
+        <span data-day="3">We</span>
+        <span data-day="4">Th</span>
+        <span data-day="5" class="off">Fr</span>
+      </div>
     </div>
   </div>
 </section>
@@ -139,15 +148,19 @@ revealEls.forEach(el => observer.observe(el));
   var barEl=document.getElementById('cd-daily-bar');
   var dotEl=document.getElementById('cd-daily-dot');
   var cardEl=document.querySelector('.cd-daily-card');
+  var weekEl=document.getElementById('cd-week');
   if(!timeEl) return;
   var START=9.5*3600, END=18.5*3600, SPAN=END-START;
   function two(n){return String(n).padStart(2,'0');}
   function fmt(s){s=Math.max(0,Math.floor(s));return two(Math.floor(s/3600))+':'+two(Math.floor((s%3600)/60))+':'+two(s%60);}
   function tick(){
     var uae=new Date(Date.now()+4*3600*1000); // read wall clock via getUTC*
+    var day=uae.getUTCDay(); // 0 Sun .. 6 Sat — Friday (5) is the day off
     var sec=uae.getUTCHours()*3600+uae.getUTCMinutes()*60+uae.getUTCSeconds();
+    if(weekEl){ var ds=weekEl.querySelectorAll('span'); for(var i=0;i<ds.length;i++){ ds[i].classList.toggle('today', +ds[i].getAttribute('data-day')===day); } }
     var pct=0, state='', mode='';
-    if(sec<START){ timeEl.textContent=fmt(START-sec); state='Opens in'; mode='before'; pct=0; }
+    if(day===5){ timeEl.textContent='Off'; state='Rest day · Friday'; mode='off'; pct=0; }
+    else if(sec<START){ timeEl.textContent=fmt(START-sec); state='Opens in'; mode='before'; pct=0; }
     else if(sec<END){ timeEl.textContent=fmt(END-sec); state='Remaining today'; mode='live'; pct=(sec-START)/SPAN*100; }
     else { timeEl.textContent='00:00:00'; state='Wrapped for today'; mode='after'; pct=100; }
     stateEl.textContent=state;

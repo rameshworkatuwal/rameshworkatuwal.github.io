@@ -888,3 +888,18 @@ html[data-theme="light"] .cd-daily-time{ color:#10202e; }
 }
 .cd-daily-track{ margin-top:1.1rem; height:6px; border-radius:100px; background:rgba(150,175,215,.14); overflow:hidden; }
 .cd-daily-bar{ display:block; height:100%; width:0; border-radius:100px; background:linear-gradient(90deg,#46dcff,#9a7bff); transition:width .5s ease; }
+
+/* ===== Daily card — weekday strip (Sat–Thu working, Fri off) ===== */
+.cd-week{ display:flex; gap:.4rem; justify-content:center; margin-top:1.2rem; flex-wrap:wrap; }
+.cd-week span{
+  font-family:'Space Grotesk',-apple-system,sans-serif; font-size:.62rem; font-weight:600;
+  letter-spacing:.03em; text-transform:uppercase;
+  min-width:30px; height:26px; display:flex; align-items:center; justify-content:center;
+  border-radius:8px; border:1px solid transparent;
+  color:#7ce2f8; background:rgba(56,225,255,.08);
+}
+.cd-week span.off{ color:#6b7488; background:transparent; opacity:.65; }
+.cd-week span.today{ border-color:#46dcff; color:#eaf4fb; box-shadow:0 0 0 1px rgba(70,220,255,.35), 0 0 14px rgba(70,220,255,.25); }
+html[data-theme="light"] .cd-week span{ color:#0284c7; background:rgba(2,132,199,.08); }
+html[data-theme="light"] .cd-week span.off{ color:#94a3b8; background:transparent; }
+html[data-theme="light"] .cd-week span.today{ border-color:#0284c7; color:#10202e; box-shadow:0 0 0 1px rgba(2,132,199,.35); }
