@@ -135,12 +135,16 @@
     var it = Math.min(1, (nowT - introStart) / 1600);
     var intro = 1 - Math.pow(1 - it, 3); // easeOutCubic
     var shown = elapsed * intro;
-    var percent = (shown * 100).toFixed(4);
+    var p100 = shown * 100;
+    var pStr = p100.toFixed(8);              // e.g. "26.29468123"
+    var dot = pStr.indexOf('.');
+    var mainStr = pStr.slice(0, dot + 3);    // "26.29"
+    var microStr = pStr.slice(dot + 3);      // "468123" — live micro telemetry
     if (progressVal) {
-      progressVal.textContent = percent + '%';
+      progressVal.innerHTML = '<span class="pv-main">' + mainStr + '</span><span class="pv-micro">' + microStr + '</span><span class="pv-pct">%</span>';
     }
     if (scene) {
-      scene.style.setProperty('--cd-progress', percent + '%');
+      scene.style.setProperty('--cd-progress', p100.toFixed(4) + '%');
     }
 
     rafId = requestAnimationFrame(update);

@@ -322,22 +322,7 @@ html[data-theme="light"] .cd-sub { color: #506e86; }
 }
 
 .countdown-tile.hero-tile::before {
-  content: 'KEYNOTE MILESTONE';
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  font: 700 0.58rem/1 -apple-system, BlinkMacSystemFont, 'Space Grotesk', sans-serif;
-  letter-spacing: 0.16em;
-  color: #c4f3ff;
-  background: rgba(0, 0, 0, 0.35);
-  padding: 0.26rem 0.55rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(8px);
-  pointer-events: none;
-  height: auto;
-  left: auto;
-  width: auto;
+  display: none;
 }
 
 /* ==========================================================================
@@ -903,3 +888,8 @@ html[data-theme="light"] .cd-daily-time{ color:#10202e; }
 html[data-theme="light"] .cd-week span{ color:#0284c7; background:rgba(2,132,199,.08); }
 html[data-theme="light"] .cd-week span.off{ color:#94a3b8; background:transparent; }
 html[data-theme="light"] .cd-week span.today{ border-color:#0284c7; color:#10202e; box-shadow:0 0 0 1px rgba(2,132,199,.35); }
+
+/* ===== Progress % — live micro-telemetry digits ===== */
+.countdown-progress-val{ font-variant-numeric: tabular-nums; }
+.countdown-progress-val .pv-micro{ font-size:.58em; opacity:.5; margin-left:1px; letter-spacing:.01em; }
+.countdown-progress-val .pv-pct{ margin-left:2px; opacity:.85; }

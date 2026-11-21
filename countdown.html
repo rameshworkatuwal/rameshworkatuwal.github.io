@@ -10,10 +10,61 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="widgets.css">
-<link rel="stylesheet" href="countdown.css?v=20261121g">
+<link rel="stylesheet" href="countdown.css?v=20261121h">
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+<script>try{if(localStorage.getItem('rk_cd_unlock')==='1')document.documentElement.classList.add('cd-unlocked');}catch(e){}</script>
+<style>
+  html:not(.cd-unlocked) body{overflow:hidden}
+  #cd-gate{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:radial-gradient(130% 100% at 50% 0%,#0b1322,#05070e)}
+  html.cd-unlocked #cd-gate{display:none}
+  #cd-gate .cdg-card{width:min(400px,100%);background:linear-gradient(160deg,rgba(22,30,50,.92),rgba(10,14,24,.96));border:1px solid rgba(90,160,220,.2);border-radius:20px;padding:2.4rem 2rem;text-align:center;box-shadow:0 40px 100px -30px rgba(0,0,0,.85);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+  #cd-gate .cdg-lock{width:54px;height:54px;margin:0 auto 1.3rem;border-radius:15px;display:flex;align-items:center;justify-content:center;background:rgba(70,220,255,.1);border:1px solid rgba(70,220,255,.26);color:#46dcff}
+  #cd-gate h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.45rem;color:#eaf4fb;margin:0 0 .45rem;letter-spacing:-.02em}
+  #cd-gate p{color:#8095ad;font-size:.88rem;margin:0 0 1.5rem;line-height:1.5}
+  #cd-gate input{width:100%;padding:.85rem 1rem;border-radius:12px;border:1px solid rgba(120,150,190,.25);background:rgba(8,12,22,.7);color:#eaf4fb;font-size:1rem;outline:none;transition:border-color .2s;font-family:inherit}
+  #cd-gate input:focus{border-color:#46dcff}
+  #cd-gate button{width:100%;margin-top:.9rem;padding:.85rem 1rem;border:none;border-radius:12px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.95rem;color:#04121a;background:linear-gradient(100deg,#46dcff,#1b9fd6);transition:box-shadow .3s}
+  #cd-gate button:hover{box-shadow:0 10px 30px rgba(70,220,255,.4)}
+  #cd-gate .cdg-err{color:#ff6b7a;font-size:.82rem;margin-top:.8rem;min-height:1.1em;opacity:0;transition:opacity .2s}
+  #cd-gate .cdg-err.show{opacity:1}
+</style>
 </head>
 <body>
+
+<div id="cd-gate" role="dialog" aria-modal="true" aria-label="Password required">
+  <div class="cdg-card">
+    <div class="cdg-lock"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <h2>Private page</h2>
+    <p>This countdown is locked. Enter the password to continue.</p>
+    <form id="cdg-form" autocomplete="off">
+      <input id="cdg-input" type="password" placeholder="Password" aria-label="Password" autocomplete="current-password">
+      <button type="submit">Unlock</button>
+      <div class="cdg-err" id="cdg-err" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+<script>
+(function(){
+  var HASH='3db112e2ca7767772a52b7d7aa4ec26d014f883dec7188a8047ea3aea450a707';
+  var gate=document.getElementById('cd-gate');
+  var form=document.getElementById('cdg-form');
+  var input=document.getElementById('cdg-input');
+  var err=document.getElementById('cdg-err');
+  if(document.documentElement.classList.contains('cd-unlocked')){ if(gate) gate.style.display='none'; return; }
+  if(input) setTimeout(function(){ try{input.focus();}catch(e){} },200);
+  function toHex(buf){ return Array.prototype.map.call(new Uint8Array(buf),function(b){return b.toString(16).padStart(2,'0');}).join(''); }
+  function unlock(){ try{localStorage.setItem('rk_cd_unlock','1');}catch(e){} document.documentElement.classList.add('cd-unlocked'); if(gate) gate.style.display='none'; }
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v=input.value||'';
+    if(!(window.crypto&&crypto.subtle)){ err.textContent='This browser is not supported.'; err.classList.add('show'); return; }
+    crypto.subtle.digest('SHA-256', new TextEncoder().encode(v)).then(function(buf){
+      if(toHex(buf)===HASH){ unlock(); }
+      else { err.textContent='Incorrect password.'; err.classList.add('show'); input.value=''; try{input.focus();}catch(e){} }
+    });
+  });
+})();
+</script>
 
 <nav>
   <a href="index.html" class="nav-logo"><svg style="width:1em;height:1em;vertical-align:-0.15em;margin-right:0.3em" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Katuwal</a>
@@ -138,7 +189,7 @@ revealEls.forEach(el => observer.observe(el));
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="countdown.js?v=20261121d"></script>
+<script src="countdown.js?v=20261121h"></script>
 <script src="countdown-sound.js?v=20261121e"></script>
 <script>
 /* Daily window — 09:30 to 18:30 Gulf Standard Time (UTC+4), every day. */
