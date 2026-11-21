@@ -17,7 +17,7 @@
     if (!daysEl) return;
     var d = Math.floor((Date.now() - START) / 86400000);
     if (d < 0) d = 0;
-    daysEl.textContent = d.toLocaleString('en-US') + (d === 1 ? ' day tracked' : ' days tracked');
+    daysEl.textContent = d.toLocaleString('en-US') + (d === 1 ? ' day' : ' days');
   }
   updDays();
 
