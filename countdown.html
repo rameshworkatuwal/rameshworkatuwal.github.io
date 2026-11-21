@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="widgets.css">
 <link rel="stylesheet" href="countdown.css?v=20261121h">
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
-<script>try{if(localStorage.getItem('rk_cd_unlock')==='1')document.documentElement.classList.add('cd-unlocked');}catch(e){}</script>
 <style>
   html:not(.cd-unlocked) body{overflow:hidden}
   #cd-gate{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:1.5rem;background:radial-gradient(130% 100% at 50% 0%,#0b1322,#05070e)}
@@ -50,10 +49,9 @@
   var form=document.getElementById('cdg-form');
   var input=document.getElementById('cdg-input');
   var err=document.getElementById('cdg-err');
-  if(document.documentElement.classList.contains('cd-unlocked')){ if(gate) gate.style.display='none'; return; }
   if(input) setTimeout(function(){ try{input.focus();}catch(e){} },200);
   function toHex(buf){ return Array.prototype.map.call(new Uint8Array(buf),function(b){return b.toString(16).padStart(2,'0');}).join(''); }
-  function unlock(){ try{localStorage.setItem('rk_cd_unlock','1');}catch(e){} document.documentElement.classList.add('cd-unlocked'); if(gate) gate.style.display='none'; }
+  function unlock(){ document.documentElement.classList.add('cd-unlocked'); if(gate) gate.style.display='none'; }
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var v=input.value||'';
