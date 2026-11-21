@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var START = Date.parse('2026-09-09T00:00:00+04:00');
+  var START = Date.parse('2026-08-02T00:00:00+04:00');
   var btn = document.getElementById('cd-sound');
   var secsEl = document.querySelector('[data-unit="secs"]');
   var daysEl = document.getElementById('cd-trackdays');

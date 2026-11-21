@@ -10,8 +10,9 @@
   if (!root) return;
 
   var target = Date.parse('2027-10-01T00:00:00+04:00');
-  var start = Date.parse('2026-09-09T00:00:00+04:00');
+  var start = Date.parse('2026-08-02T00:00:00+04:00');
   var totalSpan = target - start;
+  var introStart = 0;
 
   var scene = root.querySelector('.countdown-scene');
   var daysEl = root.querySelector('[data-unit="days"]');
@@ -127,9 +128,14 @@
       }
     }
 
-    // Progress percentage
+    // Progress percentage — animates up from 0 on every load, then stays live.
     var elapsed = Math.max(0, Math.min(1, (now - start) / totalSpan));
-    var percent = (elapsed * 100).toFixed(4);
+    var nowT = (window.performance && performance.now) ? performance.now() : Date.now();
+    if (!introStart) introStart = nowT;
+    var it = Math.min(1, (nowT - introStart) / 1600);
+    var intro = 1 - Math.pow(1 - it, 3); // easeOutCubic
+    var shown = elapsed * intro;
+    var percent = (shown * 100).toFixed(4);
     if (progressVal) {
       progressVal.textContent = percent + '%';
     }
