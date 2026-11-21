@@ -10,7 +10,7 @@
   if (!root) return;
 
   var target = Date.parse('2027-10-01T00:00:00+04:00');
-  var start = Date.parse('2026-08-02T00:00:00+04:00');
+  var start = Date.parse('2026-09-09T00:00:00+04:00');
   var totalSpan = target - start;
 
   var scene = root.querySelector('.countdown-scene');
