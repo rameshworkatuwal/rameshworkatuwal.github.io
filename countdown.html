@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="widgets.css">
-<link rel="stylesheet" href="countdown.css?v=20261121h">
+<link rel="stylesheet" href="countdown.css?v=20261122">
 <script>(function(){try{if(localStorage.getItem('rk_theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
 <style>
   html:not(.cd-unlocked) body{overflow:hidden}
@@ -190,33 +190,52 @@ revealEls.forEach(el => observer.observe(el));
 <script src="countdown.js?v=20261121h"></script>
 <script src="countdown-sound.js?v=20261121i"></script>
 <script>
-/* Daily window — 09:30 to 18:30 Gulf Standard Time (UTC+4), every day. */
+/* Daily window — 09:30 to 18:30 Gulf Standard Time (UTC+4). Sat–Thu working, Fri off. */
 (function(){
   var timeEl=document.getElementById('cd-daily-time');
   var stateEl=document.getElementById('cd-daily-state');
   var barEl=document.getElementById('cd-daily-bar');
-  var dotEl=document.getElementById('cd-daily-dot');
   var cardEl=document.querySelector('.cd-daily-card');
   var weekEl=document.getElementById('cd-week');
   if(!timeEl) return;
-  var START=9.5*3600, END=18.5*3600, SPAN=END-START;
+  var START=9.5*3600000, END=18.5*3600000, SPAN=END-START; // milliseconds into the day
+  var ORDER=[6,0,1,2,3,4,5]; // Sat, Sun, Mon, Tue, Wed, Thu, Fri
   function two(n){return String(n).padStart(2,'0');}
-  function fmt(s){s=Math.max(0,Math.floor(s));return two(Math.floor(s/3600))+':'+two(Math.floor((s%3600)/60))+':'+two(s%60);}
-  function tick(){
-    var uae=new Date(Date.now()+4*3600*1000); // read wall clock via getUTC*
-    var day=uae.getUTCDay(); // 0 Sun .. 6 Sat — Friday (5) is the day off
-    var sec=uae.getUTCHours()*3600+uae.getUTCMinutes()*60+uae.getUTCSeconds();
-    if(weekEl){ var ds=weekEl.querySelectorAll('span'); for(var i=0;i<ds.length;i++){ ds[i].classList.toggle('today', +ds[i].getAttribute('data-day')===day); } }
-    var pct=0, state='', mode='';
-    if(day===5){ timeEl.textContent='Off'; state='Rest day · Friday'; mode='off'; pct=0; }
-    else if(sec<START){ timeEl.textContent=fmt(START-sec); state='Opens in'; mode='before'; pct=0; }
-    else if(sec<END){ timeEl.textContent=fmt(END-sec); state='Remaining today'; mode='live'; pct=(sec-START)/SPAN*100; }
-    else { timeEl.textContent='00:00:00'; state='Wrapped for today'; mode='after'; pct=100; }
-    stateEl.textContent=state;
-    if(barEl) barEl.style.width=pct.toFixed(2)+'%';
-    if(cardEl) cardEl.setAttribute('data-mode',mode);
+  function fmtMs(ms){
+    ms=Math.max(0,ms); var s=Math.floor(ms/1000);
+    return { hms: two(Math.floor(s/3600))+':'+two(Math.floor((s%3600)/60))+':'+two(s%60),
+             ms: String(Math.floor(ms%1000)).padStart(3,'0') };
   }
-  tick(); setInterval(tick,1000);
+  function paintWeek(day){
+    if(!weekEl) return;
+    var ds=weekEl.querySelectorAll('span'), todayPos=ORDER.indexOf(day);
+    for(var i=0;i<ds.length;i++){
+      var d=+ds[i].getAttribute('data-day'), pos=ORDER.indexOf(d);
+      ds[i].classList.remove('past','today','future');
+      if(d===5){ if(d===day) ds[i].classList.add('today'); continue; } // Friday keeps .off
+      if(pos<todayPos) ds[i].classList.add('past');
+      else if(pos===todayPos) ds[i].classList.add('today');
+      else ds[i].classList.add('future');
+    }
+  }
+  function tick(){
+    var uae=new Date(Date.now()+4*3600000);
+    var day=uae.getUTCDay();
+    var md=((uae.getUTCHours()*3600+uae.getUTCMinutes()*60+uae.getUTCSeconds())*1000)+uae.getUTCMilliseconds();
+    paintWeek(day);
+    var pct=0, state='', mode='', phase='idle', rem=0;
+    if(day===5){ timeEl.textContent='Off'; state='Rest day · Friday'; mode='off'; }
+    else if(md<START){ rem=START-md; state='Opens in'; mode='before'; phase='idle'; }
+    else if(md<END){ rem=END-md; state='Remaining today'; mode='live'; pct=(md-START)/SPAN*100; phase=pct<40?'early':(pct<78?'mid':'late'); }
+    else { rem=0; state='Wrapped for today'; mode='after'; pct=100; }
+    if(mode!=='off'){ var f=fmtMs(rem); timeEl.innerHTML='<span class="cd-daily-hms">'+f.hms+'</span><span class="cd-daily-ms">'+f.ms+'</span>'; }
+    timeEl.setAttribute('data-phase', phase);
+    stateEl.textContent=state;
+    if(barEl) barEl.style.width=pct.toFixed(3)+'%';
+    if(cardEl) cardEl.setAttribute('data-mode',mode);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 })();
 </script>
 <script src="countdown-cinematic.js?v=20261118"></script>
