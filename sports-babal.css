@@ -1,0 +1,107 @@
+/* ============================================================
+   Sports — "babal" premium theme layer.
+   Loaded LAST so it refines the look without touching the live
+   match logic. Static/visible elements only (hero, ambiance,
+   headers, buttons) — match cards keep their league theming.
+   ============================================================ */
+
+/* ----- ambient aura background ----- */
+.sports-world-page::before,
+.sports-world-page::after{
+  content:''; position:fixed; border-radius:50%; filter:blur(120px);
+  z-index:0; pointer-events:none; opacity:.5; mix-blend-mode:screen;
+}
+.sports-world-page::before{ width:46vw; height:46vw; left:-10vw; top:-8vw; background:radial-gradient(circle,#0e86c8,transparent 66%); animation:swFloatA 16s ease-in-out infinite; }
+.sports-world-page::after{ width:42vw; height:42vw; right:-8vw; top:14vw; background:radial-gradient(circle,#6b48e0,transparent 64%); animation:swFloatB 20s ease-in-out infinite; }
+@keyframes swFloatA{ 0%,100%{transform:translate(0,0)} 50%{transform:translate(4vw,3vw)} }
+@keyframes swFloatB{ 0%,100%{transform:translate(0,0)} 50%{transform:translate(-3vw,4vw)} }
+html[data-theme="light"] .sports-world-page::before,
+html[data-theme="light"] .sports-world-page::after{ mix-blend-mode:multiply; opacity:.16; }
+.sports-world-page{ position:relative; }
+.sports-world-page > *{ position:relative; z-index:1; }
+
+/* ----- hero ----- */
+.sw-hero{
+  position:relative; overflow:hidden;
+  border:1px solid rgba(120,170,230,.18) !important;
+  background:
+    radial-gradient(90% 150% at 100% 0%, rgba(154,123,255,.24), transparent 55%),
+    radial-gradient(80% 130% at 0% 100%, rgba(56,225,255,.16), transparent 55%),
+    linear-gradient(135deg, rgba(22,18,46,.72), rgba(10,14,26,.72)) !important;
+  box-shadow:0 30px 80px -40px rgba(70,120,220,.5) !important;
+}
+.sw-hero::after{
+  content:''; position:absolute; top:-40%; width:55%; height:180%; left:-45%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent);
+  transform:skewX(-20deg); animation:swShine 7s ease-in-out infinite; pointer-events:none;
+}
+@keyframes swShine{ 0%{left:-45%} 55%,100%{left:135%} }
+.sw-hero h1{
+  font-family:'Bricolage Grotesque','Archivo',system-ui,sans-serif !important;
+  font-weight:800 !important; letter-spacing:-.03em !important;
+}
+.sw-hero h1 span{
+  background:linear-gradient(100deg,#46dcff,#9a7bff) !important;
+  -webkit-background-clip:text !important; background-clip:text !important;
+  -webkit-text-fill-color:transparent !important; color:transparent !important;
+}
+
+/* ----- section header ----- */
+.sw-section-kicker{ color:#7ce2f8 !important; letter-spacing:.26em !important; }
+.sw-section-head h2{
+  font-family:'Bricolage Grotesque','Archivo',sans-serif !important;
+  font-weight:800 !important; letter-spacing:-.02em !important;
+}
+
+/* ----- tab pills (populated by JS) ----- */
+.sw-tabs button{ transition:transform .25s, box-shadow .25s, border-color .25s !important; }
+.sw-tabs button:hover{ transform:translateY(-2px) !important; }
+
+/* ----- empty state ----- */
+.sw-empty{ padding:3rem 1rem !important; }
+.sw-empty strong{ font-family:'Bricolage Grotesque',sans-serif !important; }
+
+/* ----- load more ----- */
+.sw-more button{
+  background:linear-gradient(100deg,#46dcff,#1b9fd6) !important; color:#04121a !important;
+  border:none !important; font-weight:700 !important; border-radius:40px !important;
+  padding:.72rem 1.5rem !important; font-family:'Space Grotesk',sans-serif !important;
+  transition:box-shadow .3s, transform .3s !important;
+}
+.sw-more button:hover{ box-shadow:0 12px 30px rgba(70,220,255,.42) !important; transform:translateY(-2px) !important; }
+
+/* ----- match cards: gentle lift on hover (layered, non-destructive) ----- */
+.sw-grid > a:hover,
+.sw-grid > article:hover,
+.sw-grid > .sw-card:hover{ transform:translateY(-4px) !important; }
+
+@media (prefers-reduced-motion:reduce){
+  .sports-world-page::before,.sports-world-page::after,.sw-hero::after{ animation:none !important; }
+}
+
+/* ----- hero: bolder premium layout ----- */
+.sw-hero{ padding:2.6rem 2.6rem 2.8rem !important; }
+.sw-title-wrap{ position:relative; z-index:2; }
+.sw-kicker-babal{
+  display:inline-flex; align-items:center; gap:.55rem;
+  font-family:'Space Grotesk',sans-serif; font-size:.72rem; font-weight:600;
+  letter-spacing:.26em; text-transform:uppercase; color:#7ce2f8;
+  border:1px solid rgba(70,220,255,.28); background:rgba(70,220,255,.07);
+  border-radius:40px; padding:.42rem .95rem; margin-bottom:1.1rem;
+}
+.sw-kicker-babal b{ width:8px; height:8px; border-radius:50%; background:#37e39b; box-shadow:0 0 0 0 rgba(55,227,155,.6); animation:swLivePulse 1.8s infinite; }
+@keyframes swLivePulse{ 0%{box-shadow:0 0 0 0 rgba(55,227,155,.6)} 70%{box-shadow:0 0 0 9px rgba(55,227,155,0)} 100%{box-shadow:0 0 0 0 rgba(55,227,155,0)} }
+.sw-hero h1{ font-size:clamp(2.8rem,7vw,5rem) !important; line-height:.96 !important; margin:0 !important; }
+.sw-sub-babal{
+  font-family:'Plus Jakarta Sans',sans-serif; color:#aeb9cf; font-size:1rem;
+  margin:1rem 0 0; max-width:46ch; line-height:1.6;
+}
+html[data-theme="light"] .sw-sub-babal{ color:#51607a; }
+/* glowing orb, top-right */
+.sw-orb-babal{
+  position:absolute; top:-30%; right:4%; width:min(320px,34vw); aspect-ratio:1;
+  border-radius:50%; z-index:1; pointer-events:none;
+  background:radial-gradient(circle at 35% 35%, rgba(154,123,255,.5), rgba(56,225,255,.18) 45%, transparent 70%);
+  filter:blur(6px); animation:swOrb 9s ease-in-out infinite;
+}
+@keyframes swOrb{ 0%,100%{transform:translateY(0) scale(1);opacity:.85} 50%{transform:translateY(14px) scale(1.06);opacity:1} }
